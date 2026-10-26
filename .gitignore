@@ -1,9 +1,25 @@
+# --- Android / Gradle ---
 src/android/local.properties
 src/android/.gradle/
 **/build/
+**/.idea/
+*.iml
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
 *.keystore
+*.jks
+# --- 비밀정보 ---
 .env
 secrets.properties
+# --- Python ---
 __pycache__/
+*.pyc
 .venv/
+# --- OS / 기타 ---
+.DS_Store
+*.log
 docs/video/raw/
