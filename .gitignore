@@ -1,0 +1,9 @@
+src/android/local.properties
+src/android/.gradle/
+**/build/
+*.keystore
+.env
+secrets.properties
+__pycache__/
+.venv/
+docs/video/raw/
