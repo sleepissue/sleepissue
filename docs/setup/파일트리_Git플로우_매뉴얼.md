@@ -55,7 +55,6 @@ sleepissue/
 ### 2.1 기본 규칙 (CLAUDE.md 11장)
 
 - **`main`에 직접 push 금지.** 항상 브랜치를 만들고 PR을 올려서, 최소 1명이 리뷰한 뒤 merge합니다.
-- 커밋 이메일은 **GitHub noreply 주소**를 씁니다(공모전 익명 규정). 저장소·README·커밋에 실명·학교 이름을 적지 않습니다.
 - **절대 커밋하지 않는 것**: CRN, `.env`, API 키, `local.properties`, `*.keystore`, Pleos SDK 바이너리. 커밋 전에 `git status`로 한 번 더 확인하세요.
 
 ### 2.2 브랜치 이름

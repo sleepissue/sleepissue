@@ -191,7 +191,6 @@ sleepissue/
 ## 11. Git·보안
 
 - `main` 직접 push 금지 → 브랜치 + PR + 1인 리뷰 후 merge
-- 커밋 이메일은 GitHub noreply (공모전 익명 규정). 저장소·README에 실명·학교 기재 금지
 - 커밋 금지: CRN, `.env`, API 키, `local.properties`, `*.keystore`, Pleos SDK 바이너리
 - 라이선스는 공모전 약관(지식재산권) 확인 전까지 추가하지 않음
 - 원격: `git@github.com:sleepissue/sleepissue.git` (SSH)
