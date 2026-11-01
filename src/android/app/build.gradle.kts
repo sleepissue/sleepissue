@@ -34,6 +34,7 @@ android {
 
 dependencies {
     implementation(project(":engine"))
+    implementation(libs.kotlinx.coroutines.core)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -47,6 +48,7 @@ dependencies {
     implementation("ai.pleos.playground:SpeechToText:3.3.1")
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 }

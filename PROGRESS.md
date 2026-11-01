@@ -25,10 +25,17 @@
 
 | 모듈 | 위치 | 상태 | 이슈 |
 | --- | --- | --- | --- |
-| VehicleSignalHub | `app/.../signal/` | 대기 |  |
-| TripStateStore | `app/.../signal/` | 대기 |  |
-| InterventionManager | `app/.../signal/` (단계 전환 규칙은 `engine/.../intervention/`) | 대기 |  |
-| DemoPlayer | `app/.../signal/` 또는 `app/.../demo/` | 대기 |  |
+| VehicleSignalHub | `app/.../signal/` | 진행중 |  |
+| TripStateStore | `app/.../signal/` | 진행중 |  |
+| InterventionManager | `app/.../signal/` (단계 전환 규칙은 `engine/.../intervention/`) | 진행중 |  |
+| DemoPlayer | `app/.../demo/` | 진행중 |  |
+
+2026-11-01: 로컬 `feat/signal-scaffold`에서 **A 기본 틀 완료**. 공통 모델·Clock·EngineConfig·입출력 계약, 단일 Source의 최소 Hub, 메모리 운행 상태, 개입·재생의 명시적 미연결 구현과 시험 전용 Fake를 추가했다. 모듈 전체가 완료된 것은 아니므로 상태는 진행중으로 유지한다.
+
+- 실제 실행: `:engine:test` 10개, `:app:testDebugUnitTest` 27개(기존 예제 1개 포함), `assembleDebug` 모두 성공. 실패·오류·건너뜀 0개.
+- 사용 예시·연결 계약: [A 기본 틀 가이드](docs/setup/ROLE1_SCAFFOLD.md).
+- 분기 기준·최초 빌드 실패·공식 호환 근거·검증 결과: [개발 기록](docs/devlog/2026-11-01.md). A 구현 후 개인 개발 브랜치 `develop-jdw`로 변경을 보존해 전환했으며, 저장 대상은 `origin/develop-jdw`다. **공용 원격 develop 존재 여부는 미확인**이며 공용 develop 생성·PR은 진행하지 않는다. 개인 브랜치 원격 반영 결과는 Git 원격 참조와 별도로 확인한다.
+- 남은 작업: 정차·최근 24시간·첫 D단·단계 규칙, 원천 Hz·주기 발행·실제/데모 중재, 실제 JSON 재생, SDK·Room·전원·서비스 연결. 기기 시험·실제 차량 API 호출·화면 실행은 미수행이다.
 
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 
