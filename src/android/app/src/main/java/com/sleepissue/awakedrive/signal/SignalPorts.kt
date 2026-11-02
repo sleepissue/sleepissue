@@ -96,6 +96,7 @@ interface RestCertificationSource {
 data class CheckRequest(
     override val requestId: RequestId,
     val context: CheckContext,
+    val restArea: RestAreaCandidate? = null,
 ) : ExecutionRequest
 
 interface CheckPort {
@@ -112,7 +113,7 @@ interface CheckPort {
 }
 
 /** 안내 종류만 전달한다. 실제 TTS 문구·오디오 시작 시각은 음성 담당이 소유한다. */
-enum class SpeechCue { CAUTION, REST_AREA_AHEAD, NO_REST_AREA, REST_RECOMMENDED }
+enum class SpeechCue { CAUTION, REST_AREA_AHEAD, NO_REST_AREA, REST_RECOMMENDED, SAFETY_REST_RECOMMENDED }
 
 data class SpeechRequest(
     override val requestId: RequestId,

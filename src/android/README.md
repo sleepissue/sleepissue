@@ -4,12 +4,14 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 
 ## 현재 구현 범위
 
-- `engine/`: Android 비의존 공통 모델, 세 시간축 `Clock`, 최소 `EngineConfig`. 판단·정차·단계 알고리즘은 아직 없다.
-- `app/.../signal/`: 단일 입력을 정규화하는 `VehicleSignalHub`, 메모리 `TripStateStore`, 입출력 ports, `InterventionManager` 계약과 명시적 미연결 구현.
+- `engine/`: Android 비의존 공통 모델, 세 시간축 `Clock`, `EngineConfig`, 정차·운행 규칙 `TripRules`, 최근 구간 합산 `RollingDriveWindow`. 졸음·단계 알고리즘은 아직 없다.
+- `app/.../signal/`: 단일 입력을 정규화하는 `VehicleSignalHub`, 메모리 `TripStateStore`, 규칙 연결 `TripTracker`, 입출력 ports, `InterventionManager` 계약과 명시적 미연결 구현.
 - `app/.../demo/`: `DemoPlayer` 계약과 명시적 미연결 구현. JSON 로드·배속·재생은 후속 작업이다.
 - `app/src/test/`: 결정적인 Fake, 연결·단위·품질·출처·중지·외부 요청 계약 시험과 실행 가능한 사용 예시. Fake는 배포 코드에 포함하지 않는다.
 
 다른 담당의 연결 방법은 [A 기본 틀 가이드](../../docs/setup/ROLE1_SCAFFOLD.md), 실제 작업·검증 기록은 [2026-11-01 개발 기록](../../docs/devlog/2026-11-01.md), 모듈 전체 상태는 [PROGRESS](../../PROGRESS.md)를 본다.
+
+2026-11-02에 추가한 [운행 규칙 가이드](../../docs/setup/ROLE1_TRIP_RULES.md)는 정책 선택·밀리초 정밀 상태·Hub 연결을 설명한다. **개발 대상은 Pleos Playground 가상 차량**이다. REAL은 SDK·Virtual Console 입력, DEMO는 앱 JSON 재생 입력이다. 이번 운행 규칙의 실행 결과는 [11-02 개발 기록](../../docs/devlog/2026-11-02.md)에 별도로 남긴다.
 
 ## 빌드 환경
 
@@ -42,8 +44,10 @@ SDK 경로는 로컬 환경 변수 또는 Git 제외된 `local.properties`로 �
 
 2026-11-01 실제 실행: `:engine:test` 10개, `:app:testDebugUnitTest` 27개(기존 예제 1개 포함), `assembleDebug` 모두 성공했다. 실패·오류·건너뜀은 0개다. 실행 가능한 사용 예시도 앱 테스트에 포함된다. 상세 실패 원인과 수정·검증 결과는 개발 기록에 남겼다.
 
+2026-11-02 운행 규칙 추가 후 실제 실행: engine 41개·app 39개(합계 80개, 기존 예제 1개 포함) 모두 통과했고 `assembleDebug`도 성공했다. 정책 경계·24시간 부분 절단·Hub 연결·동시 갱신을 포함한다. 기기 SDK 수신·영속 복원·제품 정책 승인을 대신하지 않는다.
+
 `:engine:test`는 순수 Kotlin 계약 시험이며, `:app:testDebugUnitTest`도 에뮬레이터 없이 실행한다. 기기 시험·실제 API 호출·앱 첫 화면 실행을 대신하지 않는다. 생성물은 `app/build/outputs/apk/debug/app-debug.apk`이며 Git 제외 대상이다.
 
 Pleos Maven과 Vehicle·NaviHelper·TextToSpeech·SpeechToText 의존성은 기존 설정을 유지한다. 이번 작업은 SDK 메서드를 호출하지 않으며 권한·지원·원단위·장치 연동이 검증된 것은 아니다.
 
-Activity·런처·Compose 화면·Room·서비스·부팅 수신기는 아직 없다. APK 생성 성공도 실행 화면 완성을 뜻하지 않는다. 실제/데모 입력 중재, 주기 발행·원천 Hz·최신성 판단, 운행 규칙·단계 규칙·실제 재생은 B/C 후속 범위다.
+Activity·런처·Compose 화면·Room·서비스·부팅 수신기는 아직 없다. APK 생성 성공도 실행 화면 완성을 뜻하지 않는다. SDK/JSON 입력 중재, 주기 발행·원천 Hz·최신성 판단, 단계 규칙·JSON 재생은 후속 범위다. 운행 규칙은 필수 정책 인자를 받아 계산하며, SDK의 독립 콜백을 현재 관측으로 조립하는 계층·제품 정책 확정·영속 복원은 남아 있다.

@@ -1,5 +1,6 @@
 package com.sleepissue.awakedrive.engine.model
 
+/** REAL은 Playground SDK·Virtual Console 입력, DEMO는 앱의 JSON 재생 입력이다. */
 enum class Source { REAL, DEMO }
 
 enum class Gear { P, R, N, D }

@@ -67,7 +67,7 @@ data class CheckResult(
     }
 }
 
-enum class SafetyEventType { REPEATED_RAPID_STEERING }
+enum class SafetyEventType { RAPID_STEERING, REPEATED_RAPID_STEERING, HANDOVER_UNSAFE }
 
 /** 30초 주기 상태 갱신을 기다리지 않고 받을 안전 이벤트 계약이다. */
 data class SafetyEvent(val tMs: Long, val type: SafetyEventType, val source: Source) {

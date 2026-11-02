@@ -2,6 +2,8 @@
 
 A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연결할 수 있는 통로다. 실제 차량 SDK·졸음 판단·운행 시간 계산·음성·휴식 인증·경유지 실행·JSON 재생은 후속 구현이다.
 
+개발 대상은 Pleos Playground의 가상 차량이다. `Source.REAL`은 Playground SDK·Virtual Console 입력이며, `Source.DEMO`는 앱의 JSON 재생 입력이다. 물리 차량 연결이나 검증을 뜻하지 않는다.
+
 ## 실행 가능한 사용 예시
 
 전체 예시는 [`ScaffoldUsageExampleTest.kt`](../../src/android/app/src/test/java/com/sleepissue/awakedrive/signal/ScaffoldUsageExampleTest.kt)에 있다. Android 기기나 실제 대기를 사용하지 않으며, 시험용 `FakeSignalSource`와 `FakeClock`은 `app/src/test`에만 있다. 배포 코드가 Fake를 자동 선택하지 않는다.
@@ -107,7 +109,7 @@ NaviState(
 
 ## 운행 상태·외부 기능 연결
 
-`TripStateStore`는 `state` 관찰, `replace`, `update`를 제공한다. `update` 함수는 경합 시 재실행될 수 있으므로 저장·음성 발화 같은 부수 효과를 넣지 않는다. `TripRepository`는 Loaded·Empty·Failed와 저장/삭제 성공·실패를 구분하는 계약이며 Room 구현은 아직 없다.
+`TripStateStore`는 `state` 관찰, `replace`, `update`를 제공한다. 운행 규칙 연결 단계에서 단일 잠금으로 갱신을 직렬화해 콜백을 한 번만 실행하도록 보강했다. 갱신 안에서 저장·음성 발화·대기 같은 작업을 실행하지 않는다. `TripRepository`는 Loaded·Empty·Failed와 저장/삭제 성공·실패를 구분하는 계약이며 Room 구현은 아직 없다. A 이후 구현은 [운행 규칙 가이드](ROLE1_TRIP_RULES.md)를 본다.
 
 `CheckPort`, `SpeechPort`, `RestPort`, `ClimatePort`는 요청 접수와 실제 완료 결과를 나눈다. `requestId`로 시작·취소·결과를 연결한다. `REQUESTED`·`STARTED`는 실행 성공이 아니며, 경유지 요청을 취소했다는 사실도 실제 경유지 제거 성공이 아니다. 응답 없음은 사람에게 정상 질문한 뒤 대답이 없던 결과이고, 권한 없음·장치 오류와 구분한다.
 
@@ -122,6 +124,8 @@ results            → CheckResult(NORMAL / SLOW / NO_RESPONSE 등)
 후속 재생 구현에서는 실제 STARTED 시점부터 최종 확인 판정 종료까지 질문 구간을 연결한다. 단순 요청 접수나 DEFERRED만으로 안내가 시작됐다고 간주하지 않는다. 실패·취소로 끝난 경우에도 같은 요청의 질문 구간을 해제한다. 취소 요청과 실행 취소 진행 이벤트, 최종 CANCELLED 확인 결과를 정상 무응답으로 바꾸지 않는다. A는 이 진행 통로와 결정적 Fake 시험까지만 제공하며 배속·타이머·취소 판정 로직을 실행하지 않는다.
 
 `UnconnectedInterventionManager`는 기본 단계 0과 별도로 `NOT_EVALUATED`를 표시한다. 시작·입력·결과·취소·중지 호출은 `NOT_CONNECTED`이며 실행 요청을 생성하지 않는다. 아래 호출은 단계 평가 성공이 아니다.
+
+A 이후 추가한 실제 순수 정책·요청 관리의 조립 기준은 [개입 정책 연결 가이드](ROLE1_INTERVENTION.md)에 있다. SRS v0.2는 최초 일반 상승 IMMEDIATE, 시간·예보 1단계의 인증 시 재평가, 3단계의 인증+정상 회복을 구분한다. INT_015는 미확정 Should로 비활성이다.
 
 ```kotlin
 val manager: InterventionManager = UnconnectedInterventionManager()

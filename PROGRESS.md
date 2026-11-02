@@ -35,7 +35,23 @@
 - 실제 실행: `:engine:test` 10개, `:app:testDebugUnitTest` 27개(기존 예제 1개 포함), `assembleDebug` 모두 성공. 실패·오류·건너뜀 0개.
 - 사용 예시·연결 계약: [A 기본 틀 가이드](docs/setup/ROLE1_SCAFFOLD.md).
 - 분기 기준·최초 빌드 실패·공식 호환 근거·검증 결과: [개발 기록](docs/devlog/2026-11-01.md). A 구현 후 개인 개발 브랜치 `develop-jdw`로 변경을 보존해 전환했으며, 저장 대상은 `origin/develop-jdw`다. **공용 원격 develop 존재 여부는 미확인**이며 공용 develop 생성·PR은 진행하지 않는다. 개인 브랜치 원격 반영 결과는 Git 원격 참조와 별도로 확인한다.
-- 남은 작업: 정차·최근 24시간·첫 D단·단계 규칙, 원천 Hz·주기 발행·실제/데모 중재, 실제 JSON 재생, SDK·Room·전원·서비스 연결. 기기 시험·실제 차량 API 호출·화면 실행은 미수행이다.
+- 남은 작업: 개입 단계 규칙, 원천 Hz·주기 발행·SDK/JSON 중재, JSON 재생, Playground SDK 입력 조립·Room·전원·서비스 연결. 기기 시험·Playground SDK 수신·화면 실행은 미수행이다.
+
+2026-11-02: `develop-jdw`에서 운행 규칙 계산과 메모리 연결을 추가했다. `TripRules`의 첫 D단·정차·OFF 새 운행, `RollingDriveWindow`의 최근 24시간 합산, `TripTracker`의 품질·출처 확인과 정밀 상태 갱신을 구현했다. [운행 규칙 가이드](docs/setup/ROLE1_TRIP_RULES.md), [검증 기록](docs/devlog/2026-11-02.md) 참고.
+
+운행 규칙 추가 당시 검증: engine 41개·app 39개 단위 시험(합계 80개, 기존 템플릿 1개 포함)과 `assembleDebug` 성공. 실패·오류·건너뜀 0개. 당시 다음 작업은 개입 단계 정책·요청 관리였으며, 이후 결과는 아래에 기록한다.
+
+정차 정책과 짧은 정차의 누적 포함은 호출자가 명시적으로 선택한다. 외부 실행 계획과 현재 기획서의 차이를 승인 없이 자동 개정하지 않았고, 앱 기본 정책·SDK 수신·영속 복원까지 완료로 표시하지 않는다. 현재 개발 대상은 **Pleos Playground 가상 차량**이며 `REAL`은 SDK·Virtual Console 입력, `DEMO`는 JSON 입력이다.
+
+2026-11-02 개입 동작 보완: 기존 미커밋 `InterventionPolicy`·`PolicyInterventionManager`를 보존해 SRS v0.2 INT_004·006·008·015와 해당 TC를 대조하고 수정했다. [연결 가이드](docs/setup/ROLE1_INTERVENTION.md), [실행 기록](docs/devlog/2026-11-02.md) 참고.
+
+- INT_006: 휴식 인증 시 과거 시간·예보의 1단계 유지 조건을 풀고 현재 점수·취약 시간대·확인 조건을 재평가한다. 인증 전 운전 시간·예보 캐시는 만료시키며 실제 Store 초기화 성공으로 표시하지 않는다.
+- INT_004: 기본·제품 조립 기준은 IMMEDIATE. 이후 일반 상승은 30초 한 칸이며 확인 결과·안전 우회는 즉시 3단계다. 실제 앱 조립 지점은 없으므로 시험과 가이드에 명시했다.
+- INT_008: 3단계는 유효한 휴식 인증과 정상 회복 확인을 모두 요구한다. 인증만 완료하거나 회복이 느림·무응답·장치 실패이면 유지한다.
+- INT_015: 팀 미확정 Should로 비활성. 기존 2단계 쉼터 안내 선택 경로를 제거했으며 필수 구현 완료로 세지 않는다.
+- 실제 실행: `:engine:test` **61개**, `:app:testDebugUnitTest` **69개**, 합계 **130개 통과**(템플릿 1개 포함). 실패·오류·건너뜀 0개. `assembleDebug`와 `git diff --check` 성공. 이번 신규 회귀 시험은 13개다.
+- 남은 작업: 외부 실행 담당 조립, INT_010 추가 완료 후 경유지 제거, RES_011 실제 상태 초기화·예보 연결, SDK/JSON 입력·Room·서비스·화면. 실제 Playground SDK·음성·내비 연동은 미검증이다.
+- `develop-jdw` 로컬 미커밋 상태를 유지했다. 기존 보조 작업은 사용하지 않았고, Room·SDK·데모·targetSdk 설정·브랜치·커밋·원격은 변경하지 않았다.
 
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 

@@ -9,6 +9,7 @@ import com.sleepissue.awakedrive.engine.model.InterventionState
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.SafetyEvent
 import com.sleepissue.awakedrive.engine.model.TripState
+import com.sleepissue.awakedrive.engine.model.NaviState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,9 +25,16 @@ sealed interface InterventionInput {
     data class Safety(val value: SafetyEvent) : InterventionInput
     data class RestCertified(val value: RestCertification) : InterventionInput
     data class SensitiveModeChanged(val enabled: Boolean) : InterventionInput
+    data class VulnerableTimeChanged(val enabled: Boolean) : InterventionInput
+    data class VentilationConsentChanged(val enabled: Boolean) : InterventionInput
+    data class AlertnessTargetChanged(val context: com.sleepissue.awakedrive.engine.model.CheckContext) : InterventionInput
+    data class NavigationChanged(val value: NaviState?) : InterventionInput
+    data class RestAreaResolved(val value: RestResult) : InterventionInput
+    data class RestAreaDistance(val candidateId: String, val distanceM: Float?) : InterventionInput
+    data object Tick : InterventionInput
 }
 
-/** 단계 규칙·타이머·중복 요청 방지는 B에서 구현한다. */
+/** 단계·실행 요청의 공통 계약이다. PolicyInterventionManager 또는 명시적 미연결 구현을 선택한다. */
 interface InterventionManager {
     val state: StateFlow<InterventionState>
     val requests: Flow<ExecutionRequest>

@@ -8,7 +8,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertThrows
 import org.junit.Test
+import java.util.concurrent.atomic.AtomicInteger
 
 class TripStateStoreTest {
     @Test
@@ -50,5 +52,37 @@ class TripStateStoreTest {
         }.joinAll()
 
         assertEquals(2000L, store.state.value.continuousDriveSec)
+    }
+
+    @Test
+    fun transactionReturnsAResultAndKeepsStateOnFailure() {
+        val original = TripState(tripId = "trip-1", continuousDriveSec = 10)
+        val store = TripStateStore(original)
+        val previousSeconds = store.transaction { current ->
+            current.copy(continuousDriveSec = 20) to current.continuousDriveSec
+        }
+        assertEquals(10L, previousSeconds)
+        assertThrows(IllegalStateException::class.java) {
+            store.transaction<Unit> { error("계산 실패") }
+        }
+        assertEquals(original.copy(continuousDriveSec = 20), store.state.value)
+    }
+
+    @Test
+    fun concurrentTransactionsEvaluateEachTransformOnce() = runTest {
+        val store = TripStateStore()
+        val calls = AtomicInteger()
+        List(4) {
+            launch(Dispatchers.Default) {
+                repeat(250) {
+                    store.transaction { current ->
+                        calls.incrementAndGet()
+                        current.copy(continuousDriveSec = current.continuousDriveSec + 1) to Unit
+                    }
+                }
+            }
+        }.joinAll()
+        assertEquals(1000, calls.get())
+        assertEquals(1000L, store.state.value.continuousDriveSec)
     }
 }

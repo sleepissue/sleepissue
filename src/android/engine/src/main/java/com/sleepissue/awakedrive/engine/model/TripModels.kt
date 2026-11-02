@@ -2,7 +2,7 @@ package com.sleepissue.awakedrive.engine.model
 
 enum class DriveState { UNKNOWN, DRIVING, PAUSED }
 
-/** [startMs, endMs) 형태의 운행 논리 시간 구간이다. 구간 합산 규칙은 후속 구현 대상이다. */
+/** [startMs, endMs) 형태의 운행 논리 시간 구간이다. 합산은 RollingDriveWindow가 담당한다. */
 data class DriveSegment(val startMs: Long, val endMs: Long) {
     init {
         require(startMs >= 0 && endMs >= startMs) { "운전 구간의 시작·끝 시각을 확인해 주세요." }
