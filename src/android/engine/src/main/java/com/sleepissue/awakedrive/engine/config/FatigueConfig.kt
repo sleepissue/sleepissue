@@ -6,7 +6,7 @@ import kotlin.math.exp
 /**
  * FatigueEngine 문턱값: 게이트, 조향 지표 3개, 위험 점수, 3분 지수평균. (REQ_FAT_001~020)
  *
- * 단위는 필드 이름 끝에 붙인다 (REQ_SIG_010): Kph = km/h, Deg = °, M = m, Ms = ms, C = ℃.
+ * 단위는 필드 이름 끝에 붙인다 (REQ_SIG_010): Kph = km/h, Deg = °, M = m, Ms = ms, Sec = 초, C = ℃.
  *
  * 2번 설정 묶음(FatigueConfig·BaselineConfig·PatternConfig·AssistConfig)은 2번 클래스가 직접 받는다.
  * 팀 공통 EngineConfig 본체가 main에 들어오면 거기에 `val fatigue: FatigueConfig = FatigueConfig()`처럼
@@ -108,7 +108,7 @@ data class ContextWeightConfig(
     val kMax: Float = 1.35f,
 
     /** 연속 운전 시간(앱 타이머)이 이 이상이면 [longDriveWeight]. 119 min → 0, 120 min → +0.10 (REQ_FAT_014) */
-    val longDriveMs: Long = 2 * 3_600_000L,
+    val longDriveSec: Long = 2 * 3_600L,
     val longDriveWeight: Float = 0.10f,
 
     /** 취약 시간대면 [vulnerableTimeWeight] (REQ_FAT_015) */
@@ -130,6 +130,6 @@ data class ContextWeightConfig(
     val warmCabinWeight: Float = 0.05f,
 
     /** 최근 24시간 누적 운전이 이 이상이면 [longDayDriveWeight]. 239 min → 0, 240 min → +0.05 (REQ_FAT_018) */
-    val longDayDriveMs: Long = 4 * 3_600_000L,
+    val longDayDriveSec: Long = 4 * 3_600L,
     val longDayDriveWeight: Float = 0.05f,
 )

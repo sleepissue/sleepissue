@@ -33,8 +33,8 @@ class FatigueEngineTest {
 
     /** 맥락 가중 5개가 모두 켜진 맥락: K = 1.35 */
     private val riskyContext = ContextInput(
-        continuousDriveMs = 150 * minute,
-        last24hDriveMs = 300 * minute,
+        continuousDriveSec = 150 * 60L,
+        last24hDriveSec = 300 * 60L,
         minuteOfDay = 3 * 60,
         passengerCount = 0,
         cabinTempC = 26f,
@@ -42,7 +42,7 @@ class FatigueEngineTest {
 
     /** 기획서 시나리오 1의 23:10 맥락: 연속 2시간 10분 + 혼자 → K = 1.15 */
     private val scenarioOneContext = ContextInput(
-        continuousDriveMs = 130 * minute,
+        continuousDriveSec = 130 * 60L,
         minuteOfDay = 23 * 60 + 10,
         passengerCount = 0,
     )
@@ -404,6 +404,33 @@ class FatigueEngineTest {
         }.associateBy { it.tMs }
         assertFalse("창 (90, 150]에 99.9 s가 있음", states.getValue(150_000L).microEnabled)
         assertTrue("창 (120, 180]", states.getValue(180_000L).microEnabled)
+    }
+
+    @Test
+    fun rateMeterWarmUpDoesNotSpoilDepartureFatigue() {
+        // 1번 RateMeter는 시작 뒤 10초를 '측정 중'(→ 느림으로 넣음)으로 준다. 데모 '출발 피로'(REQ_DMO_006)가
+        // 이 몇 초 때문에 미세 수정 조건을 잃으면 안 된다: 15분 중 1%만 느렸으므로 출발 피로 판정은 그대로 [제안값 10%]
+        val engine = FatigueEngine()
+        val states = (0L..910_000L step 100L).flatMap { t ->
+            engine.push(frame(t, drowsyDeg(t)).copy(steeringRateOk = t >= 10_000L))
+        }.associateBy { it.tMs }
+        assertFalse("첫 창 (0, 60]에는 느린 프레임이 있음", states.getValue(60_000L).microEnabled)
+        assertTrue("창 (30, 90]부터 미세 수정 사용", states.getValue(90_000L).microEnabled)
+        assertTrue(engine.baselineState.departureFatigue)
+        assertTrue(engine.baselineState.sensitive)
+    }
+
+    @Test
+    fun slowFramesThatDoNotPassTheGateDoNotTurnMicroOff() {
+        // 주차 중(시속 0)에 조향 원천이 느렸던 것은 지표와 상관없음 → 출발 뒤 창에서는 미세 수정을 씀 [해석]
+        val engine = FatigueEngine()
+        val states = (0L..160_000L step 100L).flatMap { t ->
+            val parked = t < 100_000L
+            engine.push(frame(t, awakeDeg(t), speedKph = if (parked) 0f else 80f).copy(steeringRateOk = !parked))
+        }.associateBy { it.tMs }
+        val window = states.getValue(150_000L)
+        assertTrue(window.valid)
+        assertTrue(window.microEnabled)
     }
 
     @Test

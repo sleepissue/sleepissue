@@ -8,7 +8,8 @@ import org.junit.Test
 /** 맥락 가중 K 시험. 기대값은 SRS v0.2 REQ_FAT_013~018 합격기준. */
 class ContextWeightTest {
 
-    private val minute = 60_000L
+    /** 1분(초 단위). 운전 시간은 초로 받는다 */
+    private val minute = 60L
 
     private fun k(input: ContextInput) = ContextWeight.kOf(input)
 
@@ -17,8 +18,8 @@ class ContextWeightTest {
 
     /** 맥락 가중 5개가 모두 켜지는 입력 */
     private val allFive = ContextInput(
-        continuousDriveMs = 120 * minute,
-        last24hDriveMs = 240 * minute,
+        continuousDriveSec = 120 * minute,
+        last24hDriveSec = 240 * minute,
         minuteOfDay = clock(3, 0),
         passengerCount = 0,
         cabinTempC = 26f,
@@ -28,7 +29,7 @@ class ContextWeightTest {
     fun kStartsAtOneAndIsCappedAtOnePointThreeFive() {
         // 가중 없음 → 1.00, 연속 2 h+혼자 → 1.15, 5개 전부 → 1.35, 합이 1.35 초과 시 1.35 (REQ_FAT_013)
         assertEquals(1.00f, k(ContextInput()), 1e-6f)
-        assertEquals(1.15f, k(ContextInput(continuousDriveMs = 120 * minute, passengerCount = 0)), 1e-6f)
+        assertEquals(1.15f, k(ContextInput(continuousDriveSec = 120 * minute, passengerCount = 0)), 1e-6f)
         assertEquals(1.35f, k(allFive), 1e-6f)
         // 연속 운전 가중을 0.30으로 바꾸면 합이 1.55가 되지만 1.35로 자른다
         val heavier = ContextWeightConfig(longDriveWeight = 0.30f)
@@ -38,8 +39,8 @@ class ContextWeightTest {
     @Test
     fun longDriveCountsFromTwoHours() {
         // 연속 운전 119 min → +0, 120 min → +0.10 (REQ_FAT_014)
-        assertEquals(1.00f, k(ContextInput(continuousDriveMs = 119 * minute)), 1e-6f)
-        assertEquals(1.10f, k(ContextInput(continuousDriveMs = 120 * minute)), 1e-6f)
+        assertEquals(1.00f, k(ContextInput(continuousDriveSec = 119 * minute)), 1e-6f)
+        assertEquals(1.10f, k(ContextInput(continuousDriveSec = 120 * minute)), 1e-6f)
     }
 
     @Test
@@ -81,15 +82,15 @@ class ContextWeightTest {
     @Test
     fun longDayDriveCountsFromFourHours() {
         // 최근 24시간 누적 239 min → +0, 240 min → +0.05 (REQ_FAT_018)
-        assertEquals(1.00f, k(ContextInput(last24hDriveMs = 239 * minute)), 1e-6f)
-        assertEquals(1.05f, k(ContextInput(last24hDriveMs = 240 * minute)), 1e-6f)
+        assertEquals(1.00f, k(ContextInput(last24hDriveSec = 239 * minute)), 1e-6f)
+        assertEquals(1.05f, k(ContextInput(last24hDriveSec = 240 * minute)), 1e-6f)
     }
 
     @Test
     fun factorsShowWhichWeightsAreOn() {
         // 연속 2시간 10분, 오후 3시 30분, 동승자 1명 → 연속 운전·취약 시간대만 켜짐
         val factors = ContextWeight.factorsOf(
-            ContextInput(continuousDriveMs = 130 * minute, minuteOfDay = clock(15, 30), passengerCount = 1),
+            ContextInput(continuousDriveSec = 130 * minute, minuteOfDay = clock(15, 30), passengerCount = 1),
         )
         assertEquals(ContextFactors(longDrive = true, vulnerableTime = true), factors)
     }

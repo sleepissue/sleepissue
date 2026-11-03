@@ -11,10 +11,10 @@ import com.sleepissue.awakedrive.engine.model.AgeGroup
  * null은 "지금 이 값을 모른다"는 뜻이고, 모르는 항목은 가중을 더하지 않는다 (REQ_FAT_016·017 "null → +0").
  */
 data class ContextInput(
-    /** 앱 타이머 기준 연속 운전 시간(ms). 정차·시동 꺼짐 규칙은 1번이 적용한 값 (REQ_TRP_010) */
-    val continuousDriveMs: Long? = null,
-    /** 최근 24시간 누적 운전 시간(ms) (REQ_TRP_011) */
-    val last24hDriveMs: Long? = null,
+    /** 앱 타이머 기준 연속 운전 시간(초). 1번 TripState.continuousDriveSec 그대로. 정차·시동 꺼짐 규칙은 1번이 적용한 값 (REQ_TRP_010) */
+    val continuousDriveSec: Long? = null,
+    /** 최근 24시간 누적 운전 시간(초). 1번 TripState.last24hDriveSec 그대로 (REQ_TRP_011) */
+    val last24hDriveSec: Long? = null,
     /** 현지 시각을 자정부터 센 분(0~1439). 23:10이면 1390. 시간대(타임존) 변환은 앱 쪽에서 한다 */
     val minuteOfDay: Int? = null,
     /** 설정의 연령대 (MSG-12 Settings.ageGroup) */
@@ -25,8 +25,8 @@ data class ContextInput(
     val cabinTempC: Float? = null,
 ) {
     init {
-        require(continuousDriveMs == null || continuousDriveMs >= 0) { "연속 운전 시간은 0 이상: $continuousDriveMs" }
-        require(last24hDriveMs == null || last24hDriveMs >= 0) { "24시간 누적 운전 시간은 0 이상: $last24hDriveMs" }
+        require(continuousDriveSec == null || continuousDriveSec >= 0) { "연속 운전 시간은 0 이상: $continuousDriveSec" }
+        require(last24hDriveSec == null || last24hDriveSec >= 0) { "24시간 누적 운전 시간은 0 이상: $last24hDriveSec" }
         require(minuteOfDay == null || minuteOfDay in 0 until MINUTES_PER_DAY) { "minuteOfDay는 0~1439: $minuteOfDay" }
         require(passengerCount == null || passengerCount >= 0) { "동승자 수는 0 이상: $passengerCount" }
     }
@@ -61,16 +61,16 @@ object ContextWeight {
 
     /** 입력에서 켜진 항목을 고른다. 경계값은 모두 '이상'이라 경계에서 켜진다 (119 min → 꺼짐, 120 min → 켜짐). */
     fun factorsOf(input: ContextInput, config: ContextWeightConfig = ContextWeightConfig()): ContextFactors {
-        val continuous = input.continuousDriveMs
+        val continuous = input.continuousDriveSec
         val minute = input.minuteOfDay
         val cabin = input.cabinTempC
-        val last24h = input.last24hDriveMs
+        val last24h = input.last24hDriveSec
         return ContextFactors(
-            longDrive = continuous != null && continuous >= config.longDriveMs,
+            longDrive = continuous != null && continuous >= config.longDriveSec,
             vulnerableTime = minute != null && isVulnerableTime(minute, input.ageGroup, config),
             soloDrive = input.passengerCount == 0,
             warmCabin = cabin != null && cabin >= config.warmCabinMinC,
-            longDayDrive = last24h != null && last24h >= config.longDayDriveMs,
+            longDayDrive = last24h != null && last24h >= config.longDayDriveSec,
         )
     }
 

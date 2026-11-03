@@ -42,15 +42,16 @@ import com.sleepissue.awakedrive.engine.pattern.PatternClassifier
  * - 이때 f값·B·R은 0이고(이번 창은 계산하지 않음), 평활값은 마지막 값 그대로 둔다 [해석].
  *   지표(분당 횟수·급조향 횟수)는 화면이 회색으로 보여 줄 수 있게 그대로 담는다.
  *
- * 조향 원천 갱신이 5 Hz 미만이면(DriveFrame.steeringRateOk = false) 미세 수정을 끄고(FatigueState.microEnabled = false)
- * B를 큰 수정·급조향 가중치로만 다시 나눈다 (REQ_SIG_009). 이상 분·출발 피로도 미세 수정 조건을 빼고 본다 [해석].
+ * 게이트를 통과한 프레임의 조향 원천 갱신이 5 Hz 미만이면(DriveFrame.steeringRateOk = false) 그 프레임이 든 60초 창은
+ * 미세 수정을 끄고(FatigueState.microEnabled = false) B를 큰 수정·급조향 가중치로만 다시 나눈다 (REQ_SIG_009).
+ * 이상 분도 미세 수정 조건을 빼고 보고, 처음 15분 가운데 10% 이상이 느렸으면 출발 피로에서도 뺀다 [해석].
  *
  * 한 스레드(코루틴 하나)에서만 부른다. Android에 의존하지 않는다.
  * ROS로 치면 신호 토픽을 구독해 졸음 점수·패턴·보조 주행 토픽을 발행하는 노드다.
  */
 class FatigueEngine(
     private val config: FatigueConfig = FatigueConfig(),
-    baselineConfig: BaselineConfig = BaselineConfig(),
+    private val baselineConfig: BaselineConfig = BaselineConfig(),
     patternConfig: PatternConfig = PatternConfig(),
     assistConfig: AssistConfig = AssistConfig(),
 ) {
@@ -83,11 +84,15 @@ class FatigueEngine(
     /** 지난 판정까지 센 급조향 수(졸음 점수용 조향). 늘어나면 그 판정에서 급조향이 확인된 것 */
     private var lastSuddenTotal = 0
 
-    /** 조향 원천 갱신이 5 Hz 미만이었던 마지막 프레임 시각 (REQ_SIG_009) */
-    private var lastLowRateMs: Long? = null
+    /** 게이트 확정을 기다리는 프레임마다 (시각, 조향 원천 5 Hz 이상인지). 게이트와 같은 순서로 꺼낸다 */
+    private val pendingRateOk = ArrayDeque<Pair<Long, Boolean>>()
 
-    /** 오늘의 나를 확정하기 전에 갱신이 느렸던 프레임이 있었는지. 있으면 출발 피로에서 미세 수정 조건을 뺀다 */
-    private var lowRateBeforeToday = false
+    /** 게이트를 통과했는데 조향 원천이 5 Hz 미만이었던 마지막 판정 시각 (REQ_SIG_009) */
+    private var lastSlowGatedMs: Long? = null
+
+    /** 오늘의 나를 확정하기 전까지 게이트를 통과한 판정 수와, 그 가운데 조향 원천이 느렸던 수 */
+    private var todayGatedDecisions = 0
+    private var todaySlowGatedDecisions = 0
 
     /**
      * 프레임 하나를 넣는다. 30초 갱신 시각이 되면 FatigueState가 들어 있는 목록을 돌려준다.
@@ -98,10 +103,7 @@ class FatigueEngine(
         if (last != null && frame.tMs < last) return emptyList()
         lastInputMs = frame.tMs
         if (frame.inDrive == true) baselineStore.onDriveFrame(frame.tMs)
-        if (!frame.steeringRateOk) {
-            lastLowRateMs = frame.tMs
-            if (baselineState.today == null) lowRateBeforeToday = true
-        }
+        pendingRateOk.addLast(frame.tMs to frame.steeringRateOk)
 
         val assistMode = assist.update(frame).assistMode
         val input = GateInput(
@@ -143,8 +145,10 @@ class FatigueEngine(
         events.clear()
         lastInputMs = null
         lastSuddenTotal = 0
-        lastLowRateMs = null
-        lowRateBeforeToday = false
+        pendingRateOk.clear()
+        lastSlowGatedMs = null
+        todayGatedDecisions = 0
+        todaySlowGatedDecisions = 0
     }
 
     /**
@@ -156,6 +160,15 @@ class FatigueEngine(
     }
 
     private fun onDecision(decision: GateDecision, nowMs: Long): FatigueState? {
+        // 조향 원천 속도는 게이트를 통과한(지표에 들어가는) 프레임만 따진다. 주차 중 느린 신호는 지표와 상관없음
+        val rateOk = takeRateOk(decision.tMs)
+        if (decision.passed) {
+            if (!rateOk) lastSlowGatedMs = decision.tMs
+            if (baselineState.today == null) {
+                todayGatedDecisions++
+                if (!rateOk) todaySlowGatedDecisions++
+            }
+        }
         val indicators = metrics.accept(decision)
 
         // 급조향 1회 → 2단계 확인. 졸음 점수용 조향에서만 센다(보조 주행 중에는 조향을 판단에서 뺌)
@@ -183,7 +196,7 @@ class FatigueEngine(
                 microCount = metrics.microTotal,
                 largeCount = metrics.largeTotal,
                 suddenCount = metrics.suddenTotal,
-                microReliable = !lowRateBeforeToday,
+                microReliable = todayMicroReliable(),
             )
         }
         if (indicators == null) return null
@@ -200,13 +213,26 @@ class FatigueEngine(
         return state
     }
 
-    /**
-     * 창 (끝 − 60초, 끝] 안에 조향 갱신이 느린 프레임이 없었으면 미세 수정을 쓴다 (REQ_SIG_009).
-     * 판정은 10초 늦게 오므로 창 끝보다 뒤에 들어온 느린 프레임도 끄는 쪽으로 센다 [해석].
-     */
+    /** 창 (끝 − 60초, 끝] 안에 게이트를 통과한 느린 프레임이 없으면 미세 수정을 쓴다 (REQ_SIG_009) [해석] */
     private fun microEnabledAt(windowEndMs: Long): Boolean {
-        val low = lastLowRateMs ?: return true
-        return windowEndMs - low >= config.windowMs
+        val slow = lastSlowGatedMs ?: return true
+        return windowEndMs - slow >= config.windowMs
+    }
+
+    /**
+     * 처음 15분 동안 게이트를 통과한 프레임 가운데 조향 원천이 느렸던 비율이 10% 미만이면 미세 수정을 믿는다 [제안값].
+     * 1번 RateMeter는 시작 뒤 10초를 '측정 중'으로 주므로, 그 몇 초 때문에 운행 전체의 미세 수정을 버리지 않게 한다.
+     */
+    private fun todayMicroReliable(): Boolean {
+        if (todayGatedDecisions == 0) return true
+        return todaySlowGatedDecisions.toDouble() / todayGatedDecisions < baselineConfig.todayMaxSlowSteeringRatio
+    }
+
+    /** 이 판정 프레임의 조향 원천 속도를 꺼낸다. 게이트는 넣은 순서대로 확정하므로 맨 앞이 그 프레임이다 */
+    private fun takeRateOk(tMs: Long): Boolean {
+        while (pendingRateOk.isNotEmpty() && pendingRateOk.first().first < tMs) pendingRateOk.removeFirst()
+        val head = pendingRateOk.firstOrNull()
+        return if (head != null && head.first == tMs) pendingRateOk.removeFirst().second else true
     }
 
     private fun addEvent(tMs: Long, type: SteeringEventType) {

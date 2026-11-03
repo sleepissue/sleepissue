@@ -147,7 +147,11 @@ class AssistModeDetector(private val config: AssistConfig = AssistConfig()) {
 
     private fun refresh() {
         val lastOperation = lastOperationMs
-        val gapSec = if (lastOperation == null) 0 else ((nowMs - lastOperation) / 1_000L).coerceIn(0L, Int.MAX_VALUE.toLong()).toInt()
+        val gapSec = if (lastOperation == null) {
+            0
+        } else {
+            ((nowMs - lastOperation) / MS_PER_SECOND).coerceIn(0L, Int.MAX_VALUE.toLong()).toInt()
+        }
         val until = abnormalUntilMs
         val next = AssistState(
             assistMode = reason != AssistReason.NONE,
@@ -161,5 +165,11 @@ class AssistModeDetector(private val config: AssistConfig = AssistConfig()) {
     private companion object {
         /** 1.5배 경계에서 Float 오차로 판정이 뒤집히지 않게 하는 여유 */
         const val RATIO_EPS = 1e-6
+
+        /**
+         * MSG-04 opGapSec이 초 단위라 프레임 시각 차(ms)를 초로 센다.
+         * 바깥 신호의 단위를 바꾸는 것(REQ_SIG_010이 막는 것)이 아니라 엔진이 잰 경과 시간을 메시지 단위로 내는 것이다.
+         */
+        const val MS_PER_SECOND = 1_000L
     }
 }

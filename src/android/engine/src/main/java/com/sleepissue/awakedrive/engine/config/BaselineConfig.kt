@@ -38,6 +38,12 @@ data class BaselineConfig(
 
     /** 출발 피로·'졸려요'로 민감 모드가 되면 이 시간 뒤 첫 음성 확인 (REQ_BSL_006) */
     val sensitiveFirstCheckDelayMs: Long = 15 * 60_000L,
+
+    /**
+     * 처음 15분 동안 게이트를 통과한 프레임 가운데 조향 원천이 5 Hz 미만이었던 비율이 이 값 이상이면
+     * 그날은 미세 수정을 믿지 않는다: 출발 피로에서 미세 조건을 빼고, 오늘의 나를 기준으로 쓰지 않음 [제안값] (REQ_SIG_009)
+     */
+    val todayMaxSlowSteeringRatio: Float = 0.10f,
 ) {
     /** 운행 기록이 3회 쌓이기 전에 쓰는 기준선 (REQ_BSL_003) */
     val defaultBaseline: SteeringBaseline

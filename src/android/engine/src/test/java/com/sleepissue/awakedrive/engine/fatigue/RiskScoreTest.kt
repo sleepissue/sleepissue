@@ -20,7 +20,7 @@ class RiskScoreTest {
         // 기획서 시나리오 1(연령대 미설정: f미세 0.8, f큰 1.0, f급 0, K=1.15) → B=53.0, R=61.0 ±0.5 (REQ_FAT_012)
         // 23:10, 21:00 출발이라 연속 2시간 10분, 혼자 → K = 1.00 + 0.10 + 0.05. 23시는 기본 취약 시간대가 아님
         val contextK = ContextWeight.kOf(
-            ContextInput(continuousDriveMs = 130 * 60_000L, minuteOfDay = 23 * 60 + 10, passengerCount = 0),
+            ContextInput(continuousDriveSec = 130 * 60L, minuteOfDay = 23 * 60 + 10, passengerCount = 0),
         )
         assertEquals(1.15f, contextK, 1e-6f)
         val behaviorB = RiskScore.behaviorScore(fMicro = 0.8f, fLarge = 1.0f, fSudden = 0f)
