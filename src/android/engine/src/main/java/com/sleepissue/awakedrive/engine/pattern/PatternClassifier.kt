@@ -47,6 +47,7 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
      * 30초마다 60초 창 지표를 넣는다.
      * @param measured 이 창을 판단에 써도 되는지 (FatigueState.valid와 같음). false면 측정 못 한 칸
      * @param reference 지금 비교 기준선 (BaselineState.reference)
+     * @param microEnabled 미세 수정 지표를 쓸 수 있는지 (조향 원천 5 Hz 이상, REQ_SIG_009)
      */
     internal fun onWindow(
         tMs: Long,
@@ -55,6 +56,7 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
         suddenInWindow: Int,
         measured: Boolean,
         reference: SteeringBaseline,
+        microEnabled: Boolean = true,
     ) {
         val last = lastWindowMs
         if (last != null && tMs < last) return
@@ -72,7 +74,8 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
             }
             val status = when {
                 !measured -> MinuteStatus.UNMEASURED
-                isAbnormalMinute(microPerMin, largePerMin, suddenInWindow, reference, config) -> MinuteStatus.ABNORMAL
+                isAbnormalMinute(microPerMin, largePerMin, suddenInWindow, reference, config, microEnabled) ->
+                    MinuteStatus.ABNORMAL
                 else -> MinuteStatus.NORMAL
             }
             minutes.addLast(Minute(slot, status))
@@ -131,6 +134,10 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
          * 이상 분: 미세 수정이 기준의 70% 이하이면서, 큰 수정이 기준의 1.5배 이상이거나 급조향이 있었던 분 (REQ_PAT_001).
          * 미세 0.70·큰 1.50 → 이상, 미세 0.71 → 아님, 미세 0.50·큰 1.49·급조향 0 → 아님, 미세 0.50·급조향 1 → 이상.
          * 기준 미세가 0이면 줄어들 수 없으므로 아님, 기준 큰 수정이 0인데 지금 있으면 늘어난 것 [해석, f값과 같음].
+         *
+         * [microEnabled]가 false(조향 원천 5 Hz 미만, REQ_SIG_009)면 미세 수정 조건을 빼고
+         * '큰 수정 1.5배 이상 또는 급조향'만 본다 [해석]. 갱신이 느리면 미세 수정이 거의 안 세져서
+         * 원래 규칙도 결국 같은 결과가 되므로, 그 상황을 드러내 놓고 같은 규칙으로 둔다.
          */
         fun isAbnormalMinute(
             microPerMin: Float,
@@ -138,8 +145,9 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
             suddenCount: Int,
             reference: SteeringBaseline,
             config: PatternConfig = PatternConfig(),
+            microEnabled: Boolean = true,
         ): Boolean {
-            val microLow = reference.microPerMin > 0f &&
+            val microLow = !microEnabled || reference.microPerMin > 0f &&
                 microPerMin.toDouble() / reference.microPerMin <= config.abnormalMicroRatioMax + RATIO_EPS
             if (!microLow) return false
             val largeHigh = if (reference.largePerMin > 0f) {

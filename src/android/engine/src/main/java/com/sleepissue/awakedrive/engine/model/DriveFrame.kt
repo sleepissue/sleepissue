@@ -27,4 +27,10 @@ data class DriveFrame(
     val cruiseTargetKph: Float? = null,
     /** 운전석 통풍 단계. 바뀌면 조작으로 센다 (REQ_AST_006) */
     val ventilationLevel: Int? = null,
+    /**
+     * 조향각 원천이 5 Hz 이상으로 갱신되는지 (REQ_SIG_009). false면 미세 수정 지표를 끄고 B를 다시 나눈다.
+     * 1번 RateMeter 결과(SourceRate: MEASURED이고 belowMinimum = false)일 때만 true로 넣는다.
+     * 측정 전(WARMING_UP)·측정 불가는 false — 1번 요청대로 '모름'을 '충분함'으로 보지 않는다.
+     */
+    val steeringRateOk: Boolean = true,
 )

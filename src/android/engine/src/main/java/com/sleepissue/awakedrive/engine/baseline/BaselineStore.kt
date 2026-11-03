@@ -14,6 +14,8 @@ import com.sleepissue.awakedrive.engine.model.SteeringBaseline
  * - 오늘의 나 확정 전: 평소의 나, 깨어 있던 운행 기록이 3회 미만이면 기본값 [해석] (REQ_BSL_003·004 비고)
  * - 유효 구간 15분이 쌓이면 오늘의 나를 확정하고, 그때 평소의 나(없으면 기본값)와 비교해 출발 피로를 판정한다 (REQ_BSL_005)
  * - 민감 모드(출발 피로 또는 '졸려요')면 평소의 나(없으면 기본값)로 고정, 아니면 오늘의 나 (REQ_BSL_006, 기획서 5-1)
+ * - 처음 15분 동안 조향 원천 갱신이 5 Hz 미만이었으면 오늘의 나를 비교 기준으로 쓰지 않는다 (REQ_SIG_009) [해석].
+ *   흐린 신호로 만든 기준에 졸린 조향이 섞여 '정상'이 되는 것을 막는다
  *
  * 운행 기록(Room)은 [loadHistory]로 넣는다. 이번 운행 상태는 FatigueEngine이 프레임마다 채운다.
  * 결과는 [state]로 읽는다. 값이 바뀔 때만 새 BaselineState가 된다.
@@ -22,6 +24,8 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
 
     private var usual: SteeringBaseline? = null
     private var today: SteeringBaseline? = null
+    /** 오늘의 나를 만든 15분 동안 조향 원천 갱신이 충분했는지 (REQ_SIG_009). false면 비교 기준으로 쓰지 않음 */
+    private var todayUsable = true
     private var departureFatigue = false
     private var reportedSleepy = false
     private var sensitiveSinceMs: Long? = null
@@ -72,8 +76,17 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
      * 게이트 통과가 15분 쌓인 순간의 횟수로 오늘의 나를 만들고 출발 피로를 판정한다. 확정 뒤에는 아무것도 하지 않는다.
      *
      * @param nowMs 지금 시각(마지막으로 넣은 프레임 시각). 민감 모드 시작·첫 음성 확인 시각의 기준
+     * @param microReliable 처음 15분 동안 조향 원천 갱신이 줄곧 5 Hz 이상이었는지 (REQ_SIG_009).
+     *   false면 미세 수정 조건은 세지 않는다 [해석]
      */
-    internal fun updateToday(nowMs: Long, gatedMs: Long, microCount: Int, largeCount: Int, suddenCount: Int) {
+    internal fun updateToday(
+        nowMs: Long,
+        gatedMs: Long,
+        microCount: Int,
+        largeCount: Int,
+        suddenCount: Int,
+        microReliable: Boolean = true,
+    ) {
         if (today != null) return
         todayGatedMs = gatedMs
         if (gatedMs < config.todayBaselineGatedMs) return
@@ -84,7 +97,8 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
             largePerMin = (largeCount * perMinute).toFloat(),
         )
         today = confirmed
-        departureFatigue = isDepartureFatigue(confirmed, suddenCount, usual ?: config.defaultBaseline, config)
+        todayUsable = microReliable
+        departureFatigue = isDepartureFatigue(confirmed, suddenCount, usual ?: config.defaultBaseline, config, microReliable)
         updateSensitive(nowMs)
         refresh()
     }
@@ -92,6 +106,7 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
     /** 새 운행(꺼져 있던 시간 2시간 초과, REQ_TRP_008): 오늘의 나·출발 피로·컨디션을 지운다. 평소의 나는 그대로 둔다. */
     internal fun resetTrip() {
         today = null
+        todayUsable = true
         departureFatigue = false
         reportedSleepy = false
         sensitiveSinceMs = null
@@ -119,7 +134,7 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
         val todayValue = today
         val sensitive = departureFatigue || reportedSleepy
         val (source, reference) = when {
-            todayValue != null && !sensitive -> BaselineSource.TODAY to todayValue
+            todayValue != null && todayUsable && !sensitive -> BaselineSource.TODAY to todayValue
             usualValue != null -> BaselineSource.USUAL to usualValue
             else -> BaselineSource.DEFAULT to config.defaultBaseline
         }
@@ -179,14 +194,18 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
          * - 미세 수정이 기준보다 30% 이상 적음 (−30.0% → 만족, −29.9% → 아님). 기준이 0이면 줄어들 수 없으므로 아님
          * - 큰 수정이 기준의 1.5배 이상 (1.50배 → 만족). 기준이 0인데 오늘 큰 수정이 있으면 만족 [해석, f큰과 같음]
          * - 급조향이 1회 이상
+         *
+         * [microReliable]이 false(조향 원천 갱신이 5 Hz 미만, REQ_SIG_009)면 미세 수정 조건은 세지 않는다.
+         * 남은 두 조건을 모두 만족해야 출발 피로가 된다 ('독립된 징후 2개'라는 뜻을 지킴) [해석].
          */
         fun departureCriteriaCount(
             today: SteeringBaseline,
             suddenCount: Int,
             reference: SteeringBaseline,
             config: BaselineConfig = BaselineConfig(),
+            microReliable: Boolean = true,
         ): Int {
-            val microDropped = reference.microPerMin > 0f &&
+            val microDropped = microReliable && reference.microPerMin > 0f &&
                 1.0 - today.microPerMin.toDouble() / reference.microPerMin >= config.departureMicroDropRatio - RATIO_EPS
             val largeRose = if (reference.largePerMin > 0f) {
                 today.largePerMin.toDouble() / reference.largePerMin >= config.departureLargeRiseRatio - RATIO_EPS
@@ -203,7 +222,9 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
             suddenCount: Int,
             reference: SteeringBaseline,
             config: BaselineConfig = BaselineConfig(),
-        ): Boolean = departureCriteriaCount(today, suddenCount, reference, config) >= config.departureMinCriteria
+            microReliable: Boolean = true,
+        ): Boolean =
+            departureCriteriaCount(today, suddenCount, reference, config, microReliable) >= config.departureMinCriteria
 
         private fun median(values: List<Float>): Float {
             val sorted = values.sorted()

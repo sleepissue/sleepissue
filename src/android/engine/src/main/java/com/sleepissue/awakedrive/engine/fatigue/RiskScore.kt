@@ -25,6 +25,17 @@ object RiskScore {
     }
 
     /**
+     * 미세 수정 지표를 끈 행동 점수 (REQ_SIG_009). 조향 원천 갱신이 5 Hz 미만이면 0.5~3° 미세 수정이 흐려지므로
+     * 큰 수정·급조향 가중치만 다시 나눠 B = 100 × (0.25·f큰 + 0.40·f급조향) ÷ 0.65 [제안값 — 에뮬레이터 실측 후 확정].
+     */
+    fun behaviorScoreWithoutMicro(fLarge: Float, fSudden: Float, config: FatigueConfig = FatigueConfig()): Float {
+        val weightSum = config.weightLarge + config.weightSudden
+        if (weightSum <= 0f) return 0f
+        val weighted = (config.weightLarge * fLarge + config.weightSudden * fSudden) / weightSum
+        return (POINTS_PER_UNIT * weighted).coerceIn(0f, POINTS_PER_UNIT)
+    }
+
+    /**
      * 위험 점수 R = min(100, B × K) (REQ_FAT_012).
      * B가 0이면 맥락 가중 K가 아무리 커도 0이다. 맥락만으로는 점수를 만들지 않는다 (REQ_FAT_019).
      */

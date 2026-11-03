@@ -40,6 +40,16 @@ class PatternClassifierTest {
     }
 
     @Test
+    fun withoutMicroAbnormalMinuteIsLargeOrSuddenOnly() {
+        // 조향 원천 5 Hz 미만이면 미세 수정 조건을 빼고 '큰 수정 1.5배 이상 또는 급조향'만 본다 (REQ_SIG_009) [해석]
+        fun abnormal(micro: Float, large: Float, sudden: Int) =
+            PatternClassifier.isAbnormalMinute(micro, large, sudden, reference, microEnabled = false)
+        assertTrue("미세가 평소대로여도 큰 수정 1.5배면 이상", abnormal(20f, 6f, 0))
+        assertTrue(abnormal(20f, 4f, 1))
+        assertFalse(abnormal(20f, 5.96f, 0))
+    }
+
+    @Test
     fun trendNeedsSixAbnormalMinutesOutOfTen() {
         // 이상 분 5 → 추세형 아님, 6 → 추세형, 10 → 추세형 (REQ_PAT_002)
         assertEquals(PatternType.AMBIGUOUS, classify("AAAAANNNNN"))

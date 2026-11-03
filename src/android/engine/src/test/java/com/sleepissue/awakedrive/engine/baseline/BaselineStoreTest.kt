@@ -102,6 +102,24 @@ class BaselineStoreTest {
     }
 
     @Test
+    fun slowSteeringSourceLeavesMicroOutOfDepartureFatigue() {
+        // 처음 15분 동안 조향 원천이 5 Hz 미만이면 미세 수정 조건은 세지 않음 → 남은 두 조건을 모두 만족해야 출발 피로 [해석]
+        fun count(micro: Float, large: Float, sudden: Int) =
+            BaselineStore.departureCriteriaCount(SteeringBaseline(micro, large), sudden, default, microReliable = false)
+        assertEquals(1, count(14.0f, 6.0f, 0))
+        assertEquals(2, count(14.0f, 6.0f, 1))
+        assertFalse(BaselineStore.isDepartureFatigue(SteeringBaseline(14.0f, 6.0f), 0, default, microReliable = false))
+        assertTrue(BaselineStore.isDepartureFatigue(SteeringBaseline(14.0f, 6.0f), 1, default, microReliable = false))
+
+        // 흐린 신호로 만든 오늘의 나는 비교 기준으로 쓰지 않음 (기본값·평소의 나 유지)
+        val store = BaselineStore()
+        store.updateToday(nowMs = 910_000L, gatedMs = 15 * minute, microCount = 330, largeCount = 45, suddenCount = 0,
+            microReliable = false)
+        assertNotNull(store.state.today)
+        assertEquals(BaselineSource.DEFAULT, store.state.source)
+    }
+
+    @Test
     fun departureFatigueKeepsUsualBaselineAndSchedulesFirstCheck() {
         // 민감 모드 진입 후 기준선 소스 = 평소의 나(없으면 기본값), 첫 음성 확인 15 min (REQ_BSL_006)
         val store = BaselineStore().apply { loadHistory(listOf(awake(1, 20f), awake(2, 20f), awake(3, 20f))) }

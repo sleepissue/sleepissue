@@ -43,6 +43,12 @@ data class FatigueState(
      * Data Interface 시트의 기본값은 NONE이지만 valid 기본값(false)과 맞지 않아 GATE_WAIT로 뒀다.
      */
     val invalidReason: InvalidReason = InvalidReason.GATE_WAIT,
+    /**
+     * 미세 수정 지표를 썼는지. 조향 원천 갱신이 5 Hz 미만이면 false이고, 그때 [fMicro]는 0,
+     * [behaviorB]는 큰 수정·급조향 가중치만 다시 나눈 값이다 (REQ_SIG_009). 화면은 미세 수정을 '측정 안 함'으로 보여 준다.
+     * Data Interface MSG-02에 없는 14번째 필드다(추가 제안).
+     */
+    val microEnabled: Boolean = true,
 )
 
 /** [FatigueState.valid]가 false인 이유. */

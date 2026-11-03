@@ -146,6 +146,7 @@ class FatigueEngineTest {
         assertEquals(9, states.size)
         states.forEachIndexed { i, s ->
             assertTrue(s.valid)
+            assertTrue("원천 10 Hz면 미세 수정 사용 (REQ_SIG_009)", s.microEnabled)
             assertEquals(9f, s.largePerMin, 0.5f)
             assertEquals(1f, s.fMicro, 0f)
             assertEquals(1f, s.fLarge, 0f)
@@ -371,6 +372,52 @@ class FatigueEngineTest {
         }
         assertFalse(engine.assistState.assistMode)
         return engine.drainEvents()
+    }
+
+    /** 원천 2 Hz 조향을 1번 Hub처럼 10 Hz로 다시 낸 값: 0.5초마다만 바뀌고 그 사이는 마지막 값 유지 */
+    private fun heldAt2Hz(tMs: Long, steering: (Long) -> Float) = steering(tMs - tMs % 500L)
+
+    @Test
+    fun slowSteeringSourceTurnsMicroOffAndRenormalizesB() {
+        // 원천 2 Hz(5 Hz 미만) → 미세 수정 지표 비활성, B는 큰 수정·급조향 가중치만 재정규화 (TC_SIG_009)
+        // 졸린 조향: 큰 수정 분당 약 9회(기준 4의 2배 이상) → f큰 1 → B = 100 × 0.25 ÷ 0.65 = 38.46
+        val engine = FatigueEngine()
+        val states = (0L..310_000L step 100L).flatMap { t ->
+            engine.push(frame(t, heldAt2Hz(t, ::drowsyDeg)).copy(steeringRateOk = false))
+        }
+        assertEquals(9, states.size)
+        for (s in states) {
+            assertTrue(s.valid)
+            assertFalse(s.microEnabled)
+            assertEquals(0f, s.fMicro, 0f)
+            assertEquals(1f, s.fLarge, 0f)
+            assertEquals(38.46f, s.behaviorB, 0.01f)
+        }
+    }
+
+    @Test
+    fun microComesBackOnceSlowFramesLeaveTheWindow() {
+        // 0~99.9 s만 원천이 느림 → 그 프레임이 60초 창 안에 있는 동안만 미세 수정을 끈다 [해석]
+        val engine = FatigueEngine()
+        val states = (0L..250_000L step 100L).flatMap { t ->
+            engine.push(frame(t, awakeDeg(t)).copy(steeringRateOk = t >= 100_000L))
+        }.associateBy { it.tMs }
+        assertFalse("창 (90, 150]에 99.9 s가 있음", states.getValue(150_000L).microEnabled)
+        assertTrue("창 (120, 180]", states.getValue(180_000L).microEnabled)
+    }
+
+    @Test
+    fun slowSteeringSourceDoesNotMakeDrowsyStartTheNormal() {
+        // 처음 15분이 원천 2 Hz: 미세 수정 조건을 빼고 보면 큰 수정만 늘었으므로 출발 피로는 아님 [해석].
+        // 대신 흐린 신호로 만든 오늘의 나를 기준으로 쓰지 않아, 졸린 조향이 '정상'이 되지 않는다 (판정 뒤에도 B = 38.46)
+        val engine = FatigueEngine()
+        val states = (0L..1_000_000L step 100L).flatMap { t ->
+            engine.push(frame(t, heldAt2Hz(t, ::drowsyDeg)).copy(steeringRateOk = false))
+        }
+        assertNotNull(engine.baselineState.today)
+        assertFalse(engine.baselineState.departureFatigue)
+        assertEquals(BaselineSource.DEFAULT, engine.baselineState.source)
+        for (s in states.filter { it.tMs > 900_000L }) assertEquals(38.46f, s.behaviorB, 0.01f)
     }
 
     @Test

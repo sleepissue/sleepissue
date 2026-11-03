@@ -36,6 +36,15 @@ class RiskScoreTest {
     }
 
     @Test
+    fun behaviorScoreWithoutMicroRenormalizesTheOtherTwoWeights() {
+        // 조향 원천 5 Hz 미만: B = 100 × (0.25·f큰 + 0.40·f급조향) ÷ 0.65 (REQ_SIG_009 [제안값])
+        assertEquals(38.46f, RiskScore.behaviorScoreWithoutMicro(fLarge = 1f, fSudden = 0f), 0.01f)
+        assertEquals(69.23f, RiskScore.behaviorScoreWithoutMicro(fLarge = 1f, fSudden = 0.5f), 0.01f)
+        assertEquals(100f, RiskScore.behaviorScoreWithoutMicro(fLarge = 1f, fSudden = 1f), 1e-3f)
+        assertEquals(0f, RiskScore.behaviorScoreWithoutMicro(fLarge = 0f, fSudden = 0f), 0f)
+    }
+
+    @Test
     fun behaviorScoreTopsOutAtHundred() {
         // f값 세 개가 모두 1이면 가중치 합(1.00) × 100 = 100
         assertEquals(100f, RiskScore.behaviorScore(1f, 1f, 1f), 1e-3f)

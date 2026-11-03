@@ -18,7 +18,7 @@ import com.sleepissue.awakedrive.engine.pattern.PatternClassifier
 
 /**
  * 졸음 판단 엔진(2번 전체). 30초마다 [FatigueState]를 낸다.
- * (REQ_FAT_001~020, REQ_BSL_003~007, REQ_PAT_001~005, REQ_AST_001·003·004·006·007)
+ * (REQ_FAT_001~020, REQ_BSL_003~007, REQ_PAT_001~005, REQ_AST_001·003·004·006·007, REQ_SIG_009의 엔진 쪽)
  *
  * 흐름: 보조 주행 판정 → 조향 게이트 → 조향 지표 3개 → 기준선과 비교한 f값 → 행동 점수 B × 맥락 가중 K = 위험 점수 R
  * → 3분 지수평균. 옆으로 패턴(추세형·튐형)·안전 우회·인계 품질을 함께 본다.
@@ -41,6 +41,9 @@ import com.sleepissue.awakedrive.engine.pattern.PatternClassifier
  * - 60초 창에서 게이트 통과가 30초 미만 → invalidReason = GATE_WAIT (REQ_FAT_005)
  * - 이때 f값·B·R은 0이고(이번 창은 계산하지 않음), 평활값은 마지막 값 그대로 둔다 [해석].
  *   지표(분당 횟수·급조향 횟수)는 화면이 회색으로 보여 줄 수 있게 그대로 담는다.
+ *
+ * 조향 원천 갱신이 5 Hz 미만이면(DriveFrame.steeringRateOk = false) 미세 수정을 끄고(FatigueState.microEnabled = false)
+ * B를 큰 수정·급조향 가중치로만 다시 나눈다 (REQ_SIG_009). 이상 분·출발 피로도 미세 수정 조건을 빼고 본다 [해석].
  *
  * 한 스레드(코루틴 하나)에서만 부른다. Android에 의존하지 않는다.
  * ROS로 치면 신호 토픽을 구독해 졸음 점수·패턴·보조 주행 토픽을 발행하는 노드다.
@@ -80,6 +83,12 @@ class FatigueEngine(
     /** 지난 판정까지 센 급조향 수(졸음 점수용 조향). 늘어나면 그 판정에서 급조향이 확인된 것 */
     private var lastSuddenTotal = 0
 
+    /** 조향 원천 갱신이 5 Hz 미만이었던 마지막 프레임 시각 (REQ_SIG_009) */
+    private var lastLowRateMs: Long? = null
+
+    /** 오늘의 나를 확정하기 전에 갱신이 느렸던 프레임이 있었는지. 있으면 출발 피로에서 미세 수정 조건을 뺀다 */
+    private var lowRateBeforeToday = false
+
     /**
      * 프레임 하나를 넣는다. 30초 갱신 시각이 되면 FatigueState가 들어 있는 목록을 돌려준다.
      * 앞 프레임보다 이른 프레임은 버린다.
@@ -89,6 +98,10 @@ class FatigueEngine(
         if (last != null && frame.tMs < last) return emptyList()
         lastInputMs = frame.tMs
         if (frame.inDrive == true) baselineStore.onDriveFrame(frame.tMs)
+        if (!frame.steeringRateOk) {
+            lastLowRateMs = frame.tMs
+            if (baselineState.today == null) lowRateBeforeToday = true
+        }
 
         val assistMode = assist.update(frame).assistMode
         val input = GateInput(
@@ -130,6 +143,8 @@ class FatigueEngine(
         events.clear()
         lastInputMs = null
         lastSuddenTotal = 0
+        lastLowRateMs = null
+        lowRateBeforeToday = false
     }
 
     /**
@@ -168,6 +183,7 @@ class FatigueEngine(
                 microCount = metrics.microTotal,
                 largeCount = metrics.largeTotal,
                 suddenCount = metrics.suddenTotal,
+                microReliable = !lowRateBeforeToday,
             )
         }
         if (indicators == null) return null
@@ -179,8 +195,18 @@ class FatigueEngine(
             suddenInWindow = indicators.suddenInWindow,
             measured = state.valid,
             reference = baselineState.reference,
+            microEnabled = state.microEnabled,
         )
         return state
+    }
+
+    /**
+     * 창 (끝 − 60초, 끝] 안에 조향 갱신이 느린 프레임이 없었으면 미세 수정을 쓴다 (REQ_SIG_009).
+     * 판정은 10초 늦게 오므로 창 끝보다 뒤에 들어온 느린 프레임도 끄는 쪽으로 센다 [해석].
+     */
+    private fun microEnabledAt(windowEndMs: Long): Boolean {
+        val low = lastLowRateMs ?: return true
+        return windowEndMs - low >= config.windowMs
     }
 
     private fun addEvent(tMs: Long, type: SteeringEventType) {
@@ -191,6 +217,7 @@ class FatigueEngine(
 
     private fun evaluate(indicators: SteeringIndicators, reason: GateReason): FatigueState {
         val contextK = ContextWeight.kOf(context, config.context)
+        val microEnabled = microEnabledAt(indicators.tMs)
         val invalidReason = when {
             // 창 안에 통과 구간이 남아 있어도 보조 주행이 켜진 동안은 점수를 갱신하지 않는다 (REQ_AST_004)
             reason == GateReason.ASSIST -> InvalidReason.ASSIST
@@ -207,14 +234,20 @@ class FatigueEngine(
                 riskSmoothed = smoother.value,
                 valid = false,
                 invalidReason = invalidReason,
+                microEnabled = microEnabled,
             )
         }
 
         val reference = baselineState.reference
-        val fMicro = FatigueFactors.fMicro(indicators.microPerMin, reference.microPerMin, config)
+        // 조향 원천 갱신이 느리면 미세 수정은 계산하지 않고 B를 큰 수정·급조향으로만 다시 나눈다 (REQ_SIG_009)
+        val fMicro = if (microEnabled) FatigueFactors.fMicro(indicators.microPerMin, reference.microPerMin, config) else 0f
         val fLarge = FatigueFactors.fLarge(indicators.largePerMin, reference.largePerMin, config)
         val fSudden = FatigueFactors.fSudden(indicators.suddenCount5m, config)
-        val behaviorB = RiskScore.behaviorScore(fMicro, fLarge, fSudden, config)
+        val behaviorB = if (microEnabled) {
+            RiskScore.behaviorScore(fMicro, fLarge, fSudden, config)
+        } else {
+            RiskScore.behaviorScoreWithoutMicro(fLarge, fSudden, config)
+        }
         val riskR = RiskScore.riskScore(behaviorB, contextK, config)
         return FatigueState(
             tMs = indicators.tMs,
@@ -230,6 +263,7 @@ class FatigueEngine(
             riskSmoothed = smoother.update(riskR),
             valid = true,
             invalidReason = InvalidReason.NONE,
+            microEnabled = microEnabled,
         )
     }
 
