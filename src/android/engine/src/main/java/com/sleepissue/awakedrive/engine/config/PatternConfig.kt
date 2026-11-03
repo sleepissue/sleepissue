@@ -1,7 +1,11 @@
 package com.sleepissue.awakedrive.engine.config
 
 /**
- * PatternClassifier 문턱값: 이상 분, 추세형·튐형, 확인 결과 처리, 안전 우회. (REQ_PAT_001~007)
+ * PatternClassifier 문턱값: 이상 분, 추세형·튐형, 안전 우회. (REQ_PAT_001~003·005)
+ *
+ * 음성 확인 결과에 따라 단계를 바꾸거나 다시 확인하는 규칙(REQ_PAT_004·006·007)은 여기 두지 않는다.
+ * 그 결정은 단계 전환(1번 InterventionPolicy)이 [com.sleepissue.awakedrive.engine.model.PatternState]와
+ * 확인 결과를 받아서 하고, 문턱값도 그쪽 설정(trendCheckRetryMs 10분, slowCheckCountForRest 2회)을 쓴다.
  */
 data class PatternConfig(
     /** 이상 분: 1분 동안 미세 수정이 기준의 이 비율 이하이고… 0.70 → 이상, 0.71 → 아님 (REQ_PAT_001) */
@@ -17,11 +21,6 @@ data class PatternConfig(
     val spikeMaxAbnormalMinutes: Int = 3,
     /** 튐형의 '복귀': 이상이 시작된 뒤 이 시간 안에 기준으로 돌아옴 (REQ_PAT_003) */
     val spikeRecoverWithinMs: Long = 60_000,
-
-    /** 음성 확인은 정상인데 추세형이면 2단계를 유지하고 이 시간 뒤 다시 확인 (REQ_PAT_006) */
-    val trendRecheckDelayMs: Long = 10 * 60_000L,
-    /** 음성 '느림'이 이 횟수만큼 연속이면 졸음으로 보고 3단계 (REQ_PAT_007) */
-    val slowCountForStage3: Int = 2,
 
     /** 안전 우회: [safetyBypassWindowMs] 안에 급조향이 이 횟수 (REQ_PAT_005) */
     val safetyBypassSuddenCount: Int = 3,
