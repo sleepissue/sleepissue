@@ -9,13 +9,14 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
- * 기본 설정값이 SRS v0.2 합격기준·기획서 숫자와 서로 맞는지 확인한다.
+ * 2번 설정 묶음의 기본값이 SRS v0.2 합격기준·기획서 숫자와 서로 맞는지 확인한다.
  * 계산 로직 테스트가 아니라 "값을 잘못 옮기지 않았는지" 보는 안전장치다.
+ *
+ * 팀 공통 EngineConfig 본체가 정해지기 전이라 묶음(FatigueConfig)을 직접 만들어 확인한다.
  */
-class EngineConfigTest {
+class FatigueConfigTest {
 
-    private val config = EngineConfig()
-    private val fatigue = config.fatigue
+    private val fatigue = FatigueConfig()
     private val context = fatigue.context
 
     @Test

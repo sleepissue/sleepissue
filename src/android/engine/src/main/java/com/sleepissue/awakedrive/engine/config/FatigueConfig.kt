@@ -7,6 +7,11 @@ import kotlin.math.exp
  * FatigueEngine 문턱값: 게이트, 조향 지표 3개, 위험 점수, 3분 지수평균. (REQ_FAT_001~020)
  *
  * 단위는 필드 이름 끝에 붙인다 (REQ_SIG_010): Kph = km/h, Deg = °, M = m, Ms = ms, C = ℃.
+ *
+ * 2번 설정 묶음(FatigueConfig·BaselineConfig·PatternConfig·AssistConfig)은 2번 클래스가 직접 받는다.
+ * 팀 공통 EngineConfig 본체가 main에 들어오면 거기에 `val fatigue: FatigueConfig = FatigueConfig()`처럼
+ * 한 줄씩 추가해 한 곳에서 꺼내 쓰게 한다. (CLAUDE.md 4장 "문턱값은 EngineConfig 한 곳에")
+ * 숫자 옆 표기: [제안값] SRS에서 정한 값 / [해석] 기획서 해석 / [가설] 근거가 약한 설계 / [가정] 임시값.
  */
 data class FatigueConfig(
     // ── 게이트: 조향 지표를 계산해도 되는 프레임 (REQ_FAT_001~004) ──
