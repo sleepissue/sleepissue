@@ -164,12 +164,13 @@ CRN은 `.env`에서 읽는다(`tools/inject_crn.sh`). 코드·커밋·로그에 
 ```
 sleepissue/
 ├── CLAUDE.md
+├── AGENTS.md        # 이 파일과 내용 동일 (Codex 등 다른 에이전트용)
 ├── README.md
 ├── PROGRESS.md      # 담당자별 지금 상태 (역할 자체는 3장이 단일 출처)
 ├── docs/
 │   ├── plan/        # 상세기획서 v4 두 개 (단일 출처)
 │   ├── proposal/    # 접수 양식
-│   ├── setup/       # 개발환경 설치기록
+│   ├── setup/       # 개발환경 설치기록, 파일트리·Git플로우 매뉴얼
 │   ├── design/      # 화면 시안
 │   ├── meetings/
 │   ├── ideas/       # 아직 기획서에 들어가지 않은 아이디어·리서치 (CLAUDE.md 밖, 팀 운영용)
