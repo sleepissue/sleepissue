@@ -6,7 +6,7 @@
 | --- | --- |
 | [plan](plan/) | 상세기획서 v4 (단일 출처). `_현재기능`이 지금 구현 대상, `_확장가정`은 설명회에서 기능이 열렸을 때 |
 | [proposal](proposal/) | 접수 양식, 제출 체크리스트 |
-| [setup](setup/) | 개발환경 설치기록 |
+| [setup](setup/) | 개발환경 설치기록, [파일트리·Git플로우 매뉴얼](setup/파일트리_Git플로우_매뉴얼.md)(PDF 포함) |
 | [design](design/) | 화면 시안 (11/5 예정) |
 | [meetings](meetings/) | 회의록 |
 
