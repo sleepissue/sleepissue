@@ -7,9 +7,13 @@ package com.sleepissue.awakedrive.engine.model
  * ROS로 치면 FatigueEngine 노드가 30초 주기로 발행하는 토픽 메시지다.
  *
  * 단계 판단에는 [riskSmoothed]를 쓴다. [valid]가 false면 지표·점수 값으로 판단하지 않는다.
+ * valid가 false일 때 f값·B·R은 0(그 창은 계산하지 않음)이고, riskSmoothed는 마지막으로 갱신한 값 그대로다 [해석].
  */
 data class FatigueState(
-    /** 이 값을 계산한 시각(ms). 주입된 Clock 기준이며, 데모 중에는 시나리오 시계다. */
+    /**
+     * 이 값을 계산한 게이트 판정 시각(ms). 주입된 Clock 기준이며, 데모 중에는 시나리오 시계다.
+     * 게이트가 판정을 10초 늦게 확정하므로 실제 시각보다 10초 늦다 (FatigueEngine 참고).
+     */
     val tMs: Long,
     /** 미세 수정(방향이 바뀌는 0.5~3° 조향) 분당 횟수, 최근 60초 창. (REQ_FAT_006) */
     val microPerMin: Float = 0f,

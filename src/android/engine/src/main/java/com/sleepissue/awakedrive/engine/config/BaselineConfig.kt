@@ -1,5 +1,7 @@
 package com.sleepissue.awakedrive.engine.config
 
+import com.sleepissue.awakedrive.engine.model.SteeringBaseline
+
 /**
  * BaselineStore 문턱값: 기본값, 오늘의 나, 출발 피로. (REQ_BSL_001~007)
  */
@@ -36,4 +38,8 @@ data class BaselineConfig(
 
     /** 출발 피로·'졸려요'로 민감 모드가 되면 이 시간 뒤 첫 음성 확인 (REQ_BSL_006) */
     val sensitiveFirstCheckDelayMs: Long = 15 * 60_000L,
-)
+) {
+    /** 운행 기록이 3회 쌓이기 전에 쓰는 기준선 (REQ_BSL_003) */
+    val defaultBaseline: SteeringBaseline
+        get() = SteeringBaseline(defaultMicroPerMin, defaultLargePerMin)
+}
