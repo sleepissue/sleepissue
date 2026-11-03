@@ -23,6 +23,11 @@ data class FatigueConfig(
     val unknownTurnHoldMs: Long = 5 * 60_000L,
     /** 위 유지 중 게이트 속도 미만이 이 시간을 넘게 이어지면 유지 시간을 처음부터 다시 셈 [제안값] (REQ_FAT_004) */
     val unknownTurnLowSpeedGraceMs: Long = 30_000,
+    /**
+     * 프레임 사이가 이보다 벌어지면 신호가 끊긴 것으로 보고 위 '5분 유지'를 처음부터 다시 센다 [제안값].
+     * 신호는 100 ms마다 오므로(REQ_SIG_001) 1초 넘게 안 오면 그 사이 속도를 알 수 없다.
+     */
+    val gateMaxFrameGapMs: Long = 1_000,
 
     // ── 창과 갱신 (REQ_FAT_005) ──
 
