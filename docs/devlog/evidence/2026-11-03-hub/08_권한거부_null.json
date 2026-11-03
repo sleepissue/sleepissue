@@ -1,0 +1,7 @@
+{
+  "expected": [
+    "Hub 가상 13400ms",
+    "최종 조향 null° REAL/PERMISSION_DENIED"
+  ],
+  "passed": true
+}

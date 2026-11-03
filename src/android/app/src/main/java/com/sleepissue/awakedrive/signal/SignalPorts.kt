@@ -24,7 +24,8 @@ enum class SpeedUnit { METERS_PER_SECOND, KILOMETERS_PER_HOUR }
 /**
  * 차량 어댑터의 입력이다. speed는 speedUnit 단위이며 Hub가 한 번만 km/h로 바꾼다.
  * tMs는 시나리오/운행 논리 시각이고, 센서의 원천 시각은 quality에 따로 남긴다.
- * 한 입력은 완전한 관측 묶음이다. null은 이전 값 유지 명령이나 실제 0이 아니다.
+ * 기본은 완전한 관측 묶음이다. updatedFields를 명시한 경우에만 부분 갱신한다.
+ * 갱신 대상의 null은 이전 값 유지 명령이나 실제 0이 아니다.
  */
 data class VehicleSignalInput(
     val tMs: Long,
@@ -41,6 +42,8 @@ data class VehicleSignalInput(
     val ventilationLevel: Int? = null,
     val cabinTempC: Float? = null,
     val quality: Map<SignalField, SignalQuality> = emptyMap(),
+    // null은 완전 관측, 명시한 필드 집합은 부분 갱신이다. 집합 안의 null은 값을 지운다.
+    val updatedFields: Set<SignalField>? = null,
 )
 
 /** 구독 종료는 Flow 수집 취소로 전파한다. 실제 콜백 해제는 어댑터의 책임이다. */
@@ -170,7 +173,7 @@ interface ClimatePort {
     suspend fun cancel(requestId: RequestId): ExecutionResult
 }
 
-enum class RepositoryFailure { NOT_CONNECTED, UNAVAILABLE, ERROR }
+enum class RepositoryFailure { NOT_CONNECTED, UNAVAILABLE, ERROR, INVALID_DATA, STALE_INPUT, UNSUPPORTED_VERSION, UNSUPPORTED_TIME_BASIS }
 
 sealed interface TripLoadResult {
     data class Loaded(val snapshot: TripSnapshot) : TripLoadResult
@@ -183,7 +186,7 @@ sealed interface RepositoryResult {
     data class Failed(val reason: RepositoryFailure) : RepositoryResult
 }
 
-/** 메모리 보관과 영속 저장의 경계다. A에서는 자동 저장·복원을 실행하지 않는다. */
+/** 메모리 보관과 영속 저장의 경계다. 상태와 정밀 구간은 하나의 저장 단위다. */
 interface TripRepository {
     suspend fun load(): TripLoadResult
     suspend fun save(snapshot: TripSnapshot): RepositoryResult

@@ -1,5 +1,11 @@
 package com.sleepissue.awakedrive.engine.model
 
+import com.sleepissue.awakedrive.engine.session.TripRulePolicy
+import com.sleepissue.awakedrive.engine.session.TripRuleState
+
+/** 수동 논리 시각만 중단 지점에서 재개한다. 실제 차량의 재부팅 시간 변환은 별도 계약이다. */
+enum class TripTimeBasis { MANUAL_SCENARIO, ELAPSED_REALTIME }
+
 enum class DriveState { UNKNOWN, DRIVING, PAUSED }
 
 /** [startMs, endMs) 형태의 운행 논리 시간 구간이다. 합산은 RollingDriveWindow가 담당한다. */
@@ -41,15 +47,23 @@ data class TripState(
     }
 }
 
-/** 저장 날짜 시각과 부팅 내 실제 경과 시각을 구분한다. 저장·복원 자체는 아직 수행하지 않는다. */
+/** 공개 값만 가진 예전 호출도 표현하되 저장소는 정밀 근거가 없으면 정상 복원을 거부한다. */
 data class TripSnapshot(
     val state: TripState,
     val savedAtWallMs: Long,
     val driveSegments: List<DriveSegment> = emptyList(),
     val savedAtElapsedMs: Long? = null,
+    val preciseState: TripRuleState? = null,
+    val savedAtScenarioMs: Long? = null,
+    val rulePolicy: TripRulePolicy? = null,
+    val source: Source? = null,
+    val timeBasis: TripTimeBasis? = null,
+    // 소유자의 버전 있는 복원 자료다. engine은 앱의 실행·직렬화 형식에 의존하지 않는다.
+    val ownerState: String? = null,
 ) {
     init {
         require(savedAtWallMs >= 0) { "저장 날짜 시각은 음수일 수 없습니다." }
         require(savedAtElapsedMs == null || savedAtElapsedMs >= 0) { "저장 경과 시각은 음수일 수 없습니다." }
+        require(savedAtScenarioMs == null || savedAtScenarioMs >= 0) { "저장 논리 시각은 음수일 수 없습니다." }
     }
 }

@@ -1,5 +1,7 @@
 package com.sleepissue.awakedrive.engine.model
 
+import com.sleepissue.awakedrive.engine.signal.SourceRate
+
 /** REAL은 Playground SDK·Virtual Console 입력, DEMO는 앱의 JSON 재생 입력이다. */
 enum class Source { REAL, DEMO }
 
@@ -13,6 +15,11 @@ enum class SignalAvailability {
 
 enum class ObservationTimeBasis { UNKNOWN, SCENARIO, ELAPSED_REALTIME, WALL_TIME }
 
+enum class SignalSelectionReason { REAL_FRESH, DEMO_FALLBACK, DEMO_LOCATION, REAL_LOCATION, REAL_LOSS_HOLD, NO_VALID_INPUT }
+
+/** 발행 순번은 센서 관측 번호가 아니다. 느린 소비자는 같은 세션의 순번 차이로 누락을 안다. */
+data class FramePublication(val sessionId: Long, val sequence: Long, val publishedAtElapsedMs: Long)
+
 /** 값이 같아도 새 관측일 수 있다. 원천 시각과 실제 수신 경과 시각을 따로 보존한다. */
 data class SignalQuality(
     val availability: SignalAvailability = SignalAvailability.UNAVAILABLE,
@@ -22,6 +29,10 @@ data class SignalQuality(
     val sourceRateHz: Float? = null,
     // UNKNOWN인 원천 시각은 실제 센서 Hz를 계산하는 근거로 해석하지 않는다.
     val observedTimeBasis: ObservationTimeBasis = ObservationTimeBasis.UNKNOWN,
+    val observationSequence: Long? = null,
+    val selectionReason: SignalSelectionReason? = null,
+    // 선택된 조향의 측정 상태·5Hz 미만 여부를 발행 프레임과 같은 세대로 전달한다.
+    val sourceRateInfo: SourceRate? = null,
 ) {
     init {
         require(observedAtMs == null || observedAtMs >= 0) { "원천 관측 시각은 음수일 수 없습니다." }
@@ -63,6 +74,7 @@ data class SignalFrame(
     val ventilationLevel: Int? = null,
     val cabinTempC: Float? = null,
     val quality: Map<SignalField, SignalQuality> = emptyMap(),
+    val publication: FramePublication? = null,
 ) {
     init {
         require(tMs >= 0) { "프레임 논리 시각은 음수일 수 없습니다." }

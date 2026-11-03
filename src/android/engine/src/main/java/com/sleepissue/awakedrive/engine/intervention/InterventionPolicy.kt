@@ -115,6 +115,9 @@ class InterventionPolicy(
             } else if (target.level > oldStage.level && mayRise) {
                 stage = InterventionStage.entries[oldStage.level + 1]
                 reason = when {
+                    // 일반 경로의 3단계 목표는 점수·추세형으로만 정해진다.
+                    // 2단계 확인 대기나 1단계 시간·예보가 그 상승 원인을 덮지 않게 한다.
+                    target == InterventionStage.REST_GUIDANCE -> TransitionReason.SCORE
                     pendingCheck -> TransitionReason.SAFETY_EVENT
                     timeDue -> TransitionReason.TIME
                     input.forecastDue || input.vulnerableTime -> TransitionReason.FORECAST

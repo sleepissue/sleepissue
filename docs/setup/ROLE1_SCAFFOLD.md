@@ -1,6 +1,6 @@
 # 1번 담당 A 기본 틀 연결 가이드
 
-A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연결할 수 있는 통로다. 실제 차량 SDK·졸음 판단·운행 시간 계산·음성·휴식 인증·경유지 실행·JSON 재생은 후속 구현이다.
+A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연결할 수 있는 통로다. 이 문서의 예시는 최초 관측 전달 모드다. 이후 [운행 계산](ROLE1_TRIP_RULES.md)·[개입](ROLE1_INTERVENTION.md)·[Room](ROLE1_PERSISTENCE.md)과 [10Hz·품질·중재](ROLE1_SIGNAL_HUB.md)를 추가했다. 실제 SDK·졸음 판단·음성·휴식 자동 인증·경유지 실행·JSON 재생은 후속 범위다.
 
 개발 대상은 Pleos Playground의 가상 차량이다. `Source.REAL`은 Playground SDK·Virtual Console 입력이며, `Source.DEMO`는 앱의 JSON 재생 입력이다. 물리 차량 연결이나 검증을 뜻하지 않는다.
 
@@ -92,9 +92,11 @@ NaviState(
 | `elapsedRealtimeMs()` | 배속 없는 실제 경과 시각. Hub 수신 시각·실제 반응 시간 측정의 시간축. |
 | `wallTimeMs()` | 저장용 날짜 시각. 재실행·재부팅을 넘는 기록의 시간축. |
 
-센서 원천 시각은 `SignalQuality.observedAtMs`로 별도 보존하고, `observedTimeBasis`로 SCENARIO·ELAPSED_REALTIME·WALL_TIME·UNKNOWN을 구분한다. 시간축을 확인하지 못한 UNKNOWN 시각을 실제 센서 Hz 계산의 근거로 사용하지 않는다. A의 Hub는 주기 발행기·원천 Hz 계산기·배속 시계가 아니며, 주어진 관측을 전달한다. `TripSnapshot`은 저장 날짜 시각과 부팅 내 경과 시각을 구분하지만 실제 저장·복원 계산은 수행하지 않는다.
+센서 원천 시각은 `SignalQuality.observedAtMs`로 별도 보존하고, `observedTimeBasis`로 SCENARIO·ELAPSED_REALTIME·WALL_TIME·UNKNOWN을 구분한다. 시간축을 확인하지 못한 UNKNOWN 시각을 실제 센서 Hz 계산의 근거로 사용하지 않는다. A의 관측 모드는 주어진 관측을 전달한다. 현재 주기 발행·원천 RateMeter는 명시적 정책을 받는 생성자에 연결했고, `TripSnapshot`의 정밀 근거를 사용하는 Room 저장·복원도 별도로 구현했다. 배속 시계는 후속 범위다.
 
 ## 구독과 시작·중지 책임
+
+이 절은 기존 관측 모드의 계약이다. 새 주기 모드의 최신값 버퍼·세션 필터·누락 순번·입력 완료 정책은 [Hub 연결 가이드](ROLE1_SIGNAL_HUB.md#주기와-생명주기)를 따른다.
 
 - Hub 인스턴스 하나가 입력 수집을 소유한다. 화면마다 실제 차량 입력을 직접 구독하지 않는다.
 - `samples`·`naviSamples`·`powerEvents`는 활성 구독자에게 연속 입력을 전달한다. 분석 구독을 먼저 시작하고 `hub.start(ownerScope)`를 호출한다.
@@ -109,7 +111,7 @@ NaviState(
 
 ## 운행 상태·외부 기능 연결
 
-`TripStateStore`는 `state` 관찰, `replace`, `update`를 제공한다. 운행 규칙 연결 단계에서 단일 잠금으로 갱신을 직렬화해 콜백을 한 번만 실행하도록 보강했다. 갱신 안에서 저장·음성 발화·대기 같은 작업을 실행하지 않는다. `TripRepository`는 Loaded·Empty·Failed와 저장/삭제 성공·실패를 구분하는 계약이며 Room 구현은 아직 없다. A 이후 구현은 [운행 규칙 가이드](ROLE1_TRIP_RULES.md)를 본다.
+`TripStateStore`는 `state` 관찰, `replace`, `update`를 제공한다. 운행 규칙 연결 단계에서 단일 잠금으로 갱신을 직렬화해 콜백을 한 번만 실행하도록 보강했다. 갱신 안에서 저장·음성 발화·대기 같은 작업을 실행하지 않는다. `TripRepository`는 Loaded·Empty·Failed와 저장/삭제 성공·실패를 구분하며 현재 [Room 구현](ROLE1_PERSISTENCE.md)이 연결돼 있다. A 이후 구현은 [운행 규칙 가이드](ROLE1_TRIP_RULES.md)를 본다.
 
 `CheckPort`, `SpeechPort`, `RestPort`, `ClimatePort`는 요청 접수와 실제 완료 결과를 나눈다. `requestId`로 시작·취소·결과를 연결한다. `REQUESTED`·`STARTED`는 실행 성공이 아니며, 경유지 요청을 취소했다는 사실도 실제 경유지 제거 성공이 아니다. 응답 없음은 사람에게 정상 질문한 뒤 대답이 없던 결과이고, 권한 없음·장치 오류와 구분한다.
 
@@ -140,8 +142,8 @@ val result = manager.start(RequestId("monitor-1"))
 
 | 범위 | 남은 일 |
 | --- | --- |
-| B 순수 규칙·재생 | 정차 구간 보정, 최근 24시간 합산, 첫 D단·새 운행, 단계 전환·타이머·중복 요청, 원천 Hz 계산, JSON 로드·배속·질문 중 1배속. |
-| C 실제 연결 | 공식 확인된 SDK 서명·권한·원단위, 지원 확인, 실제 전원, Room, 서비스·부팅·Android 생명주기. |
-| 공동 결정 | 실제/데모 필드별 우선권 유지시간·원복, 관측 신선도 문턱, 위치 우선권, 세 시간축의 타이머 적용, 크루즈 null 등 정책. |
+| B 순수 규칙·재생 | 운행·개입·원천 Hz는 별도 가이드 기준 구현. JSON 로드·배속·질문 중 1배속은 남음. |
+| C 실제 연결 | Room 수동 복원은 구현. 공식 SDK 서명·권한·원단위/시간축·지원 확인·실제 전원·서비스/부팅 연결은 남음. |
+| 공동 결정 | 관측 최신성·REAL 상실 유지시간은 정책 주입까지 구현했으며 제품 수치는 미정. 위치는 SRS의 유효 DEMO 좌표 쌍 우선 예외 적용. |
 
 저장소 기획서와 외부 구현 계획의 정차·누적·다른 곳 출발 정책 차이는 후속 규칙 구현 전에 정합성을 맞춘다. A의 자료형에 항목이 있다는 사실은 그 정책이 확정되거나 계산이 구현됐다는 뜻이 아니다. 원음·PCM·STT 문장·비밀값을 저장하는 필드는 만들지 않는다.

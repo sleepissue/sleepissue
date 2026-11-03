@@ -31,7 +31,7 @@ data class TripObservation(val tMs: Long, val gear: Gear?, val power: PowerState
 }
 
 /**
- * 초 단위 공개 상태와 별도로 ms 정밀 상태를 유지한다. 영속 복원 형식은 후속 구현 대상이다.
+ * 초 단위 공개 상태와 별도로 ms 정밀 상태를 유지하며 저장·복원에도 이 근거를 함께 사용한다.
  * driveSegments는 확정 구간이며, 진행 중 짧은 정차의 잠정 포함분은 저장하지 않는다.
  * pendingNewTrip은 실제 OFF가 임계 시간을 넘었으나 아직 다음 첫 D단을 기다리는 상태다.
  */

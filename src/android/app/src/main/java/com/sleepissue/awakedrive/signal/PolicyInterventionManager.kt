@@ -71,9 +71,66 @@ class PolicyInterventionManager(
     private var lastNoticeAt: Long? = null
     private var lastTimerMs: Long? = null
     private val enteredAt = mutableMapOf<InterventionStage, Long>()
+    private val mutableInterruptedChecks = MutableStateFlow<Map<CheckContext, Long>>(emptyMap())
+    val interruptedChecks: StateFlow<Map<CheckContext, Long>> = mutableInterruptedChecks.asStateFlow()
 
     override val state: StateFlow<InterventionState> = mutableState.asStateFlow()
     val transitions: StateFlow<List<StageTransition>> = mutableTransitions.asStateFlow()
+
+    suspend fun checkpoint(): InterventionCheckpoint = mutex.withLock {
+        check(active) { "중지된 개입 세션은 저장할 수 없습니다." }
+        val checks = mutableInterruptedChecks.value.toMutableMap()
+        if (state.value.stage == InterventionStage.CHECK && retryAt != null && timerBasis == RequestTimerBasis.SCENARIO)
+            checks.putIfAbsent(alertnessContext, requireNotNull(retryAt))
+        entries.values.forEach { entry ->
+            val context = (entry.request as? CheckRequest)?.context
+            if (context != null && context != CheckContext.WAYPOINT_CONSENT && !entry.payloadHandled && entry.status !in cancelledStatuses) {
+                val now = clock.scenarioTimeMs()
+                checks[context] = minOf(checks[context] ?: now, now)
+            }
+        }
+        InterventionCheckpoint(policyState.copy(publicState = state.value.copy(pendingRequestId = null)),
+            assessment, trip != null, forecast, sensitive, vulnerable, ventilationConsent, alertnessContext,
+            restSession, seenRestSessions.toSet(), latestRestCertificationMs, recoveryCompletedAtMs,
+            routeAdded, checks, enteredAt.toMap(), assistedAnchor)
+    }
+
+    /** 새 인스턴스에만 복원한다. 평가·음성·검색·경유지 요청을 자동 발행하지 않는다. */
+    suspend fun restore(checkpoint: InterventionCheckpoint, restoredTrip: TripState) = mutex.withLock {
+        check(!active && entries.isEmpty()) { "새 개입 세션에서만 복원할 수 있습니다." }
+        require(timerBasis == RequestTimerBasis.SCENARIO) { "실제 경과 시각 요청 타이머 복원은 아직 지원하지 않습니다." }
+        checkpoint.requireValid(clock.scenarioTimeMs(), restoredTrip)
+        policyState = checkpoint.policy
+        mutableState.value = checkpoint.policy.publicState
+        assessment = checkpoint.assessment
+        trip = restoredTrip.takeIf { checkpoint.tripContextAvailable }
+        forecast = checkpoint.forecast
+        sensitive = checkpoint.sensitive; vulnerable = checkpoint.vulnerable
+        ventilationConsent = checkpoint.ventilationConsent; alertnessContext = checkpoint.alertnessContext
+        restSession = checkpoint.restSessionId
+        seenRestSessions.addAll(checkpoint.seenRestSessions)
+        latestRestCertificationMs = checkpoint.latestRestCertificationMs
+        recoveryCompletedAtMs = checkpoint.recoveryCompletedAtMs
+        routeAdded = checkpoint.routeAdded
+        enteredAt.putAll(checkpoint.enteredAt)
+        assistedAnchor = checkpoint.assistedAnchor
+        mutableInterruptedChecks.value = checkpoint.interruptedChecks
+        clearTimers()
+        // 과거 외부 실행·후보·예약을 되살리지 않는다. 이후 새 입력에 의한 재안내의 기준이다.
+        lastNoticeAt = timerNow()
+        active = true
+    }
+
+    /** 중단된 확인은 사람이 이 동작을 요청했을 때 새 ID로 다시 시작한다. */
+    suspend fun resumeInterruptedChecks(): Boolean = mutex.withLock {
+        if (!active || mutableInterruptedChecks.value.isEmpty()) return@withLock false
+        val contexts = mutableInterruptedChecks.value.filterValues { clock.scenarioTimeMs() >= it }
+        if (contexts.isEmpty()) return@withLock false
+        mutableInterruptedChecks.value = mutableInterruptedChecks.value - contexts.keys
+        contexts.keys.forEach { enqueue(CheckRequest(freshId(), it)) }
+        refreshPending()
+        true
+    }
     override val requests: Flow<ExecutionRequest> = flow {
         check(collecting.compareAndSet(false, true)) { "외부 실행 요청은 담당자 한 곳에서 소비해야 합니다." }
         try {
@@ -103,6 +160,7 @@ class PolicyInterventionManager(
             clearTimers(); assistedAnchor = null; routeAdded = false
             lastAreaDistanceM = null; distanceReminderPending = false; distanceReminderSent = false
             enteredAt.clear(); lastNoticeAt = null; lastTimerMs = null; commands.clear()
+            mutableInterruptedChecks.value = emptyMap()
             evaluate()
         }
         result(requestId, ExecutionStatus.STARTED)
@@ -382,13 +440,13 @@ class PolicyInterventionManager(
     private fun restCue() = if (state.value.reason == TransitionReason.SAFETY_EVENT)
         SpeechCue.SAFETY_REST_RECOMMENDED else SpeechCue.REST_RECOMMENDED
 
-    private fun hasPendingCheck() = entries.values.any {
+    private fun hasPendingCheck() = mutableInterruptedChecks.value.isNotEmpty() || entries.values.any {
         it.request is CheckRequest && !it.payloadHandled && it.status !in cancelledStatuses
     }
     private fun hasPendingWaypoint() = entries.values.any {
         it.request is RestRequest && it.request.action == RestAction.ADD_WAYPOINT && it.status !in terminalStatuses
     }
-    private fun hasPendingAlertnessCheck() = entries.values.any {
+    private fun hasPendingAlertnessCheck() = mutableInterruptedChecks.value.keys.any { it != CheckContext.RECOVERY } || entries.values.any {
         val request = it.request as? CheckRequest
         request != null && request.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) &&
             !it.payloadHandled && it.status !in cancelledStatuses
@@ -406,6 +464,9 @@ class PolicyInterventionManager(
     }
     private fun freshId(): RequestId = newRequestId().also { check(it !in entries) { "요청 ID 생성기가 같은 ID를 반환했습니다." } }
     private fun cancelPending(includeRecoveryReset: Boolean = false) {
+        mutableInterruptedChecks.value = mutableInterruptedChecks.value.filterKeys {
+            !includeRecoveryReset && it == CheckContext.RECOVERY
+        }
         entries.values.filter {
             (includeRecoveryReset || it.request !is RestRecoveryResetRequest &&
                 !(it.request is CheckRequest && it.request.context == CheckContext.RECOVERY)) &&

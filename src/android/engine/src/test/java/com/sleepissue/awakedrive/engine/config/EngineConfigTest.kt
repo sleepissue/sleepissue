@@ -13,6 +13,10 @@ class EngineConfigTest {
         assertEquals(StageThresholds(30, 50, 70), config.sensitiveStageThresholds)
         assertEquals(100L, config.signalFrameIntervalMs)
         assertEquals(10_000L, config.stateSaveIntervalMs)
+        // 새 Hub 설정을 추가해도 기존 두 번째 위치 인자는 저장 주기여야 한다.
+        val existingCall = EngineConfig(250, 20_000)
+        assertEquals(250L, existingCall.signalFrameIntervalMs)
+        assertEquals(20_000L, existingCall.stateSaveIntervalMs)
     }
 
     @Test

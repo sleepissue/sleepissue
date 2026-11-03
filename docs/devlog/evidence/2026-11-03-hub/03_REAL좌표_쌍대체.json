@@ -1,0 +1,7 @@
+{
+  "expected": [
+    "Hub 가상 12000ms",
+    "최종 좌표 (37.5, 127.0) · REAL/REAL · REAL_LOCATION"
+  ],
+  "passed": true
+}

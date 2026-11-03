@@ -1,0 +1,10 @@
+{
+  "expected": [
+    "Hub 가상 13100ms",
+    "조향 입력 STALE",
+    "최종 조향 8.0° DEMO/AVAILABLE",
+    "차속 40.0km/h DEMO/AVAILABLE",
+    "DEMO_FALLBACK"
+  ],
+  "passed": true
+}

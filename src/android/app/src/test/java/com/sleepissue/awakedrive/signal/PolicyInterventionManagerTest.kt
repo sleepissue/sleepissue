@@ -91,6 +91,8 @@ class PolicyInterventionManagerTest {
         assertNotEquals(first.requestId, second.requestId)
         h.started(second); h.finish(second, CheckOutcome.SLOW)
         assertEquals(InterventionStage.REST_GUIDANCE, h.manager.state.value.stage)
+        assertEquals(TransitionReason.CHECK_RESULT, h.manager.state.value.reason)
+        assertEquals(SpeechCue.REST_RECOMMENDED, h.output.filterIsInstance<SpeechRequest>().single().cue)
     }
 
     @Test fun failureAndUnstartedOrWrongContextResultsCannotBecomeHumanNoResponse() = runTest {
@@ -147,6 +149,7 @@ class PolicyInterventionManagerTest {
         val recovery = h.latestCheck(CheckContext.RECOVERY); h.started(recovery)
         h.finish(recovery, CheckOutcome.NORMAL); h.finish(recovery, CheckOutcome.NORMAL)
         assertEquals(InterventionStage.NORMAL, h.manager.state.value.stage)
+        assertEquals(TransitionReason.REST_COMPLETED, h.manager.state.value.reason)
         assertEquals(EvaluationStatus.NOT_EVALUATED, h.manager.state.value.evaluationStatus)
         val reset = h.output.filterIsInstance<RestRecoveryResetRequest>().single()
         assertEquals("rest-a", reset.restSessionId)
@@ -344,6 +347,7 @@ class PolicyInterventionManagerTest {
         h.send(InterventionInput.TripChanged(TripState(continuousDriveSec = 7_200)))
         h.candidate()
         assertEquals(InterventionStage.CAUTION, h.manager.state.value.stage)
+        assertEquals(TransitionReason.TIME, h.manager.state.value.reason)
         h.at(1_799_999); h.send(InterventionInput.Tick)
         assertEquals(1, h.output.filterIsInstance<RestRequest>().size)
         h.at(1_800_000); h.send(InterventionInput.Tick); h.candidate()
@@ -361,6 +365,7 @@ class PolicyInterventionManagerTest {
     @Test fun forecastCautionDiscardsPreRestForecastButReevaluatesNewForecast() = runTest {
         val h = Harness(this); h.start(); h.score(0f)
         h.send(InterventionInput.Forecast(ForecastAssessment(0, EvaluationStatus.EVALUATED, dueAtMs = 0)))
+        assertEquals(TransitionReason.FORECAST, h.manager.state.value.reason)
         h.at(1); h.send(InterventionInput.RestCertified(RestCertification("rest-forecast", 1, Source.REAL)))
         assertEquals(InterventionStage.NORMAL, h.manager.state.value.stage)
         h.at(30_001); h.send(InterventionInput.Tick)
@@ -432,10 +437,48 @@ class PolicyInterventionManagerTest {
         assertEquals(InterventionStage.CAUTION, h.manager.state.value.stage)
         h.at(30_000); h.send(InterventionInput.Tick)
         assertEquals(InterventionStage.CHECK, h.manager.state.value.stage)
+        val pending = h.latestCheck(CheckContext.DRIVER_ALERTNESS)
+        h.started(pending)
         h.at(59_999); h.send(InterventionInput.Tick)
         assertEquals(InterventionStage.CHECK, h.manager.state.value.stage)
         h.at(60_000); h.send(InterventionInput.Tick)
         assertEquals(InterventionStage.REST_GUIDANCE, h.manager.state.value.stage)
+        assertEquals(TransitionReason.SCORE, h.manager.state.value.reason)
         assertEquals(listOf(0L, 30_000L, 60_000L), h.manager.transitions.value.map { it.tMs })
+        assertTrue(h.manager.transitions.value.all { it.reason == TransitionReason.SCORE })
+        assertEquals(SpeechCue.REST_RECOMMENDED, h.output.filterIsInstance<SpeechRequest>().single().cue)
+        assertTrue(h.output.filterIsInstance<CancelExecutionRequest>().any { it.requestId == pending.requestId })
+        h.at(360_000); h.send(InterventionInput.Tick)
+        assertEquals(listOf(SpeechCue.REST_RECOMMENDED, SpeechCue.REST_RECOMMENDED),
+            h.output.filterIsInstance<SpeechRequest>().map { it.cue })
+    }
+
+    @Test fun explicitSafetyBypassKeepsImmediateSafetyReasonAndCueWithOrWithoutPendingCheck() = runTest {
+        listOf(false, true).forEach { pending ->
+            val h = Harness(this)
+            if (pending) h.checking() else h.start()
+            h.at(if (pending) 30_001 else 1)
+            h.send(InterventionInput.Assessment(DrivingAssessment(h.clock.scenarioMs,
+                EvaluationStatus.EVALUATED, 90f, DrivingPattern.TRENDING)))
+            h.send(InterventionInput.Safety(SafetyEvent(h.clock.scenarioMs,
+                SafetyEventType.REPEATED_RAPID_STEERING, Source.REAL)))
+            assertEquals(InterventionStage.REST_GUIDANCE, h.manager.state.value.stage)
+            assertEquals(TransitionReason.SAFETY_EVENT, h.manager.state.value.reason)
+            assertEquals(h.clock.scenarioMs, h.manager.transitions.value.last().tMs)
+            assertEquals(SpeechCue.SAFETY_REST_RECOMMENDED,
+                h.output.filterIsInstance<SpeechRequest>().single().cue)
+        }
+    }
+
+    @Test fun humanNoResponseAndRestIntentKeepImmediateCheckReasonAndGeneralCue() = runTest {
+        listOf(CheckOutcome.NO_RESPONSE to null, CheckOutcome.NORMAL to ResponseIntent.REST).forEach { (outcome, intent) ->
+            val h = Harness(this); h.checking()
+            val check = h.latestCheck(CheckContext.DRIVER_ALERTNESS); h.started(check)
+            h.at(30_001); h.finish(check, outcome, intent)
+            assertEquals(InterventionStage.REST_GUIDANCE, h.manager.state.value.stage)
+            assertEquals(TransitionReason.CHECK_RESULT, h.manager.state.value.reason)
+            assertEquals(30_001L, h.manager.transitions.value.last().tMs)
+            assertEquals(SpeechCue.REST_RECOMMENDED, h.output.filterIsInstance<SpeechRequest>().single().cue)
+        }
     }
 }

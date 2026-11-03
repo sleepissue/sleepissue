@@ -43,9 +43,17 @@ data class EngineConfig(
     val assistedRiskCheckIntervalMs: Long = 600_000,
     val assistedOperationGapSec: Long = 900, // [가설] 조작 공백은 2번이 계산해 전달한다.
     val restDistanceReminderM: Float = 2_000f,
+    // 기존 위치 인자 계약을 보존하도록 새 설정은 뒤에 추가한다.
+    val naviStateIntervalMs: Long = 1_000, // SRS Data Interface MSG-14의 출력 주기다.
+    val steeringRateWindowMs: Long = 10_000,
+    val minimumSteeringRateHz: Float = 5f, // [제안값] SRS SIG_009, 실제 SDK 실측 후 확정한다.
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
+        require(naviStateIntervalMs >= signalFrameIntervalMs) { "내비 발행 간격은 차량 프레임 간격 이상이어야 합니다." }
+        require(steeringRateWindowMs > 0 && minimumSteeringRateHz.isFinite() && minimumSteeringRateHz > 0) {
+            "원천 주기 창과 기준 Hz는 양수여야 합니다."
+        }
         require(stateSaveIntervalMs > 0) { "상태 저장 간격은 양수여야 합니다." }
         require(tripStopPauseMs > 0 && tripStopPauseMs < tripRestResetMs) {
             "정차 일시 중단 경계는 양수이며 연속 시간 초기화 경계보다 작아야 합니다."

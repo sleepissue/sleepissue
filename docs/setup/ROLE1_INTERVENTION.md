@@ -1,6 +1,6 @@
 # 1번 개입 정책 연결 가이드 — SRS v0.2
 
-`InterventionPolicy`는 단계 규칙을 계산하는 순수 Kotlin 코드이고, `PolicyInterventionManager`는 결과를 외부 실행 요청으로 연결한다. 요청 통로는 ROS의 명령 토픽과 비슷하며, 요청을 보냈다고 음성·내비 실행이 완료된 것은 아니다. 실제 Activity·서비스의 조립 지점은 아직 없다.
+`InterventionPolicy`는 단계 규칙을 계산하는 순수 Kotlin 코드이고, `PolicyInterventionManager`는 결과를 외부 실행 요청으로 연결한다. 요청 통로는 ROS의 명령 토픽과 비슷하며, 요청을 보냈다고 음성·내비 실행이 완료된 것은 아니다. 현재 [디버그 Activity](DEBUG_HARNESS.md)에서 가상 실행을 조립하며, 제품용 서비스·외부 담당의 실제 실행 연결은 남아 있다.
 
 ## 적용 기준과 생성 예시
 
@@ -22,6 +22,10 @@ val manager = PolicyInterventionManager(
 `clock`과 중복되지 않는 ID 생성기 `newRequestId`는 소유자가 주입한다. `REAL`은 Playground SDK·Virtual Console 입력이다. `requests`를 담당자 한 곳에서 구독한 다음 `start`하고 입력을 `submit`한다. 소유자는 `Tick`을 공급하고 종료 시 `stop`한다. 질문은 접수 상태가 아닌 실제 안내 시작 때 같은 ID로 `STARTED`를 보내고, 최종 `CheckResult`를 전달한다. 요청의 시작·결과·취소는 같은 ID와 문맥을 사용한다.
 
 INT_004 적용 시 최초 일반 상승은 **IMMEDIATE**다. 생성자의 기본값도 IMMEDIATE이며, 명시 인자를 쓰는 조립 코드도 같은 값을 사용한다. `AFTER_INTERVAL`은 기존 비교 시험용으로 남겼으며 v0.2 제품 조립에는 사용하지 않는다. R=90+추세형 입력은 1단계 t=0, 2단계 t=30초, 3단계 t=60초다. 이후 일반 상승은 30초에 한 칸이고, 느림 2회·무응답·REST 확인 결과와 반복 급조향 안전 우회는 다음 30초 평가까지 기다리지 않는다. 실제 경고음 시작 지연은 외부 음성 모듈 연결 후 별도로 측정해야 한다.
+
+2026-11-03에는 일반 경로의 3단계 목표가 점수·추세형에서 정해졌으면 전환 사유도 `SCORE`를 선택하도록 수정했다. 확인 요청 대기는 2단계 유지·상승 판단에 계속 사용하지만 3단계 점수 상승의 원인이 되지 않는다. `PolicyInterventionManager.restCue()`의 기존 매핑을 통해 최초 안내와 5분 재안내 모두 일반 `REST_RECOMMENDED`로 연결된다. 명시적 `safetyBypass`는 기존 우선 분기에서 즉시 3단계·`SAFETY_EVENT`·`SAFETY_REST_RECOMMENDED`, 확인 결과는 즉시 3단계·`CHECK_RESULT`·일반 안내를 유지한다. [회귀 시험·수동 증거](../devlog/2026-11-03.md) 참고.
+
+같은 날 추가한 [Room 저장·복원](ROLE1_PERSISTENCE.md)은 `checkpoint()`로 정책 내부 유지 조건·느림 횟수·인증 근거를 저장하고, 새 인스턴스의 `restore()`로 평가나 외부 요청 발행 없이 재개한다. 중단된 확인과 남은 가상 대기 시각만 보존해 사용자가 `resumeInterruptedChecks()`를 요청할 때 새 ID로 발행한다. 3단계 인증만으로 해제하지 않으며, 저장된 인증의 회복 확인도 명시적으로 재개한 뒤 정상 결과를 받아야 한다. 과거 경유지 실행 예약·후보·음성·요청 ID는 자동 재생하지 않는다. 이 복원 API는 현재 SCENARIO 요청 타이머에 한정된다.
 
 ## 휴식 인증과 현재 조건 재평가
 

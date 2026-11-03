@@ -31,6 +31,49 @@ class InterventionPolicyTest {
         assertEquals(InterventionStage.REST_GUIDANCE, state.publicState.stage)
     }
 
+    @Test fun pendingCheckCannotReplaceTheScoreCauseOfStageThree() {
+        var state = policy.evaluate(InterventionPolicyState(), scored(0, 90f, true)).state
+        state = policy.evaluate(state, scored(30_000, 90f, true)).state
+        state = policy.evaluate(state, scored(59_999, 90f, true, checkRequired = true)).state
+        assertEquals(InterventionStage.CHECK, state.publicState.stage)
+        val rest = policy.evaluate(state, scored(60_000, 90f, true, checkRequired = true))
+        assertEquals(InterventionStage.REST_GUIDANCE, rest.state.publicState.stage)
+        assertEquals(TransitionReason.SCORE, rest.state.publicState.reason)
+        assertEquals(TransitionReason.SCORE, rest.transition?.reason)
+        assertEquals(60_000L, rest.transition?.tMs)
+    }
+
+    @Test fun cautionContextCannotBecomeTheCauseOfScoreBasedStageThree() {
+        listOf(InterventionSnapshot(60_000, continuousDriveSec = 7_200),
+            InterventionSnapshot(60_000, forecastDue = true),
+            InterventionSnapshot(60_000, vulnerableTime = true)).forEach { context ->
+            val rest = policy.evaluate(checking(), context.copy(
+                evaluation = EvaluationStatus.EVALUATED, score = 90f, trending = true,
+            ))
+            assertEquals(InterventionStage.REST_GUIDANCE, rest.state.publicState.stage)
+            assertEquals(TransitionReason.SCORE, rest.transition?.reason)
+        }
+    }
+
+    @Test fun explicitSafetyBypassStillOutranksScorePendingCheckAndRecoveryImmediately() {
+        val rest = policy.evaluate(checking(), scored(30_001, 90f, true, checkRequired = true)
+            .copy(safetyBypass = true, recoveredAfterCertifiedRest = true))
+        assertEquals(InterventionStage.REST_GUIDANCE, rest.state.publicState.stage)
+        assertEquals(TransitionReason.SAFETY_EVENT, rest.transition?.reason)
+        assertEquals(30_001L, rest.transition?.tMs)
+    }
+
+    @Test fun humanNoResponseOrRestIntentOutranksPendingCheckAndScoreImmediately() {
+        listOf(check(CheckOutcome.NO_RESPONSE),
+            check(CheckOutcome.NORMAL, intent = ResponseIntent.REST)).forEach { confirmation ->
+            val rest = policy.evaluate(checking(), scored(30_001, 90f, true,
+                confirmation = confirmation, checkRequired = true))
+            assertEquals(InterventionStage.REST_GUIDANCE, rest.state.publicState.stage)
+            assertEquals(TransitionReason.CHECK_RESULT, rest.transition?.reason)
+            assertEquals(30_001L, rest.transition?.tMs)
+        }
+    }
+
     @Test fun delayedFirstEscalationUsesFirstEvaluationInsteadOfSlidingEveryTick() {
         val delayed = InterventionPolicy(EngineConfig(), FirstEscalation.AFTER_INTERVAL)
         var state = InterventionPolicyState()
@@ -71,8 +114,10 @@ class InterventionPolicyTest {
         assertEquals(InterventionStage.CHECK, state.publicState.stage)
         state = policy.evaluate(state, scored(30_002, 64f, confirmation = check(CheckOutcome.SLOW))).state
         assertEquals(InterventionStage.REST_GUIDANCE, state.publicState.stage)
+        assertEquals(TransitionReason.CHECK_RESULT, state.publicState.reason)
         val noResponse = policy.evaluate(checking(), scored(30_001, null, confirmation = check(CheckOutcome.NO_RESPONSE))).state
         assertEquals(InterventionStage.REST_GUIDANCE, noResponse.publicState.stage)
+        assertEquals(TransitionReason.CHECK_RESULT, noResponse.publicState.reason)
         assertEquals(EvaluationStatus.UNAVAILABLE, noResponse.publicState.evaluationStatus)
     }
 
