@@ -35,12 +35,17 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
     var state: BaselineState = buildState()
         private set
 
+    /** 평소 보조 주행 해제 직후 30초 동안의 큰 수정 횟수 (REQ_AST_007). 기록이 없으면 null → '3회 이상' 기준 */
+    var usualHandoverLargeCount: Float? = null
+        private set
+
     /**
      * 지난 운행 기록을 넣어 평소의 나를 계산한다 (REQ_BSL_001·003).
      * 앱을 켤 때, 운행이 끝나 기록이 늘었을 때 부른다. 진행 중인 운행의 오늘의 나는 그대로 둔다.
      */
     fun loadHistory(records: List<BaselineRecord>) {
         usual = usualOf(records, config)
+        usualHandoverLargeCount = usualHandoverLargeCountOf(records, config)
         refresh()
     }
 
@@ -154,6 +159,19 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
                 microPerMin = median(recent.map { it.microPerMin }),
                 largePerMin = median(recent.map { it.largePerMin }),
             )
+        }
+
+        /**
+         * 평소 해제 직후 30초 큰 수정 횟수 = 깨어 있던 최근 운행 10회의 handoverLargeCount 중앙값 (REQ_AST_007) [해석].
+         * 값이 있는 기록이 하나도 없으면 null.
+         */
+        fun usualHandoverLargeCountOf(records: List<BaselineRecord>, config: BaselineConfig = BaselineConfig()): Float? {
+            val counts = records.filter { it.validAwake }
+                .sortedBy { it.tripId }
+                .mapNotNull { it.handoverLargeCount }
+                .takeLast(config.usualRecentTrips)
+            if (counts.isEmpty()) return null
+            return median(counts.map { it.toFloat() })
         }
 
         /**

@@ -5,8 +5,7 @@ import com.sleepissue.awakedrive.engine.config.FatigueConfig
 /**
  * 게이트가 한 프레임을 판단하는 데 필요한 값만 모은 입력.
  *
- * 1번의 SignalFrame(MSG-01)·NaviState(MSG-14)와 2번의 AssistState(MSG-04)에서 만든다.
- * 그 클래스들이 main에 들어오면 변환 함수 하나(SignalFrame → GateInput)를 추가한다.
+ * FatigueEngine이 받은 DriveFrame과 그 프레임의 보조 주행 판정(AssistState, MSG-04)으로 만든다.
  * null은 "지금 이 신호를 모른다"는 뜻이다.
  */
 data class GateInput(
@@ -63,8 +62,17 @@ data class GateDecision(
     val tMs: Long,
     val steeringDeg: Float?,
     val reason: GateReason,
+    /**
+     * 보조 주행 여부만 빼고 본 판정. 안전 우회(5분 안 급조향 3회)와 인계 품질은 보조 주행 중에도 보므로
+     * 이 값이 PASS인 프레임으로 센다 (기획서 5-4 "안전 우회는 그대로 씁니다", REQ_AST_007).
+     */
+    val reasonWithoutAssist: GateReason = reason,
 ) {
+    /** 졸음 점수 계산에 써도 되는 프레임 */
     val passed: Boolean get() = reason == GateReason.PASS
+
+    /** 안전 우회·인계 품질 감시에 써도 되는 프레임 */
+    val passedWithoutAssist: Boolean get() = reasonWithoutAssist == GateReason.PASS
 }
 
 /**
@@ -77,6 +85,8 @@ data class GateDecision(
  * - 회전 지점 거리를 알면 300 m 이상, 모르면 시속 60 km 이상을 5분 연속 유지한 뒤
  * - 방향지시등 작동 앞뒤 10초, 브레이크 작동 앞뒤 5초가 아님
  *
+ * 보조 주행 조건만 빼고 본 판정은 [GateDecision.reasonWithoutAssist]에 따로 담는다 (안전 우회·인계 품질용).
+ *
  * **판정이 늦게 확정된다.** 방향지시등을 켜기 10초 '전' 프레임도 빼야 하므로(REQ_FAT_002 비고: 소급 제외),
  * 각 프레임은 그 뒤 10초를 보고 나서야 확정된다. [push]는 그때 확정된 프레임만 돌려준다.
  *
@@ -85,7 +95,8 @@ data class GateDecision(
  */
 class SteeringGate(private val config: FatigueConfig = FatigueConfig()) {
 
-    private class Pending(val input: GateInput, val immediateReason: GateReason)
+    /** [baseReason]: 보조 주행을 빼고 그 프레임만 보고 바로 알 수 있는 판정 */
+    private class Pending(val input: GateInput, val baseReason: GateReason)
 
     /** 아직 확정하지 않은 프레임 (최대 10초 분량) */
     private val pending = ArrayDeque<Pending>()
@@ -114,7 +125,7 @@ class SteeringGate(private val config: FatigueConfig = FatigueConfig()) {
         lastFrameMs = input.tMs
 
         updateSpeedHold(input)
-        pending.addLast(Pending(input, immediateReason(input)))
+        pending.addLast(Pending(input, baseReason(input)))
         return finalizeUpTo(input.tMs - decisionDelayMs)
     }
 
@@ -133,13 +144,15 @@ class SteeringGate(private val config: FatigueConfig = FatigueConfig()) {
         resetSpeedHold()
     }
 
-    /** 그 프레임만 보고 바로 알 수 있는 판정. 방향지시등·브레이크 앞뒤 여유는 확정할 때 본다. */
-    private fun immediateReason(input: GateInput): GateReason {
+    /**
+     * 그 프레임만 보고 바로 알 수 있는 판정. 보조 주행 여부는 확정할 때 덮어쓰고,
+     * 방향지시등·브레이크 앞뒤 여유도 확정할 때 본다.
+     */
+    private fun baseReason(input: GateInput): GateReason {
         val speed = input.speedKph
         val inDrive = input.inDrive
         val dist = input.distToNextTurnM
         return when {
-            input.assistMode -> GateReason.ASSIST
             input.steeringDeg == null || speed == null || inDrive == null ||
                 input.turnSignalOn == null || input.brakeOn == null -> GateReason.NO_SIGNAL
             speed < config.gateMinSpeedKph -> GateReason.LOW_SPEED
@@ -184,15 +197,17 @@ class SteeringGate(private val config: FatigueConfig = FatigueConfig()) {
             if (current.input.turnSignalOn == true) lastTurnOnMs = t
             if (current.input.brakeOn == true) lastBrakeOnMs = t
 
-            val reason = when {
-                current.immediateReason != GateReason.PASS -> current.immediateReason
+            val base = when {
+                current.baseReason != GateReason.PASS -> current.baseReason
                 nearActivation(t, lastTurnOnMs, config.turnSignalMarginMs) { it.turnSignalOn == true } ->
                     GateReason.TURN_SIGNAL
                 nearActivation(t, lastBrakeOnMs, config.brakeMarginMs) { it.brakeOn == true } ->
                     GateReason.BRAKE
                 else -> GateReason.PASS
             }
-            out += GateDecision(t, current.input.steeringDeg, reason)
+            // 보조 주행이면 다른 이유보다 먼저 ASSIST로 표시한다 (화면의 회색 게이지, REQ_AST_004)
+            val reason = if (current.input.assistMode) GateReason.ASSIST else base
+            out += GateDecision(t, current.input.steeringDeg, reason, reasonWithoutAssist = base)
         }
         return out
     }

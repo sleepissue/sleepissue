@@ -166,6 +166,21 @@ class BaselineStoreTest {
     }
 
     @Test
+    fun usualHandoverCountIsMedianOfAwakeRecords() {
+        // 평소 해제 직후 30초 큰 수정 횟수 (REQ_AST_007 '평소 해제 때'). 값이 있는 기록이 없으면 null → '3회 이상' 기준
+        assertNull(BaselineStore.usualHandoverLargeCountOf(emptyList()))
+        val trips = listOf(
+            BaselineRecord(tripId = 1L, microPerMin = 20f, largePerMin = 4f, handoverLargeCount = 2, validAwake = true),
+            BaselineRecord(tripId = 2L, microPerMin = 20f, largePerMin = 4f, handoverLargeCount = 4, validAwake = true),
+            BaselineRecord(tripId = 3L, microPerMin = 20f, largePerMin = 4f, handoverLargeCount = null, validAwake = true),
+            BaselineRecord(tripId = 4L, microPerMin = 20f, largePerMin = 4f, handoverLargeCount = 9, validAwake = false),
+        )
+        assertEquals(3f, BaselineStore.usualHandoverLargeCountOf(trips)!!, 0f)
+        val store = BaselineStore().apply { loadHistory(trips) }
+        assertEquals(3f, store.usualHandoverLargeCount!!, 0f)
+    }
+
+    @Test
     fun stateObjectStaysTheSameWhenNothingChanges() {
         // 값이 그대로면 같은 객체를 유지 → StateFlow에 넣어도 바뀔 때만 알림이 감
         val store = BaselineStore()

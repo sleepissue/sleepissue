@@ -1,8 +1,12 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
+import com.sleepissue.awakedrive.engine.model.AssistReason
 import com.sleepissue.awakedrive.engine.model.BaselineRecord
 import com.sleepissue.awakedrive.engine.model.BaselineSource
+import com.sleepissue.awakedrive.engine.model.DriveFrame
 import com.sleepissue.awakedrive.engine.model.FatigueState
+import com.sleepissue.awakedrive.engine.model.SteeringEvent
+import com.sleepissue.awakedrive.engine.model.SteeringEventType
 import com.sleepissue.awakedrive.engine.model.InvalidReason
 import com.sleepissue.awakedrive.engine.model.PatternState
 import com.sleepissue.awakedrive.engine.model.PatternType
@@ -62,7 +66,7 @@ class FatigueEngineTest {
 
     /** 고속도로 직선 주행 프레임: D단, 방향지시등·브레이크 없음, 다음 회전 지점 1 km */
     private fun frame(tMs: Long, steeringDeg: Float, speedKph: Float = 80f, assist: Boolean = false) =
-        GateInput(
+        DriveFrame(
             tMs = tMs,
             steeringDeg = steeringDeg,
             speedKph = speedKph,
@@ -70,7 +74,7 @@ class FatigueEngineTest {
             turnSignalOn = false,
             brakeOn = false,
             distToNextTurnM = 1_000f,
-            assistMode = assist,
+            cruiseActive = assist,
         )
 
     /** [fromMs]~[toMs]를 100 ms마다 넣고 나온 FatigueState를 모은다 */
@@ -321,6 +325,52 @@ class FatigueEngineTest {
         }
         assertEquals(listOf(315_400L), turnedOnAt)
         assertFalse("605.4 s에 유지가 끝나 630 s 갱신에서 꺼짐", engine.patternState.safetyBypass)
+    }
+
+    @Test
+    fun safetyBypassStillWorksDuringAssistMode() {
+        // 보조 주행 중에도 5분 안 급조향 3회면 안전 우회 (기획서 5-4 "안전 우회는 그대로 씁니다", REQ_PAT_005)
+        // 급조향 1회짜리 사건(2단계용)은 보조 주행 중에는 내지 않음 — 조향을 졸음 판단에서 뺌 (REQ_AST_004)
+        val engine = FatigueEngine()
+        val starts = longArrayOf(70_000L, 170_000L, 270_000L)
+        val states = engine.drive(0L, 320_000L, assist = { true }) { distractedDeg(it, *starts) }
+        assertEquals(AssistReason.CRUISE, engine.assistState.reason)
+        assertTrue(states.all { it.invalidReason == InvalidReason.ASSIST })
+        assertTrue(engine.patternState.safetyBypass)
+        assertEquals(
+            listOf(SteeringEvent(305_400L, SteeringEventType.REPEATED_RAPID_STEERING)),
+            engine.drainEvents(),
+        )
+        assertTrue("꺼낸 사건은 지워짐", engine.drainEvents().isEmpty())
+    }
+
+    @Test
+    fun suddenSteerWithinThirtySecondsAfterCruiseOffIsUnsafeHandover() {
+        // 크루즈를 200 s에 끄고 29 s 뒤 급조향 → 인계 품질 이상 + 급조향 1회 (REQ_AST_007, REQ_INT_002)
+        // 31 s 뒤면 인계 감시 밖이라 급조향 1회 사건만 (해제 전부터 운전대는 가만히 있었음)
+        assertEquals(
+            listOf(
+                SteeringEvent(229_000L, SteeringEventType.RAPID_STEERING),
+                SteeringEvent(229_000L, SteeringEventType.HANDOVER_UNSAFE),
+            ),
+            handoverEvents(jumpAfterReleaseMs = 28_600L),
+        )
+        assertEquals(
+            listOf(SteeringEvent(231_000L, SteeringEventType.RAPID_STEERING)),
+            handoverEvents(jumpAfterReleaseMs = 30_600L),
+        )
+    }
+
+    /** 0~200 s 크루즈, 그 뒤 해제. 해제 [jumpAfterReleaseMs] 뒤부터 0.4초 만에 0° → 7° 꺾는다. 나온 사건을 돌려준다 */
+    private fun handoverEvents(jumpAfterReleaseMs: Long): List<SteeringEvent> {
+        val releaseMs = 200_000L
+        val jumpMs = releaseMs + jumpAfterReleaseMs
+        val engine = FatigueEngine()
+        engine.drive(0L, 260_000L, assist = { it < releaseMs }) { t ->
+            if (t < jumpMs) 0f else 7f * minOf(t - jumpMs + 100L, 500L) / 500f
+        }
+        assertFalse(engine.assistState.assistMode)
+        return engine.drainEvents()
     }
 
     @Test

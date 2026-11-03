@@ -81,14 +81,22 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
         refresh()
     }
 
-    /** 멈춤 뒤 급조향이 확인될 때마다 그 시각(게이트 판정 시각)으로 부른다 (REQ_PAT_005). */
-    internal fun onSudden(tMs: Long) {
+    /**
+     * 멈춤 뒤 급조향이 확인될 때마다 그 시각(게이트 판정 시각)으로 부른다 (REQ_PAT_005).
+     * 보조 주행 중의 급조향도 넣는다 (기획서 5-4 "안전 우회는 그대로 씁니다").
+     * 안전 우회 신호가 이번에 새로 켜졌으면 true.
+     */
+    internal fun onSudden(tMs: Long): Boolean {
+        // 마지막 상태가 아니라 이 시각 기준으로 켜져 있었는지 본다 (유지 시간이 막 끝난 직후의 새 신호를 놓치지 않게)
+        val wasOn = bypassUntilMs?.let { tMs < it } ?: false
         nowMs = maxOf(nowMs, tMs)
         suddenTimes.addLast(tMs)
         // 5분 이하만 남김: 300.0 s → 포함, 300.1 s → 제외 [해석]
         while (suddenTimes.isNotEmpty() && tMs - suddenTimes.first() > config.safetyBypassWindowMs) suddenTimes.removeFirst()
         if (suddenTimes.size >= config.safetyBypassSuddenCount) bypassUntilMs = tMs + config.safetyBypassHoldMs
         refresh()
+        val isOn = bypassUntilMs?.let { tMs < it } ?: false
+        return isOn && !wasOn
     }
 
     /** 새 운행이나 데모 처음부터 다시 재생할 때 모두 지운다. */

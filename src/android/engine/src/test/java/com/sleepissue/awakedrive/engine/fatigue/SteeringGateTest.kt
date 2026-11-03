@@ -137,6 +137,13 @@ class SteeringGateTest {
     fun assistModeIsExcluded() {
         val result = run(listOf(frame(0, assistMode = true)))
         assertEquals(GateReason.ASSIST, result[0L])
+
+        // 보조 주행만 빼고 보면 통과 → 안전 우회·인계 품질 감시에는 쓴다 (기획서 5-4)
+        val gate = SteeringGate()
+        gate.push(frame(0, assistMode = true))
+        val decision = gate.flush().single()
+        assertEquals(GateReason.PASS, decision.reasonWithoutAssist)
+        assertTrue(decision.passedWithoutAssist)
     }
 
     @Test
