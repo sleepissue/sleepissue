@@ -59,6 +59,23 @@ class SteeringMetrics(private val config: FatigueConfig = FatigueConfig()) {
     private var lastPassed = false
     private var nextUpdateMs: Long? = null
 
+    // reset 뒤 누적값. 오늘의 나(유효 구간 처음 15분, REQ_BSL_004)를 만드는 재료다.
+    /** 게이트를 통과한 시간 합(ms) */
+    internal var gatedMsTotal = 0L
+        private set
+
+    /** 미세 수정 횟수 합 */
+    internal var microTotal = 0
+        private set
+
+    /** 큰 수정 횟수 합 */
+    internal var largeTotal = 0
+        private set
+
+    /** 멈춤 뒤 급조향 횟수 합 */
+    internal var suddenTotal = 0
+        private set
+
     /** 게이트 판정 하나를 넣는다. 30초 갱신 시각이 되면 지표를 돌려주고, 아니면 null. */
     fun accept(decision: GateDecision): SteeringIndicators? {
         val t = decision.tMs
@@ -72,18 +89,28 @@ class SteeringMetrics(private val config: FatigueConfig = FatigueConfig()) {
                 val gap = t - previous
                 if (gap <= config.gateMaxFrameGapMs) {
                     gatedSlices.addLast(t to gap)
+                    gatedMsTotal += gap
                 } else {
                     resetDetectors()
                 }
             }
             reversal.add(t, angle)?.let { swing ->
                 when (config.swingClassOf(swing.amplitudeDeg)) {
-                    SwingClass.MICRO -> microTimes.addLast(swing.endMs)
-                    SwingClass.LARGE -> largeTimes.addLast(swing.endMs)
+                    SwingClass.MICRO -> {
+                        microTimes.addLast(swing.endMs)
+                        microTotal++
+                    }
+                    SwingClass.LARGE -> {
+                        largeTimes.addLast(swing.endMs)
+                        largeTotal++
+                    }
                     SwingClass.NONE -> Unit
                 }
             }
-            if (sudden.add(t, angle)) suddenTimes.addLast(t)
+            if (sudden.add(t, angle)) {
+                suddenTimes.addLast(t)
+                suddenTotal++
+            }
             lastPassed = true
         } else {
             if (lastPassed) resetDetectors()
@@ -109,6 +136,10 @@ class SteeringMetrics(private val config: FatigueConfig = FatigueConfig()) {
         lastDecisionMs = null
         lastPassed = false
         nextUpdateMs = null
+        gatedMsTotal = 0L
+        microTotal = 0
+        largeTotal = 0
+        suddenTotal = 0
     }
 
     private fun resetDetectors() {

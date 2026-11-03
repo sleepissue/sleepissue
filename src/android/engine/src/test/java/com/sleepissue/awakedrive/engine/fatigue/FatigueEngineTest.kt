@@ -1,21 +1,29 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
+import com.sleepissue.awakedrive.engine.model.BaselineRecord
+import com.sleepissue.awakedrive.engine.model.BaselineSource
 import com.sleepissue.awakedrive.engine.model.FatigueState
 import com.sleepissue.awakedrive.engine.model.InvalidReason
-import com.sleepissue.awakedrive.engine.model.SteeringBaseline
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.exp
 
 /**
- * FatigueEngine 전체 흐름 시험: 게이트 → 지표 → f값 → B·K·R → 3분 지수평균.
- * 기대값은 SRS v0.2 REQ_FAT_012·019·020, REQ_AST_004 합격기준.
+ * FatigueEngine 전체 흐름 시험: 게이트 → 지표 → 기준선 → f값 → B·K·R → 3분 지수평균.
+ * 기대값은 SRS v0.2 REQ_FAT_012·019·020, REQ_BSL_004~007, REQ_AST_004, REQ_RES_011 합격기준.
  */
 class FatigueEngineTest {
 
     private val minute = 60_000L
+
+    /** 깨어 있던 운행 기록 3건 → 평소의 나가 생긴다 (REQ_BSL_003) */
+    private fun awakeTrips(microPerMin: Float, largePerMin: Float = 4f) = (1L..3L).map {
+        BaselineRecord(tripId = it, microPerMin = microPerMin, largePerMin = largePerMin, validAwake = true)
+    }
 
     /** 맥락 가중 5개가 모두 켜진 맥락: K = 1.35 */
     private val riskyContext = ContextInput(
@@ -161,26 +169,107 @@ class FatigueEngineTest {
     }
 
     @Test
-    fun baselineDecidesWhatCountsAsTooFewCorrections() {
-        // 같은 운전(미세 수정 분당 약 59회)도 기준선이 분당 240회인 사람에게는 크게 줄어든 것 → f미세 1, B = 35 (REQ_FAT_009)
-        val engine = FatigueEngine(initialBaseline = SteeringBaseline(microPerMin = 240f, largePerMin = 4f))
+    fun usualBaselineDecidesWhatCountsAsTooFewCorrections() {
+        // 같은 운전(미세 수정 분당 약 59회)도 평소 분당 240회인 사람에게는 크게 줄어든 것 → f미세 1, B = 35 (REQ_FAT_009)
+        val engine = FatigueEngine()
+        engine.baselineStore.loadHistory(awakeTrips(microPerMin = 240f))
+        assertEquals(BaselineSource.USUAL, engine.baselineState.source)
         val first = engine.drive(0L, 70_000L, steering = ::awakeDeg).single()
         assertEquals(1f, first.fMicro, 0f)
         assertEquals(35f, first.behaviorB, 1e-3f)
 
-        // 기준선을 분당 20회로 바꾸면 다음 갱신부터 f미세 0
-        engine.baseline = SteeringBaseline(microPerMin = 20f, largePerMin = 4f)
+        // 평소가 분당 20회인 기록으로 바꾸면 다음 갱신부터 f미세 0
+        engine.baselineStore.loadHistory(awakeTrips(microPerMin = 20f))
         val next = engine.drive(70_100L, 100_000L, steering = ::awakeDeg).single()
         assertEquals(0f, next.fMicro, 0f)
         assertEquals(0f, next.behaviorB, 0f)
     }
 
     @Test
-    fun resetStartsOverFromZero() {
-        // 새 운행: 첫 갱신은 다시 60초 뒤, 평활값은 0부터
+    fun todayBaselineIsConfirmedAtFifteenGatedMinutes() {
+        // 유효 누적 14 min 59.9 s → 미확정(기본값 사용), 15 min 0 s → 확정 (REQ_BSL_004)
+        // 처음부터 게이트를 통과하므로 900 s 판정이 확정되는 910 s 프레임에서 오늘의 나가 생긴다
         val engine = FatigueEngine()
+        engine.drive(0L, 909_900L, steering = ::awakeDeg)
+        assertNull(engine.baselineState.today)
+        assertEquals(BaselineSource.DEFAULT, engine.baselineState.source)
+
+        engine.drive(910_000L, 910_000L, steering = ::awakeDeg)
+        val state = engine.baselineState
+        val today = state.today
+        assertNotNull(today)
+        assertEquals(60f, today!!.microPerMin, 1f)
+        assertEquals(0f, today.largePerMin, 0f)
+        assertEquals(BaselineSource.TODAY, state.source)
+        assertFalse(state.departureFatigue)
+        assertFalse(state.sensitive)
+    }
+
+    @Test
+    fun drowsyFirstFifteenMinutesMeansDepartureFatigue() {
+        // 처음 15분이 미세 수정 0(기본값 20의 −100%), 큰 수정 분당 약 10회(기본값 4의 2.5배) → 조건 2개 → 출발 피로 (REQ_BSL_005)
+        // 민감 모드가 되고 비교 기준은 기본값으로 고정, 첫 음성 확인은 15분 뒤 (REQ_BSL_006, REQ_DMO_006)
+        val engine = FatigueEngine()
+        val turnedOnAt = ArrayList<Long>()
+        var before = false
+        val states = (0L..1_200_000L step 100L).flatMap { t ->
+            val out = engine.push(frame(t, drowsyDeg(t)))
+            val now = engine.baselineState.departureFatigue
+            if (now && !before) turnedOnAt += t
+            before = now
+            out
+        }
+        assertEquals("출발 피로 판정은 한 번 (예보 재계산 1회)", listOf(910_000L), turnedOnAt)
+        val state = engine.baselineState
+        assertTrue(state.sensitive)
+        assertEquals(BaselineSource.DEFAULT, state.source)
+        assertEquals(910_000L, state.sensitiveSinceMs)
+        assertEquals(910_000L + 15 * minute, state.firstCheckDueMs)
+
+        // 졸린 15분을 오늘의 나로 삼았다면 B가 0이 됐을 것. 기본값으로 고정했으므로 판정 뒤에도 B = 60
+        val afterJudgement = states.filter { it.tMs > 900_000L }
+        assertTrue(afterJudgement.isNotEmpty())
+        for (s in afterJudgement) assertEquals(60f, s.behaviorB, 1e-3f)
+    }
+
+    @Test
+    fun sleepyConditionCountsFirstCheckFromDeparture() {
+        // '졸려요' → 바로 민감 모드 (REQ_BSL_007). 첫 음성 확인은 출발(D단)부터 15분 뒤 [해석]
+        val engine = FatigueEngine()
+        engine.baselineStore.reportCondition(sleepy = true, tMs = 0L)
+        assertTrue(engine.baselineState.sensitive)
+        assertNull("아직 출발 전", engine.baselineState.firstCheckDueMs)
+
+        engine.drive(60_000L, 70_000L, steering = ::awakeDeg)
+        assertEquals(60_000L + 15 * minute, engine.baselineState.firstCheckDueMs)
+    }
+
+    @Test
+    fun restResetsOnlyTheSmoothedScore() {
+        // 휴식 인증 뒤: 위험 점수 평활값은 0부터 다시, 오늘의 나는 유지 (REQ_RES_011)
+        val engine = FatigueEngine()
+        engine.drive(0L, 910_000L, steering = ::awakeDeg)
+        val today = engine.baselineState.today
+        assertNotNull(today)
+        assertTrue(engine.drive(910_100L, 1_100_000L, steering = ::drowsyDeg).last().riskSmoothed > 0f)
+
+        engine.resetRiskAfterRest()
+        val next = engine.drive(1_100_100L, 1_130_000L, steering = ::drowsyDeg).single()
+        assertTrue(next.valid)
+        assertEquals("0에서 한 번 섞은 값 = R × α", next.riskR * 0.1535f, next.riskSmoothed, 0.01f)
+        assertEquals(today, engine.baselineState.today)
+        assertEquals(BaselineSource.TODAY, engine.baselineState.source)
+    }
+
+    @Test
+    fun resetStartsANewTrip() {
+        // 새 운행: 첫 갱신은 다시 60초 뒤, 평활값 0부터, 출발 전 컨디션도 지움 (REQ_TRP_008)
+        val engine = FatigueEngine()
+        engine.baselineStore.reportCondition(sleepy = true, tMs = 0L)
         assertTrue(engine.drive(0L, 310_000L, steering = ::drowsyDeg).last().riskSmoothed > 0f)
+
         engine.reset()
+        assertFalse(engine.baselineState.sensitive)
         val restarted = engine.drive(1_000_000L, 1_070_000L, steering = ::awakeDeg)
         assertEquals(listOf(1_060_000L), restarted.map { it.tMs })
         assertEquals(0f, restarted.single().riskSmoothed, 0f)

@@ -1,20 +1,23 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
+import com.sleepissue.awakedrive.engine.baseline.BaselineStore
 import com.sleepissue.awakedrive.engine.config.BaselineConfig
 import com.sleepissue.awakedrive.engine.config.FatigueConfig
+import com.sleepissue.awakedrive.engine.model.BaselineState
 import com.sleepissue.awakedrive.engine.model.FatigueState
 import com.sleepissue.awakedrive.engine.model.InvalidReason
-import com.sleepissue.awakedrive.engine.model.SteeringBaseline
 
 /**
- * 졸음 판단 엔진. 30초마다 [FatigueState]를 낸다. (REQ_FAT_001~020)
+ * 졸음 판단 엔진. 30초마다 [FatigueState]를 낸다. (REQ_FAT_001~020, REQ_BSL_003~007)
  *
- * 흐름: 조향 게이트 → 조향 지표 3개 → f값 → 행동 점수 B × 맥락 가중 K = 위험 점수 R → 3분 지수평균
+ * 흐름: 조향 게이트 → 조향 지표 3개 → 기준선과 비교한 f값 → 행동 점수 B × 맥락 가중 K = 위험 점수 R → 3분 지수평균
  *
  * 쓰는 법
  * - [push]에 10 Hz 프레임을 넣는다. 30초 갱신 시각이 된 호출에서만 FatigueState가 하나 나오고, 나머지는 빈 목록이다.
  * - 맥락(연속 운전·시각·착석·실내 온도)이 바뀌면 [context]를 바꾼다. K는 FatigueState를 낼 때의 맥락으로 계산한다.
- * - 기준선은 [baseline]으로 바꾼다. 지금은 운행 기록 3회 전 기본값으로 시작한다 (REQ_BSL_003).
+ * - 기준선은 [baselineStore]가 정한다. 앱을 켤 때 운행 기록을 `baselineStore.loadHistory(...)`로,
+ *   출발 전 컨디션을 `baselineStore.reportCondition(...)`으로 넣는다. 상태는 [baselineState]로 읽는다.
+ * - 새 운행이면 [reset], 휴식 인증 뒤면 [resetRiskAfterRest]를 부른다.
  *
  * 게이트가 방향지시등을 켜기 10초 전 프레임까지 빼느라 판정을 10초 늦게 확정하므로,
  * FatigueState.tMs는 넣은 프레임 시각보다 10초 늦다. 60초 시점 값은 70초 프레임을 넣을 때 나온다.
@@ -30,34 +33,66 @@ import com.sleepissue.awakedrive.engine.model.SteeringBaseline
  */
 class FatigueEngine(
     private val config: FatigueConfig = FatigueConfig(),
-    initialBaseline: SteeringBaseline = BaselineConfig().defaultBaseline,
+    baselineConfig: BaselineConfig = BaselineConfig(),
 ) {
-    /** f미세·f큰의 비교 기준. BaselineStore가 정해 넣는다 (REQ_BSL_003~007). 다음 갱신부터 쓴다. */
-    var baseline: SteeringBaseline = initialBaseline
-
     /** 맥락 가중 K의 입력. 1번 TripState·SignalFrame에서 만들어 바뀔 때마다 넣는다. */
     var context: ContextInput = ContextInput()
+
+    /** 기본값·평소의 나·오늘의 나 가운데 비교 기준을 고르고, 출발 피로·민감 모드를 정한다. */
+    val baselineStore = BaselineStore(baselineConfig)
+
+    /** 지금 기준선·민감 모드 상태 (1번·4번·5번이 읽음) */
+    val baselineState: BaselineState get() = baselineStore.state
 
     private val gate = SteeringGate(config)
     private val metrics = SteeringMetrics(config)
     private val smoother = RiskSmoother(config)
 
+    /** 마지막으로 넣은 프레임 시각. 민감 모드 시작·첫 음성 확인 시각을 이 시계로 잡는다 */
+    private var lastInputMs: Long? = null
+
     /** 프레임 하나를 넣는다. 30초 갱신 시각이 되면 FatigueState가 들어 있는 목록을 돌려준다. */
-    fun push(input: GateInput): List<FatigueState> = gate.push(input).mapNotNull(::onDecision)
+    fun push(input: GateInput): List<FatigueState> {
+        lastInputMs = input.tMs
+        if (input.inDrive == true) baselineStore.onDriveFrame(input.tMs)
+        return gate.push(input).mapNotNull { onDecision(it, input.tMs) }
+    }
 
     /** 게이트에 남은 프레임을 모두 확정해 남은 갱신을 낸다. 운행이 끝날 때만 쓴다. */
-    fun flush(): List<FatigueState> = gate.flush().mapNotNull(::onDecision)
+    fun flush(): List<FatigueState> = gate.flush().mapNotNull { onDecision(it, lastInputMs ?: it.tMs) }
 
-    /** 새 운행이나 데모 처음부터 다시 재생할 때 지표·평활값을 지운다. 기준선과 맥락은 그대로 둔다. */
+    /**
+     * 새 운행(꺼져 있던 시간 2시간 초과, REQ_TRP_008): 지표·평활값·오늘의 나·출발 피로·컨디션을 지운다.
+     * 평소의 나(운행 기록)와 맥락은 그대로 둔다. 시동을 켠 직후, 출발 전 컨디션을 받기 전에 부른다.
+     */
     fun reset() {
         gate.reset()
         metrics.reset()
         smoother.reset()
+        baselineStore.resetTrip()
+        lastInputMs = null
     }
 
-    private fun onDecision(decision: GateDecision): FatigueState? {
-        val indicators = metrics.accept(decision) ?: return null
-        return evaluate(indicators, decision.reason)
+    /**
+     * 휴식 인증 + 회복 확인 뒤(REQ_RES_011): 위험 점수 평활값만 0부터 다시 센다.
+     * 오늘의 나는 그대로 둔다. 쉬고 난 직후로 다시 잡으면 덜 깬 상태가 기준이 될 수 있어서다.
+     */
+    fun resetRiskAfterRest() {
+        smoother.reset()
+    }
+
+    private fun onDecision(decision: GateDecision, nowMs: Long): FatigueState? {
+        val indicators = metrics.accept(decision)
+        if (baselineState.today == null) {
+            baselineStore.updateToday(
+                nowMs = nowMs,
+                gatedMs = metrics.gatedMsTotal,
+                microCount = metrics.microTotal,
+                largeCount = metrics.largeTotal,
+                suddenCount = metrics.suddenTotal,
+            )
+        }
+        return indicators?.let { evaluate(it, decision.reason) }
     }
 
     private fun evaluate(indicators: SteeringIndicators, reason: GateReason): FatigueState {
@@ -81,8 +116,9 @@ class FatigueEngine(
             )
         }
 
-        val fMicro = FatigueFactors.fMicro(indicators.microPerMin, baseline.microPerMin, config)
-        val fLarge = FatigueFactors.fLarge(indicators.largePerMin, baseline.largePerMin, config)
+        val reference = baselineState.reference
+        val fMicro = FatigueFactors.fMicro(indicators.microPerMin, reference.microPerMin, config)
+        val fLarge = FatigueFactors.fLarge(indicators.largePerMin, reference.largePerMin, config)
         val fSudden = FatigueFactors.fSudden(indicators.suddenCount5m, config)
         val behaviorB = RiskScore.behaviorScore(fMicro, fLarge, fSudden, config)
         val riskR = RiskScore.riskScore(behaviorB, contextK, config)
