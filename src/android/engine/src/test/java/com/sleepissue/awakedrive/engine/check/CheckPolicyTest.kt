@@ -39,23 +39,23 @@ class CheckPolicyTest {
 
     @Test
     fun `회전 거리와 차량 조작이 안전할 때만 확인을 시작한다`() {
-        assertFalse(policy.canStart(CheckContext(299f, turnSignalOn = false, brakeOn = false)))
-        assertTrue(policy.canStart(CheckContext(300f, turnSignalOn = false, brakeOn = false)))
-        assertTrue(policy.canStart(CheckContext(null, turnSignalOn = false, brakeOn = false)))
-        assertFalse(policy.canStart(CheckContext(500f, turnSignalOn = true, brakeOn = false)))
-        assertFalse(policy.canStart(CheckContext(500f, turnSignalOn = false, brakeOn = true)))
+        assertFalse(policy.canStart(context(distanceM = 299f)))
+        assertTrue(policy.canStart(context(distanceM = 300f)))
+        assertTrue(policy.canStart(context(distanceM = null)))
+        assertFalse(policy.canStart(context(turnSignalOn = true)))
+        assertFalse(policy.canStart(context(brakeOn = true)))
     }
 
     @Test
-    fun `회전 거리로 미룬 확인은 최대 60초 뒤 진행하지만 차량 조작 중이면 끝날 때까지 기다린다`() {
-        val unsafeTurn = CheckContext(299f, turnSignalOn = false, brakeOn = false)
-        assertFalse(policy.canStartAfterDeferral(0L, 59_999L, unsafeTurn))
-        assertTrue(policy.canStartAfterDeferral(0L, 60_000L, unsafeTurn))
+    fun `회전 거리로 미룬 확인은 최대 20초 뒤 진행하지만 차량 조작 중이면 끝날 때까지 기다린다`() {
+        val unsafeTurn = context(distanceM = 299f)
+        assertFalse(policy.canStartAfterDeferral(0L, 19_999L, unsafeTurn))
+        assertTrue(policy.canStartAfterDeferral(0L, 20_000L, unsafeTurn))
         assertFalse(
             policy.canStartAfterDeferral(
                 0L,
-                60_000L,
-                CheckContext(299f, turnSignalOn = true, brakeOn = false),
+                20_000L,
+                context(distanceM = 299f, turnSignalOn = true),
             ),
         )
     }
@@ -97,5 +97,15 @@ class CheckPolicyTest {
         latencyMs = null,
         verdict = verdict,
         ts = ts,
+    )
+
+    private fun context(
+        distanceM: Float? = 500f,
+        turnSignalOn: Boolean = false,
+        brakeOn: Boolean = false,
+    ) = CheckContext(
+        distToNextTurnM = distanceM,
+        turnSignalOn = turnSignalOn,
+        brakeOn = brakeOn,
     )
 }

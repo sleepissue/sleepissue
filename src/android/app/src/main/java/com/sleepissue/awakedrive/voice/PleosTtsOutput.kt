@@ -17,6 +17,7 @@ class PleosTtsOutput(
     private val tts = TextToSpeech(context.applicationContext, Mode.ON_DEVICE)
     private var state = State.INITIALIZING
     private var initializationError: Throwable? = null
+    private var eventListenerRegistered = false
     private val queue = ArrayDeque<PendingSpeech>()
     private var active: PendingSpeech? = null
 
@@ -46,15 +47,21 @@ class PleosTtsOutput(
     }
 
     init {
-        tts.addEventListener(eventListener)
         tts.initialize(object : OnInitializeListener {
             override fun onSuccess() {
+                if (state == State.CLOSED) {
+                    tts.release()
+                    return
+                }
+                tts.addEventListener(eventListener)
+                eventListenerRegistered = true
                 tts.setLocale(Locale.KOREA)
                 state = State.READY
                 startNext()
             }
 
             override fun onFailure(errorType: ErrorType) {
+                if (state == State.CLOSED) return
                 state = State.FAILED
                 initializationError = IllegalStateException("Pleos TTS 초기화 실패: $errorType")
                 failQueued(requireNotNull(initializationError))
@@ -92,9 +99,13 @@ class PleosTtsOutput(
     }
 
     override fun close() {
-        tts.stop()
-        tts.removeEventListener(eventListener)
-        tts.release()
+        if (state == State.CLOSED) return
+        if (state == State.READY) tts.stop()
+        if (eventListenerRegistered) {
+            tts.removeEventListener(eventListener)
+            eventListenerRegistered = false
+        }
+        if (state != State.INITIALIZING) tts.release()
         state = State.CLOSED
         active = null
         failQueued(IllegalStateException("Pleos TTS가 해제됐습니다."))

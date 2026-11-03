@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.check.CheckResult
+import com.sleepissue.awakedrive.engine.check.CheckType
 import com.sleepissue.awakedrive.engine.check.QuestionType
 import com.sleepissue.awakedrive.engine.check.SpeechIntent
 import com.sleepissue.awakedrive.engine.config.EngineConfig
@@ -27,6 +28,7 @@ class VoiceCheckCoordinator(
     fun start(
         baselineMs: Long,
         questionType: QuestionType,
+        checkType: CheckType = CheckType.VOICE,
         onResult: (CheckResult, twoConsecutiveSlow: Boolean) -> Unit,
         onSttFallbackRequired: () -> Unit,
     ) {
@@ -35,6 +37,7 @@ class VoiceCheckCoordinator(
         latestIntent = SpeechIntent.NONE
         activeBaselineMs = baselineMs
         activeQuestionType = questionType
+        activeCheckType = checkType
 
         fun deliver(result: CheckResult) {
             if (currentGeneration != generation) return
@@ -46,7 +49,7 @@ class VoiceCheckCoordinator(
             ) {
                 recheck = Runnable {
                     if (currentGeneration == generation) {
-                        start(baselineMs, questionType, onResult, onSttFallbackRequired)
+                        start(baselineMs, questionType, checkType, onResult, onSttFallbackRequired)
                     }
                 }.also { handler.postDelayed(it, config.voiceRecheckDelayMs) }
             }
@@ -56,6 +59,7 @@ class VoiceCheckCoordinator(
         tonePlayer.play {
             if (currentGeneration != generation) return@play
             checkManager.onBeepEnded()
+            var unavailable = false
             val started = recognizer.start(
                 questionType,
                 RecognitionCallbacks(
@@ -64,21 +68,31 @@ class VoiceCheckCoordinator(
                     onEnded = { finishCurrent(currentGeneration) },
                     onUnavailable = {
                         if (currentGeneration == generation) {
+                            unavailable = true
                             onSttFallbackRequired()
-                            finishCurrent(currentGeneration)
                         }
                     },
                 ),
             )
             if (started) {
-                timeout = Runnable { finishCurrent(currentGeneration) }
+                timeout = Runnable {
+                    if (currentGeneration != generation) return@Runnable
+                    recognizer.stop()
+                    handler.postDelayed(
+                        { finishCurrent(currentGeneration) },
+                        config.sttFinalizationGraceMs,
+                    )
+                }
                     .also { handler.postDelayed(it, config.voiceResponseTimeoutMs) }
+            } else if (unavailable) {
+                finishCurrent(currentGeneration)
             }
         }
     }
 
     private var activeBaselineMs = 0L
     private var activeQuestionType = QuestionType.DRIVER_CHECK
+    private var activeCheckType = CheckType.VOICE
     private var resultConsumer: ((CheckResult) -> Unit)? = null
 
     private fun finishCurrent(expectedGeneration: Long) {
@@ -91,6 +105,7 @@ class VoiceCheckCoordinator(
             baselineMs = activeBaselineMs,
             questionType = activeQuestionType,
             recognizedText = null,
+            type = activeCheckType,
         ).copy(intent = latestIntent)
         resultConsumer?.invoke(result)
     }

@@ -8,10 +8,13 @@ import android.media.AudioRecord
 import android.media.MediaRecorder
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.content.ContextCompat
 import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.model.Clock
 import com.sleepissue.awakedrive.voice.AndroidElapsedClock
+import com.sleepissue.awakedrive.voice.AndroidDuckingAudioFocus
+import com.sleepissue.awakedrive.voice.DuckingAudioFocus
 import kotlin.math.sqrt
 
 /** 확인 직전 지정된 시간만 PCM을 읽고, 원본을 보관하지 않은 채 말소리 유무만 반환한다. */
@@ -20,10 +23,12 @@ class CabinMonitor(
     private val config: EngineConfig = EngineConfig(),
     private val clock: Clock = AndroidElapsedClock(),
     private val callbackHandler: Handler = Handler(Looper.getMainLooper()),
+    private val audioFocus: DuckingAudioFocus = AndroidDuckingAudioFocus(context),
 ) : AutoCloseable {
     @Volatile private var running = false
     private var recorder: AudioRecord? = null
     private var worker: Thread? = null
+    private var focusHeld = false
 
     fun sample(onResult: (speechDetected: Boolean) -> Unit, onError: (Throwable) -> Unit) {
         if (running) return
@@ -60,6 +65,8 @@ class CabinMonitor(
             return
         }
 
+        audioFocus.acquire()
+        focusHeld = true
         running = true
         worker = Thread({ monitor(minimum, onResult, onError) }, "AwakeDrive-CabinMonitor")
             .also(Thread::start)
@@ -73,6 +80,7 @@ class CabinMonitor(
         val localRecorder = requireNotNull(recorder)
         val buffer = ShortArray(bufferSize)
         var speechFrames = 0
+        var maximumRms = 0.0
         val endAtMs = clock.nowMs() + config.cabinSpeechSampleMs
         try {
             localRecorder.startRecording()
@@ -85,14 +93,17 @@ class CabinMonitor(
                     squares += value * value
                 }
                 val rms = sqrt(squares / count)
+                maximumRms = maxOf(maximumRms, rms)
                 if (rms >= config.cabinSpeechRmsThreshold) speechFrames++
             }
             val detected = speechFrames >= config.cabinMinimumSpeechFrames
+            Log.d(TAG, "speechDetected=$detected maxRms=$maximumRms speechFrames=$speechFrames")
             if (running) callbackHandler.post { onResult(detected) }
         } catch (error: Throwable) {
             if (running) callbackHandler.post { onError(error) }
         } finally {
             stopRecorder()
+            releaseAudioFocus()
             worker = null
         }
     }
@@ -112,5 +123,16 @@ class CabinMonitor(
         recorder = null
     }
 
+    @Synchronized
+    private fun releaseAudioFocus() {
+        if (!focusHeld) return
+        focusHeld = false
+        audioFocus.release()
+    }
+
     override fun close() = stop()
+
+    private companion object {
+        const val TAG = "AwakeDriveCabin"
+    }
 }

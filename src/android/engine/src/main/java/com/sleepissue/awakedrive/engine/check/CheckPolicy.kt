@@ -32,7 +32,7 @@ class CheckPolicy(private val config: EngineConfig = EngineConfig()) {
         return turnIsSafe && !context.turnSignalOn && !context.brakeOn
     }
 
-    /** 20초가 지나면 회전 거리 조건은 풀되, 실제 방향지시등·제동이 끝나기 전에는 묻지 않는다. */
+    /** 20초가 지나면 거리 조건은 풀되, 실제 방향지시등·제동이 끝나기 전에는 묻지 않는다. */
     fun canStartAfterDeferral(
         requestedAtMs: Long,
         nowMs: Long,
@@ -40,8 +40,7 @@ class CheckPolicy(private val config: EngineConfig = EngineConfig()) {
     ): Boolean {
         if (context.turnSignalOn || context.brakeOn) return false
         if (nowMs - requestedAtMs >= config.maximumCheckDeferralMs) return true
-        return context.distToNextTurnM == null ||
-            context.distToNextTurnM >= config.minimumTurnDistanceForCheckM
+        return canStart(context)
     }
 
     fun selectPlan(context: OccupancyContext): CheckPlan {
