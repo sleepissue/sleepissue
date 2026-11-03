@@ -3,6 +3,10 @@
 Claude Code가 이 저장소에서 작업할 때 읽는 프로젝트 맥락이다.
 답변과 주석은 한국어, 코드 식별자는 영어로 쓴다.
 
+> **`AGENTS.md`는 이 파일과 내용이 같다.** Codex 등 Claude Code가 아닌 코딩 에이전트는 `CLAUDE.md`를 자동으로 읽지 않고 `AGENTS.md`를 읽으므로 둘을 만들어 뒀다. **이 파일을 고치면 `AGENTS.md`도 똑같이 고친다.**
+>
+> 파일트리·Git 플로우를 사람이 보기 편하게 풀어 쓴 매뉴얼(PDF 포함)은 [`docs/setup/파일트리_Git플로우_매뉴얼.md`](docs/setup/파일트리_Git플로우_매뉴얼.md). 10장·11장의 요약판이다.
+
 **기획의 단일 출처(Source of Truth)는 `docs/plan/` 의 기획서 두 개다.** 이 파일과 기획서가 다르면 기획서를 따르고, 이 파일을 고치는 PR을 올린다.
 
 - `docs/plan/깨어있는드라이브_상세기획서_v4_현재기능.md` — **지금 구현 대상.** 지금 쓸 수 있거나 호출해 볼 수 있는 기능만 사용
@@ -187,7 +191,6 @@ sleepissue/
 ## 11. Git·보안
 
 - `main` 직접 push 금지 → 브랜치 + PR + 1인 리뷰 후 merge
-- 커밋 이메일은 GitHub noreply (공모전 익명 규정). 저장소·README에 실명·학교 기재 금지
 - 커밋 금지: CRN, `.env`, API 키, `local.properties`, `*.keystore`, Pleos SDK 바이너리
 - 라이선스는 공모전 약관(지식재산권) 확인 전까지 추가하지 않음
 - 원격: `git@github.com:sleepissue/sleepissue.git` (SSH)
