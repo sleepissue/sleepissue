@@ -10,7 +10,7 @@ class SpeechIntentParser {
         "괜찮아요" to SpeechIntent.OK,
         "쉴게" to SpeechIntent.REST,
         "쉬어갈게" to SpeechIntent.REST,
-        "쉬어 가요" to SpeechIntent.REST,
+        "쉬어가요" to SpeechIntent.REST,
         "잠깐잘게" to SpeechIntent.NAP,
         "응" to SpeechIntent.YES,
         "예" to SpeechIntent.YES,

@@ -18,9 +18,11 @@ class VoiceCheckCoordinator(
     private val config: EngineConfig = EngineConfig(),
 ) {
     private var completed = false
+    private var generation = 0L
     private var latestIntent = SpeechIntent.NONE
     private var previousResult: CheckResult? = null
-    private val timeout = Runnable { finishCurrent() }
+    private var timeout: Runnable? = null
+    private var recheck: Runnable? = null
 
     fun start(
         baselineMs: Long,
@@ -28,51 +30,62 @@ class VoiceCheckCoordinator(
         onResult: (CheckResult, twoConsecutiveSlow: Boolean) -> Unit,
         onSttFallbackRequired: () -> Unit,
     ) {
+        val currentGeneration = ++generation
         completed = false
         latestIntent = SpeechIntent.NONE
-        tonePlayer.play {
-            checkManager.onBeepEnded()
-            val started = recognizer.start(
-                questionType,
-                RecognitionCallbacks(
-                    onSpeechLatency = checkManager::onVoiceLatencyMeasured,
-                    onIntent = { latestIntent = it },
-                    onEnded = { finishCurrent() },
-                    onUnavailable = {
-                        onSttFallbackRequired()
-                        finishCurrent()
-                    },
-                ),
-            )
-            if (started) handler.postDelayed(timeout, config.voiceResponseTimeoutMs)
-        }
+        activeBaselineMs = baselineMs
+        activeQuestionType = questionType
 
         fun deliver(result: CheckResult) {
+            if (currentGeneration != generation) return
             val consecutiveSlow = policy.twoConsecutiveSlow(previousResult, result)
             previousResult = result
             onResult(result, consecutiveSlow)
             if (result.verdict == com.sleepissue.awakedrive.engine.check.CheckVerdict.SLOW &&
                 !consecutiveSlow
             ) {
-                handler.postDelayed(
-                    { start(baselineMs, questionType, onResult, onSttFallbackRequired) },
-                    config.voiceRecheckDelayMs,
-                )
+                recheck = Runnable {
+                    if (currentGeneration == generation) {
+                        start(baselineMs, questionType, onResult, onSttFallbackRequired)
+                    }
+                }.also { handler.postDelayed(it, config.voiceRecheckDelayMs) }
             }
         }
         resultConsumer = ::deliver
-        activeBaselineMs = baselineMs
-        activeQuestionType = questionType
+
+        tonePlayer.play {
+            if (currentGeneration != generation) return@play
+            checkManager.onBeepEnded()
+            val started = recognizer.start(
+                questionType,
+                RecognitionCallbacks(
+                    onSpeechLatency = checkManager::onVoiceLatencyMeasured,
+                    onIntent = { if (currentGeneration == generation) latestIntent = it },
+                    onEnded = { finishCurrent(currentGeneration) },
+                    onUnavailable = {
+                        if (currentGeneration == generation) {
+                            onSttFallbackRequired()
+                            finishCurrent(currentGeneration)
+                        }
+                    },
+                ),
+            )
+            if (started) {
+                timeout = Runnable { finishCurrent(currentGeneration) }
+                    .also { handler.postDelayed(it, config.voiceResponseTimeoutMs) }
+            }
+        }
     }
 
     private var activeBaselineMs = 0L
     private var activeQuestionType = QuestionType.DRIVER_CHECK
     private var resultConsumer: ((CheckResult) -> Unit)? = null
 
-    private fun finishCurrent() {
-        if (completed) return
+    private fun finishCurrent(expectedGeneration: Long) {
+        if (completed || expectedGeneration != generation) return
         completed = true
-        handler.removeCallbacks(timeout)
+        timeout?.let(handler::removeCallbacks)
+        timeout = null
         recognizer.stop()
         val result = checkManager.finish(
             baselineMs = activeBaselineMs,
@@ -83,8 +96,12 @@ class VoiceCheckCoordinator(
     }
 
     fun cancel() {
+        generation++
         completed = true
-        handler.removeCallbacks(timeout)
+        timeout?.let(handler::removeCallbacks)
+        recheck?.let(handler::removeCallbacks)
+        timeout = null
+        recheck = null
         recognizer.stop()
     }
 }

@@ -8,7 +8,7 @@ data class EngineConfig(
     val voiceRecheckDelayMs: Long = 30_000L,
     val defaultVoiceBaselineMs: Long = 1_000L, // [가설] 팀 측정값 확정 전 기본값
     val minimumTurnDistanceForCheckM: Float = 300f,
-    val maximumCheckDeferralMs: Long = 20_000L, // [가설] SRS 제안값
+    val maximumCheckDeferralMs: Long = 60_000L,
     val fallbackDistanceStepM: Int = 5_000,
     val fallbackSoonThresholdM: Int = 2_500,
     val voicePreRollSilenceMs: Long = 180L,
@@ -19,4 +19,12 @@ data class EngineConfig(
     val rearPassengerMaximumWaitMs: Long = 180_000L,
     val conversationSilenceForDriverCheckMs: Long = 30_000L,
     val passengerTrendRecheckMs: Long = 600_000L,
+    val stagePromotionIntervalMs: Long = 30_000L,
+    val sameStageNotificationCooldownMs: Long = 600_000L,
+    val stage3RenotificationMs: Long = 300_000L,
+    val stageRecoveryHoldMs: Long = 600_000L,
+    val normalStage1Threshold: Int = 40,
+    val normalStage2Threshold: Int = 60,
+    val normalStage3Threshold: Int = 80,
+    val sensitiveThresholdOffset: Int = 10,
 )

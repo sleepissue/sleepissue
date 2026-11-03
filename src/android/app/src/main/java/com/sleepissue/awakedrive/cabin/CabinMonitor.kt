@@ -23,6 +23,7 @@ class CabinMonitor(
 ) : AutoCloseable {
     @Volatile private var running = false
     private var recorder: AudioRecord? = null
+    private var worker: Thread? = null
 
     fun sample(onResult: (speechDetected: Boolean) -> Unit, onError: (Throwable) -> Unit) {
         if (running) return
@@ -60,7 +61,8 @@ class CabinMonitor(
         }
 
         running = true
-        Thread({ monitor(minimum, onResult, onError) }, "AwakeDrive-CabinMonitor").start()
+        worker = Thread({ monitor(minimum, onResult, onError) }, "AwakeDrive-CabinMonitor")
+            .also(Thread::start)
     }
 
     private fun monitor(
@@ -86,17 +88,20 @@ class CabinMonitor(
                 if (rms >= config.cabinSpeechRmsThreshold) speechFrames++
             }
             val detected = speechFrames >= config.cabinMinimumSpeechFrames
-            callbackHandler.post { onResult(detected) }
+            if (running) callbackHandler.post { onResult(detected) }
         } catch (error: Throwable) {
-            callbackHandler.post { onError(error) }
+            if (running) callbackHandler.post { onError(error) }
         } finally {
             stopRecorder()
+            worker = null
         }
     }
 
     fun stop() {
         running = false
         stopRecorder()
+        worker?.interrupt()
+        worker = null
     }
 
     @Synchronized

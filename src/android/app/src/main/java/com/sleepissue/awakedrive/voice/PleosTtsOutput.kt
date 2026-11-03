@@ -6,6 +6,7 @@ import ai.pleos.playground.tts.constant.ErrorType
 import ai.pleos.playground.tts.constant.Mode
 import ai.pleos.playground.tts.listener.EventListener
 import ai.pleos.playground.tts.listener.OnInitializeListener
+import java.util.ArrayDeque
 import java.util.Locale
 
 /** Pleos TextToSpeech 3.3.1의 ON_DEVICE 전용 어댑터. */
@@ -16,7 +17,7 @@ class PleosTtsOutput(
     private val tts = TextToSpeech(context.applicationContext, Mode.ON_DEVICE)
     private var state = State.INITIALIZING
     private var initializationError: Throwable? = null
-    private var pending: PendingSpeech? = null
+    private val queue = ArrayDeque<PendingSpeech>()
     private var active: PendingSpeech? = null
 
     private val eventListener = object : EventListener {
@@ -27,18 +28,20 @@ class PleosTtsOutput(
         override fun onDone() {
             active?.onComplete?.invoke()
             active = null
+            startNext()
         }
 
         override fun onStop() {
             active?.onComplete?.invoke()
             active = null
+            startNext()
         }
 
         override fun onError(errorType: ErrorType) {
-            val request = active ?: pending
+            val request = active
             active = null
-            pending = null
             request?.onError?.invoke(IllegalStateException("Pleos TTS 오류: $errorType"))
+            startNext()
         }
     }
 
@@ -48,17 +51,13 @@ class PleosTtsOutput(
             override fun onSuccess() {
                 tts.setLocale(Locale.KOREA)
                 state = State.READY
-                pending?.also {
-                    pending = null
-                    start(it)
-                }
+                startNext()
             }
 
             override fun onFailure(errorType: ErrorType) {
                 state = State.FAILED
                 initializationError = IllegalStateException("Pleos TTS 초기화 실패: $errorType")
-                pending?.onError?.invoke(requireNotNull(initializationError))
-                pending = null
+                failQueued(requireNotNull(initializationError))
             }
         })
     }
@@ -66,8 +65,10 @@ class PleosTtsOutput(
     override fun speak(text: String, onComplete: () -> Unit, onError: (Throwable) -> Unit) {
         val request = PendingSpeech(text, onComplete, onError)
         when (state) {
-            State.READY -> start(request)
-            State.INITIALIZING -> pending = request
+            State.READY, State.INITIALIZING -> {
+                queue.addLast(request)
+                startNext()
+            }
             State.FAILED -> onError(
                 initializationError ?: IllegalStateException("Pleos TTS를 사용할 수 없습니다."),
             )
@@ -79,9 +80,15 @@ class PleosTtsOutput(
         fallbackPlayer.play(cue, onComplete)
     }
 
-    private fun start(request: PendingSpeech) {
+    private fun startNext() {
+        if (state != State.READY || active != null || queue.isEmpty()) return
+        val request = queue.removeFirst()
         active = request
         tts.speak(request.text, true)
+    }
+
+    private fun failQueued(error: Throwable) {
+        while (queue.isNotEmpty()) queue.removeFirst().onError(error)
     }
 
     override fun close() {
@@ -90,7 +97,7 @@ class PleosTtsOutput(
         tts.release()
         state = State.CLOSED
         active = null
-        pending = null
+        failQueued(IllegalStateException("Pleos TTS가 해제됐습니다."))
     }
 
     private data class PendingSpeech(

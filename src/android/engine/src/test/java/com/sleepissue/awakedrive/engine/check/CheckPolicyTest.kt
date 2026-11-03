@@ -47,14 +47,14 @@ class CheckPolicyTest {
     }
 
     @Test
-    fun `회전 거리로 미룬 확인은 20초 뒤 진행하지만 차량 조작 중이면 끝날 때까지 기다린다`() {
+    fun `회전 거리로 미룬 확인은 최대 60초 뒤 진행하지만 차량 조작 중이면 끝날 때까지 기다린다`() {
         val unsafeTurn = CheckContext(299f, turnSignalOn = false, brakeOn = false)
-        assertFalse(policy.canStartAfterDeferral(0L, 19_999L, unsafeTurn))
-        assertTrue(policy.canStartAfterDeferral(0L, 20_000L, unsafeTurn))
+        assertFalse(policy.canStartAfterDeferral(0L, 59_999L, unsafeTurn))
+        assertTrue(policy.canStartAfterDeferral(0L, 60_000L, unsafeTurn))
         assertFalse(
             policy.canStartAfterDeferral(
                 0L,
-                20_000L,
+                60_000L,
                 CheckContext(299f, turnSignalOn = true, brakeOn = false),
             ),
         )

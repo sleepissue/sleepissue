@@ -13,6 +13,7 @@ class SpeechIntentParserTest {
         assertEquals(SpeechIntent.OK, parser.parse("괜찮아", QuestionType.DRIVER_CHECK))
         assertEquals(SpeechIntent.REST, parser.parse("쉴게", QuestionType.DRIVER_CHECK))
         assertEquals(SpeechIntent.NONE, parser.parse("응", QuestionType.DRIVER_CHECK))
+        assertEquals(SpeechIntent.REST, parser.parse("쉬어 가요", QuestionType.DRIVER_CHECK))
     }
 
     @Test
