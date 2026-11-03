@@ -52,7 +52,7 @@
 
 | 모듈 | 위치 | 상태 | 이슈 |
 | --- | --- | --- | --- |
-| ForecastEngine | `engine/.../forecast/` | 대기 |  |
+| ForecastEngine | `engine/.../forecast/` | 진행중 |  |
 | RestAreaRepository / NaviBridge | `app/.../navi/`, `app/.../data/` | 대기 |  |
 | ClimateController | `app/.../climate/` | 대기 |  |
 | RestSession / NapSession | `app/.../session/` (휴식 인증·보상 규칙은 `engine/.../rest/`) | 대기 |  |
