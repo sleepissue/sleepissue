@@ -15,6 +15,8 @@ data class SteeringIndicators(
     val largePerMin: Float,
     /** 최근 5분 동안 멈춤 뒤 급조향 횟수 (분당 환산 안 함) */
     val suddenCount5m: Int,
+    /** 최근 60초 창 안의 멈춤 뒤 급조향 횟수. 이상 분 판정(REQ_PAT_001)에 쓴다 */
+    val suddenInWindow: Int,
     /** 최근 60초 창에서 게이트를 통과한 시간(ms) */
     val gatedMsInWindow: Long,
     /** 게이트 통과 시간이 충분해(30초 이상) 이 지표를 써도 되는지 (REQ_FAT_005 [제안값]) */
@@ -162,6 +164,7 @@ class SteeringMetrics(private val config: FatigueConfig = FatigueConfig()) {
             microPerMin = microTimes.size * perMinute,
             largePerMin = largeTimes.size * perMinute,
             suddenCount5m = suddenTimes.size,
+            suddenInWindow = suddenTimes.count { t - it < config.windowMs },
             gatedMsInWindow = gatedMs,
             valid = gatedMs >= config.minGatedMsPerWindow,
         )

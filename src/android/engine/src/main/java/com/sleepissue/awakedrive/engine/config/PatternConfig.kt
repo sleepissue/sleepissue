@@ -24,6 +24,12 @@ data class PatternConfig(
 
     /** 안전 우회: [safetyBypassWindowMs] 안에 급조향이 이 횟수 (REQ_PAT_005) */
     val safetyBypassSuddenCount: Int = 3,
-    /** 300 s 안 3회 → 신호, 3회째가 첫 회로부터 300.1 s 뒤 → 아님 (REQ_PAT_005) */
+    /** 300 s 안 3회 → 신호, 3회째가 첫 회로부터 300.1 s 뒤 → 아님. 300.0 s는 포함 [해석] (REQ_PAT_005) */
     val safetyBypassWindowMs: Long = 5 * 60_000L,
+    /**
+     * 안전 우회 신호를 켠 뒤 유지하는 시간 [제안값].
+     * 패턴 상태를 30초마다 내보내므로 순간만 켜면 받는 쪽이 놓칠 수 있다. 3회째 급조향부터 5분 동안 켜 두고,
+     * 그사이 조건을 다시 만족하면 그때부터 다시 5분이다.
+     */
+    val safetyBypassHoldMs: Long = 5 * 60_000L,
 )

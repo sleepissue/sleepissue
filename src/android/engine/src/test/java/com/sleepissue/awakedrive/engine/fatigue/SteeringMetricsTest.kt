@@ -83,5 +83,8 @@ class SteeringMetricsTest {
         val out = run(decisions).associateBy { it.tMs }
         assertEquals(1, out.getValue(300_000L).suddenCount5m)
         assertEquals(0, out.getValue(330_000L).suddenCount5m)
+        // 60초 창 안의 횟수(이상 분 판정용, REQ_PAT_001): 창 (0, 60] → 1, 창 (30, 90] → 0
+        assertEquals(1, out.getValue(60_000L).suddenInWindow)
+        assertEquals(0, out.getValue(90_000L).suddenInWindow)
     }
 }

@@ -4,6 +4,8 @@ import com.sleepissue.awakedrive.engine.model.BaselineRecord
 import com.sleepissue.awakedrive.engine.model.BaselineSource
 import com.sleepissue.awakedrive.engine.model.FatigueState
 import com.sleepissue.awakedrive.engine.model.InvalidReason
+import com.sleepissue.awakedrive.engine.model.PatternState
+import com.sleepissue.awakedrive.engine.model.PatternType
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -46,6 +48,17 @@ class FatigueEngineTest {
 
     /** 졸린 운전: ±3° 삼각파, 6초마다 방향 전환 → 6° 큰 수정 분당 약 9회, 미세 수정 0 */
     private fun drowsyDeg(tMs: Long) = triangleDeg(tMs, halfPeriodMs = 6_000L, amplitudeDeg = 3.0)
+
+    /**
+     * 딴짓: [startsMs]마다 35초 동안 운전대를 그대로 두다가(휴대폰 보기) 0.4초 만에 7° 꺾는다(멈춤 뒤 급조향).
+     * 그 밖에는 깨어 있는 운전. 급조향은 시작 35.4초 뒤에 확인된다.
+     */
+    private fun distractedDeg(tMs: Long, vararg startsMs: Long): Float {
+        val start = startsMs.firstOrNull { tMs in it until it + 35_500L } ?: return awakeDeg(tMs)
+        val held = awakeDeg(start)
+        val sinceHold = tMs - start - 35_000L
+        return if (sinceHold < 0) held else held + 7f * minOf(sinceHold + 100L, 500L) / 500f
+    }
 
     /** 고속도로 직선 주행 프레임: D단, 방향지시등·브레이크 없음, 다음 회전 지점 1 km */
     private fun frame(tMs: Long, steeringDeg: Float, speedKph: Float = 80f, assist: Boolean = false) =
@@ -101,6 +114,7 @@ class FatigueEngineTest {
             assertEquals(0f, s.riskR, 0f)
             assertEquals(0f, s.riskSmoothed, 0f)
         }
+        assertEquals("이상 분 없음", PatternState(), engine.patternState)
     }
 
     @Test
@@ -259,6 +273,54 @@ class FatigueEngineTest {
         assertEquals("0에서 한 번 섞은 값 = R × α", next.riskR * 0.1535f, next.riskSmoothed, 0.01f)
         assertEquals(today, engine.baselineState.today)
         assertEquals(BaselineSource.TODAY, engine.baselineState.source)
+    }
+
+    @Test
+    fun drowsySteeringBecomesTrendAfterSixAbnormalMinutes() {
+        // 미세 수정 0(기준 20의 70% 이하) + 큰 수정 분당 9회(기준 4의 1.5배 이상) → 매분 이상 분 (REQ_PAT_001)
+        // 6분째(360 s 창, 370 s 프레임에서 확정)에 추세형 (REQ_PAT_002). 그 전에는 복귀 없이 이어져 애매
+        val engine = FatigueEngine()
+        engine.drive(0L, 369_900L, steering = ::drowsyDeg)
+        assertEquals(5, engine.patternState.abnormalMinutes10m)
+        assertEquals(PatternType.AMBIGUOUS, engine.patternState.patternType)
+
+        engine.drive(370_000L, 370_000L, steering = ::drowsyDeg)
+        assertEquals(6, engine.patternState.abnormalMinutes10m)
+        assertEquals(PatternType.TREND, engine.patternState.patternType)
+        assertFalse(engine.patternState.safetyBypass)
+    }
+
+    @Test
+    fun oneDistractionBecomesSpikeOnceSteeringRecovers() {
+        // 평소 미세 60/분인 운전자가 35초 동안 운전대를 그대로 두다가 급조향 1회 → 그 1분은 이상 분 (REQ_PAT_001)
+        // 다음 1분에 평소대로 돌아오면 튐형(딴짓 쪽) (REQ_PAT_003). 복귀를 확인하기 전 1분 동안은 애매
+        val engine = FatigueEngine()
+        engine.baselineStore.loadHistory(awakeTrips(microPerMin = 60f))
+        engine.drive(0L, 370_000L) { distractedDeg(it, 310_000L) }
+        assertEquals(1, engine.patternState.abnormalMinutes10m)
+        assertEquals(PatternType.AMBIGUOUS, engine.patternState.patternType)
+
+        engine.drive(370_100L, 430_000L) { distractedDeg(it, 310_000L) }
+        assertEquals(1, engine.patternState.abnormalMinutes10m)
+        assertEquals(PatternType.SPIKE, engine.patternState.patternType)
+    }
+
+    @Test
+    fun threeSuddenSteersWithinFiveMinutesTriggerSafetyBypass() {
+        // 급조향 105.4 s·205.4 s·305.4 s → 3회째에서 안전 우회 신호 1건 (REQ_PAT_005).
+        // 게이트가 10초 늦게 확정하므로 315.4 s 프레임에서 켜지고, 5분 동안 유지한다 [제안값]
+        val engine = FatigueEngine()
+        val starts = longArrayOf(70_000L, 170_000L, 270_000L)
+        val turnedOnAt = ArrayList<Long>()
+        var before = false
+        for (t in 0L..640_000L step 100L) {
+            engine.push(frame(t, distractedDeg(t, *starts)))
+            val now = engine.patternState.safetyBypass
+            if (now && !before) turnedOnAt += t
+            before = now
+        }
+        assertEquals(listOf(315_400L), turnedOnAt)
+        assertFalse("605.4 s에 유지가 끝나 630 s 갱신에서 꺼짐", engine.patternState.safetyBypass)
     }
 
     @Test
