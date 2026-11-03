@@ -82,6 +82,17 @@
 - 기존 디버그 화면에서 독립 **가짜 REAL/DEMO Hub 검증** 패널을 연다. 별도 시험 시계·입력·캐시를 사용하며 수동 운행/Room에 합산하지 않는다. 실제 SDK 수신 화면이 아니다.
 - 전체 engine **83개**·app **120개 = 203개**, 기기 **9개** 통과. 신규 단위 회귀 35개와 기존 168개를 포함한다. `assembleDebug`·release 매니페스트 처리 성공. SDK 어댑터·JSON·DemoClock·FGS·targetSdk 변경은 없으며 실제 Playground SDK가 필요한 TC는 완료로 표시하지 않는다. `develop-jdw`·HEAD `84db8c9` 유지, 메인 직접 작업·브랜치 전환/커밋/push 없음.
 
+2026-11-03 Playground SDK 입력 연결: 실제 `Vehicle 2.3.2`·`NaviHelper 3.0.5`·AAOS 읽기 어댑터와 별도 **Playground SDK 실시간 검증** 화면을 추가했다. [API/권한/단위·버튼 가이드](docs/setup/ROLE1_PLAYGROUND_SDK.md), [개발 기록](docs/devlog/2026-11-03.md) 참고.
+
+- SDK 호출은 `app/.../pleos/`에만 두고 기존 주기 Hub에 연결했다. 실제 SDK 화면에는 가짜 REAL 입력·Tracker·Room을 연결하지 않는다. 기존 가짜 Hub·운행·SCORE 사유 수정·저장/복원 코드는 보존했다.
+- capability/읽기 권한 확인·최초 조회/콜백 분리·해제/release·재연결, 원시/정규화/최종 값·품질·수신/원천/Hub Hz·변경 기록을 제공한다. 원천 시각 없는 Vehicle/Navi의 센서 Hz는 알 수 없음이다. SDK 화면 TTL 3초는 검증용 가정이다.
+- SDK 공개 주석의 조향은 **전륜각**이다. 운전대 회전각에 대입하지 않고 null/UNSUPPORTED로 보류한다. 좌석 SDK의 Boolean 축약은 UNKNOWN/null을 구별할 수 없어 SDK 값만 표시하고 착석 정규화도 보류한다. 문턱값 조정·Boolean 뒤집기로 보정하지 않는다.
+- SRS PLT_012 원문에 따라 **targetSdk만 34**로 변경했다. compileSdk 37·AGP/Gradle·기존 SDK 의존성 버전·Room 스키마는 유지했다. 플랫폼 android.car와 필요한 읽기 권한을 선언했다.
+- 실제 기기의 수신 결과와 미검증 항목은 개발 기록에 구분한다. 이 이미지의 주행 UI 제한 때문에 P/0에서 연결하고 주행 입력 뒤 P/0으로 돌아와 수신 기록을 읽는다. 주행 허용 메타데이터 실험은 최종 변경에서 제거했다.
+- 전체 **engine 83개 + app 139개 = 222개** 통과(신규 SDK 회귀 19개), `assembleDebug`·release main manifest 처리 성공. 실제 SDK에서 D(raw8), 22.222223m/s→80km/h, 크루즈20m/s→72km/h, LEFT·brake true·실내19.1°C·통풍0·위치 쌍을 확인했다. 조향/좌석은 원시 수신과 의미 보류를 구분했다. 실제 수신·중지/재연결·최종 APK 증거를 개발 기록에 연결했다.
+- 앱 제거/UTP 없이 교체 설치했다. 전후 Room 모든 논리 행 동일, 같은 가상7분·운행ID·연속/최근2분·P/ON 복원 확인. SDK 시간을 수동 운행에 합산하지 않았다.
+- DemoClock/JSON·FGS·부팅·실제 운행 저장 통합은 후속이다. **TRP_003 전체·SIG_001 실제 60초 엄격 TC·SIG_005 착석 의미·SIG_009 센서 원천 Hz·실제 경로 안내 TC는 완료로 표시하지 않는다.** `develop-jdw`·시작 HEAD `3d135fb` 유지, 이번 작업에서 브랜치 전환/커밋/push 없음.
+
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 
 | 모듈 | 위치 | 상태 | 이슈 |

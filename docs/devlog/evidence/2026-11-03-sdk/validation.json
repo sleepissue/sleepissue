@@ -1,0 +1,80 @@
+{
+  "branch": "develop-jdw",
+  "head_at_start": "3d135fb3657db6590bf9a29ebdb7c0cd94e4eae7",
+  "test_kind": "REAL Playground SDK/AAOS, not fake REAL",
+  "unit_tests": {
+    "engine": 83,
+    "app": 139,
+    "total": 222,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "final_apk_sha256": "a3ee6c89481502fff242b3c21b60a7fc564190e88c83fdb8c4ac40e5015459c6",
+  "target_sdk": 34,
+  "compile_sdk_unchanged": 37,
+  "device": "Pleos Connect 2.1.0 / API34 / emulator-5554 / user10",
+  "room": {
+    "logical_rows_unchanged": true,
+    "tables": {
+      "android_metadata": 1,
+      "trip_checkpoint": 1,
+      "drive_segment": 1,
+      "room_master_table": 1
+    },
+    "sha256": "4a2ce8f4f1bcaa93b82c14f89c23b3302221efc091efaa0c74c15c2e19bbc052",
+    "trip_id": "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+    "virtual_ms": 420000
+  },
+  "checks": {
+    "00_room_before": {
+      "apk_sha256": "a4958e4269d09e38f965ccd6a933849ec9c4d6034ce92be7755eabd8251b4671",
+      "xml_sha256": "ba831098f97d853713055d06810a52f3b97ea650116cb790de0543e16c0bc70a",
+      "png_sha256": "95da4f89831811b8282cac101075e1514766dc95c241ba6d3e5a23f63e61bcc7"
+    },
+    "01_real_inputs": {
+      "apk_sha256": "a3ee6c89481502fff242b3c21b60a7fc564190e88c83fdb8c4ac40e5015459c6",
+      "xml_sha256": "7e093545a143f455ea2d4ed4534cb92621f01d3740c8205f42256368e3b21d7b",
+      "png_sha256": "0d1e347b79e35c11d3997b95575fb712c29cdeee0e78379ca44b64cebbe92d8c"
+    },
+    "02_sdk_history": {
+      "apk_sha256": "a4958e4269d09e38f965ccd6a933849ec9c4d6034ce92be7755eabd8251b4671",
+      "xml_sha256": "f6aa5bae54c7f85cf0428124f3533f2cadf46bb03b63cb0995f3923cd9078ea3",
+      "png_sha256": "64efe7245c396e8ab681a41a18dc853c76c4fea36dfde6da0f041a044f6a52bc"
+    },
+    "03_speed_gear_history": {
+      "apk_sha256": "a4958e4269d09e38f965ccd6a933849ec9c4d6034ce92be7755eabd8251b4671",
+      "xml_sha256": "0c808688d206383d4f21d2949dfe833c5017dc04126991a5712aec9e0daf92b3",
+      "png_sha256": "17e9662e3a88286f84de78f4aa1d6900b99847d6c9d7eeaeaffa6d499be7f56e"
+    },
+    "04_stopped": {
+      "apk_sha256": "a4958e4269d09e38f965ccd6a933849ec9c4d6034ce92be7755eabd8251b4671",
+      "xml_sha256": "dd7b015a8fda5f9d09471a220be27287a65cb3e924b77f5563ee95010bcdbe4b",
+      "png_sha256": "1174c1f0943b4d94437ce7793e935fcd94ec3c2dda33fa3781fc000240c7e939"
+    },
+    "05_reconnected": {
+      "apk_sha256": "a4958e4269d09e38f965ccd6a933849ec9c4d6034ce92be7755eabd8251b4671",
+      "xml_sha256": "f6632230e799e172c4b8b842eef500ec5e1c46ed823e3ae7fc400d83ce5cf873",
+      "png_sha256": "17daadc7eb4885fd1ecd4ca216253f5a7585e018b19cb311d812c5f0eb73b1ca"
+    },
+    "06_room_return": {
+      "apk_sha256": "a3ee6c89481502fff242b3c21b60a7fc564190e88c83fdb8c4ac40e5015459c6",
+      "xml_sha256": "ba831098f97d853713055d06810a52f3b97ea650116cb790de0543e16c0bc70a",
+      "png_sha256": "4f03e02a0c5c71f759578b3f8f85c1fd3ec75bb74003418f89f3867a2c2cca99"
+    },
+    "07_room_process_restore": {
+      "apk_sha256": "a3ee6c89481502fff242b3c21b60a7fc564190e88c83fdb8c4ac40e5015459c6",
+      "xml_sha256": "ba831098f97d853713055d06810a52f3b97ea650116cb790de0543e16c0bc70a",
+      "png_sha256": "74a231cef95f39a4f63c9242aa844bcd8a93a2c19835ba4b9beb1ab62844ee13"
+    }
+  },
+  "not_claimed": [
+    "SIG_001 actual 60s every gap <=110ms",
+    "SIG_005 canonical occupancy semantics",
+    "SIG_009 native steering sensor Hz / role2 weighting",
+    "SIG_008 SDK plus JSON arbitration",
+    "active-route destination/TBT and moving-location heading",
+    "TRP_003 service/boot completion",
+    "all capability NONE / subscription error / live permission revocation cases on device"
+  ]
+}

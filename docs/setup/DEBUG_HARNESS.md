@@ -2,6 +2,8 @@
 
 `AwakeDrive 개발 검증`은 현재 운행 시간·개입 정책을 버튼으로 확인하는 개발 전용 화면이다. 최종 서비스 화면과 구별하도록 `DEBUG ONLY` 배지와 가상 입력 안내를 표시한다. 화면·조립 코드는 `app/src/debug/`에만 있으며, `release` 빌드에는 이 화면의 소스와 런처가 포함되지 않는다.
 
+상단의 **Playground SDK 실시간 검증**은 [별도 SDK 화면](ROLE1_PLAYGROUND_SDK.md)이다. 그 화면만 실제 SDK/AAOS를 읽으며, 수동 운행/Room이나 가짜 Hub 패널에 실제 입력을 섞지 않는다. 화면을 나가면 SDK 연결을 해제한다. 기존 수동 버튼과 가짜 입력 절차는 아래 그대로다.
+
 ## 실행 방법
 
 Android Studio에서 `src/android/`를 열고, **Build Variants의 app을 debug로 선택**한다. 실행 구성을 `app`으로 선택한 뒤 에뮬레이터에서 Run하면 개발 검증 화면이 열린다. 기존 JDK·SDK 설정은 [Android README](../../src/android/README.md)의 빌드 환경을 따른다.

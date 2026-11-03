@@ -47,6 +47,7 @@ data class EngineConfig(
     val naviStateIntervalMs: Long = 1_000, // SRS Data Interface MSG-14의 출력 주기다.
     val steeringRateWindowMs: Long = 10_000,
     val minimumSteeringRateHz: Float = 5f, // [제안값] SRS SIG_009, 실제 SDK 실측 후 확정한다.
+    val headingWindowMs: Long = 60_000, // SRS MSG-14: 최근 1분 위치로 진행 방향 계산.
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -54,6 +55,7 @@ data class EngineConfig(
         require(steeringRateWindowMs > 0 && minimumSteeringRateHz.isFinite() && minimumSteeringRateHz > 0) {
             "원천 주기 창과 기준 Hz는 양수여야 합니다."
         }
+        require(headingWindowMs > 0)
         require(stateSaveIntervalMs > 0) { "상태 저장 간격은 양수여야 합니다." }
         require(tripStopPauseMs > 0 && tripStopPauseMs < tripRestResetMs) {
             "정차 일시 중단 경계는 양수이며 연속 시간 초기화 경계보다 작아야 합니다."

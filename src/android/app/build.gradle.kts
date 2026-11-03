@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    useLibrary("android.car")
     namespace = "com.sleepissue.awakedrive"
     compileSdk {
         version = release(37)
@@ -12,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.sleepissue.awakedrive"
         minSdk = 28
-        targetSdk = 37
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 

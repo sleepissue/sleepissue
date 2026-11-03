@@ -2,6 +2,8 @@
 
 이번 범위는 **가짜 입력으로 검증한 Hub**다. 실제 Playground SDK 어댑터·JSON 로더·DemoClock·FGS·targetSdk 변경은 포함하지 않는다. `Source.REAL`을 쓰는 시험은 실제 SDK 수신 성공이 아니다. 기존 운행·개입·수동 Room 세션은 그대로 사용할 수 있다.
 
+후속 실제 SDK 연결과 targetSdk 34 검증은 [Playground SDK 가이드](ROLE1_PLAYGROUND_SDK.md)에 별도로 기록한다. 이 문서의 가짜 입력·TTL 1초를 실제 SDK 결과·제품 기본값으로 바꾸지 않는다. 실제 어댑터가 제공한 필드별 수신 시각은 공유 정규화기에서 보존한다.
+
 ## 생성 경로와 책임
 
 | 경로 | 용도·동작 |

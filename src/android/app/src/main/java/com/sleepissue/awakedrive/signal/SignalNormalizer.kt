@@ -22,7 +22,7 @@ internal class SignalNormalizer(private val clock: Clock) {
             quality[field] = supplied.copy(
                 availability = availability,
                 source = supplied.source ?: input.source,
-                receivedAtElapsedMs = receivedAtMs,
+                receivedAtElapsedMs = supplied.receivedAtElapsedMs ?: receivedAtMs,
             )
             return value.takeIf { availability == SignalAvailability.AVAILABLE }
         }
@@ -51,7 +51,8 @@ internal class SignalNormalizer(private val clock: Clock) {
             val availability = if (supplied.availability == SignalAvailability.AVAILABLE && value == null) {
                 SignalAvailability.UNAVAILABLE
             } else supplied.availability
-            quality[field] = supplied.copy(availability = availability, receivedAtElapsedMs = receivedAtMs)
+            quality[field] = supplied.copy(availability = availability,
+                receivedAtElapsedMs = supplied.receivedAtElapsedMs ?: receivedAtMs)
             return value.takeIf { availability == SignalAvailability.AVAILABLE }
         }
         return input.copy(

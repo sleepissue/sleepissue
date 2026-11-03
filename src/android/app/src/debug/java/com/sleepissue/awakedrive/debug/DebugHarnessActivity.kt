@@ -133,6 +133,9 @@ class DebugHarnessActivity : AppCompatActivity() {
             typeface = Typeface.DEFAULT_BOLD
         })
         root.addView(label("가상 입력 전용 · Room 저장·복원 · 음성·내비·차량 SDK 실행 없음", 12f, mutedColor))
+        root.addView(button("Playground SDK 실시간 검증") {
+            startActivity(Intent(this, DebugSdkProbeActivity::class.java))
+        })
         root.addView(button("Hub 가짜 REAL/DEMO 검증") {
             startActivity(Intent(this, DebugHubProbeActivity::class.java))
         }, fullWidth())

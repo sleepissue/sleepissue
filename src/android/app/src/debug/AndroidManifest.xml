@@ -6,6 +6,10 @@
         android:label="AwakeDrive 개발 검증"
         tools:replace="android:label">
         <activity
+            android:name="com.sleepissue.awakedrive.debug.DebugSdkProbeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AwakeDrive.DebugHarness" />
+        <activity
             android:name="com.sleepissue.awakedrive.debug.DebugHubProbeActivity"
             android:exported="false"
             android:theme="@style/Theme.AwakeDrive.DebugHarness" />
