@@ -1,0 +1,12 @@
+{
+  "expected": [
+    "Hub 가상 10000ms",
+    "발행 100회 / 10.00Hz",
+    "원천 콜백 21 · 고유 관측 21 · 2.00Hz",
+    "5Hz 미만 true",
+    "최종 조향 1.0° REAL/AVAILABLE",
+    "차속 80.0km/h REAL/AVAILABLE",
+    "최종 좌표 (35.5, 129.0) · DEMO/DEMO · DEMO_LOCATION"
+  ],
+  "passed": true
+}

@@ -9,3 +9,4 @@
 - **지금 누가 뭘 하는지**: [`PROGRESS.md`](PROGRESS.md)
 - **문서 폴더 구조**: [`docs/README.md`](docs/README.md)
 - **Android 프로젝트 구조**: [`src/android/README.md`](src/android/README.md)
+- **Playground SDK 실시간 검증·Virtual Console 조작**: [`docs/setup/ROLE1_PLAYGROUND_SDK.md`](docs/setup/ROLE1_PLAYGROUND_SDK.md)
