@@ -115,8 +115,8 @@
 
 | 모듈 | 위치 | 상태 | 이슈 |
 | --- | --- | --- | --- |
-| ForecastEngine | `engine/.../forecast/` | 진행중 |  |
-| RestAreaRepository / NaviBridge | `app/.../navi/`, `app/.../data/` | 대기 |  |
+| ForecastEngine | `engine/.../forecast/` | 완료 | #7 |
+| RestAreaRepository / NaviBridge | `app/.../navi/`, `app/.../data/` (선택 규칙은 `engine/.../rest/RestAreaSelector`) | 진행중 |  |
 | ClimateController | `app/.../climate/` | 대기 |  |
 | RestSession / NapSession | `app/.../session/` (휴식 인증·보상 규칙은 `engine/.../rest/`) | 대기 |  |
 | RewardLedger | `app/.../session/` 또는 `app/.../data/` | 대기 |  |

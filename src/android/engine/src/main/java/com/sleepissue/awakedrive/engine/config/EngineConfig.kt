@@ -133,6 +133,14 @@ data class EngineConfig(
     val rearPassengerMaximumWaitMs: Long = 180_000L,
     val conversationSilenceForDriverCheckMs: Long = 30_000L,
     val passengerTrendRecheckMs: Long = 600_000L,
+
+    // ── 4번 앞쪽 쉼터 고르기 (RestAreaSelector, 기획서 10장) ──
+    // REQ_RST_002: 현재 위치에서 이 거리 안의 쉼터만 후보 (39.9 km → 후보, 40.1 km → 제외). 단위 m (REQ_SIG_010)
+    val restAreaSearchRadiusM: Float = 40_000f,
+    // REQ_RST_002: 최근 1분 이동 방향과 쉼터 방위각의 차 허용치 (44.9° → 후보, 45.1° → 제외)
+    val restAreaHeadingToleranceDeg: Float = 45f,
+    // REQ_RST_003: 노선 방향을 알 수 없는 쉼터(또는 진행 방향을 모를 때)를 후보에 넣을지
+    val restAreaIncludeUnknownDirection: Boolean = false, // [가설] 반대편 쉼터 안내를 막는 쪽. CSV 방향 열 확인 뒤 재검토
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -159,5 +167,9 @@ data class EngineConfig(
             assistedOperationGapSec).all { it > 0 }) { "개입의 시간 경계는 양수여야 합니다." }
         require(slowCheckCountForRest > 0) { "느림 확인 횟수는 양수여야 합니다." }
         require(restDistanceReminderM.isFinite() && restDistanceReminderM > 0) { "쉼터 재안내 거리는 양수여야 합니다." }
+        require(restAreaSearchRadiusM.isFinite() && restAreaSearchRadiusM > 0) { "쉼터 검색 반경은 양수여야 합니다." }
+        require(restAreaHeadingToleranceDeg.isFinite() && restAreaHeadingToleranceDeg in 0f..180f) {
+            "쉼터 방위각 허용치는 0~180도여야 합니다."
+        }
     }
 }
