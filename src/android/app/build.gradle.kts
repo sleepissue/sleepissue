@@ -1,8 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
 }
 
 android {
+    useLibrary("android.car")
     namespace = "com.sleepissue.awakedrive"
     compileSdk {
         version = release(37)
@@ -11,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.sleepissue.awakedrive"
         minSdk = 28
-        targetSdk = 37
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -32,8 +34,15 @@ android {
     }
 }
 
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
+
 dependencies {
     implementation(project(":engine"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -47,6 +56,7 @@ dependencies {
     implementation("ai.pleos.playground:SpeechToText:3.3.1")
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 }

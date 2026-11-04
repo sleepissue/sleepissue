@@ -2,7 +2,7 @@ package com.sleepissue.awakedrive.engine.forecast
 
 import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.model.AgeBand
-import com.sleepissue.awakedrive.engine.model.Clock
+import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.engine.model.VulnerableTimeRange
 import java.time.Instant
 import java.time.ZoneId
@@ -111,7 +111,7 @@ class ForecastEngine(
     // REQ_FCS_001: 예상 졸음 시점을 계산한다. [ForecastRecalcTrigger] 6가지 시점마다 다시 호출된다.
     // 적용 순서: 개인 졸음 시점 → −30분(누적) → 절반(졸려요·출발 피로) → 취약 시간대 (SRS Q108 [해석])
     fun calculate(input: ForecastInput, trigger: ForecastRecalcTrigger): ForecastResult {
-        val nowMs = clock.nowMs()
+        val nowMs = clock.scenarioTimeMs()
         val adjustments = mutableSetOf<ForecastAdjustment>()
 
         // 1) REQ_FCS_002

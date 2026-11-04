@@ -1,0 +1,8 @@
+{
+  "expected": [
+    "Hub 가상 11000ms · 중지",
+    "발행 100회 / 미확정(INTERRUPTED)",
+    "발행 전/중지 · 과거 캐시 없음"
+  ],
+  "passed": true
+}

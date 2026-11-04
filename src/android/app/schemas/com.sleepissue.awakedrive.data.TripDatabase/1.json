@@ -1,0 +1,242 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "23a32c5c204742058427a05958900b51",
+    "entities": [
+      {
+        "tableName": "trip_checkpoint",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `formatVersion` INTEGER NOT NULL, `tripId` TEXT, `continuousDriveSec` INTEGER NOT NULL, `baselineRef` TEXT, `stage` TEXT NOT NULL, `lastLat` REAL, `lastLon` REAL, `lastGear` TEXT, `runStartMs` INTEGER, `stopStartMs` INTEGER, `driveState` TEXT NOT NULL, `continuousDriveMs` INTEGER NOT NULL, `continuousBeforeStopMs` INTEGER, `provisionalStopSec` INTEGER NOT NULL, `observationMs` INTEGER, `observationGear` TEXT, `observationPower` TEXT, `offStartedAtMs` INTEGER, `pendingNewTrip` INTEGER NOT NULL, `restResetEmitted` INTEGER NOT NULL, `segmentCount` INTEGER NOT NULL, `savedAtScenarioMs` INTEGER NOT NULL, `savedAtWallMs` INTEGER NOT NULL, `savedAtElapsedMs` INTEGER, `stopTimePolicy` TEXT NOT NULL, `shortStopPolicy` TEXT NOT NULL, `source` TEXT NOT NULL, `timeBasis` TEXT NOT NULL, `ownerState` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "formatVersion",
+            "columnName": "formatVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tripId",
+            "columnName": "tripId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "continuousDriveSec",
+            "columnName": "continuousDriveSec",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "baselineRef",
+            "columnName": "baselineRef",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "stage",
+            "columnName": "stage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastLat",
+            "columnName": "lastLat",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "lastLon",
+            "columnName": "lastLon",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "lastGear",
+            "columnName": "lastGear",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "runStartMs",
+            "columnName": "runStartMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "stopStartMs",
+            "columnName": "stopStartMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "driveState",
+            "columnName": "driveState",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "continuousDriveMs",
+            "columnName": "continuousDriveMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "continuousBeforeStopMs",
+            "columnName": "continuousBeforeStopMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "provisionalStopSec",
+            "columnName": "provisionalStopSec",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observationMs",
+            "columnName": "observationMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "observationGear",
+            "columnName": "observationGear",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "observationPower",
+            "columnName": "observationPower",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "offStartedAtMs",
+            "columnName": "offStartedAtMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "pendingNewTrip",
+            "columnName": "pendingNewTrip",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "restResetEmitted",
+            "columnName": "restResetEmitted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "segmentCount",
+            "columnName": "segmentCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "savedAtScenarioMs",
+            "columnName": "savedAtScenarioMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "savedAtWallMs",
+            "columnName": "savedAtWallMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "savedAtElapsedMs",
+            "columnName": "savedAtElapsedMs",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "stopTimePolicy",
+            "columnName": "stopTimePolicy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "shortStopPolicy",
+            "columnName": "shortStopPolicy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timeBasis",
+            "columnName": "timeBasis",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ownerState",
+            "columnName": "ownerState",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "drive_segment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`checkpointId` INTEGER NOT NULL, `ordinal` INTEGER NOT NULL, `startMs` INTEGER NOT NULL, `endMs` INTEGER NOT NULL, PRIMARY KEY(`checkpointId`, `ordinal`), FOREIGN KEY(`checkpointId`) REFERENCES `trip_checkpoint`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "checkpointId",
+            "columnName": "checkpointId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordinal",
+            "columnName": "ordinal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startMs",
+            "columnName": "startMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endMs",
+            "columnName": "endMs",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "checkpointId",
+            "ordinal"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "trip_checkpoint",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "checkpointId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '23a32c5c204742058427a05958900b51')"
+    ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "expected": [
+    "Hub 가상 13200ms",
+    "최종 조향 null° REAL/STALE",
+    "차속 nullkm/h REAL/STALE",
+    "NO_VALID_INPUT"
+  ],
+  "passed": true
+}

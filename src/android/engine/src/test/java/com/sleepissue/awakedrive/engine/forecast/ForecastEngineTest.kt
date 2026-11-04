@@ -1,7 +1,7 @@
 package com.sleepissue.awakedrive.engine.forecast
 
 import com.sleepissue.awakedrive.engine.model.AgeBand
-import com.sleepissue.awakedrive.engine.model.Clock
+import com.sleepissue.awakedrive.engine.time.FakeClock
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -15,14 +15,10 @@ class ForecastEngineTest {
 
     private val zone = ZoneId.of("Asia/Seoul")
 
-    private class FakeClock(var ms: Long) : Clock {
-        override fun nowMs() = ms
-    }
-
     private fun at(hour: Int, minute: Int = 0): Long =
         LocalDateTime.of(2026, 11, 3, hour, minute).atZone(zone).toInstant().toEpochMilli()
 
-    private fun engineAt(hour: Int, minute: Int = 0) = ForecastEngine(FakeClock(at(hour, minute)), zone = zone)
+    private fun engineAt(hour: Int, minute: Int = 0) = ForecastEngine(FakeClock(scenarioMs = at(hour, minute)), zone = zone)
 
     private fun input(
         continuousDrivingMin: Int = 0,
