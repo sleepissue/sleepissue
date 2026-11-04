@@ -139,8 +139,11 @@ data class EngineConfig(
     val restAreaSearchRadiusM: Float = 40_000f,
     // REQ_RST_002: 최근 1분 이동 방향과 쉼터 방위각의 차 허용치 (44.9° → 후보, 45.1° → 제외)
     val restAreaHeadingToleranceDeg: Float = 45f,
-    // REQ_RST_003: 노선 방향을 알 수 없는 쉼터(또는 진행 방향을 모를 때)를 후보에 넣을지
-    val restAreaIncludeUnknownDirection: Boolean = false, // [가설] 반대편 쉼터 안내를 막는 쪽. CSV 방향 열 확인 뒤 재검토
+    // REQ_RST_003: 쉼터 차로 방위각과 차 진행 방향의 차가 이 값 안이면 같은 방향 차로
+    // [가설] 근거: 전처리본에서 2 km 안 반대편 쌍 163개의 차로 방위각 차가 최소 149°·중앙 180° (2026-11-04)
+    val restAreaCarriagewayToleranceDeg: Float = 90f,
+    // REQ_RST_003: 차로 방향을 모르는 쉼터(순환선 등 전처리본 10곳)를 후보에 넣을지
+    val restAreaIncludeUnknownDirection: Boolean = false, // [가설] 반대편 쉼터 안내를 막는 쪽
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -170,6 +173,9 @@ data class EngineConfig(
         require(restAreaSearchRadiusM.isFinite() && restAreaSearchRadiusM > 0) { "쉼터 검색 반경은 양수여야 합니다." }
         require(restAreaHeadingToleranceDeg.isFinite() && restAreaHeadingToleranceDeg in 0f..180f) {
             "쉼터 방위각 허용치는 0~180도여야 합니다."
+        }
+        require(restAreaCarriagewayToleranceDeg.isFinite() && restAreaCarriagewayToleranceDeg in 0f..180f) {
+            "차로 방향 허용치는 0~180도여야 합니다."
         }
     }
 }

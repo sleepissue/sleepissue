@@ -4,6 +4,7 @@ import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.model.GeoPoint
 import com.sleepissue.awakedrive.engine.model.NaviState
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import kotlin.math.asin
@@ -33,18 +34,22 @@ class RestAreaSelectorTest {
         return GeoPoint(Math.toDegrees(lat2), Math.toDegrees(lon2))
     }
 
+    /** @param carriagewayDeg 쉼터 차로 방위각. 기본 0° = 차(북쪽 진행)와 같은 방향 차로. 180° = 반대편 */
     private fun area(
         id: String,
         distanceKm: Double,
         bearingDeg: Double = 0.0,
-        direction: RouteDirection = RouteDirection.DOWN,
+        carriagewayDeg: Float? = 0f,
+        both: Boolean = false,
     ) = RestArea(
         id = id,
         name = "${id}졸음쉼터",
         kind = RestAreaKind.DROWSY_SHELTER,
         location = pointAt(distanceKm * 1_000, bearingDeg),
         routeName = "경부선",
-        direction = direction,
+        directionLabel = if (both) "양방향" else "서울기점 + 부산종점",
+        bothDirections = both,
+        carriagewayBearingDeg = if (both) null else carriagewayDeg,
     )
 
     private fun selectedId(result: RestAreaSelection): String? = (result as? RestAreaSelection.Selected)?.area?.id
@@ -98,51 +103,53 @@ class RestAreaSelectorTest {
         assertTrue(result.isEmpty())
     }
 
-    // ── TC_RST_003: 노선 방향 일치 + 가장 가까운 한 곳 ──────
+    // ── TC_RST_003: 차로 방향 일치 + 가장 가까운 한 곳 ──────
 
     @Test
     fun `TC_RST_003 방향 불일치 2곳을 빼고 일치 3곳 중 12_0 km를 고른다`() {
         val areas = listOf(
-            area("up-5", 5.0, direction = RouteDirection.UP), // 더 가깝지만 반대 방향
-            area("up-8", 8.0, direction = RouteDirection.UP),
-            area("down-31", 31.0),
-            area("down-12", 12.0),
-            area("down-18", 18.5),
+            area("opp-5", 5.0, carriagewayDeg = 180f), // 더 가깝지만 반대편 차로
+            area("opp-8", 8.0, carriagewayDeg = 185f),
+            area("same-31", 31.0),
+            area("same-12", 12.0),
+            area("same-18", 18.5),
         )
-        val result = selector.select(navi(), areas, travelDirection = RouteDirection.DOWN)
+        val result = selector.select(navi(), areas)
 
         result as RestAreaSelection.Selected
-        assertEquals("down-12", result.area.id)
+        assertEquals("same-12", result.area.id)
         assertEquals(12_000f, result.distanceM, 1f)
     }
 
     @Test
-    fun `양방향 쉼터는 진행 노선 방향과 상관없이 후보다`() {
-        val areas = listOf(area("both", 20.0, direction = RouteDirection.BOTH), area("down", 10.0))
-        assertEquals("both", selectedId(selector.select(navi(), areas, travelDirection = RouteDirection.UP)))
+    fun `차로 방위각 차 90도까지는 같은 방향, 넘으면 반대편`() {
+        // 굽은 도로에서 차로 근사 방위각이 진행 방향과 어긋나는 경우까지 허용 (전처리 반대편 쌍 최소 149°)
+        val car = 0f
+        val inside = area("in", 10.0, carriagewayDeg = 90f)
+        val outside = area("out", 10.0, carriagewayDeg = 90.5f)
+        assertTrue(selector.sameCarriageway(inside, car))
+        assertFalse(selector.sameCarriageway(outside, car))
+        assertTrue(selector.sameCarriageway(area("wrap", 10.0, carriagewayDeg = 300f), 20f)) // 차 80°
     }
 
     @Test
-    fun `노선 방향을 모르면 기본값으로는 빼고, 설정을 켜면 넣는다`() {
-        val areas = listOf(area("unknown", 10.0, direction = RouteDirection.UNKNOWN))
-        assertEquals(
-            RestAreaSelection.NotFound(NoRestAreaReason.NONE_IN_RANGE),
-            selector.select(navi(), areas, travelDirection = RouteDirection.DOWN),
-        )
+    fun `양방향 휴게소는 차 진행 방향과 상관없이 후보다`() {
+        val areas = listOf(area("both", 20.0, both = true), area("opp", 10.0, carriagewayDeg = 180f))
+        assertEquals("both", selectedId(selector.select(navi(), areas)))
+    }
+
+    @Test
+    fun `차로 방향을 모르면 기본값으로는 빼고, 설정을 켜면 넣는다`() {
+        val areas = listOf(area("unknown", 10.0, carriagewayDeg = null))
+        assertEquals(RestAreaSelection.NotFound(NoRestAreaReason.NONE_IN_RANGE), selector.select(navi(), areas))
         val lenient = RestAreaSelector(EngineConfig(restAreaIncludeUnknownDirection = true))
-        assertEquals("unknown", selectedId(lenient.select(navi(), areas, travelDirection = RouteDirection.DOWN)))
-    }
-
-    @Test
-    fun `진행 노선 방향 공급원이 없으면(null) 양방향 쉼터만 남는다`() {
-        val areas = listOf(area("down", 5.0), area("both", 15.0, direction = RouteDirection.BOTH))
-        assertEquals("both", selectedId(selector.select(navi(), areas, travelDirection = null)))
+        assertEquals("unknown", selectedId(lenient.select(navi(), areas)))
     }
 
     @Test
     fun `거리가 같으면 id 순으로 골라 결과가 매번 같다`() {
         val areas = listOf(area("b", 10.0, bearingDeg = 10.0), area("a", 10.0, bearingDeg = -10.0))
-        repeat(3) { assertEquals("a", selectedId(selector.select(navi(), areas.shuffled(), RouteDirection.DOWN))) }
+        repeat(3) { assertEquals("a", selectedId(selector.select(navi(), areas.shuffled()))) }
     }
 
     // ── TC_RST_005: 후보 0곳 ─────────────────────────────
@@ -151,11 +158,11 @@ class RestAreaSelectorTest {
     fun `TC_RST_005 후보가 0곳이면 예외 없이 NotFound`() {
         assertEquals(
             RestAreaSelection.NotFound(NoRestAreaReason.NONE_IN_RANGE),
-            selector.select(navi(), emptyList(), RouteDirection.DOWN),
+            selector.select(navi(), emptyList()),
         )
         assertEquals(
             RestAreaSelection.NotFound(NoRestAreaReason.NONE_IN_RANGE),
-            selector.select(navi(), listOf(area("far", 60.0)), RouteDirection.DOWN),
+            selector.select(navi(), listOf(area("far", 60.0))),
         )
     }
 
@@ -164,11 +171,11 @@ class RestAreaSelectorTest {
         val areas = listOf(area("down", 10.0))
         assertEquals(
             RestAreaSelection.NotFound(NoRestAreaReason.NO_POSITION),
-            selector.select(navi(position = null), areas, RouteDirection.DOWN),
+            selector.select(navi(position = null), areas),
         )
         assertEquals(
             RestAreaSelection.NotFound(NoRestAreaReason.NO_HEADING),
-            selector.select(navi(headingDeg = null), areas, RouteDirection.DOWN),
+            selector.select(navi(headingDeg = null), areas),
         )
     }
 }
