@@ -112,6 +112,27 @@ data class EngineConfig(
         18 to "저녁",
         21 to "밤",
     ),
+
+    // ── 3번 음성 확인·실내 (CheckManager·VoiceAgent·SpeechAgent·CabinMonitor) ──
+    // 단계 전환 문턱값(단계 점수·30초 승급·10분 재알림·10분 유지)은 위의 1번 값을 쓴다.
+    val voiceSlowRatio: Double = 1.5,
+    val voiceSlowAbsoluteMs: Long = 2_000L,
+    val voiceResponseTimeoutMs: Long = 5_000L,
+    val sttFinalizationGraceMs: Long = 500L, // [가설] ON_DEVICE 최종 결과 수신 대기
+    val voiceRecheckDelayMs: Long = 30_000L,
+    val defaultVoiceBaselineMs: Long = 1_000L, // [가설] 팀 측정값 확정 전 기본값
+    val minimumTurnDistanceForCheckM: Float = 300f,
+    val maximumCheckDeferralMs: Long = 20_000L,
+    val fallbackDistanceStepM: Int = 5_000,
+    val fallbackSoonThresholdM: Int = 2_500,
+    val voicePreRollSilenceMs: Long = 180L,
+    val cabinSpeechSampleMs: Long = 10_000L,
+    val cabinSpeechRmsThreshold: Double = 3_000.0, // [가설] Pleos 에뮬레이터 디지털 마이크 100% 실측값
+    val cabinMinimumSpeechFrames: Int = 3, // [가설] 짧은 잡음 제외용
+    val sttPcmBytesPerSecond: Long = 32_000L, // [가설] 공식 예시 16 kHz·16-bit·mono
+    val rearPassengerMaximumWaitMs: Long = 180_000L,
+    val conversationSilenceForDriverCheckMs: Long = 30_000L,
+    val passengerTrendRecheckMs: Long = 600_000L,
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }

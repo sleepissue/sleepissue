@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">SleepIssue</string>
+    <string name="voice_forecast">오늘은 %1$s쯤 졸릴 수 있어요. 그때쯤 가까운 졸음쉼터를 알려 드릴게요.</string>
+    <string name="voice_stage_1">%1$d킬로미터 앞에 %2$s이 있어요.</string>
+    <string name="voice_driver_check">잠깐 확인할게요. 신호음이 나면 \'네\'라고 말해 주세요.</string>
+    <string name="voice_driver_check_ok">좋아요.</string>
+    <string name="voice_ventilation_on">운전석 통풍을 켰어요. 쉼터에서 쉬는 게 가장 좋아요.</string>
+    <string name="voice_passenger_check">동승자분께 여쭤볼게요. 운전자분이 졸려 보이면 \'쉬어 가요\'라고 말해 주세요.</string>
+    <string name="voice_stage_3">졸음 신호가 이어지고 있어요. %1$d킬로미터 앞 %2$s을 경유지로 넣을까요?</string>
+    <string name="voice_safety_bypass">운전대가 여러 번 크게 꺾였어요. 안전을 위해 쉬어 가요.</string>
+    <string name="voice_passenger_rest">동승자분, 다음 쉼터에서 함께 쉬어 가 주세요.</string>
+    <string name="voice_rest_arrival">%1$s에 도착했어요. 15분 쉬면 휴식이 인증돼요. 잠깐 자고 싶으면 \'잠깐 잘게\'라고 말해 주세요.</string>
+    <string name="voice_nap_start">15분 뒤에 깨워 드릴게요. 시동을 끄면 알람이 울리지 않을 수 있어요.</string>
+    <string name="voice_recovery_check">출발 전에 확인할게요. 신호음이 나면 \'네\'라고 말해 주세요.</string>
+    <string name="voice_recovery_ok">다시 출발해도 좋아요.</string>
+    <string name="voice_recovery_slow">10분 더 쉬어 가는 건 어때요?</string>
 </resources>
