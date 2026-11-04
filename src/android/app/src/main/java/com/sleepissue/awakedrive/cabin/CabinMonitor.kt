@@ -11,7 +11,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.core.content.ContextCompat
 import com.sleepissue.awakedrive.engine.config.EngineConfig
-import com.sleepissue.awakedrive.engine.model.Clock
+import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.voice.AndroidElapsedClock
 import com.sleepissue.awakedrive.voice.AndroidDuckingAudioFocus
 import com.sleepissue.awakedrive.voice.DuckingAudioFocus
@@ -81,10 +81,10 @@ class CabinMonitor(
         val buffer = ShortArray(bufferSize)
         var speechFrames = 0
         var maximumRms = 0.0
-        val endAtMs = clock.nowMs() + config.cabinSpeechSampleMs
+        val endAtMs = clock.elapsedRealtimeMs() + config.cabinSpeechSampleMs
         try {
             localRecorder.startRecording()
-            while (running && clock.nowMs() < endAtMs) {
+            while (running && clock.elapsedRealtimeMs() < endAtMs) {
                 val count = localRecorder.read(buffer, 0, buffer.size)
                 if (count <= 0) continue
                 var squares = 0.0

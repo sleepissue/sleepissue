@@ -65,6 +65,8 @@ Claude Code가 이 저장소에서 작업할 때 읽는 프로젝트 맥락이�
 한 방향 흐름: **신호 수집 → 판단 → 개입 결정 → 음성·내비·화면 실행.**
 MVP는 **서버 없음**(모든 처리가 차 안). 데모 재생도 실제 신호와 **같은 VehicleSignalHub**로 들어가 같은 판단 로직을 거친다. 재생 중 Virtual Console 입력이 들어오면 실제 값이 우선한다.
 
+현재 개발·검증 대상은 **Pleos Playground의 가상 차량(Pleos Connect Emulator)**이다. 코드의 `Source.REAL`은 SDK·Virtual Console에서 공급되는 입력, `Source.DEMO`는 JSON 시나리오 재생 입력을 뜻한다. REAL이라는 이름이 물리 차량에서 수신했거나 검증했다는 의미는 아니다.
+
 ### 설계 규칙
 - **판단 로직은 Android에 의존하지 않는 순수 Kotlin 모듈(`:engine`)에 둔다.** FatigueEngine, BaselineStore, PatternClassifier, AssistModeDetector, ForecastEngine, 단계 전환 규칙, 휴식 인증·보상 규칙이 대상. `./gradlew :engine:test`로 에뮬레이터 없이 검증
 - 시간은 `Clock` 인터페이스로 주입한다 (데모 배속 1·10·60배, 시동 꺼짐 재현, 단위 테스트를 위해). `System.currentTimeMillis()` 직접 호출 금지
@@ -164,12 +166,13 @@ CRN은 `.env`에서 읽는다(`tools/inject_crn.sh`). 코드·커밋·로그에 
 ```
 sleepissue/
 ├── CLAUDE.md
+├── AGENTS.md        # 이 파일과 내용 동일 (Codex 등 다른 에이전트용)
 ├── README.md
 ├── PROGRESS.md      # 담당자별 지금 상태 (역할 자체는 3장이 단일 출처)
 ├── docs/
 │   ├── plan/        # 상세기획서 v4 두 개 (단일 출처)
 │   ├── proposal/    # 접수 양식
-│   ├── setup/       # 개발환경 설치기록
+│   ├── setup/       # 개발환경 설치기록, 파일트리·Git플로우 매뉴얼
 │   ├── design/      # 화면 시안
 │   ├── meetings/
 │   ├── ideas/       # 아직 기획서에 들어가지 않은 아이디어·리서치 (CLAUDE.md 밖, 팀 운영용)
