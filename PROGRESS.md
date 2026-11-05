@@ -34,10 +34,15 @@
 
 | 모듈 | 위치 | 상태 | 이슈 |
 | --- | --- | --- | --- |
-| FatigueEngine | `engine/.../fatigue/` | 대기 |  |
-| BaselineStore | `engine/.../baseline/` | 대기 |  |
-| PatternClassifier | `engine/.../pattern/` | 대기 |  |
-| AssistModeDetector | `engine/.../assist/` | 대기 |  |
+| FatigueEngine | `engine/.../fatigue/` | 진행중 |  |
+| BaselineStore | `engine/.../baseline/` | 진행중 |  |
+| PatternClassifier | `engine/.../pattern/` | 진행중 |  |
+| AssistModeDetector | `engine/.../assist/` | 진행중 |  |
+
+2026-11-04: `feat/engine-model`에서 **1차 계산 규칙 구현·시험 끝** (main 병합 전). SRS 1차 Must 37건 중 33건 구현, PAT_004·006·007·AST_005는 1번 InterventionPolicy가 2번 출력으로 판단. `:engine:test` 104개 통과, 1번 `develop-jdw`와 합쳐도 187개 통과.
+
+- 남은 작업: PR·머지(1번 #6 다음), 1번 신호 → 2번 입력 변환 함수, 딴짓 1분 칸 정렬·기준선 하한 수정, 데모 시나리오 값(5번), SDK 조향(전륜각)·원천 시각 처리(1번과 결정).
+- 설명 문서: [docs/fatigue-engine/](docs/fatigue-engine/README.md) — 구조·알고리즘·해석·동작 예·시험·작업 기록·팀 전달·일정.
 
 ### 3번 — 음성·실내 (`feat/voice-*`)
 
