@@ -163,6 +163,31 @@ data class EngineConfig(
     val ventilationManualWaitMs: Long = 30_000L, // [가설]
     // 반영 확인 중 상태를 다시 읽는 간격
     val ventilationPollIntervalMs: Long = 250L, // [가설]
+
+    // ── 4번 휴식 인증 (RestCertifier, 기획서 7-1·7-3) ──
+    // 쉼터·휴게소 반경. 이 안에서 P단(또는 시동 꺼짐)이어야 휴식으로 센다
+    val restCertifyRadiusM: Float = 150f,
+    // 휴식 인증에 필요한 연속 시간 (15분)
+    val restCertifyMinMs: Long = 900_000L,
+
+    // ── 4번 파워냅 (NapSession, 기획서 7-1) ──
+    val napDurationMs: Long = 900_000L,
+    // 알람 소리가 가장 작은 단계에서 최대까지 커지는 데 걸리는 시간
+    val napAlarmRampMs: Long = 30_000L, // [가설]
+    // 아무도 끄지 않을 때 알람을 멈추는 한도
+    val napAlarmMaxMs: Long = 120_000L, // [가설]
+
+    // ── 4번 보상 (RewardRules, 기획서 7-3) ──
+    // 보상 대상 ①: 직전 휴식(또는 출발) 뒤 이만큼 운전한 뒤의 휴식
+    val rewardMinDriveSec: Long = 7_200L,
+    // 보상 대상 ②: 이 단계 이상 알림을 받은 뒤의 휴식 (2 = 확인 단계)
+    val rewardMinStageLevel: Int = 2,
+    // 악용 방지: 하루 최대 횟수
+    val rewardDailyMax: Int = 4,
+    // 악용 방지: 같은 쉼터 재인정 금지 시간 (2시간)
+    val rewardSameAreaCooldownMs: Long = 7_200_000L,
+    // 악용 방지: 직전 인정 쉼터에서 이만큼 떨어져야 함. [가정] 주행 거리 대신 쉼터 사이 직선 거리로 잰다(더 엄격한 쪽)
+    val rewardMinMoveM: Float = 30_000f,
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -203,5 +228,12 @@ data class EngineConfig(
         require(listOf(ventilationVerifyTimeoutMs, ventilationManualWaitMs, ventilationPollIntervalMs).all { it > 0 }) {
             "통풍 확인 시간은 양수여야 합니다."
         }
+        require(restCertifyRadiusM.isFinite() && restCertifyRadiusM > 0) { "휴식 인증 반경은 양수여야 합니다." }
+        require(restCertifyMinMs > 0) { "휴식 인증 시간은 양수여야 합니다." }
+        require(napDurationMs > 0 && napAlarmRampMs > 0 && napAlarmMaxMs >= napAlarmRampMs) {
+            "파워냅 시간은 양수이고 알람 한도는 커지는 시간 이상이어야 합니다."
+        }
+        require(rewardMinDriveSec > 0 && rewardMinStageLevel in 1..3 && rewardDailyMax > 0 &&
+            rewardSameAreaCooldownMs > 0 && rewardMinMoveM.isFinite() && rewardMinMoveM >= 0) { "보상 조건 값이 잘못됐습니다." }
     }
 }
