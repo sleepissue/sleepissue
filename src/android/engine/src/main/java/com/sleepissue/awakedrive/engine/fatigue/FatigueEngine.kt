@@ -4,8 +4,10 @@ import com.sleepissue.awakedrive.engine.assist.AssistModeDetector
 import com.sleepissue.awakedrive.engine.baseline.BaselineStore
 import com.sleepissue.awakedrive.engine.config.AssistConfig
 import com.sleepissue.awakedrive.engine.config.BaselineConfig
+import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.config.FatigueConfig
 import com.sleepissue.awakedrive.engine.config.PatternConfig
+import com.sleepissue.awakedrive.engine.config.resolvedFatigueConfig
 import com.sleepissue.awakedrive.engine.model.AssistState
 import com.sleepissue.awakedrive.engine.model.BaselineState
 import com.sleepissue.awakedrive.engine.model.DriveFrame
@@ -55,6 +57,17 @@ class FatigueEngine(
     patternConfig: PatternConfig = PatternConfig(),
     assistConfig: AssistConfig = AssistConfig(),
 ) {
+    /**
+     * 앱에서 쓰는 생성자: 팀 [EngineConfig] 한 곳에서 2번 설정 4묶음을 꺼낸다 (CLAUDE.md 4장).
+     * 취약 시간대는 EngineConfig.vulnerableBaseRanges·vulnerableAgeRanges를 쓴다.
+     */
+    constructor(engineConfig: EngineConfig) : this(
+        engineConfig.resolvedFatigueConfig(),
+        engineConfig.baseline,
+        engineConfig.pattern,
+        engineConfig.assist,
+    )
+
     /** 맥락 가중 K의 입력. 1번 TripState·SignalFrame에서 만들어 바뀔 때마다 넣는다. */
     var context: ContextInput = ContextInput()
 

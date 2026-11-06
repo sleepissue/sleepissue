@@ -1,13 +1,13 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
 import com.sleepissue.awakedrive.engine.config.ContextWeightConfig
-import com.sleepissue.awakedrive.engine.model.AgeGroup
+import com.sleepissue.awakedrive.engine.model.AgeBand
 
 /**
  * 맥락 가중 K를 정하는 데 필요한 값만 모은 입력. (REQ_FAT_013~018)
  *
  * 1번의 TripState(연속·24시간 누적 운전)와 SignalFrame(착석·실내 온도), 설정(연령대)에서 만든다.
- * 그 클래스들이 main에 들어오면 GateInput처럼 변환 함수를 하나 추가한다.
+ * 변환 함수는 SignalAdapters.kt의 `contextInputOf`.
  * null은 "지금 이 값을 모른다"는 뜻이고, 모르는 항목은 가중을 더하지 않는다 (REQ_FAT_016·017 "null → +0").
  */
 data class ContextInput(
@@ -17,8 +17,8 @@ data class ContextInput(
     val last24hDriveSec: Long? = null,
     /** 현지 시각을 자정부터 센 분(0~1439). 23:10이면 1390. 시간대(타임존) 변환은 앱 쪽에서 한다 */
     val minuteOfDay: Int? = null,
-    /** 설정의 연령대 (MSG-12 Settings.ageGroup) */
-    val ageGroup: AgeGroup = AgeGroup.UNSET,
+    /** 설정의 연령대 (MSG-12). null이면 설정 안 함 → 기본 취약 시간대만 씀. 4번 예보와 같은 [AgeBand] */
+    val ageBand: AgeBand? = null,
     /** 조수석·뒷좌석에 앉은 사람 수. 착석 값을 하나라도 모르면 null (REQ_FAT_016) */
     val passengerCount: Int? = null,
     /** 실내 온도(℃) (REQ_FAT_017) */
@@ -67,7 +67,7 @@ object ContextWeight {
         val last24h = input.last24hDriveSec
         return ContextFactors(
             longDrive = continuous != null && continuous >= config.longDriveSec,
-            vulnerableTime = minute != null && isVulnerableTime(minute, input.ageGroup, config),
+            vulnerableTime = minute != null && isVulnerableTime(minute, input.ageBand, config),
             soloDrive = input.passengerCount == 0,
             warmCabin = cabin != null && cabin >= config.warmCabinMinC,
             longDayDrive = last24h != null && last24h >= config.longDayDriveSec,
@@ -93,18 +93,17 @@ object ContextWeight {
     /**
      * 취약 시간대인지 (REQ_FAT_015). 기본 시간대(02~07시, 14~17시)에 설정한 연령대의 시간대를 더한다.
      * 시작 포함·끝 제외 [해석]: 01:59 → 아님, 02:00 → 맞음, 06:59 → 맞음, 07:00 → 아님.
+     * 4번 예보(ForecastEngine)와 같은 [com.sleepissue.awakedrive.engine.model.VulnerableTimeRange] 정의를 쓴다.
      */
     fun isVulnerableTime(
         minuteOfDay: Int,
-        ageGroup: AgeGroup,
+        ageBand: AgeBand?,
         config: ContextWeightConfig = ContextWeightConfig(),
     ): Boolean {
         require(minuteOfDay in 0 until MINUTES_PER_DAY) { "minuteOfDay는 0~1439: $minuteOfDay" }
-        val hour = minuteOfDay / MINUTES_PER_HOUR
-        val windows = config.vulnerableWindows + config.vulnerableWindowsByAge[ageGroup].orEmpty()
-        return windows.any { it.contains(hour) }
+        val ranges = config.vulnerableBaseRanges + (ageBand?.let { config.vulnerableAgeRanges[it] }.orEmpty())
+        return ranges.any { it.contains(minuteOfDay) }
     }
 }
 
-private const val MINUTES_PER_HOUR = 60
-private const val MINUTES_PER_DAY = 24 * MINUTES_PER_HOUR
+private const val MINUTES_PER_DAY = 24 * 60

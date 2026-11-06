@@ -1,6 +1,7 @@
 package com.sleepissue.awakedrive.engine.config
 
-import com.sleepissue.awakedrive.engine.model.AgeGroup
+import com.sleepissue.awakedrive.engine.model.AgeBand
+import com.sleepissue.awakedrive.engine.model.VulnerableTimeRange
 import kotlin.math.exp
 
 /**
@@ -8,9 +9,9 @@ import kotlin.math.exp
  *
  * 단위는 필드 이름 끝에 붙인다 (REQ_SIG_010): Kph = km/h, Deg = °, M = m, Ms = ms, Sec = 초, C = ℃.
  *
- * 2번 설정 묶음(FatigueConfig·BaselineConfig·PatternConfig·AssistConfig)은 2번 클래스가 직접 받는다.
- * 팀 공통 EngineConfig 본체가 main에 들어오면 거기에 `val fatigue: FatigueConfig = FatigueConfig()`처럼
- * 한 줄씩 추가해 한 곳에서 꺼내 쓰게 한다. (CLAUDE.md 4장 "문턱값은 EngineConfig 한 곳에")
+ * 2번 설정 묶음(FatigueConfig·BaselineConfig·PatternConfig·AssistConfig)은 팀 [EngineConfig]의
+ * `fatigue`·`baseline`·`pattern`·`assist` 칸에 들어 있다. 앱은 `FatigueEngine(EngineConfig)`로 엔진을 만든다.
+ * (CLAUDE.md 4장 "문턱값은 EngineConfig 한 곳에") 시험은 묶음을 직접 넘겨도 된다.
  * 숫자 옆 표기: [제안값] SRS에서 정한 값 / [해석] 기획서 해석 / [가설] 근거가 약한 설계 / [가정] 임시값.
  */
 data class FatigueConfig(
@@ -98,6 +99,17 @@ data class FatigueConfig(
 }
 
 /**
+ * 팀 [EngineConfig]에서 2번 [FatigueConfig]를 꺼낸다. 취약 시간대는 EngineConfig의 값으로 맞춘다.
+ * 예보(4번)·1단계 안내(1번)·맥락 가중 K(2번)가 같은 시간대를 쓰게 하려는 것이다 (REQ_FAT_015·REQ_FCS_005).
+ */
+fun EngineConfig.resolvedFatigueConfig(): FatigueConfig = fatigue.copy(
+    context = fatigue.context.copy(
+        vulnerableBaseRanges = vulnerableBaseRanges,
+        vulnerableAgeRanges = vulnerableAgeRanges,
+    ),
+)
+
+/**
  * 맥락 가중 K. 1.00에 해당하는 가중을 더하고 [kMax]로 자른다. (REQ_FAT_013~018)
  *
  * 맥락은 졸음 판정이 아니라 민감도만 바꾼다(기획서 4-1). 조향 신호가 없어 B = 0이면 K와 상관없이 R = 0이다(REQ_FAT_019).
@@ -113,14 +125,14 @@ data class ContextWeightConfig(
 
     /** 취약 시간대면 [vulnerableTimeWeight] (REQ_FAT_015) */
     val vulnerableTimeWeight: Float = 0.10f,
-    /** 기본 취약 시간대: 새벽 2~7시, 오후 2~5시 */
-    val vulnerableWindows: List<HourWindow> = listOf(HourWindow(2, 7), HourWindow(14, 17)),
-    /** 연령대를 설정하면 기본 시간대에 더하는 시간대 (도로교통공단 자료, 기획서 1장) */
-    val vulnerableWindowsByAge: Map<AgeGroup, List<HourWindow>> = mapOf(
-        AgeGroup.FIFTIES_PLUS to listOf(HourWindow(14, 18)),
-        AgeGroup.THIRTIES_FORTIES to listOf(HourWindow(22, 2)),
-        AgeGroup.TWENTIES to listOf(HourWindow(4, 8)),
-    ),
+    /**
+     * 기본 취약 시간대: 새벽 2~7시, 오후 2~5시. 시작 포함·끝 제외.
+     * 값은 [VulnerableTimeDefaults] 한 곳에 있고, `FatigueEngine(EngineConfig)`로 만들면
+     * EngineConfig.vulnerableBaseRanges로 바뀐다 (예보·1단계와 같은 정의).
+     */
+    val vulnerableBaseRanges: List<VulnerableTimeRange> = VulnerableTimeDefaults.BASE,
+    /** 연령대를 설정하면 기본 시간대에 더하는 시간대 (도로교통공단 자료, 기획서 1장). 위와 같이 EngineConfig 값으로 바뀐다 */
+    val vulnerableAgeRanges: Map<AgeBand, List<VulnerableTimeRange>> = VulnerableTimeDefaults.BY_AGE,
 
     /** 혼자 운전(조수석·뒷좌석 착석 없음)이면. 착석 값 null이면 더하지 않음 (REQ_FAT_016) */
     val soloDriveWeight: Float = 0.05f,

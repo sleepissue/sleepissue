@@ -1,7 +1,7 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
 import com.sleepissue.awakedrive.engine.config.ContextWeightConfig
-import com.sleepissue.awakedrive.engine.model.AgeGroup
+import com.sleepissue.awakedrive.engine.model.AgeBand
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -58,8 +58,27 @@ class ContextWeightTest {
             assertEquals("minuteOfDay=$minuteOfDay", expected, k(ContextInput(minuteOfDay = minuteOfDay)), 1e-6f)
         }
         // 30대 설정 시 22:00 → +0.10. 연령대를 설정하지 않으면 22:00은 취약 시간대가 아님
-        assertEquals(1.10f, k(ContextInput(minuteOfDay = clock(22, 0), ageGroup = AgeGroup.THIRTIES_FORTIES)), 1e-6f)
+        assertEquals(1.10f, k(ContextInput(minuteOfDay = clock(22, 0), ageBand = AgeBand.THIRTIES_FORTIES)), 1e-6f)
         assertEquals(1.00f, k(ContextInput(minuteOfDay = clock(22, 0))), 1e-6f)
+    }
+
+    @Test
+    fun ageBandRangesAddToBaseRanges() {
+        // 연령대 설정 시: 20대 04~08시, 30·40대 22~02시, 50대 이상 14~18시를 기본 시간대에 더한다 (REQ_FAT_015)
+        val cases = listOf(
+            Triple(AgeBand.TWENTIES, clock(7, 30), 1.10f),
+            Triple(AgeBand.TWENTIES, clock(8, 0), 1.00f),
+            Triple(AgeBand.THIRTIES_FORTIES, clock(21, 59), 1.00f),
+            Triple(AgeBand.THIRTIES_FORTIES, clock(1, 59), 1.10f),
+            Triple(AgeBand.FIFTIES_PLUS, clock(17, 30), 1.10f),
+            Triple(AgeBand.FIFTIES_PLUS, clock(18, 0), 1.00f),
+        )
+        for ((band, minuteOfDay, expected) in cases) {
+            assertEquals("$band $minuteOfDay", expected, k(ContextInput(minuteOfDay = minuteOfDay, ageBand = band)), 1e-6f)
+        }
+        // 연령대를 설정하지 않으면(null) 07:30·17:30은 취약 시간대가 아님
+        assertEquals(1.00f, k(ContextInput(minuteOfDay = clock(7, 30))), 1e-6f)
+        assertEquals(1.00f, k(ContextInput(minuteOfDay = clock(17, 30))), 1e-6f)
     }
 
     @Test

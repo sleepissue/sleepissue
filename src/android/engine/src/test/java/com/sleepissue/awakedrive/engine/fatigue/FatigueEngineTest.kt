@@ -1,5 +1,6 @@
 package com.sleepissue.awakedrive.engine.fatigue
 
+import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.model.AssistReason
 import com.sleepissue.awakedrive.engine.model.BaselineRecord
 import com.sleepissue.awakedrive.engine.model.BaselineSource
@@ -10,6 +11,7 @@ import com.sleepissue.awakedrive.engine.model.SteeringEventType
 import com.sleepissue.awakedrive.engine.model.InvalidReason
 import com.sleepissue.awakedrive.engine.model.PatternState
 import com.sleepissue.awakedrive.engine.model.PatternType
+import com.sleepissue.awakedrive.engine.model.VulnerableTimeRange
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
@@ -101,6 +103,18 @@ class FatigueEngineTest {
         assertTrue(emitted.all { (frameMs, stateMs) -> frameMs - stateMs == 10_000L })
         // 운행이 끝나 flush하면 아직 확정하지 않은 300초 갱신까지 나온다
         assertEquals(listOf(300_000L), engine.flush().map { it.tMs })
+    }
+
+    @Test
+    fun engineConfigConstructorUsesTeamVulnerableRanges() {
+        // FatigueEngine(EngineConfig)는 팀 EngineConfig의 취약 시간대로 K를 계산한다 (REQ_FAT_015, CLAUDE.md 4장).
+        // 00:30은 기본 취약 시간대가 아니지만, 팀이 0~1시를 취약 시간대로 바꾸면 K = 1.10
+        val halfPastMidnight = ContextInput(minuteOfDay = 30)
+        val team = EngineConfig(vulnerableBaseRanges = listOf(VulnerableTimeRange.hours(0, 1)))
+        val custom = FatigueEngine(team).apply { context = halfPastMidnight }
+        val default = FatigueEngine(EngineConfig()).apply { context = halfPastMidnight }
+        assertEquals(1.10f, custom.drive(0L, 70_000L, steering = ::awakeDeg).single().contextK, 1e-6f)
+        assertEquals(1.00f, default.drive(0L, 70_000L, steering = ::awakeDeg).single().contextK, 1e-6f)
     }
 
     @Test

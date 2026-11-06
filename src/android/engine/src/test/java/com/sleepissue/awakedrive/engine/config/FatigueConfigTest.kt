@@ -1,8 +1,9 @@
 package com.sleepissue.awakedrive.engine.config
 
-import com.sleepissue.awakedrive.engine.model.AgeGroup
+import com.sleepissue.awakedrive.engine.model.AgeBand
 import com.sleepissue.awakedrive.engine.model.FatigueState
 import com.sleepissue.awakedrive.engine.model.InvalidReason
+import com.sleepissue.awakedrive.engine.model.VulnerableTimeRange
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -12,7 +13,7 @@ import org.junit.Test
  * 2번 설정 묶음의 기본값이 SRS v0.2 합격기준·기획서 숫자와 서로 맞는지 확인한다.
  * 계산 로직 테스트가 아니라 "값을 잘못 옮기지 않았는지" 보는 안전장치다.
  *
- * 팀 공통 EngineConfig 본체가 정해지기 전이라 묶음(FatigueConfig)을 직접 만들어 확인한다.
+ * 묶음은 팀 EngineConfig의 fatigue·baseline·pattern·assist 칸에 들어 있다. 여기서는 묶음을 직접 만들어 확인한다.
  */
 class FatigueConfigTest {
 
@@ -54,7 +55,7 @@ class FatigueConfigTest {
     @Test
     fun defaultVulnerableWindowsMatchSrsBoundaries() {
         // 01:59 → 0, 02:00 → +0.10, 06:59 → +0.10, 07:00 → 0, 13:59 → 0, 14:00 → +0.10 (REQ_FAT_015)
-        fun vulnerable(hour: Int) = context.vulnerableWindows.any { it.contains(hour) }
+        fun vulnerable(hour: Int) = context.vulnerableBaseRanges.any { it.contains(hour * 60) }
         assertFalse(vulnerable(1))
         assertTrue(vulnerable(2))
         assertTrue(vulnerable(6))
@@ -68,17 +69,48 @@ class FatigueConfigTest {
     @Test
     fun thirtiesFortiesWindowCrossesMidnight() {
         // 30대 설정 시 22:00 → +0.10 (REQ_FAT_015). 22~02시는 자정을 넘는다
-        val window = context.vulnerableWindowsByAge.getValue(AgeGroup.THIRTIES_FORTIES).single()
-        assertFalse(window.contains(21))
-        assertTrue(window.contains(22))
+        val window = context.vulnerableAgeRanges.getValue(AgeBand.THIRTIES_FORTIES).single()
+        assertFalse(window.contains(21 * 60 + 59))
+        assertTrue(window.contains(22 * 60))
         assertTrue(window.contains(0))
-        assertTrue(window.contains(1))
-        assertFalse(window.contains(2))
+        assertTrue(window.contains(60 + 59))
+        assertFalse(window.contains(2 * 60))
     }
 
     @Test
-    fun unsetAgeGroupAddsNoWindow() {
-        assertFalse(context.vulnerableWindowsByAge.containsKey(AgeGroup.UNSET))
+    fun everyAgeBandHasItsOwnRange() {
+        // 연령대를 설정하지 않으면(null) 더하는 시간대가 없고, 설정하면 연령대마다 하나씩 더한다 (REQ_FAT_015)
+        assertEquals(AgeBand.values().toSet(), context.vulnerableAgeRanges.keys)
+    }
+
+    @Test
+    fun vulnerableRangesAreTheSameAsEngineConfig() {
+        // 예보(4번)·1단계 안내(1번)와 K(2번)가 같은 취약 시간대를 쓴다. 값은 VulnerableTimeDefaults 한 곳
+        val team = EngineConfig()
+        assertEquals(team.vulnerableBaseRanges, context.vulnerableBaseRanges)
+        assertEquals(team.vulnerableAgeRanges, context.vulnerableAgeRanges)
+    }
+
+    @Test
+    fun engineConfigCarriesFatigueBundles() {
+        // CLAUDE.md 4장: 2번 문턱값도 팀 EngineConfig 한 곳에서 꺼낸다
+        val team = EngineConfig()
+        assertEquals(FatigueConfig(), team.fatigue)
+        assertEquals(BaselineConfig(), team.baseline)
+        assertEquals(PatternConfig(), team.pattern)
+        assertEquals(AssistConfig(), team.assist)
+    }
+
+    @Test
+    fun resolvedFatigueConfigTakesTeamVulnerableRanges() {
+        // 팀이 EngineConfig의 취약 시간대를 바꾸면 K 계산에도 그 값이 들어간다
+        val midnightOnly = listOf(VulnerableTimeRange.hours(0, 1))
+        val team = EngineConfig(vulnerableBaseRanges = midnightOnly, vulnerableAgeRanges = emptyMap())
+        val resolved = team.resolvedFatigueConfig()
+        assertEquals(midnightOnly, resolved.context.vulnerableBaseRanges)
+        assertTrue(resolved.context.vulnerableAgeRanges.isEmpty())
+        // 나머지 2번 값은 그대로
+        assertEquals(team.fatigue.copy(context = resolved.context), resolved)
     }
 
     @Test
@@ -90,8 +122,4 @@ class FatigueConfigTest {
         assertEquals(1f, state.contextK, 0f)
     }
 
-    @Test(expected = IllegalArgumentException::class)
-    fun hourWindowRejectsEmptyRange() {
-        HourWindow(5, 5)
-    }
 }
