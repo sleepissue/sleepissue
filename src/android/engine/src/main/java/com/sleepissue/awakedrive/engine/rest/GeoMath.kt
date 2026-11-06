@@ -11,7 +11,7 @@ import kotlin.math.sqrt
 
 // 위경도 두 점 사이의 거리·방위각. 입력 단위 변환이 아니라 구면 기하 계산이다(REQ_SIG_010과 무관).
 // 40 km 범위에서는 지구를 구로 봐도 오차가 0.5% 안쪽이라 haversine으로 충분하다.
-internal object GeoMath {
+object GeoMath {
     private const val EARTH_RADIUS_M = 6_371_008.8 // 평균 지구 반지름(IUGG)
 
     /** 대권 거리(m). */

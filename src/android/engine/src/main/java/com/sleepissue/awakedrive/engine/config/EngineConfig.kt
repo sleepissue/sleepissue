@@ -144,6 +144,15 @@ data class EngineConfig(
     val restAreaCarriagewayToleranceDeg: Float = 90f,
     // REQ_RST_003: 차로 방향을 모르는 쉼터(순환선 등 전처리본 10곳)를 후보에 넣을지
     val restAreaIncludeUnknownDirection: Boolean = false, // [가설] 반대편 쉼터 안내를 막는 쪽
+
+    // ── 4번 경유지 추가 (NaviBridge, REQ_RST_004·006) ──
+    // addWaypoint는 결과를 돌려주지 않으므로 onWayPointInfo에 쉼터가 보일 때까지 기다리는 한도.
+    // RST_006(실패 시 2 s 안 거리 안내)보다 짧아야 한다.
+    val waypointConfirmTimeoutMs: Long = 1_500L, // [가설] 에뮬레이터 TC_RST_004에서 실측 후 조정
+    // 내비가 돌려준 경유지 좌표가 쉼터에서 이 거리 안이면 같은 곳으로 본다 (poiId가 안 맞을 때 대비)
+    val waypointMatchRadiusM: Float = 200f, // [가설]
+    // 경유지 확인 중 getWaypointInfo를 다시 묻는 간격
+    val waypointPollIntervalMs: Long = 250L, // [가설]
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -177,5 +186,8 @@ data class EngineConfig(
         require(restAreaCarriagewayToleranceDeg.isFinite() && restAreaCarriagewayToleranceDeg in 0f..180f) {
             "차로 방향 허용치는 0~180도여야 합니다."
         }
+        require(waypointConfirmTimeoutMs > 0) { "경유지 확인 대기 시간은 양수여야 합니다." }
+        require(waypointMatchRadiusM.isFinite() && waypointMatchRadiusM > 0) { "경유지 일치 반경은 양수여야 합니다." }
+        require(waypointPollIntervalMs in 1 until waypointConfirmTimeoutMs) { "경유지 재조회 간격은 확인 한도보다 짧아야 합니다." }
     }
 }
