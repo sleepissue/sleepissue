@@ -1,0 +1,9 @@
+{
+  "expected": [
+    "Hub 가상 13000ms",
+    "최종 조향 15.0° REAL/AVAILABLE",
+    "차속 95.0km/h REAL/AVAILABLE",
+    "관측 12000ms/ELAPSED_REALTIME · 수신 12000ms"
+  ],
+  "passed": true
+}

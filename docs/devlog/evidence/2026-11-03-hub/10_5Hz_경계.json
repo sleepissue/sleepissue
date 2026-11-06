@@ -1,0 +1,10 @@
+{
+  "expected": [
+    "Hub 가상 10000ms",
+    "발행 100회 / 10.00Hz",
+    "원천 콜백 51 · 고유 관측 51 · 5.00Hz",
+    "5Hz 미만 false",
+    "최종 조향 1.0° REAL/AVAILABLE"
+  ],
+  "passed": true
+}
