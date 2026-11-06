@@ -19,7 +19,7 @@ grep -h "<testsuite" engine/build/test-results/test/*.xml | sed 's/ timestamp.*/
 xdg-open engine/build/reports/tests/test/index.html
 ```
 
-- `BUILD SUCCESSFUL`만 보고 끝내지 않는다. 시험 파일이 하나도 안 잡히면 `NO-SOURCE`로도 성공이 뜬다. 위 `grep`으로 묶음 수와 시험 수를 확인한다. 11/7 기준 엔진 전체 30개 묶음 257개(2번 15개 묶음 125개), app 연결기 1개 묶음 8개.
+- `BUILD SUCCESSFUL`만 보고 끝내지 않는다. 시험 파일이 하나도 안 잡히면 `NO-SOURCE`로도 성공이 뜬다. 위 `grep`으로 묶음 수와 시험 수를 확인한다. 11/7 기준(00:24 main `c66034c`를 합친 뒤) 엔진 전체 37개 묶음 308개(2번 15개 묶음 125개), app 연결기 1개 묶음 8개.
 - 이미 통과한 뒤 아무것도 안 바꾸면 Gradle이 `UP-TO-DATE`로 건너뛴다. 다시 돌리려면 `./gradlew :engine:test --rerun-tasks`.
 - 실패하면 `engine/build/reports/tests/test/index.html`에서 실패한 시험을 누르면 기대값·실제값·줄 번호가 나온다. 시험 첫 줄 주석에 SRS 합격기준이 적혀 있다.
 
@@ -38,6 +38,7 @@ xdg-open engine/build/reports/tests/test/index.html
 | 11/7 패치 3: app 연결기 `FatigueBridgeTest` | **8개 통과**. 1번 `SignalPorts.kt`·`InterventionManager.kt`와 함께 JVM으로 컴파일 (coroutines 1.6.4로 확인, 팀은 1.10.2) |
 | 11/7 시나리오 A~G 다시 돌리기 | C(딴짓)만 바뀜: 이상 분 0 → 1, 튐형, B 80 → 55. 나머지는 숫자까지 같음 ([05](05-behavior.md)) |
 | 11/7 딴짓 시작 시각 60가지 | 고치기 전 18가지 놓침 → 고친 뒤 60가지 모두 이상 분 1개·튐형 |
+| 11/7 00:24 main `c66034c`(4번 #9·#10·#11 병합)를 다시 합치고 패치 1~4 | 37개 묶음 **308개 통과** (2번 125 + main 183). 충돌은 그대로 `engine/build.gradle.kts` 하나. 연결기 8개 통과 |
 
 이 문서의 시험은 Kotlin 2.0.21 컴파일러와 JUnit 4.13.2로 따로 돌린 결과다. 팀 빌드(Gradle 9.6.0, Kotlin 2.4.21)에서도 같아야 하므로, 올린 뒤 각자 위 명령으로 한 번 확인한다.
 

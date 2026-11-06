@@ -15,11 +15,12 @@
 | [23] | 패턴·안전 우회 PAT_001~007 | 11/7 | 11/4 | PAT_001~003·005 끝. 004·006·007은 1번 단계 전환에 들어 있음(11/6 확인). 단 004의 '딴짓 기록'은 아무 데도 없음 |
 | [24] | 보조 주행 AST | 11/8 | 11/4 | AST_001·003·004·006·007·008 끝. 005는 1번 `PolicyInterventionManager`에 있음(20분, 위험 맥락 10분) |
 | (없음) | SIG_009 엔진 쪽, 통합 준비 | — | 11/4 | 끝 (간트에 없던 일) |
-| (없음) | main 합치기 시험 | — | 11/6 | 충돌 1곳(`engine/build.gradle.kts`), 엔진 시험 236개 통과 |
+| (없음) | main 합치기 | — | 11/6 시험, 11/7 다시 | 충돌 1곳(`engine/build.gradle.kts`). 11/7 00:24 main(4번 #9~#11 포함) 기준 엔진 시험 308개 통과 |
 | (없음) | 신호 변환·AgeBand 교체·EngineConfig 연결 | — | 11/7 | 끝 (패치 1, 246개) |
 | (없음) | 고칠 것 1(딴짓 칸 정렬)·2(큰 수정 하한) | — | 11/7 | 끝 (패치 2, 257개, 돌연변이 11개 잡음) |
 | (없음) | 엔진 출력 연결기 (app) | — | 11/7 | 끝 (패치 3, app 시험 8개). 1번 앱 조립 코드에서 띄워야 돎 |
 | [7] 2번 몫 | 시나리오 형식 제안 | — | 11/7 | 제안 문서 [11](11-scenario-format-proposal.md). 1·5번과 확정 남음 |
+| (없음) | 팀원 안내 (README 주말 할 일, Pleos 메일 답변 정리) | — | 11/7 | 끝 (패치 5, [README](README.md), [메일 답변](../meetings/2026-11-05_Pleos_메일답변.md)) |
 | [60] | 1차 통합·E2E 리허설 (전원) | 11/9 | — | 남음. 먼저 필요한 것: 2번 PR 머지, 1번 앱 조립(연결기 띄우기), 시나리오 JSON·DemoPlayer, 앱 시작 화면 ([3절](#3-남은-일), [4절](#4-위험과-대응)) |
 | [61] | MVP 동결 | 11/10 | — | |
 | [70] | 버그 수정·TC 결과 기록 | 11/10~12 | — | 남음. 2번 TC 42개, H~O열 아직 빈칸 ([06 7절](06-testing.md#7-tc-시트-기록)) |
@@ -56,13 +57,14 @@
 
 | 할 일 | 상태 (11/7) |
 | --- | --- |
-| main 합치기 (`engine/build.gradle.kts` 충돌 → main 것으로) | 스크립트에 들어 있음. 엔진 시험 236개 |
+| main 합치기 (`engine/build.gradle.kts` 충돌 → main 것으로) | 스크립트에 들어 있음. 11/7 00:24 main 기준 엔진 시험 308개 |
 | 신호 변환 함수 `SignalAdapters.kt` + 시험 6개 | 끝 (패치 1) |
 | `AgeGroup`·`HourWindow` → `AgeBand`·`VulnerableTimeRange`, 값은 `VulnerableTimeDefaults` 한 곳 | 끝 (패치 1) |
 | 팀 `EngineConfig`에 2번 묶음 4개, `FatigueEngine(EngineConfig)` | 끝 (패치 1) |
 | 엔진 출력 연결기 (app `fatigue/`, 1번 `DrivingAssessmentSource` 구현) | 끝 (패치 3). 1번이 앱 조립 코드에서 `runner.run(...)`을 띄우면 돎 |
 | 출발 피로 → 4번 `ForecastEngine` (`startFatigueDetected`) | 연결기 `snapshots`로 내놓음. 4번 조립 코드에서 읽음 |
 | '15분 뒤 첫 확인' → 1번 | 1번 입력이 없어 `firstCheckDueMs`로만 내놓음 |
+| 휴식 인증 + 회복 정상 → 엔진 평활값 0 (RES_011) | 1번 `PolicyInterventionManager`가 `RestRecoveryResetRequest`를 냄 → 그 요청을 실행하는 곳(4번 `InterventionRouter`의 `recoveryReset`, `feat/rest-wiring` PR 전)에서 `runner.onRestCertified()` |
 
 ### 2차로 미룬 것
 
@@ -78,7 +80,7 @@
 
 | 할 일 | 상대 | 언제 |
 | --- | --- | --- |
-| 연결기 리뷰(대응표), 앱 조립에서 띄우기, '15분 뒤 첫 확인'을 받을 입력 추가 부탁 | 1번 | 11/8 |
+| 연결기 리뷰(대응표), 앱 조립에서 띄우기, '15분 뒤 첫 확인'을 받을 입력 추가 부탁, `RestRecoveryResetRequest` → `runner.onRestCertified()` | 1번 | 11/8 |
 | 신호 TTL을 3초보다 길게 (예: 3.5초 [제안값]) | 1번 | 11/7 |
 | 데모 시나리오 형식([7]): 2번 제안 [11](11-scenario-format-proposal.md) (회전 지점 거리, 시작 시각, 정수 ms, 2차 `assumed` 자리) | 1·5번 | 11/8 |
 | SRS 고칠 것 전달: 담당자 PAT_004·006·007·AST_005 → 1번, 구현 위치 '(예정)' → 실제 경로, Data Interface, 64 → 61 ([08 4-5](08-team-handoff.md#4-5-팀장srs-담당)) | 팀장 | 11/7 |
@@ -89,7 +91,7 @@
 
 | 위험 | 영향 | 대응 | 담당 |
 | --- | --- | --- | --- |
-| **11/9 통합에 필요한 연결 코드가 main에 거의 없음** (11/6 저장소 기준) | 통합·시연 영상이 밀림 | 1번 포트(`CheckPort`·`SpeechPort`·`RestPort`·`ClimatePort`)와 공급원(`ForecastSource`·`RestCertificationSource`)은 인터페이스만 있고 구현이 없다. 앱 시작 화면·포그라운드 서비스도 없다. 2번 몫(`DrivingAssessmentSource`)은 11/7 연결기로 만들었다 | 전원 |
+| **11/9 통합에 필요한 연결 코드가 main에 아직 다 없음** (11/7 00:24 main 기준) | 통합·시연 영상이 밀림 | 있는 것: 4번 `RestPort`(`RestAreaRestPort`)·`ClimatePort`(`DriverVentilationController`)·`RestCertificationSource`(`RestSessionMonitor`), 1번 SDK 입력(`PlaygroundSignalAdapter`)과 디버그 화면, 2번 `DrivingAssessmentSource`(이 PR의 연결기). 만드는 중: 4번 `feat/rest-wiring`(11/7, PR 전)에 요청 중계 `InterventionRouter`와 4번 부품 묶음 `RestModule`. 없는 것: 3번 `CheckPort`·`SpeechPort` 구현, 4번 `ForecastSource` 구현(예보 엔진은 있음), DemoPlayer(미연결 구현만), 이것들을 모두 부르는 감시 서비스(포그라운드 서비스, 1번), release 화면 | 전원 |
 | **Pleos 답(11/5): 속도·조향은 기본 1 Hz, 같은 값이면 3초 안의 중복 콜백을 생략** | Hub의 TTL(신호를 믿는 시간)이 3초 이하면 값이 그대로일 때 null(STALE)이 된다. 차속이 null이면 게이트를 못 넘는다. 1 Hz면 미세 수정은 늘 꺼지고(SIG_009), 급조향도 대부분 놓친다(시뮬레이션: 빨리 꺾고 돌아오면 10번 중 0번, 3초 유지하면 10번 중 7번). 졸음 조향만으로는 B 38.5, R 44(K 1.15)라 1단계까지만 | TTL은 3초 초과(1번). 1차 시연은 시나리오(10 Hz)로. 실제 입력 한계는 README·PT에 밝힘 | 1·2번 |
 | **ADAS SDK는 쓸 수 없음 (11/5)** | LFA·LKA·DAW 같은 확장 기능은 1차 불가 | 2차에 시나리오로 시뮬레이션 ([10](10-extension-design.md)) | 2번 |
 | **SDK 조향은 전륜각**(1번 11/3 확인: 공개 SDK 설명이 front-wheel angle, Console +10에 SDK −10)이라 1번이 엔진에 null로 보류 | 실제 에뮬레이터 입력에서는 조향 null → 보조 주행(UNCERTAIN) → 점수 없음, 게이지 회색. 엔진 문턱(0.5~3°, 5°, 6°)은 운전대각 기준이라 전륜각을 그대로 넣으면 안 됨. AOSP의 `READ_CAR_STEERING`은 `signature|privileged`라 일반 앱이 운전대각을 따로 받을 길도 없음 | 1차 데모는 시나리오 재생(조향 있음)으로. 화면은 '조향 신호 없음'을 따로 표시. 11/5 답에 전륜각·부호·원천 시각 이야기는 없어서 다시 물을지 정함 | 1·2번 |

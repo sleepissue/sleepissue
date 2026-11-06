@@ -14,19 +14,23 @@ main ───────────────●─────────
 - PR을 열어도 코드는 바뀌지 않는다. 열어 둔 뒤 브랜치에 push하면 PR에 자동으로 더해진다.
 - 리뷰어는 "이 코드가 main에 들어가도 되는지"를 본다. 질문이나 수정 요청은 PR 화면에 댓글로 단다.
 
-## 2. 지금 상태 (11/6)
+## 2. 지금 상태 (11/7)
 
 | PR | 브랜치 | 상태 |
 | --- | --- | --- |
-| 2번 (우리) | `feat/engine-model` → `main` | **아직 안 열림.** 커밋 13개(문서 포함). main이 11/4에 앞서 나가서 main을 먼저 합쳐야 함 (충돌 1곳) |
+| 2번 (우리) | `feat/engine-model` → `main` | **리뷰 대기.** 11/7 00:24 main을 합치고(충돌 1곳) 패치 01~05를 커밋해 push. 리뷰 1명 뒤 머지 |
 | #6 (1번) | `develop-jdw` → `main` | 11/4 병합 |
 | #7 (4번) | `feat/rest-forecast-engine` → `main` | 11/4 병합 (예보 엔진) |
 | #8 (3번) | `feat/voice-check-sync` → `main` | 11/4 병합 (#5는 닫고 다시 올림) |
-| 4번 | `feat/rest-area-selector` | PR 없음 (쉼터 CSV·선택 규칙 RST_001·003) |
+| #9 (4번) | `feat/rest-area-selector` → `main` | 11/7 병합 (쉼터 데이터·앞쪽 쉼터 선택·경유지 추가. 1번 `RestPort` 구현 `navi/RestAreaRestPort`) |
+| #10 (4번) | `feat/rest-climate` → `main` | 11/7 병합 (운전석 통풍. `ClimatePort` 구현 `climate/DriverVentilationController`) |
+| #11 (4번) | `feat/rest-session` → `main` | 11/7 병합 (휴식 자동 인증·파워냅·보상. `RestCertificationSource` 구현 `session/RestSessionMonitor`) |
 
 ### 머지 순서: main을 먼저 이 브랜치로 합친다 (11/6)
 
 1번 신호 자료형(`SignalFrame`·`NaviState`·`TripState`)과 팀 `EngineConfig`·`Clock`, 4번 `AgeBand`·`VulnerableTimeRange`가 11/4에 main에 들어왔다. 11/6에 main을 이 브랜치에 시험 삼아 합쳐 보니 충돌은 `src/android/engine/build.gradle.kts` 하나였고(main 것으로 고르면 됨), 합친 엔진 시험 236개(2번 104 + main 132)가 통과했다. 변환 함수까지 넣으면 242개다.
+
+11/7 00:24에 4번 #9·#10·#11이 main에 더 들어와 다시 합쳤다. 충돌은 여전히 그 파일 하나였고, 4번이 `EngineConfig` 끝에 더한 칸과 2번 칸 4개(가운데)는 겹치지 않았다. 패치 01~04까지 넣은 엔진 시험 **308개(2번 125 + main 183)** 와 연결기 8개가 통과했다.
 
 ## 3. PR 여는 법
 
@@ -35,7 +39,7 @@ main ───────────────●─────────
 1. `https://github.com/sleepissue/sleepissue` → **Pull requests** → **New pull request**
 2. **base: `main`** ← **compare: `feat/engine-model`** 로 고른다 (방향이 반대면 안 됨)
 3. 제목: `2번 졸음 판단 엔진 1차 (FAT·BSL·PAT·AST, SIG_009 엔진 쪽)`
-4. 본문: 받은 `PR_feat-engine-model.md` 내용을 그대로 붙여 넣는다
+4. 본문: 받은 `PR_feat-engine-model_v4.md` 내용을 그대로 붙여 넣는다
 5. 오른쪽 **Reviewers**에 1번을 고른다
 6. 아래 'PR 열기 전에 할 일'을 끝내고 push한 뒤 **Create pull request**. 리뷰 전에 먼저 보여만 주려면 **Create draft pull request**(초안)
 
@@ -44,7 +48,7 @@ main ───────────────●─────────
 ```bash
 gh pr create --base main --head feat/engine-model \
   --title "2번 졸음 판단 엔진 1차 (FAT·BSL·PAT·AST, SIG_009 엔진 쪽)" \
-  --body-file ~/Downloads/PR_feat-engine-model.md --draft
+  --body-file <압축 푼 폴더>/PR_feat-engine-model_v4.md --draft
 ```
 
 ### PR 열기 전에 할 일 (main 합치기)
@@ -54,11 +58,11 @@ cd ~/sleepissue && git checkout feat/engine-model && git fetch origin
 git merge origin/main                    # 충돌: src/android/engine/build.gradle.kts
 git checkout --theirs src/android/engine/build.gradle.kts   # main 것으로
 git add src/android/engine/build.gradle.kts && git commit --no-edit
-cd src/android && ./gradlew :engine:test --console=plain     # 엔진 시험 236개 통과 확인
+cd src/android && ./gradlew :engine:test --console=plain     # 엔진 시험 실패 0 확인
 cd ~/sleepissue && git push
 ```
 
-11/7에 그다음 단계를 패치 3개로 만들었다: ① 신호 변환·AgeBand 교체·EngineConfig 연결(246개) ② 고칠 것 1·2(257개) ③ app 엔진 출력 연결기(app 시험 8개). 문서 갱신까지 넣고 push한 뒤 PR을 연다. 순서대로 적용하는 스크립트를 함께 보냈다.
+11/7에 그다음 단계를 패치로 만들었다: ① 신호 변환·AgeBand 교체·EngineConfig 연결 ② 고칠 것 1·2 ③ app 엔진 출력 연결기(app 시험 8개) ④ 문서 갱신·시나리오 형식 제안 ⑤ 팀원 안내([README](README.md#팀원이-먼저-볼-것-주말-117119)의 주말 할 일, [Pleos 메일 답변](../meetings/2026-11-05_Pleos_메일답변.md)). 스크립트 `apply_1107.sh`가 위 main 합치기부터 ⑤까지 순서대로 커밋하고 시험까지 돌린다(11/7 00:24 main 기준 엔진 308개). push와 PR 열기는 사람이 한다.
 
 ### 머지할 때
 
@@ -70,7 +74,7 @@ cd ~/sleepissue && git push
 - `SignalFrame`·`NaviState`에 게이트가 쓰는 값(조향각, 차속, 기어, 방향지시등, 브레이크, 회전 지점 거리, 크루즈·설정 속도, 통풍)이 다 있는지 → 있음 (변환 함수 시험 통과)
 - 2번 출력을 받을 자리 → 있음: app `signal/SignalPorts.kt`의 `DrivingAssessment`·`DrivingAssessmentSource`, `InterventionInput.Safety`·`SensitiveModeChanged`. 다만 **'출발 피로 15분 뒤 첫 확인'(`firstCheckDueMs`)을 받을 입력은 없다**
 - `SafetyEventType` 이름이 2번 `SteeringEventType`과 같은지 → 같음
-- `DrivingAssessmentSource`를 구현한 곳 → **없음.** 엔진 출력 연결기가 필요하다 (4-1 대응표)
+- `DrivingAssessmentSource`를 구현한 곳 → main에는 없음. 이 PR의 연결기 `FatigueAssessmentRunner`가 구현한다 (4-1 대응표)
 
 ## 4. 팀원별로 알릴 것
 
@@ -85,7 +89,7 @@ cd ~/sleepissue && git push
 | 5 | 연결 규칙: 매 프레임 `push(frame)` 뒤 `drainEvents()`, `trending = (patternType == TREND)`, `safetyBypass`는 사건 `REPEATED_RAPID_STEERING`으로 이미 감, `baselineState.sensitive` OR RES_006 → 문턱 30/50/70, `assistState.assistMode` → AST_005 확인 주기, `opGapSec > 900` → 확인 당김, `HANDOVER_UNSAFE` → 2단계 | 중간 |
 | 5b | **'15분 뒤 첫 확인' 입력이 없다.** 출발 피로·'졸려요'(BSL_006·007) 때 `baselineState.firstCheckDueMs`에 첫 음성 확인을 해야 하는데 `InterventionInput`에 받을 자리가 없다. 입력 하나 추가 부탁 | 높음 |
 | 5c | **TTL을 3초보다 길게** (예: 3.5초 [제안값]). Pleos 답(11/5): 같은 값이면 3초 안 중복 콜백을 생략한다. TTL이 3초 이하면 차속이 그대로일 때 null(STALE)이 되어 게이트가 닫힌다 | 높음 |
-| 6 | 새 운행(TRP_008)이면 `reset()`(컨디션 받기 전에), 휴식 인증 + 회복 정상(RES_011)이면 `resetRiskAfterRest()`. 거꾸로 부르면 오늘의 나가 지워진다 | 중간 |
+| 6 | 새 운행(TRP_008)이면 `reset()`(컨디션 받기 전에), 휴식 인증 + 회복 정상(RES_011)이면 `resetRiskAfterRest()`. 거꾸로 부르면 오늘의 나가 지워진다. 연결기로는 `runner.onNewTrip(...)`·`runner.onRestCertified()`. 1번 `PolicyInterventionManager`가 인증 + 회복 정상이면 `RestRecoveryResetRequest`를 `requests`로 내므로, 그 요청을 실행하는 곳에서 `runner.onRestCertified()`를 부르면 된다. 4번 `feat/rest-wiring`(11/7, PR 전)의 `InterventionRouter`에 그 자리(`recoveryReset`)가 있다. `requests`는 한 곳에서만 받으므로 연결기가 따로 구독하지 않는다 | 중간 |
 | 7 | SRS 담당자 칸 PAT_004·006·007, AST_005 → 1번 (InterventionPolicy에 이미 값이 있음) | 중간 |
 | 8 | `tripId` 타입: SRS MSG-08·13은 Long, 1번 `TripState.tripId`는 String. 2번 `BaselineRecord.tripId`를 어디에 맞출지 (2차 기록 저장 전에) | 낮음 |
 | 9 | 비상등을 방향지시등 켜짐으로 보는 것(변환 함수 [해석]), AST_005 '야간' 시간 정의 | 낮음 |
@@ -124,7 +128,7 @@ cd ~/sleepissue && git push
 | 2 | 휴식 인증 + 회복 정상 뒤 연결기 `runner.onRestCertified()` — 평활값만 0, 기준선은 그대로 (RES_011 표와 같음) |
 | 3 | 회복 '느림' 뒤 민감 모드(RES_006)는 4번이 내고 1번이 2번 `sensitive`와 OR로 합친다 |
 | 4 | **2번 임시 `AgeGroup`·`HourWindow`를 지우고 4번 `AgeBand`·`VulnerableTimeRange`로 바꿨다 (11/7).** 값이 둘로 갈리지 않게 `EngineConfig`의 `vulnerableBaseRanges`·`vulnerableAgeRanges` 기본값을 `VulnerableTimeDefaults` 한 곳으로 옮겼다 (값은 그대로, 예보 시험 그대로 통과). 시간대를 바꿀 때는 `EngineConfig` 값만 바꾸면 예보·K·1단계가 같이 바뀐다 |
-| 5 | 쉼터 브랜치 `feat/rest-area-selector`는 PR이 아직 없다. 그 브랜치도 `EngineConfig` 끝에 칸을 더하므로, 2번 PR 뒤에 합치면 `EngineConfig`에서 충돌이 날 수 있다 → 두 쪽 줄을 다 남기면 된다. 3단계 경유지 추가(1번 `RestPort` 구현)는 main에 아직 없다 |
+| 5 | 쉼터·통풍·휴식 인증(#9·#10·#11)이 11/7 main에 들어왔다. 2번 브랜치에 합쳐 보니 `EngineConfig` 충돌은 없었다(4번 칸은 끝, 2번 칸 4개는 가운데). 휴식 인증 뒤 엔진 초기화는 4번 `InterventionRouter`(`feat/rest-wiring`)의 `recoveryReset`에서 `runner.onRestCertified()`로 (4-1 6번). 예보를 1번에 넘기는 `ForecastSource` 구현은 아직 없다 |
 
 ### 4-4. 5번 (화면·시연)
 
@@ -173,7 +177,7 @@ cd ~/sleepissue && git push
 
 **1번에게**
 
-> 2번 엔진 PR 올렸어 (main 합침, 엔진 시험 257개 + 연결기 8개 통과). 리뷰 부탁해. 같이 볼 게 네 가지야. ① 엔진 결과를 네 InterventionManager로 넘기는 연결기를 app/fatigue/에 만들었어. FatigueAssessmentRunner가 DrivingAssessmentSource를 구현하고 submit까지 해. 앱 조립하는 곳에서 scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) } 한 줄이면 돌아. 대응표(GATE_WAIT → NOT_EVALUATED, ASSIST → UNAVAILABLE, SPIKE → TRANSIENT, 점수는 무효면 null)가 맞는지 봐 줘. ② 출발 피로·'졸려요'면 15분 뒤 첫 음성 확인을 해야 하는데 InterventionInput에 받을 자리가 없어. 입력 하나 추가해 주면 연결기에서 보낼게. ③ Pleos 답에 같은 값이면 3초 안 중복 콜백을 생략한대. TTL이 3초 이하면 차속이 그대로일 때 null이 돼서 게이트가 닫혀. 3.5초쯤으로 해 줘. ④ 시나리오 형식 제안(docs/fatigue-engine/11-scenario-format-proposal.md) 봐 줘. 회전 지점 거리·시작 시각·tMs(정수 ms)가 핵심이고, DemoPlayer가 1초마다 NaviState를 내 주면 돼. EngineConfig 가운데에 2번 칸 4개가 들어갔고 취약 시간대 기본값은 VulnerableTimeDefaults로 옮겼어(값 같음). 자세한 건 08-team-handoff.md 4-1.
+> 2번 엔진 PR 올렸어 (11/7 main 합침, 엔진 시험 308개 + 연결기 8개 통과). 리뷰 부탁해. 같이 볼 게 다섯 가지야. ① 엔진 결과를 네 InterventionManager로 넘기는 연결기를 app/fatigue/에 만들었어. FatigueAssessmentRunner가 DrivingAssessmentSource를 구현하고 submit까지 해. 앱 조립하는 곳에서 scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) } 한 줄이면 돌아. 대응표(GATE_WAIT → NOT_EVALUATED, ASSIST → UNAVAILABLE, SPIKE → TRANSIENT, 점수는 무효면 null)가 맞는지 봐 줘. ② 출발 피로·'졸려요'면 15분 뒤 첫 음성 확인을 해야 하는데 InterventionInput에 받을 자리가 없어. 입력 하나 추가해 주면 연결기에서 보낼게. ③ Pleos 답에 같은 값이면 3초 안 중복 콜백을 생략한대. TTL이 3초 이하면 차속이 그대로일 때 null이 돼서 게이트가 닫혀. 3.5초쯤으로 해 줘. ④ 시나리오 형식 제안(docs/fatigue-engine/11-scenario-format-proposal.md) 봐 줘. 회전 지점 거리·시작 시각·tMs(정수 ms)가 핵심이고, DemoPlayer가 1초마다 NaviState를 내 주면 돼. ⑤ 휴식 인증 + 회복 정상 때 네 PolicyInterventionManager가 RestRecoveryResetRequest를 내잖아. 그걸 실행하는 곳(4번 feat/rest-wiring InterventionRouter의 recoveryReset)에서 runner.onRestCertified()도 불러 주면 엔진 평활값이 0이 돼(기준선은 그대로). EngineConfig 가운데에 2번 칸 4개가 들어갔고 취약 시간대 기본값은 VulnerableTimeDefaults로 옮겼어(값 같음). 자세한 건 08-team-handoff.md 4-1.
 
 **5번에게**
 
@@ -185,4 +189,4 @@ cd ~/sleepissue && git push
 
 **4번에게**
 
-> 내 임시 AgeGroup·HourWindow 지우고 네 AgeBand·VulnerableTimeRange로 바꿨어. 값이 갈리지 않게 EngineConfig의 취약 시간대 기본값을 VulnerableTimeDefaults로 옮겼고 값은 같아(예보 시험 그대로 통과). 출발 피로는 연결기 runner.snapshots의 baseline.departureFatigue가 false→true 되는 순간 startFatigueDetected로 예보 다시 계산하면 돼. 휴식 인증 뒤엔 runner.onRestCertified()라 기준선은 그대로야. 쉼터 브랜치 합칠 때 EngineConfig 끝 줄이 겹치면 둘 다 남겨 줘.
+> 내 임시 AgeGroup·HourWindow 지우고 네 AgeBand·VulnerableTimeRange로 바꿨어. 값이 갈리지 않게 EngineConfig의 취약 시간대 기본값을 VulnerableTimeDefaults로 옮겼고 값은 같아(예보 시험 그대로 통과). 네 #9·#10·#11 들어온 main도 합쳐 봤는데 EngineConfig 충돌 없었고 네 시험 포함 엔진 308개 다 통과했어. 출발 피로는 연결기 runner.snapshots의 baseline.departureFatigue가 false→true 되는 순간 startFatigueDetected로 예보 다시 계산하면 돼. 휴식 인증 뒤 엔진 초기화는 네 InterventionRouter의 recoveryReset 자리에서 runner.onRestCertified()를 부르면 돼(기준선은 그대로, 평활값만 0). 1번한테도 말해 뒀어.

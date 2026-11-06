@@ -107,9 +107,10 @@
 
 2026-11-06: main(11/4 병합 #6·#7·#8)과 합치기 시험 — 충돌 1곳(`engine/build.gradle.kts`, main 것으로), 엔진 시험 236개 통과, 변환 함수까지 242개. 2차 확장(가정 신호) 설계 문서 추가.
 
-2026-11-07: main 합치기, 신호 변환 함수, 4번 `AgeBand`·`VulnerableTimeRange`로 교체(취약 시간대 값은 `VulnerableTimeDefaults` 한 곳), 팀 `EngineConfig`에 2번 묶음 4개 연결, 고칠 것 1(딴짓 1분 칸 정렬)·2(큰 수정 기준 하한 2/분 [제안값]), app 엔진 출력 연결기(1번 `DrivingAssessmentSource` 구현). `:engine:test` 257개(2번 125) + 연결기 8개 통과, 돌연변이 11개 모두 잡음. 데모 시나리오 형식 2번 제안 작성.
+2026-11-07: main 합치기, 신호 변환 함수, 4번 `AgeBand`·`VulnerableTimeRange`로 교체(취약 시간대 값은 `VulnerableTimeDefaults` 한 곳), 팀 `EngineConfig`에 2번 묶음 4개 연결, 고칠 것 1(딴짓 1분 칸 정렬)·2(큰 수정 기준 하한 2/분 [제안값]), app 엔진 출력 연결기(1번 `DrivingAssessmentSource` 구현). `:engine:test` 308개(2번 125, 11/7 00:24 main 기준) + 연결기 8개 통과, 돌연변이 11개 모두 잡음. 데모 시나리오 형식 2번 제안 작성. Pleos 메일 답변(11/5)을 [회의록](docs/meetings/2026-11-05_Pleos_메일답변.md)으로 정리.
 
-- 남은 작업: PR 리뷰·머지, 1번 앱 조립에서 연결기 띄우기·'15분 뒤 첫 확인' 입력·TTL 3초 초과(1번), 시나리오 형식 확정(1·5번), TC 시트 기록(11/10~12).
+- 남은 작업: PR 리뷰·머지, 1번 앱 조립에서 연결기 띄우기·'15분 뒤 첫 확인' 입력·TTL 3초 초과·`RestRecoveryResetRequest` → `runner.onRestCertified()`(1번), 시나리오 형식 확정(1·5번), TC 시트 기록(11/10~12).
+- **팀원별 주말 할 일과 먼저 읽을 곳**: [docs/fatigue-engine/README.md](docs/fatigue-engine/README.md#팀원이-먼저-볼-것-주말-117119)
 - 설명 문서: [docs/fatigue-engine/](docs/fatigue-engine/README.md) — 구조·알고리즘·해석·동작 예·시험·작업 기록·팀 전달·일정·2차 확장 설계·시나리오 형식 제안.
 
 ### 3번 — 음성·실내 (`feat/voice-*`)

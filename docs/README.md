@@ -8,7 +8,7 @@
 | [proposal](proposal/) | 접수 양식, 제출 체크리스트 |
 | [setup](setup/) | 개발환경 설치기록, [파일트리·Git플로우 매뉴얼](setup/파일트리_Git플로우_매뉴얼.md)(PDF 포함) |
 | [design](design/) | 화면 시안 (11/5 예정) |
-| [meetings](meetings/) | 회의록 |
+| [meetings](meetings/) | 회의록, 운영사무국 메일 답변 ([11/5 Pleos 답변](meetings/2026-11-05_Pleos_메일답변.md)) |
 
 CLAUDE.md에는 없지만 팀 운영에 필요해서 추가한 폴더:
 

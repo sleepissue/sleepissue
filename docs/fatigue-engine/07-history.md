@@ -131,7 +131,7 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
 ### 11단계 — main 합치기·신호 변환·AgeBand·EngineConfig (11/7)
 
 - **바꾼 것:**
-  - main(11/4에 1·3·4번 PR #6·#7·#8 병합)을 이 브랜치로 합침. 충돌은 `engine/build.gradle.kts` 하나, main 것을 고름.
+  - main(11/4에 1·3·4번 PR #6·#7·#8, 11/7 00:24에 4번 #9·#10·#11 병합)을 이 브랜치로 합침. 충돌은 `engine/build.gradle.kts` 하나, main 것을 고름. 합친 뒤 엔진 시험은 main 183개 + 2번.
   - 신호 변환 함수 `SignalAdapters.kt` + 시험 6개 (11/4에 준비해 둔 것).
   - 임시 `AgeGroup`·`HourWindow`를 지우고 4번 `AgeBand?`·`VulnerableTimeRange`로. 취약 시간대 값을 `VulnerableTimeDefaults` 한 곳으로 모아 팀 `EngineConfig`(예보·1단계)와 `ContextWeightConfig`(K)가 같이 씀.
   - 팀 `EngineConfig`에 `fatigue`·`baseline`·`pattern`·`assist` 칸, `FatigueEngine(EngineConfig)` 생성자, `EngineConfig.resolvedFatigueConfig()`.
@@ -154,4 +154,4 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
 
 ## 4. 준비만 하고 아직 안 올린 것
 
-11/7에 모두 올렸다 (11~13단계). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일).
+11/7에 모두 올렸다 (11~13단계, 문서는 11/7 문서 커밋과 팀원 안내 커밋). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일), 팀원별 할 일은 [README](README.md#팀원이-먼저-볼-것-주말-117119).
