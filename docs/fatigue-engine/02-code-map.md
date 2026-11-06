@@ -1,6 +1,7 @@
 # 2. 코드 지도
 
 경로 앞부분 `src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/`는 줄여서 `engine/`으로 쓴다.
+app 쪽 연결기 `src/android/app/src/main/java/com/sleepissue/awakedrive/fatigue/`는 `app/fatigue/`로 쓴다 (11/7 추가, [2-2 끝](#appfatigue--엔진-출력-연결기-117)).
 
 ## 2-1. 폴더 구조
 
@@ -16,19 +17,19 @@ engine/
 
 `intervention/`, `forecast/`, `rest/`, `signal/`, `time/`, `check/`, `voice/`, `session/` 같은 다른 패키지는 1·3·4번 몫이다 (11/4에 PR #6·#7·#8로 main에 들어감).
 
-## 2-2. 파일별 설명 (main 27개)
+## 2-2. 파일별 설명 (엔진 main 27개 2,534줄 + app 2개, 11/7 기준)
 
 ### config/ — 설정 묶음
 
 | 파일 | 줄 | 하는 일 |
 | --- | ---: | --- |
-| `FatigueConfig.kt` | 135 | 게이트·창·지표 3개·f값·가중치·지수평균 문턱값 (`FatigueConfig`), 맥락 가중 K 문턱값 (`ContextWeightConfig`). `smoothingAlpha`(α = 1 − e^(−30/180) = 0.1535)는 시정수에서 계산 |
-| `BaselineConfig.kt` | 51 | 기본 기준선 20/4 [가정], 평소의 나 3회·10회, 오늘의 나 15분, 출발 피로 조건, 첫 확인 15분, 5 Hz 미만 비율 10% [제안값] |
+| `FatigueConfig.kt` | 147 | 게이트·창·지표 3개·f값·가중치·지수평균 문턱값 (`FatigueConfig`), 맥락 가중 K 문턱값 (`ContextWeightConfig`). `smoothingAlpha`(α = 1 − e^(−30/180) = 0.1535)는 시정수에서 계산. `EngineConfig.resolvedFatigueConfig()`는 팀 취약 시간대를 K에 넣은 묶음을 돌려줌 |
+| `BaselineConfig.kt` | 60 | 기본 기준선 20/4 [가정], 평소의 나 3회·10회, 오늘의 나 15분, 출발 피로 조건, 첫 확인 15분, 5 Hz 미만 비율 10% [제안값], 큰 수정 하한 2/분 [제안값] |
 | `PatternConfig.kt` | 35 | 이상 분 0.70·1.5배, 10분 돌아보기, 추세형 6·튐형 3, 복귀 1분, 안전 우회 3회·5분·유지 5분 |
 | `AssistConfig.kt` | 25 | 인계 감시 30초, 1.5배, 기록 없으면 3회. 매끈한 조향(2차) 값 |
-| `HourWindow.kt` | 21 | 하루 중 시간대(시작 포함·끝 제외, 자정 넘는 구간 지원). 취약 시간대에 씀. 4번 `VulnerableTimeRange`가 들어오면 바꿀 임시 타입 |
+| `VulnerableTimeDefaults.kt` | 27 | 취약 시간대 기본값 한 곳 (기본 02~07·14~17시, 연령대별). 팀 `EngineConfig`와 `ContextWeightConfig`가 같이 씀 (11/7) |
 
-팀 공통 `EngineConfig` 본체는 1번 브랜치에 있다. 2번은 본체를 만들지 않고 묶음 4개만 둔다. 본체가 main에 들어오면 거기에 `val fatigue: FatigueConfig = FatigueConfig()`처럼 한 줄씩 붙인다 (3b단계 결정).
+팀 공통 `EngineConfig`(1번이 만든 본체, 11/4 main)에 2번 묶음 4개를 `fatigue`·`baseline`·`pattern`·`assist` 칸으로 붙였다 (11/7). 앱은 `FatigueEngine(EngineConfig)`로 만든다. 11/4까지 쓰던 임시 `HourWindow`·`AgeGroup`은 4번 `VulnerableTimeRange`·`AgeBand`로 바꾸며 지웠다.
 
 ### model/ — 주고받는 자료
 
@@ -42,7 +43,6 @@ engine/
 | `BaselineState.kt` | 47 | **새 메시지(MSG-16 제안)** 기준선 출처·값, 오늘의 나, 출발 피로, '졸려요', 민감 모드 시작·첫 확인 시각. `BaselineSource{DEFAULT, USUAL, TODAY}` |
 | `SteeringBaseline.kt` | 17 | 비교 기준 한 쌍(미세/분, 큰/분). 음수 금지 |
 | `SteeringEvent.kt` | 20 | **새 메시지** 바로 반응해야 하는 사건 3종. 1번 `SafetyEventType`과 이름을 맞춤 |
-| `AgeGroup.kt` | 15 | 연령대(UNSET·20대·30~40대·50대 이상). 4번 `AgeBand`로 바꿀 임시 타입 |
 
 ### fatigue/ — 게이트·지표·점수·엔진
 
@@ -51,27 +51,39 @@ engine/
 | `SteeringGate.kt` | 234 | 게이트 (FAT_001~004). `GateInput` → 10초 뒤 `GateDecision(tMs, 조향각, reason, reasonWithoutAssist)`. 이유 9가지 `GateReason` |
 | `SteeringReversalDetector.kt` | 85 | 조향각 흐름에서 방향이 바뀐 점(극값)을 찾아 극값 사이 크기를 돌려줌. 0.5° 되돌아와야 방향 전환으로 인정 (`internal`) |
 | `SuddenSteerDetector.kt` | 93 | 멈춤 뒤 급조향 (FAT_008) (`internal`) |
-| `SteeringMetrics.kt` | 180 | 60초 창·30초 갱신 지표 (FAT_005~008). `SteeringIndicators` 반환. 오늘의 나용 누적 합계도 셈 |
+| `SteeringMetrics.kt` | 202 | 60초 창·30초 갱신 지표 (FAT_005~008). `SteeringIndicators` 반환. 오늘의 나용 누적 합계도 셈. `windowEndingAt(t)`는 급조향까지의 60초를 상태를 바꾸지 않고 계산 (11/7) |
 | `FatigueFactors.kt` | 39 | f미세·f큰·f급조향 (FAT_009~011) |
-| `ContextWeight.kt` | 110 | 맥락 가중 K (FAT_013~018). `ContextInput`(입력), `ContextFactors`(켜진 항목), 취약 시간대 판단 |
+| `ContextWeight.kt` | 109 | 맥락 가중 K (FAT_013~018). `ContextInput`(입력, 연령대는 `AgeBand?`), `ContextFactors`(켜진 항목), 취약 시간대 판단 |
 | `RiskScore.kt` | 50 | B·R (FAT_012·019), 미세 수정을 뺀 B 재정규화 (SIG_009) |
 | `RiskSmoother.kt` | 38 | 3분 지수평균 (FAT_020) |
 | `SafetySteering.kt` | 61 | 보조 주행 중에도 급조향·큰 수정을 보는 두 번째 감지기 (PAT_005·AST_007) (`internal`) |
-| `FatigueEngine.kt` | 300 | **2번 전체를 묶는 본체.** 다른 모듈은 이 클래스만 쓰면 된다 |
+| `FatigueEngine.kt` | 323 | **2번 전체를 묶는 본체.** 다른 모듈은 이 클래스만 쓰면 된다. 앱은 `FatigueEngine(EngineConfig)` |
+| `SignalAdapters.kt` | 63 | 1번 `SignalFrame`·`NaviState`·`TripState` → `DriveFrame`·`ContextInput` 변환, 5 Hz 판정, 동승자 수 (11/7) |
 
 ### baseline/ · pattern/ · assist/
 
 | 파일 | 줄 | 하는 일 |
 | --- | ---: | --- |
-| `baseline/BaselineStore.kt` | 239 | 기준 고르기, 평소의 나 중앙값, 오늘의 나 확정, 출발 피로, 민감 모드, 첫 확인 시각 (BSL_001·003~007) |
-| `pattern/PatternClassifier.kt` | 182 | 1분 칸 이상 분, 추세형·튐형·애매, 안전 우회 (PAT_001~003·005) |
+| `baseline/BaselineStore.kt` | 253 | 기준 고르기, 평소의 나 중앙값, 오늘의 나 확정, 출발 피로, 민감 모드, 첫 확인 시각 (BSL_001·003~007). 비교 기준 큰 수정 하한 `comparable` (11/7) |
+| `pattern/PatternClassifier.kt` | 237 | 1분 칸 이상 분, 추세형·튐형·애매, 안전 우회 (PAT_001~003·005). 급조향 칸 `onSuddenWindow` (11/7) |
 | `assist/AssistModeDetector.kt` | 175 | 보조 주행 판정, 인계 감시, 조작 공백 (AST_001·003·004·006·007·008) |
+
+### app/fatigue/ — 엔진 출력 연결기 (11/7)
+
+| 파일 | 줄 | 하는 일 |
+| --- | ---: | --- |
+| `FatigueBridge.kt` | 186 | 계산 부분. Hub 프레임 → 엔진 → 1번 `InterventionInput`(Assessment·Safety·민감 모드·취약 시간대). 대응 함수 `toDrivingAssessment`·`toDrivingPattern`·`toSafetyEvent`, 화면용 `FatigueSnapshot` |
+| `FatigueAssessmentRunner.kt` | 116 | 실행 부분. Hub `samples`를 모아 Bridge를 돌리고 1번 `InterventionManager.submit`으로 넣음. 1번 `DrivingAssessmentSource` 구현, `snapshots` StateFlow |
+
+1번 `SignalPorts.kt`·`InterventionManager.kt` 계약만 쓰고 Android API는 쓰지 않는다. 설명은 [03 3-16](03-algorithms.md#3-16-엔진-출력-연결기-app--fatiguebridge).
 
 ## 2-3. 클래스 관계
 
 ```mermaid
 flowchart TB
-  FE["FatigueEngine (공개)"]
+  RUN["app: FatigueAssessmentRunner (11/7)"] --> FB["app: FatigueBridge"]
+  FB --> FE["FatigueEngine (공개)"]
+  FB -. "변환" .-> SA["SignalAdapters"]
   FE --> AMD["AssistModeDetector"]
   FE --> SG["SteeringGate"]
   FE --> SM["SteeringMetrics"]
@@ -88,18 +100,18 @@ flowchart TB
   FE -. "계산 함수" .-> CW["ContextWeight"]
 ```
 
-- `FatigueEngine`이 나머지를 모두 만들어 들고 있다. 다른 모듈은 `FatigueEngine` 하나만 만들면 된다.
+- `FatigueEngine`이 나머지를 모두 만들어 들고 있다. 다른 모듈은 `FatigueEngine` 하나만 만들면 된다. 앱에서는 연결기(`FatigueAssessmentRunner` → `FatigueBridge`)가 만들고 부른다.
 - `FatigueFactors`·`RiskScore`·`ContextWeight`는 상태가 없는 계산 함수 모음(`object`)이라 시험에서 따로 불러 쓸 수 있다.
 - 감지기를 두 벌 둔 이유: 점수용(`SteeringMetrics`)은 보조 주행 중 프레임을 빼야 하고, 안전 감시용(`SafetySteering`)은 넣어야 해서 상태를 따로 가져야 한다.
 
 ## 2-4. 다른 모듈이 쓰는 법 (공개 API)
 
 ```kotlin
-val engine = FatigueEngine()                          // 설정을 바꾸려면 FatigueEngine(FatigueConfig(gateMinSpeedKph = 50f))
+val engine = FatigueEngine(EngineConfig())            // 앱. 값을 바꾸려면 EngineConfig(fatigue = FatigueConfig(gateMinSpeedKph = 50f))
 engine.baselineStore.loadHistory(records)             // 앱 시작 때 지난 운행 기록 (BSL_001·003)
 engine.baselineStore.reportCondition(sleepy, nowMs)   // 출발 전 컨디션 (BSL_007)
 engine.context = ContextInput(continuousDriveSec = …, last24hDriveSec = …,
-    minuteOfDay = …, ageGroup = …, passengerCount = …, cabinTempC = …)   // 바뀔 때마다
+    minuteOfDay = …, ageBand = …, passengerCount = …, cabinTempC = …)    // 바뀔 때마다 (연결기는 contextInputOf로)
 
 val states: List<FatigueState> = engine.push(frame)   // 100 ms마다. 30초마다 1개, 나머지는 빈 목록
 val events: List<SteeringEvent> = engine.drainEvents() // push 뒤마다. 꺼낸 사건은 지워짐(최대 100개 보관)
@@ -112,7 +124,7 @@ engine.reset()               // 새 운행 (꺼져 있던 시간 2시간 초과,
 engine.resetRiskAfterRest()  // 휴식 인증 + 회복 확인 뒤 (RES_011)
 ```
 
-- **한 스레드(코루틴 하나)에서만** 부른다. 안에 잠금(lock)이 없다.
+- **한 스레드(코루틴 하나)에서만** 부른다. 안에 잠금(lock)이 없다. 앱에서는 연결기 `FatigueAssessmentRunner`가 이 규칙을 지켜 준다.
 - 상태 객체(`baselineState`·`patternState`·`assistState`)는 값이 바뀔 때만 새 객체가 된다. Kotlin `StateFlow`에 그대로 넣으면 바뀔 때만 알림이 간다.
 
 ### 초기화 범위
@@ -129,24 +141,26 @@ engine.resetRiskAfterRest()  // 휴식 인증 + 회복 확인 뒤 (RES_011)
 | 꺼내지 않은 사건, 5 Hz 표시 | 지움 | 유지 |
 | `context`(맥락) | 유지 | 유지 |
 
-## 2-5. 시험 파일 (test 14개)
+## 2-5. 시험 파일 (엔진 test 15개 2,059줄, 시험 125개 + app 1개 8개, 11/7 기준)
 
 | 파일 | 시험 수 | 무엇을 |
 | --- | ---: | --- |
-| `config/FatigueConfigTest.kt` | 9 | 설정 기본값이 SRS 숫자와 맞는지 |
+| `config/FatigueConfigTest.kt` | 11 | 설정 기본값이 SRS 숫자와 맞는지, 팀 EngineConfig와 같은 취약 시간대·묶음 |
 | `fatigue/SteeringGateTest.kt` | 13 | 게이트 경계값 |
 | `fatigue/SteeringReversalDetectorTest.kt` | 4 | 미세·큰 수정 경계 |
 | `fatigue/SuddenSteerDetectorTest.kt` | 5 | 급조향 경계 |
-| `fatigue/SteeringMetricsTest.kt` | 6 | 창·갱신·분당 환산 |
+| `fatigue/SteeringMetricsTest.kt` | 8 | 창·갱신·분당 환산, 급조향까지의 60초 창 |
 | `fatigue/FatigueFactorsTest.kt` | 4 | f값 |
-| `fatigue/ContextWeightTest.kt` | 8 | K |
+| `fatigue/ContextWeightTest.kt` | 9 | K, 연령대별 취약 시간대 |
 | `fatigue/RiskScoreTest.kt` | 5 | B·R |
 | `fatigue/RiskSmootherTest.kt` | 3 | 지수평균 |
-| `fatigue/FatigueEngineTest.kt` | 21 | 엔진 전체 흐름 (시나리오 시험) |
-| `baseline/BaselineStoreTest.kt` | 10 | 기준선·출발 피로·민감 모드 |
-| `pattern/PatternClassifierTest.kt` | 8 | 이상 분·패턴·안전 우회 |
+| `fatigue/FatigueEngineTest.kt` | 24 | 엔진 전체 흐름 (시나리오 시험), EngineConfig 생성자, 딴짓 시작 시각, 큰 수정 하한 |
+| `fatigue/SignalAdaptersTest.kt` | 6 | 1번 신호 → 2번 입력 변환 |
+| `baseline/BaselineStoreTest.kt` | 13 | 기준선·출발 피로·민감 모드, 큰 수정 하한 |
+| `pattern/PatternClassifierTest.kt` | 12 | 이상 분·패턴·안전 우회, 급조향 칸 |
 | `assist/AssistModeDetectorTest.kt` | 8 | 보조 주행·인계·조작 공백 |
 | `fatigue/SteeringTestPaths.kt` | — | 시험용 조향 경로를 만드는 도우미 (삼각파 등) |
+| app `fatigue/FatigueBridgeTest.kt` | 8 | 연결기 대응표, 30초 판단·사건·민감 모드·취약 시간대 보내기, 요청 ID |
 
 목록과 REQ 대응은 [06-testing.md](06-testing.md).
 

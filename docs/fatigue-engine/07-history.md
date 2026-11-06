@@ -1,4 +1,4 @@
-# 7. 작업 기록 (1~10단계)
+# 7. 작업 기록 (1~13단계)
 
 ## 1. 코드가 남아 있는 곳
 
@@ -29,6 +29,10 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
 | 8 | `ebae06f` | 4일 00:30 | 보조 주행·인계 품질·조작 공백 (AST), 입력을 `DriveFrame`으로, 조향 사건 | 12개, +651 −27 | 96 |
 | 9 | `e086ae5` | 4일 00:53 | 조향 원천 5 Hz 미만 처리 (SIG_009 엔진 쪽) | 10개, +180 −10 | 102 |
 | 10 | `c060214` | 4일 01:15 | 통합 준비: 게이트 통과 프레임만 5 Hz 판단, 운전 시간 초 단위 | 9개, +119 −49 | 104 |
+| 문서 | `2dba62c` | 5일 21:05 | `docs/fatigue-engine/` 설명 문서 10개 | 12개 | 104 |
+| 11 | (적용 뒤 해시) | 7일 | main 합치기, 신호 변환 함수, AgeBand 교체, EngineConfig 연결 | 12개, +331 −85 | 114 |
+| 12 | (적용 뒤 해시) | 7일 | 고칠 것 1(급조향 칸)·2(큰 수정 하한) | 9개, +263 −2 | 125 |
+| 13 | (적용 뒤 해시) | 7일 | app 엔진 출력 연결기 (`FatigueBridge`·`FatigueAssessmentRunner`) | 3개, +524 | 125 + app 8 |
 
 간트에서 11/3~11/8로 잡은 2번 구현(FAT·BSL·PAT·AST)을 11/3~4에 끝냈다. 대신 통합(11/9) 전에 남은 일이 있다 ([09](09-schedule-todo-limits.md)).
 
@@ -124,9 +128,30 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
   - 조작 공백 초 계산의 1000을 이름 붙인 상수로. 시험 2개.
 - **왜:** 1번 브랜치와 시험 삼아 합쳐 보니 두 가지가 나왔다. ① RateMeter는 시작 뒤 10초를 '측정 중'으로 주는데, 9단계 방식이면 이 10초 때문에 운행 전체에서 미세 수정을 못 믿게 되어 데모 '출발 피로'(DMO_006)가 판정되지 않는다. ② 1번 `TripState`가 운전 시간을 초로 주는데 엔진이 밀리초를 받으면 엔진 안에서 단위를 바꿔야 한다(SIG_010 위반).
 
+### 11단계 — main 합치기·신호 변환·AgeBand·EngineConfig (11/7)
+
+- **바꾼 것:**
+  - main(11/4에 1·3·4번 PR #6·#7·#8 병합)을 이 브랜치로 합침. 충돌은 `engine/build.gradle.kts` 하나, main 것을 고름.
+  - 신호 변환 함수 `SignalAdapters.kt` + 시험 6개 (11/4에 준비해 둔 것).
+  - 임시 `AgeGroup`·`HourWindow`를 지우고 4번 `AgeBand?`·`VulnerableTimeRange`로. 취약 시간대 값을 `VulnerableTimeDefaults` 한 곳으로 모아 팀 `EngineConfig`(예보·1단계)와 `ContextWeightConfig`(K)가 같이 씀.
+  - 팀 `EngineConfig`에 `fatigue`·`baseline`·`pattern`·`assist` 칸, `FatigueEngine(EngineConfig)` 생성자, `EngineConfig.resolvedFatigueConfig()`.
+- **왜:** CLAUDE.md 4장 "문턱값은 EngineConfig 한 곳에". 취약 시간대 정의가 둘이면 예보와 K가 서로 다른 시간을 취약하다고 볼 수 있다.
+- **알릴 것:** 4번 — `EngineConfig`의 취약 시간대 기본값을 `VulnerableTimeDefaults`로 옮김(값은 같음). 쉼터 브랜치를 합칠 때 `EngineConfig` 줄이 겹치면 둘 다 남긴다. 1번 — `EngineConfig` 가운데(예보 칸 뒤)에 2번 칸 4개가 들어감.
+
+### 12단계 — 고칠 것 1·2 (11/7)
+
+- **바꾼 것:**
+  - 고칠 것 1: 급조향이 확인되면 그 급조향까지의 60초로 이상 분을 보고 그 급조향이 든 칸만 이상 분 (`PatternClassifier.onSuddenWindow`, `SteeringMetrics.windowEndingAt`). 시험 7개.
+  - 고칠 것 2: 비교 기준의 큰 수정 하한 2/분 [제안값] (`BaselineStore.comparable`, `minReferenceLargePerMin`). 시험 4개.
+- **왜:** 딴짓 시작 시각 60가지 중 18가지에서 딴짓 1분을 놓쳤고(데모 '딴짓' 위험), 처음 15분에 큰 수정이 없던 운전자는 큰 수정 하나에 B가 25 뛰었다.
+- **확인:** 60가지 모두 튐형. 시나리오 A~G는 C(딴짓)만 바뀌고 나머지는 숫자까지 같음. 돌연변이 11개 모두 잡음 ([06](06-testing.md#3-시험이-정말-규칙을-지키는지-돌연변이-시험)).
+
+### 13단계 — 엔진 출력 연결기 (11/7)
+
+- **바꾼 것:** app `fatigue/FatigueBridge.kt`(계산), `FatigueAssessmentRunner.kt`(실행, 1번 `DrivingAssessmentSource` 구현), 시험 8개.
+- **왜:** 1번 `InterventionManager`가 받을 자리(`DrivingAssessment`·`Safety`·`SensitiveModeChanged`·`VulnerableTimeChanged`)는 main에 있었지만, 엔진 결과를 그 형식으로 넘기는 코드가 아무 데도 없었다. 없으면 11/9 통합에서 엔진이 단계 전환에 붙지 않는다.
+- **남은 것:** 1번이 앱 조립 코드에서 `runner.run(hub.samples, …, interventionManager)`을 띄워야 실제로 돈다. '15분 뒤 첫 확인'은 1번 입력이 생기면 연결 ([08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환)).
+
 ## 4. 준비만 하고 아직 안 올린 것
 
-| 무엇 | 왜 아직 | 언제 |
-| --- | --- | --- |
-| 신호 변환 함수 `SignalAdapters.kt` + 시험 6개: `SignalFrame.toDriveFrame(navi)`, `steeringRateOk()`, `SeatOccupancy.passengerCount()`, `contextInputOf(trip, frame, 분, 연령대)` | 1번 타입(`SignalFrame`·`NaviState`·`TripState`·`SourceRate`)이 main에 없어 지금 넣으면 컴파일이 안 됨 | 1번 PR #6 병합 직후 |
-| `AgeGroup`·`HourWindow` → 4번 `AgeBand`·`VulnerableTimeRange` | 4번 브랜치가 main에 없음 | 4번 병합 뒤 |
+11/7에 모두 올렸다 (11~13단계). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일).

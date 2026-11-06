@@ -7,6 +7,7 @@ cd ~/sleepissue/src/android
 ./gradlew :engine:test --console=plain                           # 엔진 시험 전부
 ./gradlew :engine:test --tests '*SteeringGateTest' --console=plain   # 한 묶음만
 ./gradlew :engine:test --tests '*FatigueEngineTest.drowsy*'          # 이름이 drowsy로 시작하는 것만
+./gradlew :app:testDebugUnitTest --tests '*FatigueBridgeTest' --console=plain   # app 쪽 엔진 출력 연결기 (11/7)
 ```
 
 결과 보기:
@@ -18,7 +19,7 @@ grep -h "<testsuite" engine/build/test-results/test/*.xml | sed 's/ timestamp.*/
 xdg-open engine/build/reports/tests/test/index.html
 ```
 
-- `BUILD SUCCESSFUL`만 보고 끝내지 않는다. 시험 파일이 하나도 안 잡히면 `NO-SOURCE`로도 성공이 뜬다. 위 `grep`으로 묶음 수(13)와 시험 수(104)를 확인한다.
+- `BUILD SUCCESSFUL`만 보고 끝내지 않는다. 시험 파일이 하나도 안 잡히면 `NO-SOURCE`로도 성공이 뜬다. 위 `grep`으로 묶음 수와 시험 수를 확인한다. 11/7 기준 엔진 전체 30개 묶음 257개(2번 15개 묶음 125개), app 연결기 1개 묶음 8개.
 - 이미 통과한 뒤 아무것도 안 바꾸면 Gradle이 `UP-TO-DATE`로 건너뛴다. 다시 돌리려면 `./gradlew :engine:test --rerun-tasks`.
 - 실패하면 `engine/build/reports/tests/test/index.html`에서 실패한 시험을 누르면 기대값·실제값·줄 번호가 나온다. 시험 첫 줄 주석에 SRS 합격기준이 적혀 있다.
 
@@ -32,6 +33,11 @@ xdg-open engine/build/reports/tests/test/index.html
 | 11/6: 문서 커밋 `2dba62c` + main `7bc5ffd`(11/4에 #6·#7·#8 병합) | 29개 묶음 **236개 통과** (2번 104 + main 132). 충돌은 `engine/build.gradle.kts` 하나, main 것으로 고름 |
 | 위 + 신호 변환 함수 | 30개 묶음 **242개 통과** |
 | GitHub 커밋 11개와 보낸 패치 11개 대조 | 모두 같은 내용 (트리 해시 일치) |
+| 11/7 패치 1: + AgeBand 교체·EngineConfig 연결 | 30개 묶음 246개 통과 |
+| 11/7 패치 2: + 고칠 것 1·2 | 30개 묶음 **257개 통과** (2번 125 + main 132) |
+| 11/7 패치 3: app 연결기 `FatigueBridgeTest` | **8개 통과**. 1번 `SignalPorts.kt`·`InterventionManager.kt`와 함께 JVM으로 컴파일 (coroutines 1.6.4로 확인, 팀은 1.10.2) |
+| 11/7 시나리오 A~G 다시 돌리기 | C(딴짓)만 바뀜: 이상 분 0 → 1, 튐형, B 80 → 55. 나머지는 숫자까지 같음 ([05](05-behavior.md)) |
+| 11/7 딴짓 시작 시각 60가지 | 고치기 전 18가지 놓침 → 고친 뒤 60가지 모두 이상 분 1개·튐형 |
 
 이 문서의 시험은 Kotlin 2.0.21 컴파일러와 JUnit 4.13.2로 따로 돌린 결과다. 팀 빌드(Gradle 9.6.0, Kotlin 2.4.21)에서도 같아야 하므로, 올린 뒤 각자 위 명령으로 한 번 확인한다.
 
@@ -63,9 +69,27 @@ xdg-open engine/build/reports/tests/test/index.html
 | 보조 주행 중 점수 계속 갱신 | 잡음: FatigueEngineTest(2) |
 | 민감 모드여도 오늘의 나 씀 | 잡음: BaselineStoreTest(2) FatigueEngineTest(1) |
 
+**11/7 고칠 것 1·2 돌연변이 시험 (11개 모두 잡음).** 처음에는 M7·M9를 놓쳐 시험을 하나씩 보강했다 (`windowEndingAtExcludesTheSwingExactlySixtySecondsBefore`, `comparisonBaselineKeepsLargeAtLeastTwoPerMinute`에 미세 5/분 경우 추가).
+
+| 바꾼 규칙 | 결과 |
+|---|---|
+| M1 엔진이 급조향 칸 판정을 안 부름 | 잡힘 |
+| M2 급조향 칸 번호 올림→내림 | 잡힘 |
+| M3 게이트 통과 30초 미만도 판정 | 잡힘 |
+| M4 이번 칸 급조향을 이상 분으로 안 씀 | 잡힘 |
+| M5 미세 조건 없이 급조향만으로 이상 분 | 잡힘 |
+| M6 급조향 칸 판정 결과를 버림 | 잡힘 |
+| M7 창 경계 (t−60s, t] → [t−60s, t] | 잡힘 (시험 보강 뒤) |
+| M8 큰 수정 하한 없음 | 잡힘 |
+| M9 하한을 미세 수정에도 | 잡힘 (시험 보강 뒤) |
+| M10 출발 피로 비교에 하한 안 씀 | 잡힘 |
+| M11 비교 기준에 하한 적용 안 함 | 잡힘 |
+
 ## 4. 시험 목록 (104개)
 
 REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 시험 첫 주석(대부분 SRS 합격기준을 그대로 옮긴 것)이다.
+
+11/7에 2개(`unsetAgeGroupAddsNoWindow`, `hourWindowRejectsEmptyRange`)는 AgeBand로 바꾸며 지웠고, 23개를 더했다 → 125개. 더한 것은 이 절 끝 '11/7에 더한 시험'.
 
 #### FatigueConfigTest (9개)
 
@@ -236,6 +260,37 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 | 103 | `unknownCruiseMeansNormalMode` | AST_008 | 크루즈 null 입력 → 보조 주행 모드 OFF(일반 모드), 조향 계산 유지 (REQ_AST_008 [제안]) |
 | 104 | `operationGapCountsSecondsSinceLastOperation` | AST_006 | 조작 공백 900 s → 900, 901 s → 901(15분 넘음은 1번이 판단), 조작 1회 발생 시 공백 리셋 (REQ_AST_006) |
 
+#### 11/7에 더한 시험 (엔진 23개 + app 8개)
+
+| 묶음 | 시험 | REQ | 확인하는 것 |
+| --- | --- | --- | --- |
+| FatigueConfigTest | `everyAgeBandHasItsOwnRange` | FAT_015 | 연령대마다 더하는 시간대가 있음, null이면 없음 |
+| FatigueConfigTest | `vulnerableRangesAreTheSameAsEngineConfig` | FAT_015 | K와 팀 EngineConfig(예보·1단계)의 취약 시간대가 같음 |
+| FatigueConfigTest | `engineConfigCarriesFatigueBundles` | — | EngineConfig에 2번 묶음 4개 (CLAUDE.md 4장) |
+| FatigueConfigTest | `resolvedFatigueConfigTakesTeamVulnerableRanges` | FAT_015 | 팀이 시간대를 바꾸면 K 계산에도 들어감 |
+| ContextWeightTest | `ageBandRangesAddToBaseRanges` | FAT_015 | 20대 07:30·08:00, 30·40대 21:59·01:59, 50대+ 17:30·18:00 경계 |
+| FatigueEngineTest | `engineConfigConstructorUsesTeamVulnerableRanges` | FAT_015 | `FatigueEngine(EngineConfig)`가 팀 시간대로 K = 1.10 |
+| SignalAdaptersTest | `signalFrameMapsFieldForField` 외 5개 | SIG·FAT | 1번 신호 → 2번 입력 변환, 모르는 값 유지, 5 Hz 판정, 동승자 수, 맥락 |
+| PatternClassifierTest | `suddenWindowMarksTheMinuteHoldingTheSudden` | PAT_001·003 | 급조향이 든 칸만 이상 분, 다음 칸 정상이면 튐형 (칸 번호 올림) |
+| PatternClassifierTest | `oneSuddenMarksOnlyOneMinute` | PAT_001 | 원래 규칙과 겹쳐도 이상 분 1개 |
+| PatternClassifierTest | `suddenWindowNeedsFewMicroAndEnoughGatedTime` | PAT_001 | 미세 75%면 아님, 게이트 통과 30초 미만이면 판단 안 함 |
+| PatternClassifierTest | `resetDropsPendingSudden` | — | 새 운행이면 기다리던 급조향 칸도 지움 |
+| BaselineStoreTest | `comparisonBaselineKeepsLargeAtLeastTwoPerMinute` | FAT_010 | 큰 수정 0·1.9 → 2, 4 → 4, 미세는 그대로 |
+| BaselineStoreTest | `todayKeepsMeasuredValueButComparesWithFloor` | BSL_004 | 오늘의 나 기록은 0, 비교 기준은 2 |
+| BaselineStoreTest | `departureLargeRiseComparesWithFloorToo` | BSL_005 | 평소 큰 0 → 비교 2, 오늘 2.9는 1.45배라 '1.5배' 아님 |
+| FatigueEngineTest | `distractionIsCaughtWhicheverSecondItStarts` | PAT_001·003 | 딴짓 시작 +0·1·2·30·45·52·59초 모두 이상 분 1개 → 튐형 |
+| FatigueEngineTest | `oneLargeCorrectionAfterCalmStartDoesNotMaxOutLarge` | FAT_010 | 오늘의 나 큰 0이어도 큰 수정 2/분은 f큰 0, B 55 |
+| SteeringMetricsTest | `windowEndingAtMatchesSnapshotAndChangesNothing` | FAT_005 | 급조향까지의 60초 창이 30초 갱신 값과 같고 상태를 안 바꿈 |
+| SteeringMetricsTest | `windowEndingAtExcludesTheSwingExactlySixtySecondsBefore` | FAT_005 | (t − 60초, t] 경계 |
+| app FatigueBridgeTest | `mappingFollowsTheAgreedTable` | — | 대응표: EVALUATED·NOT_EVALUATED·UNAVAILABLE, 점수 null, 패턴 4가지 |
+| app FatigueBridgeTest | `steeringEventsBecomeSafetyEventsWithTheSameName` | PAT_005·AST_007 | 사건 3종 이름·시각·출처 |
+| app FatigueBridgeTest | `firstAssessmentComesWithTheEngineUpdate` | FAT_005 | 70초 프레임에서 60초 판단 하나, 밤 11시 취약 아님 한 번 |
+| app FatigueBridgeTest | `vulnerableTimeIsSentOnlyWhenItChanges` | FAT_015·INT_001 | 01:59:50 → 02:00:10에 false → true |
+| app FatigueBridgeTest | `sleepyConditionTurnsOnSensitiveModeOnce` | BSL_007 | 민감 모드는 바뀔 때만 보냄 |
+| app FatigueBridgeTest | `suddenSteerIsSentAsSafetyEventFromDemo` | FAT_008 | 급조향 → RAPID_STEERING, 출처 DEMO |
+| app FatigueBridgeTest | `cruiseGivesUnavailableAssessment` | AST_004 | 크루즈 → UNAVAILABLE, 점수 null |
+| app FatigueBridgeTest | `runnerSubmitsEveryInputWithDistinctIds` | — | 실행 부분: 모든 입력을 겹치지 않는 ID로 submit, 마지막 판단 다시 받기 |
+
 
 ## 5. 요구사항별로 보면
 
@@ -256,8 +311,8 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 
 | 시험 | 언제 | 무엇이 필요 |
 | --- | --- | --- |
-| 신호 변환 함수 6개 | main 합친 직후 | 준비 끝 (`SignalAdaptersTest`). 11/6 합친 트리에서 통과 확인 |
-| 엔진 출력 연결기 (DrivingAssessment·SafetyEvent 대응) | 11/8 | 연결기 코드, 1번과 대응표 합의 ([08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환)) |
+| 연결기를 실제 앱에서 돌리기 (Hub → 연결기 → InterventionManager) | 11/9 통합 | 1번이 앱 조립 코드에서 `FatigueAssessmentRunner.run(...)`을 띄움 |
+| 시나리오 파일로 엔진 돌리기 | 시나리오 형식 확정 뒤 | [11](11-scenario-format-proposal.md) 형식, 5번 파일 |
 | TC_BSL_007 (ET): '졸려요' 버튼·말 → 민감 모드 + 권유 발화 | 11/9 통합 | 5번 버튼, 3번 의도(COND_SLEEPY) |
 | TC_AST (ET): Virtual Console 크루즈 → 보조 주행 회색 | 11/9 통합 | 1번 SDK 연결(DrivingMode) |
 | E2E TC_PRD_002·003, DMO_006 | 11/9 리허설 | 5번 시나리오 JSON, 1번 DemoPlayer |

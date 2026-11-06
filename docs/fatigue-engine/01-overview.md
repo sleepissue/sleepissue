@@ -34,7 +34,7 @@ flowchart LR
 
 | 입력 | 언제 | 주는 쪽 | 내용 |
 | --- | --- | --- | --- |
-| `DriveFrame` | 100 ms마다 `push(frame)` | 1번 SignalFrame·NaviState를 변환 (변환 함수는 준비됨, main을 합친 뒤 추가) | 시각, 조향각(°), 차속(km/h), D단 여부, 방향지시등, 브레이크, 다음 회전 지점 거리(m), 크루즈 작동·설정 속도, 통풍 단계, 조향 원천이 5 Hz 이상인지 |
+| `DriveFrame` | 100 ms마다 `push(frame)` | 1번 SignalFrame·NaviState를 변환 (`SignalAdapters.kt`의 `toDriveFrame`, 앱에서는 연결기 `FatigueBridge`가 부름) | 시각, 조향각(°), 차속(km/h), D단 여부, 방향지시등, 브레이크, 다음 회전 지점 거리(m), 크루즈 작동·설정 속도, 통풍 단계, 조향 원천이 5 Hz 이상인지 |
 | `ContextInput` | 바뀔 때마다 `engine.context = …` | 1번 TripState + 앱(현지 시각) + 5번 설정(연령대) | 연속 운전(초), 최근 24시간 누적(초), 자정부터 센 분, 연령대, 동승자 수, 실내 온도 |
 | 운행 기록 `List<BaselineRecord>` | 앱 시작 때 `baselineStore.loadHistory(…)` | Room(저장은 2차) | 지난 운행의 미세·큰 수정 분당 횟수, 깨어 있던 운행인지 |
 | 출발 전 컨디션 | 고를 때 `baselineStore.reportCondition(sleepy, tMs)` | 5번 버튼 / 3번 말 | '졸려요'면 true |
