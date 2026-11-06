@@ -207,4 +207,33 @@ class BaselineStoreTest {
         store.loadHistory(emptyList())
         assertSame(before, store.state)
     }
+
+    // ── 비교 기준의 큰 수정 하한 [제안값] (고칠 것 2) ──
+
+    @Test
+    fun comparisonBaselineKeepsLargeAtLeastTwoPerMinute() {
+        // 큰 수정 0/분 → 비교할 때는 2/분. 미세 수정은 그대로, 2/분 이상이면 그대로
+        assertEquals(SteeringBaseline(59f, 2f), BaselineStore.comparable(SteeringBaseline(59f, 0f)))
+        assertEquals(SteeringBaseline(59f, 2f), BaselineStore.comparable(SteeringBaseline(59f, 1.9f)))
+        assertEquals(SteeringBaseline(3f, 4f), BaselineStore.comparable(SteeringBaseline(3f, 4f)))
+        assertEquals(SteeringBaseline(5f, 2f), BaselineStore.comparable(SteeringBaseline(5f, 0f)))
+    }
+
+    @Test
+    fun todayKeepsMeasuredValueButComparesWithFloor() {
+        // 처음 15분에 큰 수정이 없던 운전자: 오늘의 나에는 잰 값(0)을 남기고, 비교 기준은 2/분
+        val store = BaselineStore()
+        store.confirmToday(nowMs = 1_000_000L, microPerMin = 59f, largePerMin = 0f)
+        assertEquals(BaselineSource.TODAY, store.state.source)
+        assertBaseline(SteeringBaseline(59f, 0f), store.state.today)
+        assertBaseline(SteeringBaseline(59f, 2f), store.state.reference)
+    }
+
+    @Test
+    fun departureLargeRiseComparesWithFloorToo() {
+        // 평소 큰 수정 0/분 → 비교는 2/분. 오늘 2.9/분은 1.45배라 '큰 수정 1.5배'가 아님 → 급조향 1개만 충족 → 출발 피로 아님
+        val store = BaselineStore().apply { loadHistory(listOf(awake(1, 20f, 0f), awake(2, 20f, 0f), awake(3, 20f, 0f))) }
+        store.confirmToday(nowMs = 1_000_000L, microPerMin = 20f, largePerMin = 2.9f, sudden = 1)
+        assertFalse(store.state.departureFatigue)
+    }
 }

@@ -87,4 +87,32 @@ class SteeringMetricsTest {
         assertEquals(1, out.getValue(60_000L).suddenInWindow)
         assertEquals(0, out.getValue(90_000L).suddenInWindow)
     }
+
+    @Test
+    fun windowEndingAtMatchesSnapshotAndChangesNothing() {
+        // 급조향까지의 60초 창(REQ_PAT_001, 고칠 것 1): 갱신 시각에 부르면 30초 갱신 값과 같고, 불러도 다음 갱신은 그대로
+        val decisions = (0L..120_000L step 100L).map { passed(it, zigzagDeg(it)) }
+        val plain = run(decisions)
+        val metrics = SteeringMetrics()
+        val probed = ArrayList<SteeringIndicators>()
+        val atSnapshot = ArrayList<Pair<SteeringIndicators, SteeringIndicators>>()
+        for (d in decisions) {
+            if (d.tMs == 75_000L) metrics.windowEndingAt(75_000L) // 갱신 사이에 불러도
+            val out = metrics.accept(d) ?: continue
+            probed += out
+            atSnapshot += out to metrics.windowEndingAt(d.tMs)
+        }
+        assertEquals(plain, probed)
+        for ((snapshot, probe) in atSnapshot) assertEquals(snapshot, probe)
+    }
+
+    @Test
+    fun windowEndingAtExcludesTheSwingExactlySixtySecondsBefore() {
+        // 창은 (t − 60 s, t]: 15.0 s에 끝난 미세 수정은 74.9 s 창에는 들고(60/분), 75.0 s 창에서는 빠진다(59/분)
+        val metrics = SteeringMetrics()
+        for (t in 0L..74_900L step 100L) metrics.accept(passed(t, zigzagDeg(t)))
+        assertEquals(60f, metrics.windowEndingAt(74_900L).microPerMin, 0f)
+        metrics.accept(passed(75_000L, zigzagDeg(75_000L)))
+        assertEquals(59f, metrics.windowEndingAt(75_000L).microPerMin, 0f)
+    }
 }

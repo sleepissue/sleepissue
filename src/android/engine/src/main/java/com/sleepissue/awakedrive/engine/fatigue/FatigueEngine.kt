@@ -188,6 +188,16 @@ class FatigueEngine(
         if (metrics.suddenTotal > lastSuddenTotal) {
             lastSuddenTotal = metrics.suddenTotal
             addEvent(decision.tMs, SteeringEventType.RAPID_STEERING)
+            // 이상 분은 그 급조향까지의 60초로도 본다: 멈춘 구간과 급조향이 1분 칸 경계로 갈려도 딴짓 1분을 잡게 (REQ_PAT_001)
+            val upToSudden = metrics.windowEndingAt(decision.tMs)
+            pattern.onSuddenWindow(
+                tMs = decision.tMs,
+                microPerMin = upToSudden.microPerMin,
+                largePerMin = upToSudden.largePerMin,
+                measured = upToSudden.valid,
+                reference = baselineState.reference,
+                microEnabled = microEnabledAt(decision.tMs),
+            )
         }
         // 안전 우회·인계 품질은 보조 주행 중에도 본다
         safety.accept(decision)?.let { signal ->

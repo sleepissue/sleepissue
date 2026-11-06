@@ -23,6 +23,8 @@ internal enum class MinuteStatus {
  *
  * - 1분 칸: FatigueEngine이 30초마다 60초 창 지표를 넣는다. 첫 창 시각부터 1분마다 끊고, 칸마다 처음 들어온 창만 쓴다
  *   (바로 뒤 30초 창은 앞 창과 절반이 겹치므로 건너뜀). 창이 빠진 칸은 측정 못 함으로 채운다.
+ * - 급조향 칸: 급조향이 확인되면 그 급조향까지의 60초로도 이상 분 조건을 본다([onSuddenWindow]). 만족하면 그 급조향
+ *   시각이 든 칸 하나만 이상 분이다. 멈춘 구간과 급조향이 칸 경계로 갈려 딴짓 1분을 놓치던 것을 막는다 (고칠 것 1).
  * - 안전 우회: 급조향이 확인될 때마다 바로 본다. 패턴 상태는 30초마다 다시 만든다.
  * - 음성 확인 결과와 합쳐 단계를 바꾸는 판단(REQ_PAT_004·006·007)은 1번 InterventionPolicy가 [PatternState]로 한다.
  *
@@ -34,6 +36,9 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
 
     private val minutes = ArrayDeque<Minute>()
     private val suddenTimes = ArrayDeque<Long>()
+
+    /** 그 급조향까지의 60초가 이상 분 조건을 만족한 급조향 시각들. 그 시각이 든 1분 칸이 만들어질 때 꺼낸다 */
+    private val abnormalSuddenTimes = ArrayDeque<Long>()
     private var originMs: Long? = null
     private var lastWindowMs: Long? = null
     private var bypassUntilMs: Long? = null
@@ -73,6 +78,7 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
                 for (s in fillFrom until slot) minutes.addLast(Minute(s, MinuteStatus.UNMEASURED))
             }
             val status = when {
+                takeAbnormalSuddens(origin, slot) -> MinuteStatus.ABNORMAL
                 !measured -> MinuteStatus.UNMEASURED
                 isAbnormalMinute(microPerMin, largePerMin, suddenInWindow, reference, config, microEnabled) ->
                     MinuteStatus.ABNORMAL
@@ -83,6 +89,54 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
         }
         refresh()
     }
+
+    /**
+     * 졸음 점수용 조향에서 멈춤 뒤 급조향이 확인된 순간, 그 급조향까지의 60초 창 지표로 이상 분 조건을 본다 (REQ_PAT_001).
+     * 만족하면 그 급조향 시각이 든 1분 칸 하나만 이상 분으로 매긴다(급조향 하나는 칸 하나에만).
+     *
+     * 1분 칸은 칸마다 첫 창만 보므로, 운전대를 멈춘 구간(미세 수정 감소)과 급조향이 서로 다른 칸으로 갈리면
+     * 어느 칸도 '미세 70% 이하 + 급조향'을 못 채워 딴짓 1분을 놓쳤다(시작 시각 60가지 중 18가지).
+     * @param measured 그 60초에 게이트 통과가 30초 이상인지. false면 판단하지 않는다
+     */
+    internal fun onSuddenWindow(
+        tMs: Long,
+        microPerMin: Float,
+        largePerMin: Float,
+        measured: Boolean,
+        reference: SteeringBaseline,
+        microEnabled: Boolean = true,
+    ) {
+        if (!measured) return
+        if (!isAbnormalMinute(microPerMin, largePerMin, 1, reference, config, microEnabled)) return
+        if (abnormalSuddenTimes.lastOrNull()?.let { tMs < it } == true) return
+        abnormalSuddenTimes.addLast(tMs)
+    }
+
+    /**
+     * [slot] 칸까지에 드는 급조향 사건을 꺼낸다. 이번 칸에 든 것이 있으면 true.
+     * 이미 지나간 칸에 든 것(창이 빠져 칸을 늦게 만든 경우)은 그 칸이 남아 있으면 이상 분으로 올린다.
+     */
+    private fun takeAbnormalSuddens(origin: Long, slot: Long): Boolean {
+        var hit = false
+        while (abnormalSuddenTimes.isNotEmpty()) {
+            val s = slotOfSudden(abnormalSuddenTimes.first(), origin)
+            if (s > slot) break
+            abnormalSuddenTimes.removeFirst()
+            if (s == slot) {
+                hit = true
+            } else {
+                val i = minutes.indexOfFirst { it.slot == s }
+                if (i >= 0 && minutes[i].status != MinuteStatus.ABNORMAL) minutes[i] = minutes[i].copy(status = MinuteStatus.ABNORMAL)
+            }
+        }
+        return hit
+    }
+
+    /**
+     * 급조향 시각이 드는 칸. 칸 k의 첫 창(시각 origin + k분)은 (origin + (k−1)분, origin + k분]을 보므로
+     * 그 범위에 든 급조향은 칸 k다. 칸 k = ⌈(시각 − origin) ÷ 1분⌉.
+     */
+    private fun slotOfSudden(tMs: Long, origin: Long): Long = Math.floorDiv(tMs - origin + MINUTE_MS - 1, MINUTE_MS)
 
     /**
      * 멈춤 뒤 급조향이 확인될 때마다 그 시각(게이트 판정 시각)으로 부른다 (REQ_PAT_005).
@@ -106,6 +160,7 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
     internal fun reset() {
         minutes.clear()
         suddenTimes.clear()
+        abnormalSuddenTimes.clear()
         originMs = null
         lastWindowMs = null
         bypassUntilMs = null

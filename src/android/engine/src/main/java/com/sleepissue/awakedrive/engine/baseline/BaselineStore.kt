@@ -98,7 +98,9 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
         )
         today = confirmed
         todayUsable = microReliable
-        departureFatigue = isDepartureFatigue(confirmed, suddenCount, usual ?: config.defaultBaseline, config, microReliable)
+        departureFatigue = isDepartureFatigue(
+            confirmed, suddenCount, comparable(usual ?: config.defaultBaseline, config), config, microReliable,
+        )
         updateSensitive(nowMs)
         refresh()
     }
@@ -133,11 +135,12 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
         val usualValue = usual
         val todayValue = today
         val sensitive = departureFatigue || reportedSleepy
-        val (source, reference) = when {
+        val (source, chosen) = when {
             todayValue != null && todayUsable && !sensitive -> BaselineSource.TODAY to todayValue
             usualValue != null -> BaselineSource.USUAL to usualValue
             else -> BaselineSource.DEFAULT to config.defaultBaseline
         }
+        val reference = comparable(chosen, config)
         val since = sensitiveSinceMs
         val start = driveStartMs
         val firstCheckDue = if (since != null && start != null) {
@@ -158,6 +161,17 @@ class BaselineStore(private val config: BaselineConfig = BaselineConfig()) {
 
     companion object {
         private const val MINUTE_MS = 60_000L
+
+        /**
+         * 비교에 쓸 기준선: 큰 수정이 [BaselineConfig.minReferenceLargePerMin]보다 작으면 그 값으로 올린다 [제안값].
+         * 오늘의 나(state.today)에 저장하는 값은 잰 그대로 두고, 비교할 때만 올린다.
+         */
+        fun comparable(baseline: SteeringBaseline, config: BaselineConfig = BaselineConfig()): SteeringBaseline =
+            if (baseline.largePerMin >= config.minReferenceLargePerMin) {
+                baseline
+            } else {
+                baseline.copy(largePerMin = config.minReferenceLargePerMin)
+            }
 
         /** 비율 경계(−30.0%, 1.50배)에서 Float 오차로 판정이 뒤집히지 않게 하는 여유 */
         private const val RATIO_EPS = 1e-6

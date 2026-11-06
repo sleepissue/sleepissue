@@ -474,4 +474,37 @@ class FatigueEngineTest {
         assertEquals(listOf(1_060_000L), restarted.map { it.tMs })
         assertEquals(0f, restarted.single().riskSmoothed, 0f)
     }
+
+    // ── 고칠 것 1·2: 딴짓 1분 칸 정렬, 큰 수정 기준 하한 ──
+
+    @Test
+    fun distractionIsCaughtWhicheverSecondItStarts() {
+        // 오늘의 나 확정 뒤 딴짓(35초 멈춤 → 7°)을 1초씩 옮겨도 이상 분 1개 → 다음 칸이 정상이면 튐형 (REQ_PAT_001·003).
+        // 고치기 전에는 0~2초·45~59초 시작(60가지 중 18가지)에서 이상 분이 0개였다
+        for (offsetSec in listOf(0L, 1L, 2L, 30L, 45L, 52L, 59L)) {
+            val start = 1_000_000L + offsetSec * 1_000L
+            val engine = FatigueEngine()
+            var maxAbnormal = 0
+            for (t in 0L..start + 200_000L step 100L) {
+                engine.push(frame(t, distractedDeg(t, start)))
+                if (t > start + 35_000L) maxAbnormal = maxOf(maxAbnormal, engine.patternState.abnormalMinutes10m)
+            }
+            assertEquals("시작 +${offsetSec}초", 1, maxAbnormal)
+            assertEquals("시작 +${offsetSec}초", PatternType.SPIKE, engine.patternState.patternType)
+        }
+    }
+
+    @Test
+    fun oneLargeCorrectionAfterCalmStartDoesNotMaxOutLarge() {
+        // 처음 15분에 큰 수정이 0이었어도 비교 기준은 2/분 → 딴짓 급조향 뒤 큰 수정 2/분은 f큰 0 (고칠 것 2) [제안값].
+        // 고치기 전에는 기준 0이라 f큰 1(B +25)이었다
+        val engine = FatigueEngine()
+        val states = engine.drive(0L, 1_070_000L) { t -> distractedDeg(t, 1_000_000L) }
+        assertEquals(0f, engine.baselineState.today!!.largePerMin, 0f)
+        assertEquals(2f, engine.baselineState.reference.largePerMin, 0f)
+        val afterJerk = states.single { it.tMs == 1_050_000L }
+        assertEquals(2f, afterJerk.largePerMin, 0.1f)
+        assertEquals(0f, afterJerk.fLarge, 0f)
+        assertEquals(55f, afterJerk.behaviorB, 0.5f)
+    }
 }

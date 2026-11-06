@@ -143,4 +143,65 @@ class PatternClassifierTest {
         }
         return signals
     }
+
+    // ── 급조향 칸: 그 급조향까지의 60초로 이상 분을 본다 (REQ_PAT_001, 고칠 것 1) ──
+
+    /** 급조향까지의 60초 창 하나를 넣는다 (기준 미세 20·큰 4이므로 미세 14 이하면 '줄어든 것') */
+    private fun PatternClassifier.suddenWindow(tMs: Long, micro: Float, measured: Boolean = true) =
+        onSuddenWindow(tMs, micro, 0f, measured, reference)
+
+    @Test
+    fun suddenWindowMarksTheMinuteHoldingTheSudden() {
+        // 칸 0 = 60 s 창. 90 s에 급조향, 그 60초는 미세 10(기준의 50%) → 이상 분 조건 만족.
+        // 120 s 창(칸 1)은 미세가 많아 원래 규칙으로는 정상이지만, 90 s 급조향이 든 칸이라 이상 분이 된다
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 20f, large = 0f)
+        classifier.suddenWindow(90_000L, micro = 10f)
+        classifier.window(90_000L, micro = 18f, large = 0f, sudden = 1) // 칸 0의 두 번째 창: 건너뜀
+        assertEquals(0, classifier.state.abnormalMinutes10m)
+        classifier.window(120_000L, micro = 19f, large = 0f, sudden = 1)
+        assertEquals(1, classifier.state.abnormalMinutes10m)
+        // 이상 분은 마지막 칸(칸 1)이라 아직 복귀를 못 봄 → 애매. 다음 칸이 정상이면 튐형
+        assertEquals(PatternType.AMBIGUOUS, classifier.state.patternType)
+        classifier.window(180_000L, micro = 20f, large = 0f)
+        assertEquals(1, classifier.state.abnormalMinutes10m)
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+    }
+
+    @Test
+    fun oneSuddenMarksOnlyOneMinute() {
+        // 급조향 칸도 이상이고 원래 규칙으로도 이상이면 이상 분은 1개 (급조향 하나는 칸 하나에만)
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 20f, large = 0f)
+        classifier.suddenWindow(100_000L, micro = 10f)
+        classifier.window(120_000L, micro = 10f, large = 0f, sudden = 1)
+        classifier.window(150_000L, micro = 10f, large = 0f, sudden = 1)
+        classifier.window(180_000L, micro = 20f, large = 0f)
+        assertEquals(1, classifier.state.abnormalMinutes10m)
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+    }
+
+    @Test
+    fun suddenWindowNeedsFewMicroAndEnoughGatedTime() {
+        // 그 60초 미세가 15(기준의 75%)면 이상 아님, 게이트 통과가 30초 미만(measured = false)이면 판단 안 함
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 20f, large = 0f)
+        classifier.suddenWindow(90_000L, micro = 15f)
+        classifier.suddenWindow(100_000L, micro = 5f, measured = false)
+        classifier.window(120_000L, micro = 20f, large = 0f)
+        classifier.window(180_000L, micro = 20f, large = 0f)
+        assertEquals(0, classifier.state.abnormalMinutes10m)
+        assertEquals(PatternType.NONE, classifier.state.patternType)
+    }
+
+    @Test
+    fun resetDropsPendingSudden() {
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 20f, large = 0f)
+        classifier.suddenWindow(90_000L, micro = 10f)
+        classifier.reset()
+        classifier.window(120_000L, micro = 20f, large = 0f)
+        classifier.window(180_000L, micro = 20f, large = 0f)
+        assertEquals(0, classifier.state.abnormalMinutes10m)
+    }
 }

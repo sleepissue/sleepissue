@@ -149,6 +149,28 @@ class SteeringMetrics(private val config: FatigueConfig = FatigueConfig()) {
         sudden.reset()
     }
 
+    /**
+     * [t]에서 끝나는 60초 창 (t − 60 s, t]의 지표를 상태를 바꾸지 않고 계산한다.
+     * 급조향이 확인된 순간 그 급조향까지의 60초로 이상 분을 보려고 쓴다 (REQ_PAT_001, 고칠 것 1).
+     * 30초 갱신 창과 같은 방식으로 센다: 분당 횟수 = 창 안 횟수 × 60초 ÷ 게이트 통과 시간.
+     * 마지막 갱신 뒤 30초 안에서만 부른다(그보다 오래된 기록은 갱신 때 지워졌을 수 있음).
+     */
+    internal fun windowEndingAt(t: Long): SteeringIndicators {
+        val gatedMs = gatedSlices.filter { t - it.first < config.windowMs && it.first <= t }.sumOf { it.second }
+        val perMinute = if (gatedMs > 0) MINUTE_MS.toFloat() / gatedMs else 0f
+        val micro = microTimes.count { t - it < config.windowMs && it <= t }
+        val large = largeTimes.count { t - it < config.windowMs && it <= t }
+        return SteeringIndicators(
+            tMs = t,
+            microPerMin = micro * perMinute,
+            largePerMin = large * perMinute,
+            suddenCount5m = suddenTimes.count { t - it <= config.suddenCountWindowMs && it <= t },
+            suddenInWindow = suddenTimes.count { t - it < config.windowMs && it <= t },
+            gatedMsInWindow = gatedMs,
+            valid = gatedMs >= config.minGatedMsPerWindow,
+        )
+    }
+
     private fun snapshot(t: Long): SteeringIndicators {
         // 60초 창: (t − 60 s, t]
         dropOlder(microTimes, t, config.windowMs)
