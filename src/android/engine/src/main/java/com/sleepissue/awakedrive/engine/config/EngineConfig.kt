@@ -153,6 +153,16 @@ data class EngineConfig(
     val waypointMatchRadiusM: Float = 200f, // [가설]
     // 경유지 확인 중 getWaypointInfo를 다시 묻는 간격
     val waypointPollIntervalMs: Long = 250L, // [가설]
+
+    // ── 4번 운전석 통풍 (ClimateController, 기획서 6장 통풍 규칙) ──
+    // 켤 때 목표 단계. 차가 알려 준 최대 단계보다 크면 최대 단계로 줄인다
+    val ventilationTargetLevel: Int = 3, // [가설] 에뮬레이터 범위 확인 후 조정
+    // setHvacSeatVentilation 뒤 다시 읽어 반영을 기다리는 한도
+    val ventilationVerifyTimeoutMs: Long = 2_000L, // [가설]
+    // "통풍을 켜 보세요" 안내 뒤 운전자가 켰는지 기다리는 한도
+    val ventilationManualWaitMs: Long = 30_000L, // [가설]
+    // 반영 확인 중 상태를 다시 읽는 간격
+    val ventilationPollIntervalMs: Long = 250L, // [가설]
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -189,5 +199,9 @@ data class EngineConfig(
         require(waypointConfirmTimeoutMs > 0) { "경유지 확인 대기 시간은 양수여야 합니다." }
         require(waypointMatchRadiusM.isFinite() && waypointMatchRadiusM > 0) { "경유지 일치 반경은 양수여야 합니다." }
         require(waypointPollIntervalMs in 1 until waypointConfirmTimeoutMs) { "경유지 재조회 간격은 확인 한도보다 짧아야 합니다." }
+        require(ventilationTargetLevel > 0) { "통풍 목표 단계는 양수여야 합니다." }
+        require(listOf(ventilationVerifyTimeoutMs, ventilationManualWaitMs, ventilationPollIntervalMs).all { it > 0 }) {
+            "통풍 확인 시간은 양수여야 합니다."
+        }
     }
 }
