@@ -30,4 +30,5 @@ object VoiceScripts {
 
     // 4번 추가 (기획서 6장 통풍 규칙·7-1 파워냅)
     const val VENTILATION_MANUAL = "통풍을 켜 보세요. 쉼터에서 쉬는 게 가장 좋아요."
+    const val NAP_SAFETY_CHECK = "안전한 곳에 세웠는지 확인해 주세요."
 }

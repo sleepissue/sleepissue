@@ -117,9 +117,9 @@
 | --- | --- | --- | --- |
 | ForecastEngine | `engine/.../forecast/` | 완료 | #7 |
 | RestAreaRepository / NaviBridge | `app/.../navi/`, `app/.../data/` (선택 규칙은 `engine/.../rest/RestAreaSelector`) | 진행중 |  |
-| ClimateController | `app/.../climate/` | 대기 |  |
-| RestSession / NapSession | `app/.../session/` (휴식 인증·보상 규칙은 `engine/.../rest/`) | 대기 |  |
-| RewardLedger | `app/.../session/` 또는 `app/.../data/` | 대기 |  |
+| ClimateController | `app/.../climate/` (규칙은 `engine/.../climate/`) | 진행중 |  |
+| RestSession / NapSession | `app/.../session/` (휴식 인증·보상 규칙은 `engine/.../rest/`) | 진행중 |  |
+| RewardLedger | `app/.../session/`, Room은 `app/.../data/RestRecordDatabase` | 진행중 |  |
 
 ### 5번 — 화면·시연 (`feat/ui-*`, `demo/*`)
 
