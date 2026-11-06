@@ -14,18 +14,19 @@ main ───────────────●─────────
 - PR을 열어도 코드는 바뀌지 않는다. 열어 둔 뒤 브랜치에 push하면 PR에 자동으로 더해진다.
 - 리뷰어는 "이 코드가 main에 들어가도 되는지"를 본다. 질문이나 수정 요청은 PR 화면에 댓글로 단다.
 
-## 2. 지금 상태 (11/4)
+## 2. 지금 상태 (11/6)
 
 | PR | 브랜치 | 상태 |
 | --- | --- | --- |
-| 2번 (우리) | `feat/engine-model` → `main` | **아직 안 열림.** 커밋 12개, main이 그대로라 지금은 충돌 없이 합쳐짐 |
-| #6 (1번) | `develop-jdw` → `main` | 열림, 충돌 없음, 리뷰 0건. 커밋 4개, 파일 242개 |
-| #5 (3번) | `feat/voice-check` | 닫힘 (머지 안 됨) |
-| 4번 | `feat/rest-forecast-engine` | PR 없음 |
+| 2번 (우리) | `feat/engine-model` → `main` | **아직 안 열림.** 커밋 13개(문서 포함). main이 11/4에 앞서 나가서 main을 먼저 합쳐야 함 (충돌 1곳) |
+| #6 (1번) | `develop-jdw` → `main` | 11/4 병합 |
+| #7 (4번) | `feat/rest-forecast-engine` → `main` | 11/4 병합 (예보 엔진) |
+| #8 (3번) | `feat/voice-check-sync` → `main` | 11/4 병합 (#5는 닫고 다시 올림) |
+| 4번 | `feat/rest-area-selector` | PR 없음 (쉼터 CSV·선택 규칙 RST_001·003) |
 
-### 머지 순서 제안: 1번 #6 → 2번
+### 머지 순서: main을 먼저 이 브랜치로 합친다 (11/6)
 
-1번 PR에 신호 자료형(`SignalFrame`·`NaviState`·`TripState`)과 팀 `EngineConfig`·`Clock`이 들어 있다. 이게 먼저 들어가야 2번이 변환 함수를 넣어 실제로 연결할 수 있다. 두 브랜치를 시험 삼아 합쳐 보니 충돌은 `src/android/engine/build.gradle.kts` 하나였고, 합친 엔진 시험 187개가 통과했다.
+1번 신호 자료형(`SignalFrame`·`NaviState`·`TripState`)과 팀 `EngineConfig`·`Clock`, 4번 `AgeBand`·`VulnerableTimeRange`가 11/4에 main에 들어왔다. 11/6에 main을 이 브랜치에 시험 삼아 합쳐 보니 충돌은 `src/android/engine/build.gradle.kts` 하나였고(main 것으로 고르면 됨), 합친 엔진 시험 236개(2번 104 + main 132)가 통과했다. 변환 함수까지 넣으면 242개다.
 
 ## 3. PR 여는 법
 
@@ -36,7 +37,7 @@ main ───────────────●─────────
 3. 제목: `2번 졸음 판단 엔진 1차 (FAT·BSL·PAT·AST, SIG_009 엔진 쪽)`
 4. 본문: 받은 `PR_feat-engine-model.md` 내용을 그대로 붙여 넣는다
 5. 오른쪽 **Reviewers**에 1번을 고른다
-6. #6을 먼저 넣을 거면 **Create draft pull request**(초안), 바로 리뷰받을 거면 **Create pull request**
+6. 아래 'PR 열기 전에 할 일'을 끝내고 push한 뒤 **Create pull request**. 리뷰 전에 먼저 보여만 주려면 **Create draft pull request**(초안)
 
 ### 터미널에서 (gh가 설치·로그인돼 있으면)
 
@@ -46,29 +47,30 @@ gh pr create --base main --head feat/engine-model \
   --body-file ~/Downloads/PR_feat-engine-model.md --draft
 ```
 
-### #6이 먼저 들어간 뒤 할 일
+### PR 열기 전에 할 일 (main 합치기)
 
 ```bash
 cd ~/sleepissue && git checkout feat/engine-model && git fetch origin
 git merge origin/main                    # 충돌: src/android/engine/build.gradle.kts
-git checkout --theirs src/android/engine/build.gradle.kts   # main(=1번) 것으로
+git checkout --theirs src/android/engine/build.gradle.kts   # main 것으로
 git add src/android/engine/build.gradle.kts && git commit --no-edit
-cd src/android && ./gradlew :engine:test --console=plain     # 엔진 시험 187개 통과 확인
-cd ~/sleepissue && git push              # PR에 자동 반영
+cd src/android && ./gradlew :engine:test --console=plain     # 엔진 시험 236개 통과 확인
+cd ~/sleepissue && git push
 ```
 
-그다음 신호 변환 함수 패치(준비됨)를 넣어 push → 193개.
+그다음 신호 변환 함수 패치(준비됨)를 넣어 push → 242개. AgeBand 교체·EngineConfig 연결도 같은 PR에 넣는다.
 
 ### 머지할 때
 
 - **Create a merge commit**으로 합친다. Squash로 합치면 단계별 커밋 12개가 하나로 뭉쳐 [07](07-history.md)의 커밋 해시를 main에서 찾을 수 없다.
 - 머지 뒤 브랜치를 지워도 커밋은 main 기록에 남는다.
 
-### 1번 PR #6을 리뷰할 때 2번이 볼 것
+### 1번 코드(main)에서 2번이 확인한 것 (11/6)
 
 - `SignalFrame`·`NaviState`에 게이트가 쓰는 값(조향각, 차속, 기어, 방향지시등, 브레이크, 회전 지점 거리, 크루즈·설정 속도, 통풍)이 다 있는지 → 있음 (변환 함수 시험 통과)
-- 1번 `EngineConfig`·InterventionPolicy가 2번 출력(MSG-02·03·04, BaselineState, SteeringEvent)을 받을 자리가 있는지
+- 2번 출력을 받을 자리 → 있음: app `signal/SignalPorts.kt`의 `DrivingAssessment`·`DrivingAssessmentSource`, `InterventionInput.Safety`·`SensitiveModeChanged`. 다만 **'출발 피로 15분 뒤 첫 확인'(`firstCheckDueMs`)을 받을 입력은 없다**
 - `SafetyEventType` 이름이 2번 `SteeringEventType`과 같은지 → 같음
+- `DrivingAssessmentSource`를 구현한 곳 → **없음.** 엔진 출력 연결기가 필요하다 (4-1 대응표)
 
 ## 4. 팀원별로 알릴 것
 
@@ -79,12 +81,31 @@ cd ~/sleepissue && git push              # PR에 자동 반영
 | 1 | **SDK 조향이 전륜각이라 지금 엔진에는 null로 들어간다.** 엔진은 조향 null을 '보조 주행으로 간주(UNCERTAIN)'하므로 에뮬레이터 실제 입력으로는 점수가 안 나오고 게이지가 계속 회색이다. 데모(시나리오 재생)는 조향 값이 있어 괜찮다. 1차는 이대로 두고 Pleos 답을 기다릴지, 조향비·부호를 정해 바꿔 넣을지 정하자. 엔진 문턱(0.5~3°, 5°, 6°)은 **운전대 각도** 기준이다 | 높음 |
 | 2 | **원천 시각 없는 SDK 조향은 RateMeter가 `UNMEASURABLE`** → 2번 매핑(`MEASURED`·미만 아님일 때만 충분)대로면 실제 SDK에서는 미세 수정이 늘 꺼진다. 1차는 이대로(보수적) 두자고 제안. 데모는 `SCENARIO` 시간축이라 `MEASURED`가 된다 | 높음 |
 | 3 | 데모 시나리오 JSON(MSG-11)에 회전 지점 거리가 없다 → 거리 null이면 게이트가 5분 고속 유지 뒤에 열려 모든 시나리오 첫 5분이 계산 안 되고, 출발 피로가 15:10이 아니라 20:10에 판정된다(DMO_006 불합격). DemoPlayer 담당으로서 선택 필드 `distToNextTurnM`을 넣을지 같이 정하자 | 높음 |
-| 4 | 머지 순서 #6 → 2번. `engine/build.gradle.kts`는 1번 것으로 | 높음 |
-| 5 | 연결: 매 프레임 `push(frame)` → 반환된 `FatigueState`는 `valid`일 때만 `riskSmoothed`를 EVALUATED로, `drainEvents()` → 이름이 같은 `SafetyEventType`, `trending = (patternType == TREND)`, `safetyBypass` → 3단계, `baselineState.sensitive` OR RES_006 → 문턱 30/50/70, `firstCheckDueMs`에 첫 확인, `assistState.assistMode` → AST_005 확인 주기, `opGapSec > 900` → 확인 당김, `handoverAbnormal`·`HANDOVER_UNSAFE` → 2단계 | 중간 |
+| 4 | **엔진 출력 연결기** (아래 대응표). `DrivingAssessmentSource` 구현이 아직 없다. 2번이 app 쪽에 만들고 1번이 리뷰하는 것으로 제안 | 높음 |
+| 5 | 연결 규칙: 매 프레임 `push(frame)` 뒤 `drainEvents()`, `trending = (patternType == TREND)`, `safetyBypass`는 사건 `REPEATED_RAPID_STEERING`으로 이미 감, `baselineState.sensitive` OR RES_006 → 문턱 30/50/70, `assistState.assistMode` → AST_005 확인 주기, `opGapSec > 900` → 확인 당김, `HANDOVER_UNSAFE` → 2단계 | 중간 |
+| 5b | **'15분 뒤 첫 확인' 입력이 없다.** 출발 피로·'졸려요'(BSL_006·007) 때 `baselineState.firstCheckDueMs`에 첫 음성 확인을 해야 하는데 `InterventionInput`에 받을 자리가 없다. 입력 하나 추가 부탁 | 높음 |
+| 5c | **TTL을 3초보다 길게** (예: 3.5초 [제안값]). Pleos 답(11/5): 같은 값이면 3초 안 중복 콜백을 생략한다. TTL이 3초 이하면 차속이 그대로일 때 null(STALE)이 되어 게이트가 닫힌다 | 높음 |
 | 6 | 새 운행(TRP_008)이면 `reset()`(컨디션 받기 전에), 휴식 인증 + 회복 정상(RES_011)이면 `resetRiskAfterRest()`. 거꾸로 부르면 오늘의 나가 지워진다 | 중간 |
 | 7 | SRS 담당자 칸 PAT_004·006·007, AST_005 → 1번 (InterventionPolicy에 이미 값이 있음) | 중간 |
 | 8 | `tripId` 타입: SRS MSG-08·13은 Long, 1번 `TripState.tripId`는 String. 2번 `BaselineRecord.tripId`를 어디에 맞출지 (2차 기록 저장 전에) | 낮음 |
 | 9 | 비상등을 방향지시등 켜짐으로 보는 것(변환 함수 [해석]), AST_005 '야간' 시간 정의 | 낮음 |
+
+**엔진 출력 → 1번 입력 대응표 (11/6, main 기준 제안)**
+
+연결기는 app 쪽에서 Hub 프레임을 받아 `toDriveFrame()` → `push()` → 결과를 아래처럼 바꿔 1번 `InterventionManager.submit()`으로 넘긴다. ROS로 치면 엔진 노드의 토픽을 1번 노드가 구독하는 메시지 형식으로 바꿔 다시 발행하는 브리지 노드다.
+
+| 2번 출력 | 1번 입력 (main) | 바꾸는 법 |
+| --- | --- | --- |
+| `FatigueState`(30초) + `PatternState` + `AssistState` | `InterventionInput.Assessment(DrivingAssessment)` | `tMs` = `FatigueState.tMs` (넣은 신호보다 10초 늦음) |
+| 〃 | 〃 `evaluationStatus` | `valid` → `EVALUATED`, `invalidReason` `GATE_WAIT` → `NOT_EVALUATED`, `ASSIST` → `UNAVAILABLE` [해석, 1번 확인] |
+| 〃 | 〃 `riskScore` | `valid`일 때 `riskSmoothed`, 아니면 `null` (0으로 바꾸지 않음) |
+| 〃 | 〃 `pattern` | `TREND` → `TRENDING`, `SPIKE` → `TRANSIENT`, `AMBIGUOUS` → `UNCERTAIN`, `NONE` → `null` |
+| 〃 | 〃 `assistedDriving`, `operationGapSec` | `assistState.assistMode`, `assistState.opGapSec` |
+| `drainEvents()`의 `SteeringEvent` | `InterventionInput.Safety(SafetyEvent)` | 이름이 같아 `SafetyEventType.valueOf(type.name)`, 출처는 프레임의 `source` |
+| `baselineState.sensitive` | `InterventionInput.SensitiveModeChanged` | 바뀔 때만 보냄 |
+| (K의 취약 시간대) | `InterventionInput.VulnerableTimeChanged` | 같은 `EngineConfig` 취약 시간대로 연결기가 계산 (AgeBand 교체 뒤 한 정의) |
+| `baselineState.firstCheckDueMs` | **없음** | 위 5b. 1번에 입력 추가 부탁 |
+| `baselineState.departureFatigue` | 4번 `ForecastEngine` 입력 `START_FATIGUE_DETECTED` | false → true 순간 한 번 (FCS_004) |
 
 ### 4-2. 3번 (음성·실내)
 
@@ -102,7 +123,8 @@ cd ~/sleepissue && git push              # PR에 자동 반영
 | 1 | `baselineState.departureFatigue`가 false → true로 바뀌는 순간 예보 다시 계산 (FCS_001, BSL_006). 운행 중 한 번만 바뀐다 |
 | 2 | 휴식 인증 + 회복 정상 뒤 2번 쪽은 `resetRiskAfterRest()` — 평활값만 0, 기준선은 그대로 (RES_011 표와 같음) |
 | 3 | 회복 '느림' 뒤 민감 모드(RES_006)는 4번이 내고 1번이 2번 `sensitive`와 OR로 합친다 |
-| 4 | 4번 `AgeBand`·`VulnerableTimeRange`가 main에 들어오면 2번 임시 `AgeGroup`·`HourWindow`를 바꾼다. 시간대는 시작 포함·끝 제외, 연령대별 추가 시간대(50대+ 14~18, 30~40대 22~02, 20대 04~08)가 FAT_015와 같은지 봐 달라. 취약 시간대 정의를 한 곳에 둘지(예보·K·1단계) 정하자 |
+| 4 | 4번 `AgeBand`·`VulnerableTimeRange`가 11/4 main에 들어왔다. 2번 임시 `AgeGroup`·`HourWindow`를 이것으로 바꾼다. 11/6에 값을 대조해 보니 기본·연령대별 시간대(50대+ 14~18, 30~40대 22~02, 20대 04~08)와 시작 포함·끝 제외가 FAT_015와 같다. 취약 시간대 정의는 4번 `EngineConfig` 한 곳으로 모은다(예보·K·1단계) |
+| 5 | 쉼터 브랜치 `feat/rest-area-selector`는 PR이 아직 없다. 3단계 경유지 추가(1번 `RestPort` 구현)는 main에 아직 없다 |
 
 ### 4-4. 5번 (화면·시연)
 
@@ -125,8 +147,9 @@ cd ~/sleepissue && git push              # PR에 자동 반영
 | 4 | SRS AST_005 | '야간' 시간 정의 |
 | 5 | SRS DMO_001·006 | 시나리오에 회전 지점 거리를 넣거나, DMO_006 합격기준을 "게이트 통과 15분 + 10초"로 |
 | 6 | 간트 | [09 2절](09-schedule-todo-limits.md#2-간트에서-고칠-것) |
-| 7 | Pleos 메일 | 간트 [5]는 10/30 발송 100%로 돼 있는데 실제로 보냈는지 확인. 조향 질문에 "SteeringWheel 값이 전륜각인지 운전대각인지, 부호, 원천 시각(타임스탬프)·갱신 주기"를 더하자 |
+| 7 | Pleos 메일 | 11/5 답을 받았다(간트 [9] 100%). 갱신 주기(기본 1 Hz, 같은 값 3초 생략)는 답에 있지만 "SteeringWheel 값이 전륜각인지 운전대각인지, 부호, 원천 시각"은 없다. 다시 물을지 정하자 |
 | 8 | 블라인드 | 10/27 PR #3에서 커밋 noreply·실명 금지 규칙을 뺐지만, 접수양식 02장에는 "공유 링크와 첨부자료에도 개인정보·계정정보·개발자 실명이 노출되지 않도록"이라고 적혀 있다. GitHub 링크를 낸다면 커밋 작성자 이름·이메일을 어떻게 할지 제출 전에 한 번 정하자 |
+| 9 | SRS 구현 위치 칸 | 2번 42건이 모두 '(예정)'이다. 실제 경로(`engine/fatigue/`·`baseline/`·`pattern/`·`assist/`)로, PAT_004·006·007·AST_005는 1번 `InterventionPolicy`·`PolicyInterventionManager`로 |
 
 ## 5. 단계별로 누구에게 무엇을
 
@@ -148,7 +171,7 @@ cd ~/sleepissue && git push              # PR에 자동 반영
 
 **1번에게**
 
-> 2번 엔진 1차 끝났어. #6 먼저 머지하고 내 PR 넣는 순서로 가자 (충돌은 engine/build.gradle.kts 하나, 네 것으로 고름). 맞출 게 세 가지 있어. ① SDK 조향을 null로 보류하면 엔진이 '조향 없음 = 보조 주행 간주(AST_003)'로 봐서 실제 입력에서는 게이지가 계속 회색이야. 1차는 데모 재생만 점수가 나오게 두고 Pleos 답 기다릴지 정하자. ② 원천 시각 없는 조향은 RateMeter가 UNMEASURABLE이라 내 쪽에서 미세 수정을 끄게 돼 있어. 1차는 그대로 두자고 제안. ③ 시나리오 JSON에 회전 지점 거리가 없어서 첫 5분이 계산 안 되고 출발 피로가 20:10에 나와. DemoPlayer에서 거리 선택 필드를 넣을지 같이 정하자. 자세한 건 docs/fatigue-engine/08-team-handoff.md 4-1.
+> 2번 엔진 main 합쳐 보니 충돌은 engine/build.gradle.kts 하나(main 것으로 고름)고 엔진 시험 236개 통과야. 곧 PR 올릴게, 리뷰 부탁해. 맞출 게 네 가지 있어. ① 엔진 결과를 네 InterventionManager로 넘기는 연결기(DrivingAssessmentSource 구현)가 아직 아무 데도 없어. 내가 app 쪽에 만들게. 대응표(특히 GATE_WAIT → NOT_EVALUATED, ASSIST → UNAVAILABLE, SPIKE → TRANSIENT)가 맞는지 봐 줘. ② 출발 피로·'졸려요'면 15분 뒤 첫 음성 확인을 해야 하는데 InterventionInput에 받을 자리가 없어. 입력 하나 추가해 줄 수 있어? ③ Pleos 답에 같은 값이면 3초 안 중복 콜백을 생략한대. TTL이 3초 이하면 차속이 그대로일 때 null이 돼서 게이트가 닫혀. 3.5초쯤으로 해 줘. ④ SDK 조향은 1차에선 null 유지, 점수는 데모 재생으로만 보여 주자. 시나리오 JSON에 회전 지점 거리 칸 넣을지도 같이 정하자. 자세한 건 docs/fatigue-engine/08-team-handoff.md 4-1.
 
 **5번에게**
 

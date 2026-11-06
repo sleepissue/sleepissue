@@ -41,8 +41,10 @@
 
 2026-11-04: `feat/engine-model`에서 **1차 계산 규칙 구현·시험 끝** (main 병합 전). SRS 1차 Must 37건 중 33건 구현, PAT_004·006·007·AST_005는 1번 InterventionPolicy가 2번 출력으로 판단. `:engine:test` 104개 통과, 1번 `develop-jdw`와 합쳐도 187개 통과.
 
-- 남은 작업: PR·머지(1번 #6 다음), 1번 신호 → 2번 입력 변환 함수, 딴짓 1분 칸 정렬·기준선 하한 수정, 데모 시나리오 값(5번), SDK 조향(전륜각)·원천 시각 처리(1번과 결정).
-- 설명 문서: [docs/fatigue-engine/](docs/fatigue-engine/README.md) — 구조·알고리즘·해석·동작 예·시험·작업 기록·팀 전달·일정.
+2026-11-06: main(11/4 병합 #6·#7·#8)과 합치기 시험 — 충돌 1곳(`engine/build.gradle.kts`, main 것으로), 엔진 시험 236개 통과, 변환 함수까지 242개. 2차 확장(가정 신호) 설계 문서 추가.
+
+- 남은 작업: main 합치기·변환 함수·AgeBand 교체·EngineConfig 연결 → PR·머지, **엔진 출력 연결기**(1번 `DrivingAssessmentSource` 구현, 아직 없음), 딴짓 1분 칸 정렬·기준선 하한 수정, 데모 시나리오 형식(1·5번), 1번과 '15분 뒤 첫 확인' 입력·TTL 3초 초과.
+- 설명 문서: [docs/fatigue-engine/](docs/fatigue-engine/README.md) — 구조·알고리즘·해석·동작 예·시험·작업 기록·팀 전달·일정·2차 확장 설계.
 
 ### 3번 — 음성·실내 (`feat/voice-*`)
 

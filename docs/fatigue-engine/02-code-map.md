@@ -14,7 +14,7 @@ engine/
 └── assist/      보조 주행 판정, 인계 품질, 조작 공백
 ```
 
-`intervention/`, `forecast/`, `rest/`, `signal/`, `time/` 같은 다른 패키지는 1번·4번 몫이다 (1번 PR #6에 들어 있음).
+`intervention/`, `forecast/`, `rest/`, `signal/`, `time/`, `check/`, `voice/`, `session/` 같은 다른 패키지는 1·3·4번 몫이다 (11/4에 PR #6·#7·#8로 main에 들어감).
 
 ## 2-2. 파일별 설명 (main 27개)
 

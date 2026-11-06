@@ -29,6 +29,8 @@ xdg-open engine/build/reports/tests/test/index.html
 | `feat/engine-model` `c060214` (GitHub에 올라간 그대로) | 13개 묶음 **104개 통과**, 실패 0 |
 | 위 + 1번 `develop-jdw` 시험 병합 | 22개 묶음 187개 통과 (2번 104 + 1번 83). 충돌은 `engine/build.gradle.kts` 하나 |
 | 위 + 신호 변환 함수(PR #6 병합 뒤 넣을 것) | 23개 묶음 193개 통과 |
+| 11/6: 문서 커밋 `2dba62c` + main `7bc5ffd`(11/4에 #6·#7·#8 병합) | 29개 묶음 **236개 통과** (2번 104 + main 132). 충돌은 `engine/build.gradle.kts` 하나, main 것으로 고름 |
+| 위 + 신호 변환 함수 | 30개 묶음 **242개 통과** |
 | GitHub 커밋 11개와 보낸 패치 11개 대조 | 모두 같은 내용 (트리 해시 일치) |
 
 이 문서의 시험은 Kotlin 2.0.21 컴파일러와 JUnit 4.13.2로 따로 돌린 결과다. 팀 빌드(Gradle 9.6.0, Kotlin 2.4.21)에서도 같아야 하므로, 올린 뒤 각자 위 명령으로 한 번 확인한다.
@@ -254,7 +256,8 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 
 | 시험 | 언제 | 무엇이 필요 |
 | --- | --- | --- |
-| 신호 변환 함수 6개 | 1번 PR #6 병합 직후 | 준비 끝 (`SignalAdaptersTest`) |
+| 신호 변환 함수 6개 | main 합친 직후 | 준비 끝 (`SignalAdaptersTest`). 11/6 합친 트리에서 통과 확인 |
+| 엔진 출력 연결기 (DrivingAssessment·SafetyEvent 대응) | 11/8 | 연결기 코드, 1번과 대응표 합의 ([08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환)) |
 | TC_BSL_007 (ET): '졸려요' 버튼·말 → 민감 모드 + 권유 발화 | 11/9 통합 | 5번 버튼, 3번 의도(COND_SLEEPY) |
 | TC_AST (ET): Virtual Console 크루즈 → 보조 주행 회색 | 11/9 통합 | 1번 SDK 연결(DrivingMode) |
 | E2E TC_PRD_002·003, DMO_006 | 11/9 리허설 | 5번 시나리오 JSON, 1번 DemoPlayer |
