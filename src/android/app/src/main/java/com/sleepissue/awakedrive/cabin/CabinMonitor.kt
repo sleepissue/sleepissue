@@ -87,12 +87,15 @@ class CabinMonitor(
             while (running && clock.nowMs() < endAtMs) {
                 val count = localRecorder.read(buffer, 0, buffer.size)
                 if (count <= 0) continue
+                var sum = 0.0
                 var squares = 0.0
                 for (index in 0 until count) {
                     val value = buffer[index].toDouble()
+                    sum += value
                     squares += value * value
                 }
-                val rms = sqrt(squares / count)
+                val mean = sum / count
+                val rms = sqrt((squares / count - mean * mean).coerceAtLeast(0.0))
                 maximumRms = maxOf(maximumRms, rms)
                 if (rms >= config.cabinSpeechRmsThreshold) speechFrames++
             }

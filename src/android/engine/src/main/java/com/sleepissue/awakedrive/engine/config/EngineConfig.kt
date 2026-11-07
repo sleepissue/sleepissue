@@ -13,9 +13,15 @@ data class EngineConfig(
     val fallbackDistanceStepM: Int = 5_000,
     val fallbackSoonThresholdM: Int = 2_500,
     val voicePreRollSilenceMs: Long = 180L,
+    val voicePromptSettleMs: Long = 2_000L, // [가설] Pleos 에뮬레이터 TTS 지연 잔향 실측 제외
     val cabinSpeechSampleMs: Long = 10_000L,
-    val cabinSpeechRmsThreshold: Double = 3_000.0, // [가설] Pleos 에뮬레이터 디지털 마이크 100% 실측값
+    val cabinSpeechRmsThreshold: Double = 1_250.0, // [가설] Pleos 실측: 잔향 안정 후 무음 1,216 / 일반 발화 1,290~1,362 RMS
     val cabinMinimumSpeechFrames: Int = 3, // [가설] 짧은 잡음 제외용
+    val voiceMinimumConsecutiveSpeechFrames: Int = 2, // [가설] '네' 발화 실측: 200 ms 연속, 단발 잡음 제외
+    val voiceNoiseCalibrationFrames: Int = 3, // [가설] 신호음 후 150 ms 현재 소음 측정
+    val voiceMinimumSpeechRms: Double = 300.0, // [가설] 저소음 환경 최소 문턱
+    val voiceSpeechToNoiseRatio: Double = 1.08, // [가설] 배경 소음 대비 8% 상승
+    val voiceMinimumRmsAboveNoise: Double = 100.0, // [가설] 배경 대비 최소 RMS 증가분
     val sttPcmBytesPerSecond: Long = 32_000L, // [가설] 공식 예시 16 kHz·16-bit·mono
     val rearPassengerMaximumWaitMs: Long = 180_000L,
     val conversationSilenceForDriverCheckMs: Long = 30_000L,
