@@ -27,4 +27,8 @@ object VoiceScripts {
     const val RECOVERY_CHECK = "출발 전에 확인할게요. 신호음이 나면 '네'라고 말해 주세요."
     const val RECOVERY_OK = "다시 출발해도 좋아요."
     const val RECOVERY_SLOW = "10분 더 쉬어 가는 건 어때요?"
+
+    // 4번 추가 (기획서 6장 통풍 규칙·7-1 파워냅)
+    const val VENTILATION_MANUAL = "통풍을 켜 보세요. 쉼터에서 쉬는 게 가장 좋아요."
+    const val NAP_SAFETY_CHECK = "안전한 곳에 세웠는지 확인해 주세요."
 }

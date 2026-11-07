@@ -1,8 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
 }
 
 android {
+    useLibrary("android.car")
     namespace = "com.sleepissue.awakedrive"
     compileSdk {
         version = release(37)
@@ -11,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.sleepissue.awakedrive"
         minSdk = 28
-        targetSdk = 37
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -30,10 +32,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    sourceSets {
+        // 4번 쉼터 표(REQ_RST_001): 전처리본 폴더를 그대로 assets로 묶는다. 복사본을 두지 않기 위해서다.
+        getByName("main").assets.srcDir(rootProject.file("../../data/rest_areas/processed"))
+    }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
     implementation(project(":engine"))
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
 
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
@@ -47,6 +60,7 @@ dependencies {
     implementation("ai.pleos.playground:SpeechToText:3.3.1")
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 }

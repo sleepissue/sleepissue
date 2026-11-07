@@ -4,8 +4,8 @@ import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.check.CheckVerdict
 import com.sleepissue.awakedrive.engine.check.QuestionType
 import com.sleepissue.awakedrive.engine.check.SpeechIntent
-import com.sleepissue.awakedrive.engine.model.Clock
 import com.sleepissue.awakedrive.engine.voice.SpeechIntentParser
+import com.sleepissue.awakedrive.signal.FakeClock
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -16,9 +16,9 @@ class CheckManagerTest {
         val manager = CheckManager(clock, CheckPolicy(), SpeechIntentParser())
 
         manager.onBeepEnded()
-        clock.now = 2_300L
+        clock.elapsedMs = 2_300L
         manager.onVoiceStarted()
-        clock.now = 3_300L // STT 처리에 1초가 더 걸림
+        clock.elapsedMs = 3_300L // STT 처리에 1초가 더 걸림
 
         val result = manager.finish(900L, QuestionType.DRIVER_CHECK, "네")
 
@@ -32,7 +32,7 @@ class CheckManagerTest {
         val clock = FakeClock()
         val manager = CheckManager(clock, CheckPolicy(), SpeechIntentParser())
         manager.onBeepEnded()
-        clock.now = 500L
+        clock.elapsedMs = 500L
         manager.onVoiceStarted()
 
         val result = manager.finish(900L, QuestionType.DRIVER_CHECK, "쉴게")
@@ -40,9 +40,5 @@ class CheckManagerTest {
         assertEquals(CheckVerdict.NORMAL, result.verdict)
         assertEquals(SpeechIntent.REST, result.intent)
         assertEquals(true, result.shouldEscalateToStage3)
-    }
-
-    private class FakeClock(var now: Long = 0L) : Clock {
-        override fun nowMs(): Long = now
     }
 }

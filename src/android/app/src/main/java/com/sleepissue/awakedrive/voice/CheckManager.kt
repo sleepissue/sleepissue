@@ -5,7 +5,7 @@ import com.sleepissue.awakedrive.engine.check.CheckResult
 import com.sleepissue.awakedrive.engine.check.CheckType
 import com.sleepissue.awakedrive.engine.check.QuestionType
 import com.sleepissue.awakedrive.engine.check.SpeechIntent
-import com.sleepissue.awakedrive.engine.model.Clock
+import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.engine.voice.SpeechIntentParser
 
 /**
@@ -22,7 +22,7 @@ class CheckManager(
     private var measuredLatencyMs: Long? = null
 
     fun onBeepEnded() {
-        beepEndedAtMs = clock.nowMs()
+        beepEndedAtMs = clock.elapsedRealtimeMs()
         voiceStartedAtMs = null
         measuredLatencyMs = null
     }
@@ -36,7 +36,7 @@ class CheckManager(
 
     fun onVoiceStarted() {
         if (beepEndedAtMs != null && voiceStartedAtMs == null) {
-            voiceStartedAtMs = clock.nowMs()
+            voiceStartedAtMs = clock.elapsedRealtimeMs()
         }
     }
 
@@ -46,7 +46,7 @@ class CheckManager(
         recognizedText: String?,
         type: CheckType = CheckType.VOICE,
     ): CheckResult {
-        val now = clock.nowMs()
+        val now = clock.elapsedRealtimeMs()
         requireNotNull(beepEndedAtMs) { "onBeepEnded()를 먼저 호출해야 합니다." }
         val latency = measuredLatencyMs ?: voiceStartedAtMs?.let { started ->
             (started - requireNotNull(beepEndedAtMs)).coerceAtLeast(0L)

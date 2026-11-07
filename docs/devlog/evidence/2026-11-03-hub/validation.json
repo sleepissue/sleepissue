@@ -1,0 +1,359 @@
+{
+  "date": "2026-11-03",
+  "scope": "가짜 입력 Hub/주입 시계 검증. 실제 Playground SDK 시험 아님.",
+  "device": "emulator-5554 / Pleos Connect Emulator v2.1.0 / API 34 / user 10",
+  "branch": "develop-jdw",
+  "head": "84db8c9",
+  "apk_sha256": "ecc84d76fe2a4cc05d291b66aa20f3a6e0b7f3420797984a579a34237e6cfbd6",
+  "installed_apk_sha256": "ecc84d76fe2a4cc05d291b66aa20f3a6e0b7f3420797984a579a34237e6cfbd6",
+  "srs_sha256": "2ea8c6d0baf3040f146fbbab0d87883f12108354411ffaad1f8e6fb1e95e69da",
+  "manual_apk_sha256_values": [
+    "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+    "ecc84d76fe2a4cc05d291b66aa20f3a6e0b7f3420797984a579a34237e6cfbd6"
+  ],
+  "reports": {
+    "engine": {
+      "tests": 83,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 120,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "device": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "related_tests_within_full_suite": {
+    "SignalSelectionTest": 6,
+    "RateMeterTest": 8,
+    "DebugHubProbeControllerTest": 5,
+    "PeriodicSignalHubTest": 16
+  },
+  "room_device_tests": 8,
+  "existing_context_device_test": 1,
+  "actual_room_save_intervals_ms": [
+    10113,
+    10087
+  ],
+  "cross_checks": {
+    "manual_trip_id": "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+    "same_trip_and_stop_evidence_after_probe_and_reopen": true,
+    "source_two_hz_independent_of_publication_ten_hz": true,
+    "real_fresh_and_demo_location_exception": true,
+    "ttl_boundary_and_fallback": true,
+    "unavailable_unsupported_denied_error_are_null": true,
+    "five_hz_boundary_not_below": true,
+    "stop_no_emissions_and_restart_new_session_empty_counters": true,
+    "score_general_rest_guidance_preserved": true
+  },
+  "protected_files_unchanged": [
+    "src/android/settings.gradle.kts",
+    "src/android/build.gradle.kts",
+    "src/android/app/build.gradle.kts",
+    "src/android/gradle/libs.versions.toml",
+    "src/android/engine/build.gradle.kts",
+    "src/android/app/schemas/com.sleepissue.awakedrive.data.TripDatabase/1.json",
+    "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/RoomTripRepositoryTest.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/data/TripDatabase.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/data/RoomTripRepository.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripTracker.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripStateStore.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PolicyInterventionManager.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSessionCodec.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionCheckpoint.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSaveCoordinator.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionManager.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/TripStateStoreTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PolicyInterventionManagerTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/InterventionPersistenceTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/TripSaveCoordinatorTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/InterventionContractTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/TripTrackerTest.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/model/InterventionModels.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicy.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/session/TripRules.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/session/TripRuleModels.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/session/RollingDriveWindow.kt",
+    "src/android/engine/src/test/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicyTest.kt",
+    "src/android/engine/src/test/java/com/sleepissue/awakedrive/engine/session/TripRulesTest.kt",
+    "src/android/engine/src/test/java/com/sleepissue/awakedrive/engine/session/RollingDriveWindowTest.kt"
+  ],
+  "cases": [
+    {
+      "case": "00_Room5분_시험전",
+      "expected": [
+        "가상 +00:05:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "정차 +00:02:00",
+        "Room 저장 성공"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "f798216fb4f6aaaad327267c32ac560553a7578976df03e74b2312c92d43fda6",
+      "xml_sha256": "1d0a4b0a5aebfa7c806ed3ec9abc2e77e2e72123597dec1daa726b0ca42d334f"
+    },
+    {
+      "case": "01_REAL2Hz_발행10Hz",
+      "expected": [
+        "Hub 가상 10000ms",
+        "발행 100회 / 10.00Hz",
+        "원천 콜백 21 · 고유 관측 21 · 2.00Hz",
+        "5Hz 미만 true",
+        "최종 조향 1.0° REAL/AVAILABLE",
+        "차속 80.0km/h REAL/AVAILABLE",
+        "최종 좌표 (35.5, 129.0) · DEMO/DEMO · DEMO_LOCATION"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "d2a4a3c89bc3808d418af34f8b8dc09af9631e5f3c67fbcf6cba18cc2a00e267",
+      "xml_sha256": "b777c7fdd62e984745172c2b8ec7d88bf8568f575a2d087b63354d7426f875d9"
+    },
+    {
+      "case": "02_REAL값변경",
+      "expected": [
+        "Hub 가상 11000ms",
+        "최종 조향 15.0° REAL/AVAILABLE",
+        "차속 95.0km/h REAL/AVAILABLE"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "266436dc0552df8d3276805ba1016be87b30e3d597a9cb1b7620bddd310b6982",
+      "xml_sha256": "f7e31f5cd79a2ef5fc15b6e6aacc5a514c709aa1703655577a2d4333ea2a7807"
+    },
+    {
+      "case": "03_REAL좌표_쌍대체",
+      "expected": [
+        "Hub 가상 12000ms",
+        "최종 좌표 (37.5, 127.0) · REAL/REAL · REAL_LOCATION"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "43ee6d15a431ec3a767b6b2c77dc2eb55014b879eb1b6add70714fd7cd8af20e",
+      "xml_sha256": "689651cf6547009c95b82d77d22b88b9bd08429a597b8781458a7b241bd65ad2"
+    },
+    {
+      "case": "04_TTL1000ms_경계유효",
+      "expected": [
+        "Hub 가상 13000ms",
+        "최종 조향 15.0° REAL/AVAILABLE",
+        "차속 95.0km/h REAL/AVAILABLE",
+        "관측 12000ms/ELAPSED_REALTIME · 수신 12000ms"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "11f7881cc383f616753a353d9ebb2e429230aaf24ca12b4e7ce3d39cc1693ed8",
+      "xml_sha256": "78394875ef6692bb811f5ef62ed5151cb1ac6b72a182b1006611a4fae312c62f"
+    },
+    {
+      "case": "05_TTL초과_STALE_DEMO대체",
+      "expected": [
+        "Hub 가상 13100ms",
+        "조향 입력 STALE",
+        "최종 조향 8.0° DEMO/AVAILABLE",
+        "차속 40.0km/h DEMO/AVAILABLE",
+        "DEMO_FALLBACK"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "5d39357f7b3794d32e2f9dff925133b78f89555f901b679bb671546a4218abb7",
+      "xml_sha256": "17839feeeb53f113c6361124fb885d22ba4ed63ca05e772ccefff2e9031bf1ef"
+    },
+    {
+      "case": "06_양쪽불가_null",
+      "expected": [
+        "Hub 가상 13200ms",
+        "최종 조향 null° REAL/STALE",
+        "차속 nullkm/h REAL/STALE",
+        "NO_VALID_INPUT"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "97c95ee85a2c9d31dfdb25c81ad3eb0d29969cc5bae1b7322867328fb7731265",
+      "xml_sha256": "e4041ffed4e53a63d576b0424f81f6e6cd015e76f341306239914116541dba5e"
+    },
+    {
+      "case": "07_미지원_null",
+      "expected": [
+        "Hub 가상 13300ms",
+        "최종 조향 null° REAL/UNSUPPORTED",
+        "차속 95.0km/h REAL/AVAILABLE",
+        "UNMEASURABLE"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "e3f4685dfc20278a8b5180929785f93e39b6110ed7827d50990ec98204555725",
+      "xml_sha256": "e1f01f985fe68922420523b7a8a3c1338359f353bd73d5898e7c849d22462a01"
+    },
+    {
+      "case": "08_권한거부_null",
+      "expected": [
+        "Hub 가상 13400ms",
+        "최종 조향 null° REAL/PERMISSION_DENIED"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "54654fde9ec5a9c43bd43edb895fa9d8b6646c204aa0e80b8fe6631d18f022d3",
+      "xml_sha256": "d904a9b9b9d1978d57978ad69ca8a7d3688936884f4048dad57aafb6d0cd663c"
+    },
+    {
+      "case": "09_오류_null",
+      "expected": [
+        "Hub 가상 13500ms",
+        "최종 조향 null° REAL/ERROR"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "efc3cf4befac60f702a53cebd45d6aa69fec1fd2943a657406832526bdb271c7",
+      "xml_sha256": "529e0d0de79dc3e06bb1a7776978b74bcf3b01dcb03a036e2aac8cadca83992a"
+    },
+    {
+      "case": "10_5Hz_경계",
+      "expected": [
+        "Hub 가상 10000ms",
+        "발행 100회 / 10.00Hz",
+        "원천 콜백 51 · 고유 관측 51 · 5.00Hz",
+        "5Hz 미만 false",
+        "최종 조향 1.0° REAL/AVAILABLE"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "90fa6cb83b8ee57d8742aea65dd31da722116718426aebe5895c20c56de872a8",
+      "xml_sha256": "436cf7a777a3fbc613298f523f6c2fefac8bc7fd66f7722730764ab635d218b3"
+    },
+    {
+      "case": "11_중지후_발행없음",
+      "expected": [
+        "Hub 가상 11000ms · 중지",
+        "발행 100회 / 미확정(INTERRUPTED)",
+        "발행 전/중지 · 과거 캐시 없음"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "dc2e61a8b023197168a683ae93284e6bfb2a9615b84c6a61937a85093fcb3fa0",
+      "xml_sha256": "17d8838c09b810275e99001c74776e2d42ef6c4c4e73b8ea46b346f9dc14ee16"
+    },
+    {
+      "case": "12_재시작_이전세션초기화",
+      "expected": [
+        "Hub 가상 11100ms · 동작",
+        "발행 1회",
+        "원천 콜백 0 · 고유 관측 0 · 미확정(NOT_STARTED)",
+        "최종 조향 null°",
+        "차속 nullkm/h"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "d03d0b87e3bbfb5e4702200e95fbaed24a58d6333b00e313316e52f7b01b04bf",
+      "xml_sha256": "8e767cb4be716ee3227101f38ad72157b46d9642f7706dcbbecf530e598f1b61"
+    },
+    {
+      "case": "13_Hub종료_Room5분보존",
+      "expected": [
+        "가상 +00:05:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "연속 00:05:00  |  최근 24시간 00:02:00",
+        "정차 +00:02:00",
+        "정차 전 연속 00:02:00 · 잠정 정차 00:03:00"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "4c89622ca488623c7af65b8d19a59f55338049f02c7b9ebe9c1f01caf550763f",
+      "xml_sha256": "1d0a4b0a5aebfa7c806ed3ec9abc2e77e2e72123597dec1daa726b0ca42d334f"
+    },
+    {
+      "case": "14_프로세스재실행_Room복원",
+      "expected": [
+        "가상 +00:05:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "복원 성공",
+        "정차 전 연속 00:02:00 · 잠정 정차 00:03:00"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "35c306dfc98dae90fbaf6c52d48753d877ad4aa9708661d1b46524fb53f65cee",
+      "xml_sha256": "5537635d63d9876405cbb65879e373a152c7df8b4a2b4c84dad4c0cfcf7889ff"
+    },
+    {
+      "case": "15_복원후_정차5분보정",
+      "expected": [
+        "가상 +00:07:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "연속 00:02:00  |  최근 24시간 00:02:00",
+        "정차 +00:02:00"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "1c57f4b91b977d02d8a51385da5f609bd661b03e457da4d5e6f82f7a91f39f0e",
+      "xml_sha256": "ef7d244caf3cd915365103fbc23994b04ec08f66464642d33a12d53db12457cf"
+    },
+    {
+      "case": "16_SCORE3단계_일반안내회귀",
+      "expected": [
+        "가상 +00:01:00",
+        "3단계 휴식 유도  ·  위험 점수",
+        "SCORE",
+        "REST_RECOMMENDED"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "f79fb5b7ab18517bca0b4994c674ed1776a642247c2e099bf35d2f5f7efffd0f",
+      "xml_sha256": "73c71f9e0622ee2b17f536fe221107f04ab5b5319612e3cdf1f2132eed405761"
+    },
+    {
+      "case": "17_최종_Room7분보존",
+      "expected": [
+        "가상 +00:07:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "복원 성공",
+        "연속 00:02:00  |  최근 24시간 00:02:00"
+      ],
+      "passed": true,
+      "apk_sha256": "2c0ce9e465d2fb4e9ce64d199672547bd570d2067b36e6b0bc4ec9f8abe39768",
+      "png_sha256": "af9acfdef4dcb1889f48f3c3198768071720dd4bbb02c9fa65b40a25f56db1f3",
+      "xml_sha256": "c5b81220fbf6f33a9a678278f16e768cf6ed4ff131d77bd122a4e2a106ede53f"
+    },
+    {
+      "case": "18_최종APK_원천2Hz_발행10Hz",
+      "expected": [
+        "Hub 가상 10000ms",
+        "발행 100회 / 10.00Hz",
+        "원천 콜백 21 · 고유 관측 21 · 2.00Hz",
+        "최종 조향 1.0° REAL/AVAILABLE",
+        "최종 좌표 (35.5, 129.0) · DEMO/DEMO · DEMO_LOCATION"
+      ],
+      "passed": true,
+      "apk_sha256": "ecc84d76fe2a4cc05d291b66aa20f3a6e0b7f3420797984a579a34237e6cfbd6",
+      "png_sha256": "6455bec01031bb89ccae378a097ce13213c6082b74843bad3509d30b55c84ccd",
+      "xml_sha256": "b777c7fdd62e984745172c2b8ec7d88bf8568f575a2d087b63354d7426f875d9"
+    },
+    {
+      "case": "19_최종APK_Room7분보존",
+      "expected": [
+        "가상 +00:07:00",
+        "debug-8dc05e13-363a-4023-88de-e8aab1c85390-trip-1",
+        "복원 성공",
+        "연속 00:02:00  |  최근 24시간 00:02:00",
+        "정차 +00:02:00"
+      ],
+      "passed": true,
+      "apk_sha256": "ecc84d76fe2a4cc05d291b66aa20f3a6e0b7f3420797984a579a34237e6cfbd6",
+      "png_sha256": "5405df8bb01ae9e820601ec4f16a4958c40040102a9207d685ac65de0c56c708",
+      "xml_sha256": "c5b81220fbf6f33a9a678278f16e768cf6ed4ff131d77bd122a4e2a106ede53f"
+    }
+  ],
+  "final_emulator_state": "수동 Room 복원 성공 / 가상 7분 / 연속·최근 누적 2분 / P·ON / 동일 운행 ID",
+  "not_completed": [
+    "실제 Playground SDK TC_SIG_001/007/008",
+    "SIG_009의 2번 지표 비활성/B 재정규화",
+    "실제 SDK 원단위/시간축/주기 실측",
+    "SDK 어댑터·JSON·DemoClock·FGS·부팅·TRP_003 전체"
+  ]
+}

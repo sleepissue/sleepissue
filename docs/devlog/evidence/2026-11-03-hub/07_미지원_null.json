@@ -1,0 +1,9 @@
+{
+  "expected": [
+    "Hub 가상 13300ms",
+    "최종 조향 null° REAL/UNSUPPORTED",
+    "차속 95.0km/h REAL/AVAILABLE",
+    "UNMEASURABLE"
+  ],
+  "passed": true
+}

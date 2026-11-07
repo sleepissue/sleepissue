@@ -1,0 +1,9 @@
+{
+  "expected": [
+    "가상 +00:01:00",
+    "3단계 휴식 유도  ·  위험 점수",
+    "SCORE",
+    "REST_RECOMMENDED"
+  ],
+  "passed": true
+}
