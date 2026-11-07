@@ -8,7 +8,7 @@
 | [proposal](proposal/) | 접수 양식, 제출 체크리스트 |
 | [setup](setup/) | 개발환경 설치기록, [파일트리·Git플로우 매뉴얼](setup/파일트리_Git플로우_매뉴얼.md)(PDF 포함) |
 | [design](design/) | 화면 시안 (11/5 예정) |
-| [meetings](meetings/) | 회의록 |
+| [meetings](meetings/) | 회의록, 운영사무국 메일 답변 ([11/5 Pleos 답변](meetings/2026-11-05_Pleos_메일답변.md)) |
 
 CLAUDE.md에는 없지만 팀 운영에 필요해서 추가한 폴더:
 
@@ -16,6 +16,7 @@ CLAUDE.md에는 없지만 팀 운영에 필요해서 추가한 폴더:
 | --- | --- |
 | [ideas](ideas/) | 아직 기획서에 들어가지 않은 아이디어·리서치. 채택되면 `plan/`에 반영 |
 | [devlog](devlog/) | 날짜별 개발 기록(한 일/막힌 것/다음 할 일) |
+| [fatigue-engine](fatigue-engine/) | 2번 졸음 판단 엔진 설명: 구조·알고리즘·해석·동작 예·시험·작업 기록·팀 전달·일정·2차 확장 설계·시나리오 형식 제안 |
 
 **지금 누가 뭘 맡고 있는지**는 문서가 아니라 루트의 [`../PROGRESS.md`](../PROGRESS.md)에서 봅니다.
 

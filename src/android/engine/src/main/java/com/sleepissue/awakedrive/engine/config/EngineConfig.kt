@@ -57,17 +57,11 @@ data class EngineConfig(
     // ── 취약 시간대 (예보 REQ_FCS_005, 맥락 가중 K도 같은 값을 씀) ──────────
 
     // 기획서 4-5: 새벽 2~7시·오후 2~5시 (Horne & Reyner 1995, 도로교통공단)
-    val vulnerableBaseRanges: List<VulnerableTimeRange> = listOf(
-        VulnerableTimeRange.hours(2, 7),
-        VulnerableTimeRange.hours(14, 17),
-    ),
+    // 값은 VulnerableTimeDefaults 한 곳에 있다 (2번 맥락 가중 K도 같은 값을 기본값으로 씀).
+    val vulnerableBaseRanges: List<VulnerableTimeRange> = VulnerableTimeDefaults.BASE,
 
-    // SRS REQ_FAT_015: 연령대 설정 시 추가되는 시간대
-    val vulnerableAgeRanges: Map<AgeBand, List<VulnerableTimeRange>> = mapOf(
-        AgeBand.TWENTIES to listOf(VulnerableTimeRange.hours(4, 8)),
-        AgeBand.THIRTIES_FORTIES to listOf(VulnerableTimeRange.hours(22, 2)),
-        AgeBand.FIFTIES_PLUS to listOf(VulnerableTimeRange.hours(14, 18)),
-    ),
+    // SRS REQ_FAT_015: 연령대 설정 시 추가되는 시간대 (20대 4~8시, 30·40대 22~2시, 50대 이상 14~18시)
+    val vulnerableAgeRanges: Map<AgeBand, List<VulnerableTimeRange>> = VulnerableTimeDefaults.BY_AGE,
 
     // ── 예보 (ForecastEngine) ─────────────────────────────
 
@@ -112,6 +106,14 @@ data class EngineConfig(
         18 to "저녁",
         21 to "밤",
     ),
+
+    // ── 2번 졸음 엔진 (FatigueEngine·BaselineStore·PatternClassifier·AssistModeDetector) ──
+    // 문턱값 본문과 근거는 각 묶음 파일에 있다. 엔진은 FatigueEngine(EngineConfig)로 만든다.
+    // 취약 시간대는 위 vulnerableBaseRanges·vulnerableAgeRanges를 쓴다 (fatigue.context 안의 같은 칸은 무시됨).
+    val fatigue: FatigueConfig = FatigueConfig(),
+    val baseline: BaselineConfig = BaselineConfig(),
+    val pattern: PatternConfig = PatternConfig(),
+    val assist: AssistConfig = AssistConfig(),
 
     // ── 3번 음성 확인·실내 (CheckManager·VoiceAgent·SpeechAgent·CabinMonitor) ──
     // 단계 전환 문턱값(단계 점수·30초 승급·10분 재알림·10분 유지)은 위의 1번 값을 쓴다.
