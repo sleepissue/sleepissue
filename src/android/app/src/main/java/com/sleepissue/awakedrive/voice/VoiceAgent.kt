@@ -21,13 +21,19 @@ class VoiceAgent(
     private val delay: (Long, () -> Unit) -> Unit,
     private val config: EngineConfig = EngineConfig(),
 ) {
-    fun speak(text: String, fallback: FallbackCue, onComplete: () -> Unit = {}) {
+    fun speak(
+        text: String,
+        fallback: FallbackCue,
+        onComplete: () -> Unit = {},
+        onStarted: () -> Unit = {},
+    ) {
         audioFocus.acquire()
         val finish = {
             audioFocus.release()
             onComplete()
         }
         delay(config.voicePreRollSilenceMs) {
+            onStarted()
             output.speak(
                 text = text,
                 onComplete = finish,

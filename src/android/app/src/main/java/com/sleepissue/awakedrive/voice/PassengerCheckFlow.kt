@@ -18,6 +18,7 @@ class PassengerCheckFlow(
         context: OccupancyContext,
         baselineMs: Long,
         onPlanSelected: (CheckPlan) -> Unit = {},
+        onPromptStarted: () -> Unit = {},
         onResult: (CheckResult, Boolean) -> Unit,
         onButtonRequired: (CheckTarget) -> Unit,
     ) {
@@ -33,6 +34,7 @@ class PassengerCheckFlow(
                 questionType = QuestionType.DRIVER_CHECK,
                 checkType = CheckType.VOICE,
                 baselineMs = baselineMs,
+                onPromptStarted = onPromptStarted,
                 onResult = onResult,
                 onButtonRequired = { onButtonRequired(CheckTarget.DRIVER_BUTTON) },
             )
@@ -44,6 +46,7 @@ class PassengerCheckFlow(
                 questionType = QuestionType.PASSENGER_CHECK,
                 checkType = CheckType.PASSENGER,
                 baselineMs = baselineMs,
+                onPromptStarted = onPromptStarted,
                 onResult = onResult,
                 onButtonRequired = { onButtonRequired(CheckTarget.PASSENGER_BUTTON) },
             )
@@ -55,18 +58,24 @@ class PassengerCheckFlow(
         questionType: QuestionType,
         checkType: CheckType,
         baselineMs: Long,
+        onPromptStarted: () -> Unit,
         onResult: (CheckResult, Boolean) -> Unit,
         onButtonRequired: () -> Unit,
     ) {
-        voiceAgent.speak(prompt, FallbackCue.CHECK_PROMPT) {
-            coordinator.start(
-                baselineMs = baselineMs,
-                questionType = questionType,
-                checkType = checkType,
-                onResult = onResult,
-                onSttFallbackRequired = onButtonRequired,
-            )
-        }
+        voiceAgent.speak(
+            text = prompt,
+            fallback = FallbackCue.CHECK_PROMPT,
+            onComplete = {
+                coordinator.start(
+                    baselineMs = baselineMs,
+                    questionType = questionType,
+                    checkType = checkType,
+                    onResult = onResult,
+                    onSttFallbackRequired = onButtonRequired,
+                )
+            },
+            onStarted = onPromptStarted,
+        )
     }
 
     fun cancel() = coordinator.cancel()
