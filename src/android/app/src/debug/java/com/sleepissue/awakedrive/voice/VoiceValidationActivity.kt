@@ -10,11 +10,19 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.sleepissue.awakedrive.cabin.CabinMonitor
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.check.CheckVerdict
 import com.sleepissue.awakedrive.engine.check.QuestionType
 import com.sleepissue.awakedrive.engine.voice.SpeechIntentParser
+import com.sleepissue.awakedrive.engine.model.ExecutionStatus
+import com.sleepissue.awakedrive.engine.model.GeoPoint
+import com.sleepissue.awakedrive.engine.model.RequestId
+import com.sleepissue.awakedrive.signal.RestAreaCandidate
+import com.sleepissue.awakedrive.signal.SpeechCue
+import com.sleepissue.awakedrive.signal.SpeechRequest
+import kotlinx.coroutines.launch
 
 /** debug APK에서만 포함되는 Pleos TTS·STT·AudioRecord 자동 검증 화면. */
 class VoiceValidationActivity : AppCompatActivity() {
@@ -24,6 +32,7 @@ class VoiceValidationActivity : AppCompatActivity() {
     private lateinit var tonePlayer: SignalTonePlayer
     private lateinit var coordinator: VoiceCheckCoordinator
     private lateinit var cabinMonitor: CabinMonitor
+    private lateinit var speechPort: VoiceSpeechPort
     private var pendingPermissionAction: (() -> Unit)? = null
     private var validationRunning = false
     private var cabinTestStarted = false
@@ -48,6 +57,20 @@ class VoiceValidationActivity : AppCompatActivity() {
             recognizer = recognizer,
             tonePlayer = tonePlayer,
         )
+        speechPort = VoiceSpeechPort(VoiceAgent(
+            output = ttsOutput,
+            audioFocus = AndroidDuckingAudioFocus(this),
+            delay = AndroidDelay(),
+        ))
+        lifecycleScope.launch {
+            speechPort.results.collect { result ->
+                append("단계 안내 실행: ${result.status}")
+                if (validationRunning && result.status == ExecutionStatus.SUCCEEDED) {
+                    append("1단계 자동 TTS 완료")
+                    withMicrophonePermission(::testStt)
+                }
+            }
+        }
         status.post {
             if (intent.getBooleanExtra(EXTRA_SKIP_TTS, false)) {
                 validationRunning = true
@@ -87,19 +110,20 @@ class VoiceValidationActivity : AppCompatActivity() {
     }
 
     private fun testTts() {
-        append("TTS 요청: 잠깐 확인할게요")
-        VoiceAgent(
-            output = ttsOutput,
-            audioFocus = AndroidDuckingAudioFocus(this),
-            delay = AndroidDelay(),
-        ).speak(
-            text = VoiceScripts.DRIVER_CHECK,
-            fallback = FallbackCue.CHECK_PROMPT,
-            onComplete = {
-                append("TTS 완료 또는 대체 음원 종료")
-                if (validationRunning) withMicrophonePermission(::testStt)
-            },
-        )
+        append("1단계 개입 요청 → 음성 포트 자동 실행")
+        lifecycleScope.launch {
+            val result = speechPort.start(SpeechRequest(
+                requestId = RequestId("voice-validation-${android.os.SystemClock.elapsedRealtime()}"),
+                cue = SpeechCue.REST_AREA_AHEAD,
+                restArea = RestAreaCandidate(
+                    id = "debug-rest-area",
+                    name = "앞쪽 졸음쉼터",
+                    location = GeoPoint(37.0, 127.0),
+                    distanceM = 2_000f,
+                ),
+            ))
+            append("단계 안내 접수: ${result.status}")
+        }
     }
 
     private fun testStt() {

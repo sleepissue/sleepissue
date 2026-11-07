@@ -119,7 +119,7 @@ class VoiceCheckPort(
             baselineMs = baselineMsProvider(),
             onPromptStarted = { emitStarted(request.requestId) },
             onResult = { result, _ -> completeVoice(request, result) },
-            onButtonRequired = { target -> requireButton(request, target.name.contains("PASSENGER")) },
+            onButtonRequired = { requireButton(request, passengerButton = false) },
         )
     }
 

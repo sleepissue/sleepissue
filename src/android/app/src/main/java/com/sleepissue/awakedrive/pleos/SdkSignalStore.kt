@@ -110,6 +110,25 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             observedTimeBasis = if (r.nativeMs == null) ObservationTimeBasis.UNKNOWN else ObservationTimeBasis.ELAPSED_REALTIME,
             observationSequence = r.callbacks + r.queries)
     }
+
+    /** capability가 있고 TTL 안에 받은 좌석별 안전벨트 값만 반환한다. */
+    fun seatBelts(): SeatBeltState? {
+        val beltRows = data.values.filter { it.key.startsWith("BELT:") && it.value is Boolean }
+        fun belt(name: String): Boolean? = beltRows.find { it.key == "BELT:$name" }?.let {
+            (it.value as? Boolean).takeIf { _ ->
+                it.availability == SignalAvailability.AVAILABLE &&
+                    it.receivedMs?.let { ms -> clock.elapsedRealtimeMs() - ms <= policy.ttlMs } == true
+            }
+        }
+        if (beltRows.isEmpty()) return null
+        return SeatBeltState(
+            driver = belt("ROW_1_LEFT"),
+            frontPassenger = belt("ROW_1_RIGHT"),
+            rearLeft = belt("ROW_2_LEFT"),
+            rearCenter = belt("ROW_2_CENTER"),
+            rearRight = belt("ROW_2_RIGHT"),
+        )
+    }
     fun vehicleInput(key: String): VehicleSignalInput? {
         val field = runCatching { SignalField.valueOf(key) }.getOrNull()
             ?: if (key.startsWith("SEAT:")) SignalField.SEATS else return null
