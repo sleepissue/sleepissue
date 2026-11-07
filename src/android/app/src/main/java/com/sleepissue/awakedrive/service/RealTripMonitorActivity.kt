@@ -61,7 +61,8 @@ open class RealTripMonitorActivity : AppCompatActivity() {
                 render()
                 service?.let { s ->
                     if (intent.getBooleanExtra("sdkTripCapture", false) && s.clock.elapsedRealtimeMs() - lastCapture >= 1_000) {
-                        s.captureDiagnostics(); lastCapture = s.clock.elapsedRealtimeMs()
+                        // 자동 진단은 작은 계수만 저장한다. 상세 시간선은 명시적 진단 저장 때만 내보낸다.
+                        s.captureDiagnostics(includeGearTimeline = false); lastCapture = s.clock.elapsedRealtimeMs()
                     }
                 }
                 delay(500)

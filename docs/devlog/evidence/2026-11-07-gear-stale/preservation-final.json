@@ -1,0 +1,20 @@
+{
+  "manualLogicalSha256Before": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+  "manualLogicalSha256After": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+  "manualUnchanged": true,
+  "integrity": {
+    "manual": "ok",
+    "real": "ok"
+  },
+  "originalTripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+  "finalTripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+  "sameTripId": true,
+  "originalSegmentCount": 11,
+  "originalSegmentsPreserved": true,
+  "restoreDidNotWriteDatabase": true,
+  "finalContinuousMs": 1798726,
+  "originalDiagnosticSha256": "ef11dfecfa20225ae8f98d0ded6e052e1b713e0f5741e18dd4ab5c55351d932d",
+  "originalDiagnosticUnchanged": true,
+  "installedApkSha256": "1b303da6308061d3b726e85b9010a071a5473d4c26a34543f495741ad1ece722",
+  "matchesFinalBuild": true
+}

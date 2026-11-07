@@ -37,6 +37,8 @@ class RealTripMonitorService : Service() {
     var diagnostic = "진단 저장 대기 · cache/sdk-trip-probe.json"
         private set
     private var diagnosticJob: Job? = null
+    private var gearAuditExportJob: Job? = null
+    private var lastGearAudit: com.sleepissue.awakedrive.pleos.GearAuditSnapshot? = null
     private var commandJob: Job? = null
     var stopping = false
         private set
@@ -127,7 +129,7 @@ class RealTripMonitorService : Service() {
         stopping = true
         scope.launch {
             initialization.join(); commandJob?.join()
-            runtime.stop(); input = null
+            runtime.stop(); lastGearAudit = input?.adapter?.gearAudit?.snapshot(); input = null
             stopForeground(STOP_FOREGROUND_REMOVE); foreground = false
             diagnosticJob?.join(); captureDiagnostics()
             stopSelf()
@@ -137,7 +139,9 @@ class RealTripMonitorService : Service() {
 
     fun saveNow() { scope.launch { initialization.join(); runtime.session.saveNow() } }
 
-    fun captureDiagnostics() {
+    fun captureDiagnostics(includeGearTimeline: Boolean = true) {
+        // 수동 요청의 상세 기록은 별도 파일에 둬 다음 자동 요약이 덮어쓰지 않게 한다.
+        if (includeGearTimeline) exportGearAudit()
         if (diagnosticJob?.isActive == true) return
         val c = runtime.session
         val payload = linkedMapOf<String, Any?>("scope" to "REAL_PLAYGROUND_TRIP_ONLY", "serviceInstance" to instanceId,
@@ -149,6 +153,8 @@ class RealTripMonitorService : Service() {
             "trip" to c.trip.value, "precise" to c.preciseState(), "restoredSnapshot" to c.restoredSnapshot,
             "persistence" to c.persistence.state.value, "events" to c.events.value,
             "readings" to input?.adapter?.store?.readings(), "sdkHistory" to input?.adapter?.store?.history(),
+            "gearAudit" to (input?.adapter?.gearAudit?.snapshot(includeTimeline = false) ?: lastGearAudit?.copy(
+                timelineIncluded = false, rows = emptyList(), incidents = emptyList(), peaks = emptyMap())),
             "frame" to input?.hub?.latestFrame?.value, "hub" to input?.hub?.diagnostics?.value)
         diagnosticJob = scope.launch {
             try {
@@ -171,7 +177,7 @@ class RealTripMonitorService : Service() {
             try {
                 initialization.join(); commandJob?.join()
                 runtime.stop("서비스 종료"); input = null
-                diagnosticJob?.join(); database.close()
+                diagnosticJob?.join(); gearAuditExportJob?.join(); database.close()
             } finally {
                 if (ownsInstance) { ownsInstance = false; instanceOwner.unlock() }
                 scope.cancel()
@@ -182,12 +188,42 @@ class RealTripMonitorService : Service() {
 
     /** 화면을 열지 않고도 시스템 dumpsys로 단일 소유자·실행 상태를 읽을 수 있다. */
     override fun dump(fd: FileDescriptor, writer: PrintWriter, args: Array<out String>) {
+        if (args.contains("gear-audit")) {
+            writer.println(if (exportGearAudit()) "기어 계측 내보내기 예약 · cache/gear-collection-audit.json · 파일 I/O는 별도 IO 작업"
+                else "새 기어 계측 없음 · 이전 기록 파일 유지")
+            return
+        }
         writer.println("instance=$instanceId pid=${Process.myPid()} command=$lastCommand")
         writer.println("foreground=$foreground requested=${preference.requested} stopping=$stopping bootPending=${preference.bootPending}")
         writer.println("running=${runtime.running} starts=${runtime.starts} timers=${runtime.activeTimers} generation=${runtime.session.generation}")
         writer.println("sdkOwner=${PlaygroundSdkOwnership.currentOwner} status=${runtime.status.value}")
         writer.println("trip=${runtime.session.trip.value.tripId} state=${runtime.session.trip.value.driveState} continuousMs=${runtime.session.preciseState().continuousDriveMs}")
         writer.println("persistence=${runtime.session.persistence.state.value}")
+    }
+
+    private fun exportGearAudit(): Boolean {
+        if (gearAuditExportJob?.isActive == true) return true
+        val snapshot = input?.adapter?.gearAudit?.snapshot() ?: lastGearAudit ?: return false
+        val payload = linkedMapOf<String, Any?>("capturedAtElapsedMs" to clock.elapsedRealtimeMs(),
+            "serviceInstance" to instanceId, "running" to runtime.running, "starts" to runtime.starts,
+            "activeTimers" to runtime.activeTimers, "generation" to runtime.session.generation,
+            "trip" to runtime.session.trip.value, "precise" to runtime.session.preciseState(),
+            "persistence" to runtime.session.persistence.state.value, "events" to runtime.session.events.value,
+            "hub" to input?.hub?.diagnostics?.value,
+            "audit" to snapshot)
+        gearAuditExportJob = scope.launch(Dispatchers.IO) {
+            val file = File(cacheDir, "gear-collection-audit.json")
+            var temporary: File? = null
+            try {
+                temporary = File.createTempFile(".gear-audit-", ".json", cacheDir)
+                temporary.writeText(GsonBuilder().create().toJson(payload))
+                check(temporary.renameTo(file))
+            } catch (cancelled: CancellationException) { throw cancelled }
+            catch (error: Exception) {
+                withContext(Dispatchers.Main.immediate) { diagnostic = "기어 계측 저장 실패 · ${error.javaClass.simpleName}" }
+            } finally { temporary?.delete() }
+        }
+        return true
     }
 
     companion object {

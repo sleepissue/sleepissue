@@ -116,8 +116,12 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
         receivedMs: Long = clock.elapsedRealtimeMs(), normalization: SdkNormalization = SdkNormalization.NORMALIZED,
         queryStartedMs: Long? = null) {
         val old = data.getValue(key)
+        // 같은/더 오래된 원천의 늦은 배송은 재조회가 확인한 시각을 되돌리지 않는다.
+        // 더 새로운 원천 변경은 별개다. 늦게 전달된 실제 D→P 콜백까지 막지 않는다.
+        val olderConfirmation = key == "GEAR" && old.confirmedMs?.let { receivedMs < it } == true &&
+            (nativeMs == null || old.nativeMs?.let { nativeMs <= it } == true)
         // capability 조회나 늦은 콜백이 권한 거부를 AVAILABLE로 바꾸면 안 된다.
-        if (key in blocked || !old.permissionGranted || old.apiReadable == false || old.receivedMs?.let { receivedMs < it } == true ||
+        if (olderConfirmation || key in blocked || !old.permissionGranted || old.apiReadable == false || old.receivedMs?.let { receivedMs < it } == true ||
             key == "GEAR" && nativeMs != null && old.nativeMs?.let { nativeMs < it } == true ||
             delivery == SdkDelivery.REQUERY && queryStartedMs != null && old.receivedMs?.let { it > queryStartedMs } == true) {
             data[key] = old.copy(rejectedDeliveries = old.rejectedDeliveries + 1)

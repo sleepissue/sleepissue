@@ -21,6 +21,7 @@ internal class PeriodicSignalHub(
     sources: List<HubSourceSet>, private val clock: Clock, private val policy: HubPolicy,
     private val config: EngineConfig,
     private val probe: WorkProbe = WorkProbe.NONE,
+    private val gearObserver: ((GearSelectionDecision) -> Unit)? = null,
 ) : SignalHubSession {
     private inner class Input(val definition: HubSourceSet) {
         var epoch = 0L
@@ -306,11 +307,14 @@ internal class PeriodicSignalHub(
             val metadata = FramePublication(generation, diagnostics.value.emittedFrames + 1, elapsed)
             probe.measure(WorkStage.RATE_OBSERVE) { publicationMeter.observe(now, policy.publicationTimeBasis, now) }
             val selectionNow = requireNotNull(clock.timeAt(policy.fallback.timerBasis))
+            val evaluatedFrom = if (gearObserver != null) clock.elapsedRealtimeMs() else 0L
             val evaluated = evaluateInputs()
             val selected = SignalField.entries.associateWith { field ->
                 selectors.getValue(field).select(evaluated[Source.REAL]?.vehicle?.get(field), evaluated[Source.DEMO]?.vehicle?.get(field), selectionNow)
             }
             @Suppress("UNCHECKED_CAST") fun <T> read(field: SignalField): T? = selected.getValue(field).value as T?
+            gearObserver?.invoke(GearSelectionDecision(evaluatedFrom, clock.elapsedRealtimeMs(),
+                metadata.sequence, scenario, read(SignalField.GEAR), selected.getValue(SignalField.GEAR).quality))
             val frame = SignalFrame(scenario, read(SignalField.STEERING_DEG), read(SignalField.SPEED_KPH), read(SignalField.GEAR),
                 read(SignalField.TURN_SIGNAL), read(SignalField.BRAKE_ON), read(SignalField.CRUISE_ACTIVE), read(SignalField.CRUISE_TARGET_KPH),
                 read(SignalField.SEATS), read(SignalField.VENTILATION_LEVEL), read(SignalField.CABIN_TEMP_C), selected.mapValues { it.value.quality }, metadata)

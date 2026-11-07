@@ -23,7 +23,8 @@ class PlaygroundMonitorInput(context: Context, clock: Clock) : RealTripMonitorIn
         rateTimeBasis = ObservationTimeBasis.UNKNOWN)), clock,
         HubPolicy(SignalField.entries.associateWith { freshness }, NaviField.entries.associateWith { freshness }, freshness,
             SignalFallbackPolicy(false, 0, ObservationTimeBasis.ELAPSED_REALTIME),
-            ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config)
+            ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config,
+        gearObserver = adapter.gearAudit::selected)
     override val samples get() = hub.samples
     override suspend fun start(scope: CoroutineScope) {
         hub.start(CoroutineScope(scope.coroutineContext + Dispatchers.Default))

@@ -80,6 +80,20 @@ API 34의 `CarPowerManager.setListener/getPowerState`는 AOSP에서 `@SystemApi`
 
 Debug 호환 플래그 `sdkTripAutoConnect`는 보이는 검증 화면에서 시작 명령을 요청하는 시험용 기능이며 권한·알림 조건을 건너뛰지 않는다. `sdkTripCapture`는 화면이 떠 있는 동안 진단을 주기적으로 저장하는 기능이다. 화면이 닫힌 동안의 수집·Room 저장과 진단 파일 갱신은 서로 다르다.
 
+### 일시적 기어 STALE 조사용 기록
+
+후속 [기어 조사 기록](../devlog/2026-11-07-gear-stale.md)에서 원본93ms 로그 간격과 실제 운전 누적 제외202ms를 구분했다. 원본 원인은 미확정이며, 재조회 Main 의존 분리와 과거 응답의 확인 시각 역행 차단을 보완했다. TTL3초/재조회1초는 유지한다. 실제 공백/오류에서는 STALE→UNKNOWN이 계속 필요한 보호 동작이다.
+
+**진단 저장**을 누르면 기존 `cache/sdk-trip-probe.json` 외에 `cache/gear-collection-audit.json`에 상세 조회/반영/Hub 타임라인을 비동기 IO로 저장한다. 자동 진단의 `gearAudit`는 누계 요약만 가지며 상세 파일을 덮지 않는다. 수집 중에는 최근512행·최초 STALE3건(각 최대97행)·단계별 최댓값5개만 메모리에 보관한다. 화면이 닫혀도 계측은 서비스 입력과 함께 계속되며 다음 수동 진단에서 읽는다. cache는 영구 보관소가 아니므로 재발 직후 새 파일 시각을 확인하고 별도 보관한다. 새 입력 없는 복원/재진단은 이전 상세 파일을 유지하므로 파일의 서비스 인스턴스와 시각을 확인해야 한다.
+
+상세에는 조회 예약/기한/IO 시작/응답/Store 반영·연결 세대, 마지막 확인/유효 끝·원천/수신 시각, Hub 판정 전후/선택 이유가 있다. `staleBracketMs`는 생산된 Hub 프레임 구간이며 소비 누락이 있으면 실제 제외 누적과 다를 수 있다. 정밀 운전 구간과 함께 비교한다. 각 최댓값/누계는 입력 세대의 P 준비시간도 포함하며 최근 발행10Hz/deadline0만으로 재조회 정상이라고 판단하지 않는다.
+
+화면 밖 상세 내보내기는 다음 명령으로 예약할 수 있다. 명령 응답은 완료 알림이 아니므로 `capturedAtElapsedMs`가 새로 갱신된 후 파일을 읽는다. 중지로 보존된 계측이 있으면 그것을 내보내며 새 계측이 없으면 이전 파일을 유지한다.
+
+```bash
+adb shell dumpsys activity service com.sleepissue.awakedrive/.service.RealTripMonitorService gear-audit
+```
+
 ## 저장공간과 인계 상태
 
 REAL checkpoint는 기존 **`awakedrive_sdk_trip.db`**를 재사용한다. 수동 **`awakedrive_debug_trip.db`**, DEMO 입력·시계·상태와 섞지 않는다. 실행 의사와 부팅 재개 대기는 별도 SharedPreferences **`real_trip_monitor`**에 둔다. 진단 cache는 DB가 아니다. Room 스키마·기존 수동 개입 직렬화·사용자 데이터를 삭제하거나 초기화하는 경로를 추가하지 않는다. 기기 시험별 임시 저장공간은 검증 기록에서 구분한다.

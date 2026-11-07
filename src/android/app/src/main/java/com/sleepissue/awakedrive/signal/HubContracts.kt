@@ -1,10 +1,15 @@
 package com.sleepissue.awakedrive.signal
 
 import com.sleepissue.awakedrive.engine.model.*
+
 import com.sleepissue.awakedrive.engine.signal.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
+
+/** 계측을 켠 REAL 감시만 사용한다. 판정 실행의 전후 시각이며 소스 관측 시각이 아니다. */
+data class GearSelectionDecision(val evaluatedFromMs: Long, val evaluatedToMs: Long,
+    val sequence: Long, val scenarioMs: Long, val gear: Gear?, val quality: SignalQuality)
 
 enum class InputCollectionStatus { NOT_CONNECTED, COLLECTING, COMPLETED, FAILED, STOPPED }
 enum class HubPublicationMode { OBSERVATION, PERIODIC }

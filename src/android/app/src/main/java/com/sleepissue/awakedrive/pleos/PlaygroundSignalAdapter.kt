@@ -32,12 +32,13 @@ import kotlin.math.abs
 class PlaygroundSignalAdapter(private val context: Context, private val clock: Clock,
     val policy: SdkProbePolicy, private val scope: CoroutineScope) {
     val store = SdkSignalStore(clock, policy)
+    val gearAudit = GearCollectionAudit(clock, scheduler = "IO_FIXED_DELAY")
     private val handler = Handler(Looper.getMainLooper())
     @Volatile private var active = false
     private var vehicleBootstrap: Job? = null
     private var started = false
-    private var carGeneration = 0L
-    private var carReady = false
+    @Volatile private var carGeneration = 0L
+    @Volatile private var carReady = false
     private var gearPoll: Job? = null
     private var permissionPoll: Job? = null
     private val carCleanup = mutableListOf<() -> Unit>()
@@ -285,8 +286,10 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                             if (config == null || config.access and 1 == 0) { store.capability(key, false, "AAOS property 읽기 미지원"); emit(key) }
                             else {
                                 store.capability(key, true, "AAOS READ mode=${config.changeMode} maxHz=${config.maxSampleRate}"); emit(key)
-                                fun deliver(value: CarPropertyValue<*>, kind: SdkDelivery, queryStartedMs: Long? = null) {
+                                fun deliver(value: CarPropertyValue<*>, kind: SdkDelivery, queryStartedMs: Long? = null,
+                                    auditAttempt: GearQueryAttempt? = null) {
                                     val receipt = clock.elapsedRealtimeMs()
+                                    if (auditAttempt != null) gearAudit.responded(auditAttempt, receipt)
                                     val raw = if (value.status == CarPropertyValue.STATUS_AVAILABLE) value.value else null
                                     val availability = when (value.status) {
                                         CarPropertyValue.STATUS_AVAILABLE -> null
@@ -301,18 +304,32 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                                     }
                                     post {
                                         if (current()) {
+                                            val before = if (key == "GEAR") store.quality(key) else null
                                             store.receive(key, raw, normalized, kind, value.timestamp.takeIf { it > 0 }?.div(1_000_000),
                                                 if (key == "SPEED_KPH") "부호 있는 m/s → 속력 abs × 3.6 km/h" else "VehicleGear → P/R/N/D · ON_CHANGE 재확인",
                                                 availability, receipt, queryStartedMs = queryStartedMs)
+                                            if (before != null) {
+                                                val after = store.quality(key)
+                                                gearAudit.applied(auditAttempt, receipt, before, after,
+                                                    store.vehicleInput(key)?.gear, after.stateConfirmedAtElapsedMs == receipt,
+                                                    "${kind.name} · 반영 시 현재 세대 확인")
+                                            }
                                             emit(key)
                                         }
                                     }
                                 }
-                                fun carFailure(error: Throwable) = post {
+                                fun carFailure(error: Throwable, auditAttempt: GearQueryAttempt? = null) {
+                                    val responseMs = clock.elapsedRealtimeMs()
+                                    if (auditAttempt != null) gearAudit.responded(auditAttempt, responseMs, error = true)
+                                    post {
                                     if (current()) {
+                                        val before = if (key == "GEAR") store.quality(key) else null
                                         store.block(key, if (error is SecurityException) SignalAvailability.PERMISSION_DENIED else SignalAvailability.ERROR,
                                             "${error.javaClass.simpleName} · 구독/조회 실패, 재연결 필요")
+                                        if (before != null) gearAudit.applied(auditAttempt, responseMs, before, store.quality(key),
+                                            null, false, error.javaClass.simpleName)
                                         emit(key)
+                                    }
                                     }
                                 }
                                 val callback = object : CarPropertyManager.CarPropertyEventCallback {
@@ -324,18 +341,17 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                                     carFailure(IllegalStateException("AAOS 구독 거절")); return@attempt
                                 }
                                 // 최초 값 조회와 구독 이벤트 계수는 분리한다.
+                                val initialAudit = if (key == "GEAR") gearAudit.resumed(gearAudit.schedule(generation,
+                                    SdkDelivery.QUERY, clock.elapsedRealtimeMs())) else null
                                 scope.launch(Dispatchers.IO) {
-                                    try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.QUERY) } catch (e: Exception) { carFailure(e) }
+                                    val attempt = initialAudit?.let { gearAudit.ioStarted(it) }
+                                    try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.QUERY, auditAttempt = attempt) }
+                                    catch (e: Exception) { carFailure(e, attempt) }
                                 }
-                                if (key == "GEAR") gearPoll = scope.launch {
-                                    while (isActive && current()) {
-                                        delay(policy.stateRequeryMs)
-                                        val queryStarted = clock.elapsedRealtimeMs()
-                                        withContext(Dispatchers.IO) {
-                                            try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.REQUERY, queryStarted) }
-                                            catch (e: Exception) { carFailure(e) }
-                                        }
-                                    }
+                                if (key == "GEAR") gearPoll = launchGearRequeryLoop(scope, clock,
+                                    policy.stateRequeryMs, generation, gearAudit, ::current) { attempt, queryStarted ->
+                                    try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.REQUERY, queryStarted, attempt) }
+                                    catch (e: Exception) { carFailure(e, attempt) }
                                 }
                             }
                         }
