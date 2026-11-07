@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AwakeDrive 데모 시나리오 v1",
+  "description": "구조 검사다. 시각 간격·배속 구간 연속성·좌표 쌍·Long 범위 종료 시각은 DemoJsonLoader가 추가 검사한다.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "startEpochMs", "samples"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9_-]+$"},
+    "startEpochMs": {"type": "integer", "minimum": 0, "maximum": 9223372036854775807},
+    "source": {"const": "DEMO"},
+    "speedSegments": {
+      "type": ["array", "null"],
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["fromSec", "toSec", "factor"],
+        "properties": {
+          "fromSec": {"type": "number", "minimum": 0, "multipleOf": 0.001},
+          "toSec": {"type": "number", "minimum": 0, "multipleOf": 0.001},
+          "factor": {"enum": [1, 10, 60]}
+        }
+      }
+    },
+    "samples": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise"],
+        "properties": {
+          "t": {"type": "number", "minimum": 0, "multipleOf": 0.001},
+          "steeringDeg": {"$ref": "#/$defs/nullableFloat"},
+          "speedKph": {"$ref": "#/$defs/nullableSpeed"},
+          "gear": {"enum": ["P", "R", "N", "D", "OTHER", null]},
+          "turnSignal": {"enum": ["OFF", "LEFT", "RIGHT", "HAZARD", null]},
+          "brake": {"type": ["boolean", "null"]},
+          "source": {"const": "DEMO"},
+          "seats": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["driver", "frontPassenger", "rearLeft", "rearCenter", "rearRight"],
+            "properties": {
+              "driver": {"type": ["boolean", "null"]},
+              "frontPassenger": {"type": ["boolean", "null"]},
+              "rearLeft": {"type": ["boolean", "null"]},
+              "rearCenter": {"type": ["boolean", "null"]},
+              "rearRight": {"type": ["boolean", "null"]}
+            }
+          },
+          "cruise": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "required": ["active", "targetKph"],
+            "properties": {
+              "active": {"type": ["boolean", "null"]},
+              "targetKph": {"$ref": "#/$defs/nullableSpeed"}
+            }
+          },
+          "lat": {"type": ["number", "null"], "minimum": -90, "maximum": 90},
+          "lon": {"type": ["number", "null"], "minimum": -180, "maximum": 180},
+          "power": {"enum": ["ON", "OFF", "RESUME", "UNKNOWN", null]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "nullableFloat": {"type": ["number", "null"], "minimum": -3.4028234663852886e38, "maximum": 3.4028234663852886e38},
+    "nullableSpeed": {"type": ["number", "null"], "minimum": 0, "maximum": 3.4028234663852886e38}
+  }
+}

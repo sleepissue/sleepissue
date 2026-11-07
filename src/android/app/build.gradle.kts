@@ -41,6 +41,8 @@ ksp {
 dependencies {
     implementation(project(":engine"))
     implementation(libs.kotlinx.coroutines.core)
+    // JSON 로더는 Android 밖의 JVM 단위 시험에서도 같은 엄격 파서를 사용한다.
+    implementation("com.google.code.gson:gson:2.11.0")
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 

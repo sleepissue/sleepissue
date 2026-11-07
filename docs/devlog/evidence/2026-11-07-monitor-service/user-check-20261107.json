@@ -1,0 +1,43 @@
+{
+  "recordDate": "2026-11-07",
+  "scope": "USER_REPORTED_AVD_MONITOR_CHECK_NOT_NEW_AUTOMATED_TESTS",
+  "reportedChecks": [
+    "중복 시작 방지",
+    "화면 종료 중 감시·저장 지속",
+    "명시적 중지와 재진입 후 같은 운행 ID·누적 복원"
+  ],
+  "diagnosticArchive": {
+    "localPath": "/tmp/awakedrive-user-monitor-20261107.json",
+    "sha256": "ef11dfecfa20225ae8f98d0ded6e052e1b713e0f5741e18dd4ab5c55351d932d",
+    "rawArchiveIncludedInCommit": false
+  },
+  "capturedState": {
+    "serviceInstance": "a08bff71-0de3-4c24-839b-0921cdb72bdc",
+    "capturedAtElapsedMs": 20802250,
+    "foreground": true,
+    "requested": true,
+    "running": true,
+    "starts": 2,
+    "activeTimers": 1,
+    "generation": 3
+  },
+  "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+  "successfulSavesAtCapture": 39,
+  "staleObservation": {
+    "countInRetainedEvents": 1,
+    "unknownEvent": "1794050565043 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=UNKNOWN 연속=1017040ms 정차=0ms 최근24h=165s · gear=null · STALE",
+    "recoveredEvent": "1794050565136 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1017040ms 정차=0ms 최근24h=165s · gear=D · AVAILABLE",
+    "logDeltaMs": 93,
+    "continuousDriveMsAtBothEvents": 1017040,
+    "cause": "UNRESOLVED",
+    "limitation": "93ms는 두 상태 전환 로그 시각의 차이이며 실제 센서 단절 길이나 원인을 증명하지 않는다."
+  },
+  "verificationSeparation": {
+    "previousAutomatedTests": 433,
+    "previousRoomDeviceTests": 10,
+    "rerunForThisCommit": false,
+    "performance60x": "UNRESOLVED_DEVICE_TARGET_NOT_MET",
+    "voiceLint": "UNCHANGED_MISSING_PERMISSION_ERROR",
+    "note": "이번 내용은 사용자 직접 조작 관찰과 보관본 검토다. 보관본 자체는 감시 중 표본이며 모든 사용자 동작 시점의 별도 전후 캡처는 아니다."
+  }
+}

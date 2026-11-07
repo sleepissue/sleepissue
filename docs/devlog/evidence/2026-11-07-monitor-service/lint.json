@@ -1,0 +1,20 @@
+{
+  "status": "FAILED",
+  "errors": [
+    {
+      "id": "MissingPermission",
+      "message": "Call requires permission which may be rejected by user: code should explicitly check to see if permission is available (with `checkPermission`) or explicitly handle a potential `SecurityException`",
+      "locations": [
+        {
+          "file": "/home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/voice/PleosSpeechRecognizer.kt",
+          "line": "129",
+          "column": "24"
+        }
+      ]
+    }
+  ],
+  "warnings": 180,
+  "unmodifiedVoiceFile": true,
+  "voiceCurrentBlob": "4acfc317496e3fa50a672e743423a8fa4ea9241f",
+  "voiceHeadBlob": "4acfc317496e3fa50a672e743423a8fa4ea9241f"
+}

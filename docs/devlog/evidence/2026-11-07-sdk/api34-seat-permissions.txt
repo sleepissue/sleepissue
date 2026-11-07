@@ -1,0 +1,16 @@
++ permission:android.car.permission.CONTROL_CAR_CLIMATE
+  package:com.android.car.updatable
+  label:차량 공조기에 액세스
+  description:차량 공조기에 액세스합니다.
+  protectionLevel:signature|privileged
++ permission:android.car.permission.CONTROL_CAR_SEATS
+  package:com.android.car.updatable
+  label:차량 시트 제어
+  description:차량 시트를 제어합니다.
+  protectionLevel:signature|privileged
++ permission:pleos.car.permission.CAR_SEATS
+  package:ai.pleos.playground.service.vehicle
+  label:access car’s seats.
+  description:access car’s seats.
+  protectionLevel:normal
+READ_CAR_SEATS present: False

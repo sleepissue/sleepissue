@@ -1,0 +1,10 @@
+{
+  "awakedrive_debug_trip.db": {
+    "logicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+    "integrity": "ok"
+  },
+  "awakedrive_sdk_trip.db": {
+    "logicalSha256": "0ff80d49cefc29b773cc73f427351d4a0345f1aa9da8925765d09e223c648a49",
+    "integrity": "ok"
+  }
+}

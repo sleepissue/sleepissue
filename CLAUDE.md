@@ -54,11 +54,13 @@ Claude Code가 이 저장소에서 작업할 때 읽는 프로젝트 맥락이�
 
 | 역할 | 모듈 | 브랜치 접두어 |
 |---|---|---|
-| 1번 차량 신호·상태 | VehicleSignalHub, TripStateStore, InterventionManager, DemoPlayer | `feat/signal-*` |
+| 1번 차량 신호·상태 | VehicleSignalHub, TripStateStore | `feat/signal-*` |
 | 2번 졸음 엔진 | FatigueEngine, BaselineStore, PatternClassifier, AssistModeDetector | `feat/engine-*` |
-| 3번 음성·실내 | VoiceAgent, SpeechAgent, CabinMonitor, CheckManager | `feat/voice-*` |
+| 3번 음성·실내 | VoiceAgent, SpeechAgent, CabinMonitor, CheckManager, InterventionManager | `feat/voice-*` |
 | 4번 예보·쉼터·휴식 | ForecastEngine, RestAreaRepository, NaviBridge, ClimateController, RestSession, NapSession, RewardLedger | `feat/rest-*` |
-| 5번 화면·시연 | Compose UI, 데모 시나리오 JSON 6종, 테스트, 영상·README | `feat/ui-*`, `demo/*` |
+| 5번 화면·시연 | Compose UI, DemoPlayer, 데모 시나리오 JSON 6종, 테스트, 영상·README | `feat/ui-*`, `demo/*` |
+
+역할 재배정은 `docs/plan/AwakeDrive_일정_v1.gan`을 따른다. 기존 개입·데모 코드와 시험·기록은 인계 자료로 보존한다.
 
 ## 4. 아키텍처
 

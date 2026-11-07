@@ -1,0 +1,35 @@
+{
+  "checks": {
+    "singleOwnerAcrossBurstReentryRotation": true,
+    "screenOffNormalDrivingContinues": true,
+    "explicitStopNoMoreWrites": true,
+    "forceStopPreservesCheckpoint": true,
+    "stickySystemRecreation": true,
+    "realBootAutoResume": true,
+    "stoppedBootPreservesWithoutRestart": true,
+    "deniedSpeedNotCached": true,
+    "notificationStop": true,
+    "manualAllLogicalRowsPreserved": true,
+    "installedMatchesFinalBuild": true,
+    "finalApkSingleStartAndCleanStop": true,
+    "finalSpeedPermissionRestored": true
+  },
+  "allPassed": true,
+  "manualBeforeSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+  "manualAfterSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+  "installedApkSha256": "559abfc73c683cd1d03b418900b412e06f076278bc4a3be9a13e8fa2c9f5d244",
+  "roomInstrumentation": "10 passed; in-memory or unique temporary DB only",
+  "unverified": [
+    "physical vehicle/STR CPU suspend",
+    "actual CarService forced disconnect/gear permission revoke",
+    "15min/24h real waiting",
+    "start-restriction boot fallback",
+    "manufacturer Active apps exit history retention"
+  ],
+  "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+  "finalDiagnostic": "33-final-apk-stopped.json",
+  "lintDebug": "FAILED: existing unchanged voice permission handling; see lint.json",
+  "gitBranch": "develop-jdw",
+  "diffWhitespaceCheck": "PASSED",
+  "agentsClaudeIdentical": false
+}

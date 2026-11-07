@@ -34,12 +34,19 @@ fun <T> SignalCandidate<T>.freshness(policy: SignalFreshnessPolicy, clock: Clock
         val received = quality.receivedAtElapsedMs
         val observed = quality.observedAtMs
         val now = clock.timeAt(quality.observedTimeBasis)
+        val confirmed = quality.stateConfirmedAtElapsedMs
+        val leaseUntil = quality.stateLeaseUntilElapsedMs
         availability = when {
             value == null -> SignalAvailability.UNAVAILABLE
             received == null -> SignalAvailability.UNAVAILABLE
             clock.elapsedRealtimeMs() < received -> SignalAvailability.ERROR
-            clock.elapsedRealtimeMs() - received > policy.receiptMaxAgeMs -> SignalAvailability.STALE
             observed != null && now != null && now < observed -> SignalAvailability.ERROR
+            confirmed != null && clock.elapsedRealtimeMs() < confirmed -> SignalAvailability.ERROR
+            leaseUntil != null && clock.elapsedRealtimeMs() > leaseUntil -> SignalAvailability.STALE
+            // ON_CHANGE 계약은 변경 시각의 나이가 아니라 현재 상태 재확인 lease로 판단한다.
+            // AVAILABLE/값/실제 수신이 있어야 하므로 오류나 미수신을 lease로 되살리지 않는다.
+            leaseUntil != null -> SignalAvailability.AVAILABLE
+            clock.elapsedRealtimeMs() - received > policy.receiptMaxAgeMs -> SignalAvailability.STALE
             observed != null && now != null && now - observed > policy.observationMaxAgeMs -> SignalAvailability.STALE
             (observed == null || now == null) && policy.missingObservation == MissingObservationPolicy.REQUIRE_TIMESTAMP -> SignalAvailability.UNAVAILABLE
             else -> SignalAvailability.AVAILABLE

@@ -1,0 +1,186 @@
+{
+  "date": "2026-11-07",
+  "scope": "ROLE1_REAL_PLAYGROUND_SDK_SIG001_TO_017",
+  "branch": "develop-jdw",
+  "head": "7bc5ffd49e87b2bed7d05068d812b637ef1ef458",
+  "build": {
+    "tests": {
+      "engine": {
+        "tests": 149,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "app": {
+        "tests": 247,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "totalTests": 396,
+    "assembleDebug": "PASSED",
+    "processReleaseMainManifest": "PASSED",
+    "apkSha256": "1decf7ccb2ff79377e354d69cfb9acac3e5cb9a6771d914dc8f63b0493ce507a"
+  },
+  "installedApkSha256": "1decf7ccb2ff79377e354d69cfb9acac3e5cb9a6771d914dc8f63b0493ce507a",
+  "installedMatchesBuild": true,
+  "baselineCaptureOnlyApkSha256": "f750257b94eec9bf560bbb394147e7cdc06bce9ab6b1453e41303fb712c6cb2d",
+  "before385ApkSha256": "996cbb734c1571fb890fb562d63db8e4149f3204d541a373948502e1284f18f4",
+  "room": {
+    "before": {
+      "logicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+      "tables": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrityCheck": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "after": {
+      "logicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+      "tables": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrityCheck": [
+        [
+          "ok"
+        ]
+      ]
+    },
+    "logicalEqual": true
+  },
+  "existingSourceFilesChangedOnlyWithinAllowedOwnerScope": [
+    "PROGRESS.md",
+    "docs/setup/ROLE1_PLAYGROUND_SDK.md",
+    "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugHarnessActivity.kt",
+    "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugSdkProbeActivity.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkSignalStore.kt"
+  ],
+  "performanceAndEngineSourceUnchanged": true,
+  "oldSdkEvidenceUnchanged": true,
+  "noBranchSwitchCommitPushUninstallOrDataReset": true,
+  "api34ReadCarSeatsPermissionAbsent": true,
+  "deviceFirstAudit": {
+    "duplicates": 0,
+    "firstPublishedAtElapsedMs": 99462421,
+    "frames": 732,
+    "gapsOver110ms": 20,
+    "gapsOverLimit": 20,
+    "lastPublishedAtElapsedMs": 99535506,
+    "maxGapMs": 110,
+    "maxPublishedGapMs": 147,
+    "missingSequences": 0,
+    "outOfOrder": 0,
+    "sessionId": 1,
+    "timeSpanMs": 73085
+  },
+  "permission": {
+    "permission": "android.car.permission.CAR_SPEED",
+    "grantedBefore": true,
+    "restoredToOriginalGrant": true,
+    "pidBeforeRevocation": "7584",
+    "pidAfterRevocation": null,
+    "systemTerminatedProcessOnRevocation": true,
+    "deniedFrameWasNull": true,
+    "deniedStateLogRows": 1,
+    "restoredReading": {
+      "apiReadable": true,
+      "availability": "AVAILABLE",
+      "callbacks": 0,
+      "key": "SPEED_KPH",
+      "maxValue": null,
+      "minValue": null,
+      "nativeMs": 100083500,
+      "normalization": "NORMALIZED",
+      "note": "부호 있는 m/s → 속력 abs × 3.6 km/h",
+      "permission": "android.car.permission.CAR_SPEED",
+      "permissionGranted": true,
+      "queries": 1,
+      "raw": "0.0",
+      "receivedMs": 100083517,
+      "rejectedDeliveries": 0,
+      "support": "AAOS READ mode=2 maxHz=20.0",
+      "value": 0.0
+    },
+    "limitations": "시스템이UID프로세스를종료했으므로같은살아있는세션에서늦은callback경로를실기로입증한것은아님. 해당경로는회귀시험으로검증."
+  },
+  "onStop": {
+    "measurementValid": true,
+    "pidBefore": "8838",
+    "pidAfter": "8838",
+    "sameLiveProcess": true,
+    "captureReason": "수집 종료 직전",
+    "captureUnchangedAfterTwoSeconds": true,
+    "action": "새task의미연결SDK화면으로가려onStop유도. Room미진입.",
+    "lastPublicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 100079357,
+      "frames": 8408,
+      "gapsOver110ms": 174,
+      "gapsOverLimit": 174,
+      "lastPublishedAtElapsedMs": 100920055,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 150,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 840698
+    },
+    "passed": true
+  },
+  "notClaimed": [
+    "SIG001 all gaps <=110ms",
+    "canonical steering-wheel angle",
+    "canonical seat occupied/vacant/unknown",
+    "ventilation 0->1->0 input",
+    "all200ms/1slatencyTCs",
+    "new80kmhreceipt",
+    "active-route/moving-locationTCs",
+    "actualSDK+JSONarbitration",
+    "role2/3/4integration",
+    "60xperformanceimprovement"
+  ],
+  "evidenceSha256": {
+    "final-seat-temperature-V1.json": "c8ce16b1fd81688567d29153e66ccb80a9f370e5f917ca79b29cf9bba8bb1afe",
+    "final-sdk-screen.png": "e214d6371eae3c0ae2a12be7a411ab8225c71e6eafcf9d91d6d3347e2f201baf",
+    "device-cases.json": "e35a4671b6ebbdf8bc00bdb73f3c774bcad224d0e4f41410c92114279c5c39e2",
+    "permission-before.json": "3282c80c6ed6f048a67da13c2efd4c12d9f6fdd1cd1f9070e236bce7511768eb",
+    "permission-process-observation.json": "704a5e32ed2f7cf13a2044f8732b4c6e8b875e0ff249df9e14f72f533bd3ffac",
+    "onstop-final-capture.json": "1917989f35e08fa77d941db5505c134845b380c29ecb90c2416883a7882d5e4d",
+    "build-validation.json": "b7b11c85a92f32410d7b49181239ca5bc2c26515dac87702f0a4a5ecb682ffda",
+    "onstop-validation.json": "b45989183d8dcae95377533a354a44a5e8330cb1320393525057db4a70092692",
+    "baseline-red.log": "e85cd95e5037f616d4e6b6bcf1e431e3a360d0a311137106ef3e262168345ea3",
+    "final-seat-temperature-V3.json": "5603e7e7acc396cb48237ca563ea0c9596a193808f76a6d4f502b6fa55730eb0",
+    "final-build.log": "6e47379ab35494a84d75ed9d13c3bd2bf6557bcd5d25ae8cefc5648a6aca7341",
+    "speed-validation.json": "586137a4cc4580bdbdbe56f1d13835b94526aae035ad2727ce9fdb2601986366",
+    "room-preservation.json": "87f5fc281db6dd922b24c4c6ec77b5981556144e333c75da05b324b664b20ca2",
+    "baseline-red.xml": "4f17ffc3a6c4dd42f67c3a513dc861a42887dc948c790ac87efaca78ab0341ef",
+    "gear-cases.json": "77589e2c21fdde64a89b1c24dbc33dacec79ac98dbe32e195d5d1be99aa0feeb",
+    "seat-area-isolation.json": "68ee613e5ff808c4f9baa59fd79d3ab22dcf38b16170559ab187387be7e54556",
+    "final-idle-sdk-screen.png": "d4ff6ada8a9c10e24fd6575947a809cc42025c38c1fc2e30d9e1ef18a234e880",
+    "permission-validation.json": "02e21f095ca5f09ea92912d2dd41fac95d9febad39a3dc53969bc026335d03b3",
+    "baseline-driver-V3.json": "56d4ecb7f36f177edcaf437cc874b96fd05d8a2c1b488504caac244367e63fcc",
+    "permission-restored.json": "9b5aca917d88b763b6c727e383599755023ff7694773b52037f44924bc698ada",
+    "final-seat-temperature-off.json": "13c338403fc28daff94fc9c96f1ab362edfa1a4f64d2ea4580a70f92650830b1",
+    "api34-seat-permissions.txt": "9c6633b26c1748773744febdb42eaf17c7fa9fc53d8d9322be0bad8b36bf3a10",
+    "baseline-steer-positive.json": "51f61b03e0efe78e3d279605820a19eee135f03b0e00520e6776d019699ac444",
+    "final-freshness.json": "dd9b0c67ed56d62fc51ebab1e1871ee32dc166abfdb737a39a14976d8fd953ed",
+    "baseline-passenger-occupied.json": "c05c42abaaeb02424e2b93ba41b783ffc0663f5f15591fe3697474c74e2c2cf8",
+    "generated-report-preservation.json": "4334fe1aa9e2c24906c99132313d982f65c58d9dda1e439deb1f64cb6a362684",
+    "final-initial.json": "e4c27a466178766d4f70ecf04a9ae14680d4b981cc4e98e27c8d6a0fbd1f0eee",
+    "console-input-contracts.json": "ac8270b4e199c22b991e90f6f497d25cd413527b04ad4bb947e5e847721f5333",
+    "permission-denied.json": "20b7b5bf18ed6a9ecbd21bc5572e732c5c316436b3a50d48144499f2de692f50"
+  },
+  "fullReportsDirectory": "src/android/app/build/reports/signal-sdk-20261107",
+  "preservationDirectory": "/tmp/awakedrive-sig-sdk-preserve-20261106"
+}

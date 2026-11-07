@@ -1,0 +1,166 @@
+[
+  {
+    "gear": "Reverse",
+    "httpStatus": 200,
+    "matchedExpectedRaw": true,
+    "reading": {
+      "reading": {
+        "apiReadable": true,
+        "availability": "AVAILABLE",
+        "callbacks": 2,
+        "key": "GEAR",
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": 99783081,
+        "normalization": "NORMALIZED",
+        "note": "VehicleGear → P/R/N/D",
+        "permission": "android.car.permission.CAR_POWERTRAIN",
+        "permissionGranted": true,
+        "queries": 1,
+        "raw": "2",
+        "receivedMs": 99783082,
+        "rejectedDeliveries": 0,
+        "support": "AAOS READ mode=1 maxHz=0.0",
+        "value": "R"
+      },
+      "quality": {
+        "availability": "AVAILABLE",
+        "observationSequence": 3,
+        "observedAtMs": 99783081,
+        "observedTimeBasis": "ELAPSED_REALTIME",
+        "receivedAtElapsedMs": 99783082,
+        "selectionReason": null,
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null
+      },
+      "callbackHz": 0.1,
+      "nativeHz": 0.1
+    },
+    "captureReason": "자동 진단",
+    "capturedAtElapsedMs": 99785092
+  },
+  {
+    "gear": "Neutral",
+    "httpStatus": 200,
+    "matchedExpectedRaw": true,
+    "reading": {
+      "reading": {
+        "apiReadable": true,
+        "availability": "AVAILABLE",
+        "callbacks": 3,
+        "key": "GEAR",
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": 99785612,
+        "normalization": "NORMALIZED",
+        "note": "VehicleGear → P/R/N/D",
+        "permission": "android.car.permission.CAR_POWERTRAIN",
+        "permissionGranted": true,
+        "queries": 1,
+        "raw": "1",
+        "receivedMs": 99785786,
+        "rejectedDeliveries": 0,
+        "support": "AAOS READ mode=1 maxHz=0.0",
+        "value": "N"
+      },
+      "quality": {
+        "availability": "AVAILABLE",
+        "observationSequence": 4,
+        "observedAtMs": 99785612,
+        "observedTimeBasis": "ELAPSED_REALTIME",
+        "receivedAtElapsedMs": 99785786,
+        "selectionReason": null,
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null
+      },
+      "callbackHz": 0.2,
+      "nativeHz": 0.2
+    },
+    "captureReason": "자동 진단",
+    "capturedAtElapsedMs": 99786348
+  },
+  {
+    "gear": "Drive",
+    "httpStatus": 200,
+    "matchedExpectedRaw": true,
+    "reading": {
+      "reading": {
+        "apiReadable": true,
+        "availability": "AVAILABLE",
+        "callbacks": 4,
+        "key": "GEAR",
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": 99786748,
+        "normalization": "NORMALIZED",
+        "note": "VehicleGear → P/R/N/D",
+        "permission": "android.car.permission.CAR_POWERTRAIN",
+        "permissionGranted": true,
+        "queries": 1,
+        "raw": "8",
+        "receivedMs": 99786760,
+        "rejectedDeliveries": 0,
+        "support": "AAOS READ mode=1 maxHz=0.0",
+        "value": "D"
+      },
+      "quality": {
+        "availability": "AVAILABLE",
+        "observationSequence": 5,
+        "observedAtMs": 99786748,
+        "observedTimeBasis": "ELAPSED_REALTIME",
+        "receivedAtElapsedMs": 99786760,
+        "selectionReason": null,
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null
+      },
+      "callbackHz": 0.3,
+      "nativeHz": 0.3
+    },
+    "captureReason": "자동 진단",
+    "capturedAtElapsedMs": 99787546
+  },
+  {
+    "gear": "Park",
+    "httpStatus": 200,
+    "matchedExpectedRaw": true,
+    "reading": {
+      "reading": {
+        "apiReadable": true,
+        "availability": "AVAILABLE",
+        "callbacks": 5,
+        "key": "GEAR",
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": 99787860,
+        "normalization": "NORMALIZED",
+        "note": "VehicleGear → P/R/N/D",
+        "permission": "android.car.permission.CAR_POWERTRAIN",
+        "permissionGranted": true,
+        "queries": 1,
+        "raw": "4",
+        "receivedMs": 99787860,
+        "rejectedDeliveries": 0,
+        "support": "AAOS READ mode=1 maxHz=0.0",
+        "value": "P"
+      },
+      "quality": {
+        "availability": "AVAILABLE",
+        "observationSequence": 6,
+        "observedAtMs": 99787860,
+        "observedTimeBasis": "ELAPSED_REALTIME",
+        "receivedAtElapsedMs": 99787860,
+        "selectionReason": null,
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null
+      },
+      "callbackHz": 0.4,
+      "nativeHz": 0.4
+    },
+    "captureReason": "자동 진단",
+    "capturedAtElapsedMs": 99788724
+  }
+]

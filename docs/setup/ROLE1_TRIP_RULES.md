@@ -1,5 +1,7 @@
 # 1번 담당 운행 규칙 연결 가이드
 
+2026-11-07: 실제 Playground SDK 연결은 [실제 SDK 운행·Room 가이드](ROLE1_REAL_TRIP.md)에서 별도 REAL 세션/시계/DB로 조립했다. 아래 수동 예시와 과거 남은 작업 기록은 당시 계약으로 보존한다.
+
 A 기본 틀 다음 단계로 운행 시간·정차·최근 24시간 누적 계산과 메모리 연결을 구현했다. 개발 대상은 Pleos Playground의 가상 차량이며, `REAL`은 SDK·Virtual Console 입력이고 `DEMO`는 앱의 JSON 재생 입력이다.
 
 ## 구현 위치와 책임
@@ -76,4 +78,4 @@ Store의 `transaction`은 공개 상태와 정밀 상태를 함께 바꾸기 위
 
 ## 남은 작업
 
-운행·개입 정책과 수동 세션의 Room 저장·프로세스 재실행은 연결했다. [원천 Hz·10Hz 발행·최신성·중재](ROLE1_SIGNAL_HUB.md)도 명시적 정책의 독립 경로로 추가했다. 기존 수동 운행은 `VehicleSignalHub.observations()`를 사용한다. 주기 Hub의 혼합 입력을 Tracker에 자동 연결하지 않으며, 후속 제품 조립은 Tracker의 세션 출처·유효 구간 종료 계약을 함께 적용해야 한다. SDK 입력 조립, JSON 데모 재생, 서비스·부팅은 남아 있다. 순수 규칙·Room 기기 시험과 Playground SDK 수신 시험을 구별한다.
+운행·개입 정책과 수동 세션의 Room 저장·프로세스 재실행은 연결했다. [원천 Hz·10Hz 발행·최신성·중재](ROLE1_SIGNAL_HUB.md)도 명시적 정책의 독립 경로로 추가했다. 기존 수동 운행은 `VehicleSignalHub.observations()`를 사용한다. 주기 Hub의 혼합 입력을 Tracker에 자동 연결하지 않으며, 후속 제품 조립은 Tracker의 세션 출처·유효 구간 종료 계약을 함께 적용해야 한다. 현재 실제 SDK 입력 조립은 `PlaygroundTripSession`의 REAL 전용 경로로 연결했다([가이드](ROLE1_REAL_TRIP.md)). 기존 JSON 데모 구현은 5번 인계 대상으로 보존한다. 혼합 제품 세션·감시 서비스·부팅은 남아 있다. 순수 규칙·Room 기기 시험과 Playground SDK 수신 시험을 구별한다.

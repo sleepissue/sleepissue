@@ -1,0 +1,7 @@
+      DELIVERED scheduled +25s11ms terminal +22ms (3) #56: (manifest)
+        priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false
+        ActivityInfo:
+          name=com.sleepissue.awakedrive.service.MonitorBootReceiver
+          packageName=com.sleepissue.awakedrive
+          enabled=true exported=false directBootAware=false
+          launchMode=LAUNCH_MULTIPLE flags=0x10000 privateFlags=0x0 theme=0x0

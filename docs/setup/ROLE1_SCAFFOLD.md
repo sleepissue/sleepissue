@@ -4,6 +4,8 @@ A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연�
 
 개발 대상은 Pleos Playground의 가상 차량이다. `Source.REAL`은 Playground SDK·Virtual Console 입력이며, `Source.DEMO`는 앱의 JSON 재생 입력이다. 물리 차량 연결이나 검증을 뜻하지 않는다.
 
+2026-11-05에는 기존 미연결 계약을 유지한 채 [실제 DemoClock·JSON Player 구현](ROLE1_DEMO_PLAYER.md)을 추가했다. 아래 A 범위 설명은 당시 기록이며, 현재 재생/질문 세대·시간축·Hub 조립과 남은 실제 음성 연결은 새 가이드를 따른다.
+
 ## 실행 가능한 사용 예시
 
 전체 예시는 [`ScaffoldUsageExampleTest.kt`](../../src/android/app/src/test/java/com/sleepissue/awakedrive/signal/ScaffoldUsageExampleTest.kt)에 있다. Android 기기나 실제 대기를 사용하지 않으며, 시험용 `FakeSignalSource`와 `FakeClock`은 `app/src/test`에만 있다. 배포 코드가 Fake를 자동 선택하지 않는다.

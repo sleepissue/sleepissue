@@ -8,6 +8,7 @@
 <full-backup-content>
     <!-- 운행 기록은 해당 기기의 Room에만 보관한다. -->
     <exclude domain="database" path="." />
+    <exclude domain="sharedpref" path="real_trip_monitor.xml" />
     <!--
    <include domain="sharedpref" path="."/>
    <exclude domain="sharedpref" path="device.xml"/>

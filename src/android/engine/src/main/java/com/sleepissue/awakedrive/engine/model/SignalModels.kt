@@ -33,6 +33,9 @@ data class SignalQuality(
     val selectionReason: SignalSelectionReason? = null,
     // 선택된 조향의 측정 상태·5Hz 미만 여부를 발행 프레임과 같은 세대로 전달한다.
     val sourceRateInfo: SourceRate? = null,
+    // ON_CHANGE 값의 재조회 확인이다. 원천 관측/수신 시각이나 센서 관측 순번을 대신하지 않는다.
+    val stateConfirmedAtElapsedMs: Long? = null,
+    val stateLeaseUntilElapsedMs: Long? = null,
 ) {
     init {
         require(observedAtMs == null || observedAtMs >= 0) { "원천 관측 시각은 음수일 수 없습니다." }
@@ -40,6 +43,9 @@ data class SignalQuality(
         require(sourceRateHz == null || sourceRateHz.isFinite() && sourceRateHz >= 0f) {
             "원천 갱신률은 유한한 0 이상의 값이어야 합니다."
         }
+        require((stateConfirmedAtElapsedMs == null) == (stateLeaseUntilElapsedMs == null))
+        require(stateConfirmedAtElapsedMs == null || stateConfirmedAtElapsedMs >= 0 &&
+            requireNotNull(stateLeaseUntilElapsedMs) >= stateConfirmedAtElapsedMs)
     }
 }
 

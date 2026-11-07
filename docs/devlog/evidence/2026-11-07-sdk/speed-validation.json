@@ -1,0 +1,47 @@
+{
+  "commands": [
+    [
+      "Drive",
+      200
+    ],
+    [
+      "80kmh",
+      200
+    ],
+    [
+      "0kmh",
+      200
+    ],
+    [
+      "Park",
+      200
+    ]
+  ],
+  "actualSdk80Seen": false,
+  "speedReadingAtRequested": {
+    "apiReadable": true,
+    "availability": "AVAILABLE",
+    "callbacks": 1172,
+    "key": "SPEED_KPH",
+    "maxValue": null,
+    "minValue": null,
+    "nativeMs": 100271500,
+    "normalization": "NORMALIZED",
+    "note": "부호 있는 m/s → 속력 abs × 3.6 km/h",
+    "permission": "android.car.permission.CAR_SPEED",
+    "permissionGranted": true,
+    "queries": 1,
+    "raw": "0.0",
+    "receivedMs": 100271503,
+    "rejectedDeliveries": 0,
+    "support": "AAOS READ mode=2 maxHz=20.0",
+    "value": 0.0
+  },
+  "captureReason": "자동 진단",
+  "history": [
+    "100083497ms · STATE · SPEED_KPH · UNAVAILABLE · 지원 AAOS READ mode=2 maxHz=20.0 · ",
+    "100083517ms · REAL/QUERY · SPEED_KPH · 0.0 → 0.0 · AVAILABLE · 원천 시각 100083500"
+  ],
+  "controlRestoredToParkAndZero": true,
+  "notClaimed": "수동수집2초간격이므로200ms지연TC합격으로세지않음. OS주행제한을우회하지않음."
+}
