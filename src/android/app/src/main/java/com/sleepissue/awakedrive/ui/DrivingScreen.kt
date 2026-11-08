@@ -83,7 +83,8 @@ fun DrivingScreen(
     status: DrivingStatus = DEMO_STATUS,
     drivingTime: String = "측정 전",
     restAreaState: RestAreaUiState = RestAreaUiState.NotSearched,
-    drivingMode: String = "일반 주행"
+    drivingMode: String = "일반 주행",
+    fatigueUiState: FatigueUiState = FatigueUiState()
 ) {
     val accent = drivingStatusColor(status)
 
