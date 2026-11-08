@@ -86,7 +86,47 @@ fun DrivingScreen(
     drivingMode: String = "일반 주행",
     fatigueUiState: FatigueUiState = FatigueUiState()
 ) {
-    val accent = drivingStatusColor(status)
+    val measurementStatus = fatigueUiState.measurementStatus
+
+// 경고 단계가 있으면 기존 경고 표시를 유지한다.
+// 아직 경고 단계가 없다면 엔진 측정 상태를 표시한다.
+    val hasWarning = status != DrivingStatus.WAITING
+
+    val displayTitle = if (hasWarning) {
+        drivingStatusTitle(status)
+    } else {
+        FatigueUiFormatter.statusText(fatigueUiState)
+    }
+
+    val displayMessage = if (hasWarning) {
+        drivingStatusMessage(status)
+    } else {
+        when (measurementStatus) {
+            MeasurementStatus.WAITING ->
+                "운전 상태 분석을 기다리고 있습니다."
+
+            MeasurementStatus.GATE_WAIT ->
+                "현재 주행 조건에서는 위험도를 측정할 수 없습니다."
+
+            MeasurementStatus.ASSIST ->
+                "보조 주행 중에는 조향 위험도 판정이 제외됩니다."
+
+            MeasurementStatus.VALID ->
+                "운전 상태를 분석하고 있습니다."
+        }
+    }
+
+    val accent = if (hasWarning) {
+        drivingStatusColor(status)
+    } else {
+        when (measurementStatus) {
+            MeasurementStatus.WAITING,
+            MeasurementStatus.GATE_WAIT -> Color(0xFFADB0C8)
+
+            MeasurementStatus.ASSIST -> Purple
+            MeasurementStatus.VALID -> Mint
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -232,7 +272,7 @@ fun DrivingScreen(
                             Spacer(Modifier.height(12.dp))
 
                             Text(
-                                text = "●  ${drivingStatusTitle(status)}",
+                                text = "●  $displayTitle",
                                 color = accent,
                                 fontSize = 24.sp,
                                 fontWeight = FontWeight.Bold,
@@ -242,7 +282,7 @@ fun DrivingScreen(
                             Spacer(Modifier.height(10.dp))
 
                             Text(
-                                text = drivingStatusMessage(status),
+                                text = displayMessage,
                                 color = PrimaryText,
                                 fontSize = 15.sp,
                                 lineHeight = 22.sp
