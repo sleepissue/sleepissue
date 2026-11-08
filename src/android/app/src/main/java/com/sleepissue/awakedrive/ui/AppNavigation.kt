@@ -25,7 +25,9 @@ private enum class AppPage {
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    fatigueUiState: FatigueUiState = FatigueUiState()
+) {
 
     var currentPage by remember {
         mutableStateOf(AppPage.HOME)
@@ -107,7 +109,10 @@ fun AppNavigation() {
                     if (showAlert) {
                         AlertScreen(status = currentStatus)
                     } else {
-                        DrivingScreen(status = currentStatus)
+                        DrivingScreen(
+                            status = currentStatus,
+                            fatigueUiState = fatigueUiState
+                        )
                     }
                 }
 
