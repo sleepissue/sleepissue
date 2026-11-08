@@ -111,7 +111,7 @@ class DemoJsonLoader {
 
     private fun sample(element: JsonElement, index: Int): DemoScenarioSample {
         val path = "$.samples[$index]"
-        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source")
+        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source", "distToNextTurnM", "cabinTempC")
         val value = objectAt(element, path, fields)
         val tMs = seconds(required(value, "t", path), "$path.t", DemoLoadErrorCode.INVALID_TIME)
         source(value, path)
@@ -138,6 +138,12 @@ class DemoJsonLoader {
             active = booleanOrNull(required(control, "active", "$path.cruise"), "$path.cruise.active")
             target = floatOrNull(required(control, "targetKph", "$path.cruise"), "$path.cruise.targetKph", nonNegative = true)
         }
+        val distToNextTurnM = value.get("distToNextTurnM")?.let {
+            floatOrNull(it, "$path.distToNextTurnM", nonNegative = true)
+        }
+        val cabinTempC = value.get("cabinTempC")?.let {
+            floatOrNull(it, "$path.cabinTempC")
+        }
         val lat = doubleOrNull(value.get("lat"), "$path.lat", -90.0..90.0)
         val lon = doubleOrNull(value.get("lon"), "$path.lon", -180.0..180.0)
         if ((lat == null) != (lon == null)) invalid(path, "lat/lon은 유효한 한 쌍 또는 둘 다 null이어야 합니다.")
@@ -154,16 +160,28 @@ class DemoJsonLoader {
             SignalField.GEAR to (gear != null), SignalField.TURN_SIGNAL to (turn != null),
             SignalField.BRAKE_ON to (brake != null), SignalField.SEATS to (seats != null),
             SignalField.CRUISE_ACTIVE to (active != null), SignalField.CRUISE_TARGET_KPH to (target != null),
+            SignalField.CABIN_TEMP_C to (cabinTempC != null),
         )
         val vehicle = VehicleSignalInput(
             tMs = tMs, source = Source.DEMO, steeringDeg = steering, speed = speed,
             gear = gear, turnSignal = turn, brakeOn = brake, seats = seats,
-            cruiseActive = active, cruiseTargetKph = target,
+            cruiseActive = active, cruiseTargetKph = target, cabinTempC = cabinTempC,
             quality = SignalField.entries.associateWith { quality(availableFields[it] == true) },
         )
-        val navi = NaviState(tMs, lat, lon, quality = NaviField.entries.associateWith {
-            quality(when (it) { NaviField.LAT -> lat != null; NaviField.LON -> lon != null; else -> false })
-        })
+        val navi = NaviState(
+            tMs = tMs,
+            lat = lat,
+            lon = lon,
+            distToNextTurnM = distToNextTurnM,
+            quality = NaviField.entries.associateWith {
+                quality(when (it) {
+                    NaviField.LAT -> lat != null
+                    NaviField.LON -> lon != null
+                    NaviField.DIST_TO_NEXT_TURN_M -> distToNextTurnM != null
+                    else -> false
+                })
+            }
+        )
         return DemoScenarioSample(tMs, vehicle, navi, PowerEvent(tMs, power, quality(power != PowerState.UNKNOWN)))
     }
 
