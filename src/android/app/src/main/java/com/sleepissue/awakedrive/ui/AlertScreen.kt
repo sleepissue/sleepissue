@@ -24,6 +24,7 @@ fun AlertScreen(
     modifier: Modifier = Modifier
 ) {
     val alertColor = when (status) {
+        DrivingStatus.WAITING -> Color(0xFFADB0C8)
         DrivingStatus.NORMAL -> Color(0xFF60E4BF)
         DrivingStatus.CAUTION -> Color(0xFFFFD166)
         DrivingStatus.CHECK -> Color(0xFFFFA15C)
@@ -31,6 +32,7 @@ fun AlertScreen(
     }
 
     val title = when (status) {
+        DrivingStatus.WAITING -> "판정 대기 중"
         DrivingStatus.NORMAL -> "안정적인 주행 중"
         DrivingStatus.CAUTION -> "졸음 주의"
         DrivingStatus.CHECK -> "운전자 확인이 필요해요"
@@ -38,6 +40,9 @@ fun AlertScreen(
     }
 
     val message = when (status) {
+        DrivingStatus.WAITING ->
+            "운전 상태 분석을 기다리고 있습니다."
+
         DrivingStatus.NORMAL ->
             "현재 특별한 경고가 없습니다."
 
@@ -52,6 +57,7 @@ fun AlertScreen(
     }
 
     val symbol = when (status) {
+        DrivingStatus.WAITING -> "…"
         DrivingStatus.NORMAL -> "✓"
         DrivingStatus.CAUTION -> "!"
         DrivingStatus.CHECK -> "?"

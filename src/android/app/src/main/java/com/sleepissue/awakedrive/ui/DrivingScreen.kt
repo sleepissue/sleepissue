@@ -24,9 +24,10 @@ import com.sleepissue.awakedrive.R
 
 // 개발용 시연 상태
 // 실제 졸음 판단 엔진과는 아직 연결되지 않았음
-private val DEMO_STATUS = DrivingStatus.NORMAL
+private val DEMO_STATUS = DrivingStatus.WAITING
 
 enum class DrivingStatus {
+    WAITING,
     NORMAL,
     CAUTION,
     CHECK,
@@ -43,6 +44,7 @@ private val Purple = Color(0xFF997CFF)
 
 private fun drivingStatusColor(status: DrivingStatus): Color =
     when (status) {
+        DrivingStatus.WAITING -> Color(0xFFADB0C8)
         DrivingStatus.NORMAL -> Mint
         DrivingStatus.CAUTION -> Color(0xFFFFD166)
         DrivingStatus.CHECK -> Color(0xFFFFA15C)
@@ -51,6 +53,7 @@ private fun drivingStatusColor(status: DrivingStatus): Color =
 
 private fun drivingStatusTitle(status: DrivingStatus): String =
     when (status) {
+        DrivingStatus.WAITING -> "판정 대기 중"
         DrivingStatus.NORMAL -> "안정적인 주행 중"
         DrivingStatus.CAUTION -> "졸음 주의"
         DrivingStatus.CHECK -> "운전자 확인 필요"
@@ -59,6 +62,9 @@ private fun drivingStatusTitle(status: DrivingStatus): String =
 
 private fun drivingStatusMessage(status: DrivingStatus): String =
     when (status) {
+        DrivingStatus.WAITING ->
+            "운전 상태 분석을 기다리고 있습니다."
+
         DrivingStatus.NORMAL ->
             "현재 특별한 경고가 없습니다."
 
@@ -75,7 +81,7 @@ private fun drivingStatusMessage(status: DrivingStatus): String =
 @Composable
 fun DrivingScreen(
     status: DrivingStatus = DEMO_STATUS,
-    drivingTime: String = "1시간 25분",
+    drivingTime: String = "측정 전",
     restAreaState: RestAreaUiState = RestAreaUiState.NotSearched,
     drivingMode: String = "일반 주행"
 ) {
@@ -144,41 +150,57 @@ fun DrivingScreen(
                 horizontalArrangement = Arrangement.spacedBy(14.dp)
             ) {
 
-                // 왼쪽: 실제 도로·차량 이미지
-                Box(
+                // 왼쪽: 도로 이미지 + 실시간 신호 그래프
+                Column(
                     modifier = Modifier
                         .weight(1.5f)
-                        .fillMaxHeight()
-                        .clip(RoundedCornerShape(22.dp))
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Image(
-                        painter = painterResource(
-                            id = R.drawable.drive_bg
-                        ),
-                        contentDescription = "자동차와 도로 배경",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
 
-                    // 이미지 위쪽 모드 표시
-                    Surface(
+                    // 상단: 기존 자동차·도로 이미지
+                    Box(
                         modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .padding(14.dp),
-                        color = Color(0xCC17214A),
-                        shape = RoundedCornerShape(50.dp)
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .clip(RoundedCornerShape(22.dp))
                     ) {
-                        Text(
-                            text = "◉  $drivingMode",
-                            color = Color.White,
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(
-                                horizontal = 17.dp,
-                                vertical = 10.dp
-                            )
+
+                        Image(
+                            painter = painterResource(
+                                id = R.drawable.drive_bg
+                            ),
+                            contentDescription = "자동차와 도로 배경",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
                         )
+
+                        Surface(
+                            modifier = Modifier
+                                .align(Alignment.TopStart)
+                                .padding(14.dp),
+                            color = Color(0xCC17214A),
+                            shape = RoundedCornerShape(50.dp)
+                        ) {
+                            Text(
+                                text = "◉  $drivingMode",
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier.padding(
+                                    horizontal = 17.dp,
+                                    vertical = 10.dp
+                                )
+                            )
+                        }
                     }
+
+                    // 하단: 실시간 그래프
+                    DrivingSignalGraph(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(177.dp)
+                    )
                 }
 
                 // 오른쪽: 상태 및 주행 정보

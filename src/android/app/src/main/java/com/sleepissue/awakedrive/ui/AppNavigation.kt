@@ -15,6 +15,9 @@ import androidx.compose.ui.unit.sp
 
 private enum class AppPage {
     HOME,
+    SETUP,
+    SETUP_SAFETY,
+    SETUP_COMPLETE,
     DRIVING,
     REST,
     REPORT,
@@ -29,7 +32,15 @@ fun AppNavigation() {
     }
 
     var currentStatus by remember {
-        mutableStateOf(DrivingStatus.NORMAL)
+        mutableStateOf(DrivingStatus.WAITING)
+    }
+
+    var selectedSleepy by remember {
+        mutableStateOf<Boolean?>(null)
+    }
+
+    var setupCompleted by remember {
+        mutableStateOf(false)
     }
 
     var showAlert by remember {
@@ -52,9 +63,42 @@ fun AppNavigation() {
                 AppPage.HOME -> {
                     HomeScreen(
                         onStartDriving = {
-                            currentPage = AppPage.DRIVING
-                            currentStatus = DrivingStatus.NORMAL
+                            currentPage = AppPage.SETUP
+                            currentStatus = DrivingStatus.WAITING
                             showAlert = false
+                        }
+                    )
+                }
+
+                AppPage.SETUP -> {
+                    FirstRunSetupScreen(
+                        onNext = { isSleepy ->
+
+                            // 선택한 컨디션을 화면 간 전달
+                            selectedSleepy = isSleepy
+
+                            // 다음 단계: 주행 전 안전 확인
+                            currentPage = AppPage.SETUP_SAFETY
+                        }
+                    )
+                }
+
+                AppPage.SETUP_SAFETY -> {
+                    SetupSafetyScreen(
+                        onNext = {
+                            currentPage = AppPage.SETUP_COMPLETE
+                        }
+                    )
+                }
+
+                AppPage.SETUP_COMPLETE -> {
+                    SetupCompleteScreen(
+                        isSleepy = selectedSleepy ?: false,
+                        onStartDriving = {
+                            setupCompleted = true
+                            currentStatus = DrivingStatus.WAITING
+                            showAlert = false
+                            currentPage = AppPage.DRIVING
                         }
                     )
                 }
@@ -176,7 +220,11 @@ fun AppNavigation() {
                 selected = currentPage == AppPage.DRIVING,
                 modifier = Modifier.weight(1f)
             ) {
-                currentPage = AppPage.DRIVING
+                if (setupCompleted) {
+                    currentPage = AppPage.DRIVING
+                } else {
+                    currentPage = AppPage.SETUP
+                }
             }
 
             NavigationButton(
