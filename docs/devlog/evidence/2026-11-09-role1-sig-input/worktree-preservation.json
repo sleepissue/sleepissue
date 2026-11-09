@@ -1,0 +1,15 @@
+{
+  "branch": "develop-jdw",
+  "head": "f5c6ad9e179383ddb2b5cff3aad9ac4230afabe2",
+  "originalFiles": 84,
+  "changedOriginalFiles": [
+    "docs/devlog/2026-11-08-role1-finish.md",
+    "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkNaviHubConfirmationTest.kt",
+    "PROGRESS.md",
+    "docs/setup/ROLE1_PLAYGROUND_SDK.md"
+  ],
+  "missingOriginalFiles": [],
+  "originalProductSourcesUnchanged": true,
+  "allOtherOriginalFilesUnchanged": true
+}

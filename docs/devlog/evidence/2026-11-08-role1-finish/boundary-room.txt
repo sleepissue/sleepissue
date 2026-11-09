@@ -1,0 +1,8 @@
+
+com.sleepissue.awakedrive.data.Role1BoundaryRoomTest:...
+
+Time: 0.425
+
+OK (3 tests)
+
+

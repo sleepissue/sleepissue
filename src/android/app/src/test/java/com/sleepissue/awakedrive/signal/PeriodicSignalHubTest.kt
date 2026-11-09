@@ -47,6 +47,26 @@ class PeriodicSignalHubTest {
         }
     }
 
+    @Test fun actualEmissionTimeIsAuditedWithoutOverwritingFrameOrSensorTime() = runTest {
+        val clock = FakeClock()
+        val source = FakeSignalSource()
+        val emissions = mutableListOf<Pair<FramePublication, Long>>()
+        val hub = VehicleSignalHub(listOf(HubSourceSet(Source.REAL, source,
+            rateTimeBasis = ObservationTimeBasis.ELAPSED_REALTIME)), clock, policy(),
+            gearObserver = { clock.elapsedMs += 50 },
+            emissionObserver = { publication, at -> emissions += publication to at })
+        hub.start(backgroundScope)
+        source.emit(input(Source.REAL, 0)); runCurrent()
+        clock.scenarioMs = 100; clock.elapsedMs = 100
+        assertTrue(hub.publishDue())
+        val frame = requireNotNull(hub.latestFrame.value)
+        assertEquals(100L, frame.publication!!.publishedAtElapsedMs)
+        assertEquals(150L, emissions.single().second)
+        assertEquals(frame.publication, emissions.single().first)
+        assertEquals(0L, frame.qualityOf(SignalField.GEAR).observedAtMs)
+        hub.stop()
+    }
+
     @Test fun sixtySecondsOfTenHzFramesDoNotInventMoreThanTwoHzSourceObservations() = runTest {
         val rig = Rig(this); val frames = mutableListOf<SignalFrame>()
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { rig.hub.samples.collect { frames += it } }

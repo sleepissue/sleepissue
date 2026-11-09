@@ -21,6 +21,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 import com.google.gson.GsonBuilder
 import java.io.File
+import com.sleepissue.awakedrive.performance.WorkProbe
 
 /** 실제 SDK만 연결하는 화면이다. Tracker·Store·Room·가짜 입력을 생성하지 않는다. */
 class DebugSdkProbeActivity : AppCompatActivity() {
@@ -46,7 +47,11 @@ class DebugSdkProbeActivity : AppCompatActivity() {
     private lateinit var captureStatus: TextView
     private var lastCaptureAtMs: Long? = null
     private var publicationAudit = SdkPublicationAudit()
+    private var emissionAudit = SdkPublicationAudit()
     private var sdkLease: PlaygroundSdkOwnership.Lease? = null
+    private var workProbe = WorkProbe.NONE
+    private val captureFileName get() = intent.getStringExtra("sdkCaptureFile")
+        ?.takeIf { it.matches(Regex("sdk-signal-[a-zA-Z0-9-]+\\.json")) } ?: "sdk-signal-probe.json"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +74,8 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         }
         root.addView(controls)
         summary = label("미연결 · 연결 버튼을 누르세요", 14f); root.addView(summary)
-        captureStatus = label("진단 저장 대기 · cache/sdk-signal-probe.json", 12f); root.addView(captureStatus)
-        root.addView(label("[가정] 연속 신호 TTL 3초 · GEAR는 1초 재조회/확인 lease 3초 · DEMO 대체 없음\n수신 Hz와 센서 Hz, 재조회 확인 시각을 구분합니다. Hub는 100ms 발행입니다.\n조향·착석은 의미 확인 보류. 전원 입력 API 미연결. 이 진단 화면 자체는 Room을 사용하지 않습니다.", 12f))
+        captureStatus = label("진단 저장 대기 · cache/$captureFileName", 12f); root.addView(captureStatus)
+        root.addView(label("[가정] 일반 TTL 3초 · 기어/방향지시등/브레이크/크루즈/통풍/현재온도는 1초 재조회·확인 lease 3초 · DEMO 대체 없음\n수신 Hz와 센서 Hz, 재조회 확인 시각을 구분합니다. Hub는 100ms 발행입니다.\n조향·착석은 의미 확인 보류. 전원 입력 API 미연결. 이 진단 화면 자체는 Room을 사용하지 않습니다.", 12f))
         root.addView(label("주행 중 OS가 화면을 가릴 수 있습니다. P/0으로 돌아와 오른쪽 아래 실제 SDK 변경 기록을 확인하세요.", 12f))
         val columns = LinearLayout(this)
         val vehicle = column(); val navi = column()
@@ -98,13 +103,19 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate).also { session = it }
         sessions++
         publicationAudit = SdkPublicationAudit()
+        emissionAudit = SdkPublicationAudit()
+        workProbe = WorkProbe(System::nanoTime)
         val audit = publicationAudit
+        val actualEmissionAudit = emissionAudit
         val a = PlaygroundSignalAdapter(applicationContext, clock, probePolicy, scope).also { adapter = it }
         val freshness = SignalFreshnessPolicy(probePolicy.ttlMs, probePolicy.ttlMs, MissingObservationPolicy.USE_RECEIPT_AGE)
         val h = VehicleSignalHub(listOf(HubSourceSet(Source.REAL, a.vehicleSource, a.naviSource,
             rateTimeBasis = ObservationTimeBasis.UNKNOWN)), clock,
             HubPolicy(SignalField.entries.associateWith { freshness }, NaviField.entries.associateWith { freshness }, freshness,
-                SignalFallbackPolicy(false, 0, ObservationTimeBasis.ELAPSED_REALTIME), ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config).also { hub = it }
+                SignalFallbackPolicy(false, 0, ObservationTimeBasis.ELAPSED_REALTIME), ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config,
+            probe = workProbe, emissionObserver = { publication, at ->
+                actualEmissionAudit.record(publication.sessionId, publication.sequence, at)
+            }).also { hub = it }
         scope.launch {
             // 진단 TextView 갱신·SDK main 콜백이 100ms 발행을 직접 막지 않게 한다.
             // 부모 Job은 공유하므로 화면 중지 시 두 dispatcher의 작업이 함께 취소된다.
@@ -151,19 +162,22 @@ class DebugSdkProbeActivity : AppCompatActivity() {
                 "callbackHz" to a.store.callbackHz(r.key), "nativeHz" to a.store.nativeHz(r.key)) },
             "diagnostics" to h.diagnostics.value, "frame" to h.latestFrame.value,
             "navi" to h.latestNavi.value, "history" to a.store.history(),
-            "publicationAudit" to publicationAudit.snapshot(), "ttlMs" to probePolicy.ttlMs)
+            "publicationAudit" to publicationAudit.snapshot(), "ttlMs" to probePolicy.ttlMs,
+            "emissionAudit" to emissionAudit.snapshot(),
+            "hubScheduler" to "DEFAULT",
+            "workProbe" to workProbe.snapshot())
         captureStatus.text = "진단 저장 중 · $reason"
         saveJob = captureScope.launch(start = CoroutineStart.UNDISPATCHED) {
             try {
                 withContext(NonCancellable + Dispatchers.IO) {
-                    val file = File(cacheDir, "sdk-signal-probe.json")
+                    val file = File(cacheDir, captureFileName)
                     val temporary = File.createTempFile(".sdk-probe-", ".json", cacheDir)
                     try {
                         temporary.writeText(GsonBuilder().serializeNulls().create().toJson(capture) + "\n")
                         check(temporary.renameTo(file)) { "진단 파일 교체 실패" }
                     } finally { temporary.delete() }
                 }
-                captureStatus.text = "진단 저장 완료 · cache/sdk-signal-probe.json · $reason"
+                captureStatus.text = "진단 저장 완료 · cache/$captureFileName · $reason"
             } catch (e: Exception) { captureStatus.text = "진단 저장 실패 · ${e.javaClass.simpleName} · 다시 저장 가능" }
         }
     }
@@ -185,8 +199,9 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         val a = adapter ?: return; val h = hub ?: return; val now = clock.elapsedRealtimeMs()
         val d = h.diagnostics.value
         val frame = h.latestFrame.value; val navi = h.latestNavi.value
+        val emission = emissionAudit.snapshot()
         fun hz(value: Float?) = value?.let { "%.2f".format(it) } ?: "알 수 없음/측정 전"
-        summary.text = "${a.status.value} · 세션 $sessions · targetSdk ${applicationInfo.targetSdkVersion}\nHub 발행 ${d.emittedFrames}회 / ${hz(d.publicationRate.hz)}Hz · deadline 누락 ${d.skippedDeadlines} · 시계 오류 ${d.clockFailure}"
+        summary.text = "${a.status.value} · 세션 $sessions · targetSdk ${applicationInfo.targetSdkVersion}\nHub 발행 ${d.emittedFrames}회 / ${hz(d.publicationRate.hz)}Hz · deadline 누락 ${d.skippedDeadlines} · 시계 오류 ${d.clockFailure}\n실제 emit 직전 간격 최대 ${emission.maxPublishedGapMs}ms · 110ms 초과 ${emission.gapsOver110ms}회 (엄격 주기 별도 확인)"
         a.store.readings().forEach { r ->
             val field = runCatching { SignalField.valueOf(r.key) }.getOrNull()
             val nf = runCatching { NaviField.valueOf(r.key) }.getOrNull()
@@ -197,7 +212,7 @@ class DebugSdkProbeActivity : AppCompatActivity() {
             rows[r.key]?.text = "${r.key} · API 지원 ${r.support} · 정규화 ${r.normalization}\n권한 ${if (r.permissionGranted) "허용" else "거부"} · ${r.permission}\n" +
                 "SDK 원시 ${r.raw} → 정규화 ${r.value ?: "null"}\n최종 ${finalValue ?: "null"} · REAL · $availability · ${q?.selectionReason ?: "개별 좌석"}\n" +
                 "수신 경과 ${r.receivedMs?.let { now - it } ?: "미수신"}ms · 센서 시각 ${r.nativeMs?.let { "${it}ms/ELAPSED" } ?: "제공 안 됨"} · 상태 확인 ${r.confirmedMs}\n" +
-                "콜백 ${r.callbacks} / 최초 조회 ${r.queries} / 보호 폐기 ${r.rejectedDeliveries} · 수신 ${hz(a.store.callbackHz(r.key))}Hz · 원천 ${hz(a.store.nativeHz(r.key))}Hz\n${r.note}"
+                "콜백 ${r.callbacks} / 조회·상태보고 ${r.queries} / 보호 폐기 ${r.rejectedDeliveries} · 수신 ${hz(a.store.callbackHz(r.key))}Hz · 원천 ${hz(a.store.nativeHz(r.key))}Hz\n${r.note}"
         }
         val sq = frame?.qualityOf(SignalField.SEATS)
         rows["SEATS"]?.text = "SEATS · Hub 좌석 묶음\n최종 ${frame?.seats ?: "null"}\n${sq?.source ?: "REAL"} · ${sq?.availability ?: "UNAVAILABLE"} · ${sq?.selectionReason}\n" +

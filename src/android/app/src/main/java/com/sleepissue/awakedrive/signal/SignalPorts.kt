@@ -44,6 +44,8 @@ data class VehicleSignalInput(
     val quality: Map<SignalField, SignalQuality> = emptyMap(),
     // null은 완전 관측, 명시한 필드 집합은 부분 갱신이다. 집합 안의 null은 값을 지운다.
     val updatedFields: Set<SignalField>? = null,
+    // 현재값 재조회로만 확인한 필드다. 캐시/품질은 갱신하지만 센서 관측 통로·콜백 계수에는 넣지 않는다.
+    val confirmationFields: Set<SignalField> = emptySet(),
 )
 
 /** 구독 종료는 Flow 수집 취소로 전파한다. 실제 콜백 해제는 어댑터의 책임이다. */
@@ -53,6 +55,8 @@ interface VehicleSignalSource {
 
 interface NaviSignalSource {
     val states: Flow<NaviState>
+    // 조회 응답과 자발 알림을 구별할 수 없는 상태 보고 원천이다. Hub가 센서 관측 순번을 만들지 않는다.
+    val stateReportsOnly: Boolean get() = false
 }
 
 interface PowerSignalSource {

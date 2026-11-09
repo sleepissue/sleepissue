@@ -22,6 +22,8 @@ internal class PeriodicSignalHub(
     private val config: EngineConfig,
     private val probe: WorkProbe = WorkProbe.NONE,
     private val gearObserver: ((GearSelectionDecision) -> Unit)? = null,
+    // 두 번째 값은 실제 버스 emit 직전 elapsed다. 기존 메타데이터/관측 시각을 덮지 않는다.
+    private val emissionObserver: ((FramePublication, Long) -> Unit)? = null,
 ) : SignalHubSession {
     private inner class Input(val definition: HubSourceSet) {
         var epoch = 0L
@@ -209,28 +211,31 @@ internal class PeriodicSignalHub(
     private fun acceptVehicle(input: Input, value: VehicleSignalInput) = probe.measure(WorkStage.HUB_RECEIVE_VEHICLE) {
         val frame = probe.measure(WorkStage.HUB_NORMALIZE) { normalizer.vehicle(value) }
         val fields = value.updatedFields ?: allVehicleFields
-        input.callbacks++
+        val observations = if (value.confirmationFields.isEmpty()) fields else fields - value.confirmationFields
+        if (observations.isNotEmpty()) input.callbacks++
         fields.forEach { field ->
             val q = frame.qualityOf(field).let { if (value.source != input.definition.source) it.copy(availability = SignalAvailability.ERROR) else it }
             if (field == SignalField.STEERING_DEG) {
-                if (q.availability == SignalAvailability.AVAILABLE) probe.measure(WorkStage.RATE_OBSERVE) { input.meter.observe(q.observedAtMs, q.observedTimeBasis,
+                if (q.availability == SignalAvailability.AVAILABLE && field !in value.confirmationFields) probe.measure(WorkStage.RATE_OBSERVE) { input.meter.observe(q.observedAtMs, q.observedTimeBasis,
                     clock.timeAt(input.definition.rateTimeBasis) ?: 0) }
                 else if (q.availability == SignalAvailability.UNSUPPORTED || q.availability == SignalAvailability.PERMISSION_DENIED ||
                     q.availability == SignalAvailability.ERROR)
                     probe.measure(WorkStage.RATE_OBSERVE) { input.meter.observe(null, ObservationTimeBasis.UNKNOWN, clock.timeAt(input.definition.rateTimeBasis) ?: 0) }
             }
-            input.vehicle[field] = cache(input, input.vehicle[field], frame.valueOf(field), q)
+            input.vehicle[field] = cache(input, input.vehicle[field], frame.valueOf(field), q,
+                confirmationOnly = field in value.confirmationFields)
         }
         // replay 없는 통로다. 활성 구독자가 없으면 관측 전달용 복사본을 만들 필요가 없다.
-        if (observationBus.subscriptionCount.value > 0) {
-            val observed = frame.copy(quality = fields.associateWith { requireNotNull(input.vehicle[it]).quality })
-            observationBus.tryEmit(Envelope(generation, VehicleObservation(observed, fields)))
+        if (observations.isNotEmpty() && observationBus.subscriptionCount.value > 0) {
+            val observed = frame.copy(quality = observations.associateWith { requireNotNull(input.vehicle[it]).quality })
+            observationBus.tryEmit(Envelope(generation, VehicleObservation(observed, observations)))
         }
     }
 
     private fun acceptNavi(input: Input, value: NaviState) = probe.measure(WorkStage.HUB_RECEIVE_NAVI) {
         val normalized = probe.measure(WorkStage.HUB_NORMALIZE) { normalizer.navi(value) }
-        NaviField.entries.forEach { field -> input.navi[field] = cache(input, input.navi[field], normalized.valueOf(field), normalized.qualityOf(field)) }
+        NaviField.entries.forEach { field -> input.navi[field] = cache(input, input.navi[field], normalized.valueOf(field), normalized.qualityOf(field),
+            confirmationOnly = input.definition.navi?.stateReportsOnly == true) }
     }
 
     private fun acceptPower(input: Input, value: PowerEvent) = probe.measure(WorkStage.HUB_RECEIVE_POWER) {
@@ -238,7 +243,8 @@ internal class PeriodicSignalHub(
         input.power = cache(input, input.power, value.state.takeIf { q.availability == SignalAvailability.AVAILABLE }, q)
     }
 
-    private fun cache(input: Input, previous: SignalCandidate<Any>?, value: Any?, quality: SignalQuality): SignalCandidate<Any> {
+    private fun cache(input: Input, previous: SignalCandidate<Any>?, value: Any?, quality: SignalQuality,
+        confirmationOnly: Boolean = false): SignalCandidate<Any> {
         var availability = if (quality.source != null && quality.source != input.definition.source) SignalAvailability.ERROR
             else quality.availability
         val sameBasis = previous?.quality?.observedTimeBasis == quality.observedTimeBasis
@@ -265,7 +271,7 @@ internal class PeriodicSignalHub(
         }
         val q = quality.copy(availability = availability, source = input.definition.source,
             sourceRateHz = null, sourceRateInfo = null, selectionReason = null,
-            observationSequence = ++input.observationSequence)
+            observationSequence = if (confirmationOnly) previous?.quality?.observationSequence ?: 0 else ++input.observationSequence)
         return SignalCandidate(value.takeIf { availability == SignalAvailability.AVAILABLE }, q)
     }
 
@@ -323,6 +329,7 @@ internal class PeriodicSignalHub(
             val power = PowerEvent(scenario, p.value as? PowerState ?: PowerState.UNKNOWN, p.quality)
             mutableFrame.value = frame; mutableNavi.value = navi; mutablePower.value = power
             updateDiagnostics(evaluated, metadata.sequence, missed)
+            emissionObserver?.invoke(metadata, clock.elapsedRealtimeMs())
             frameBus.tryEmit(Envelope(generation, frame)); powerBus.tryEmit(Envelope(generation, power))
             if (now >= nextNaviDeadline) {
                 nextNaviDeadline = Math.addExact(nextNaviDeadline,

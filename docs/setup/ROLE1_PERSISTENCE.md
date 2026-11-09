@@ -1,8 +1,8 @@
 # 운행 상태 Room 저장·복원 가이드
 
-2026-11-07: 실제 Playground SDK 운행도 별도 `awakedrive_sdk_trip.db`에 연결했다. [실제 SDK 운행·Room 가이드](ROLE1_REAL_TRIP.md)의 WALL_EPOCH/UNKNOWN 복원 계약을 따른다. 아래의 수동 DB·개입 저장 형식과 기존 시험 기록은 그대로 보존한다. 서비스·절전·부팅은 여전히 후속이다.
+2026-11-07: 실제 Playground SDK 운행도 별도 `awakedrive_sdk_trip.db`에 연결했다. [실제 SDK 운행·Room 가이드](ROLE1_REAL_TRIP.md)의 WALL_EPOCH/UNKNOWN 복원 계약을 따른다. 아래의 수동 DB·개입 저장 형식과 기존 시험 기록은 그대로 보존한다. 현재 감시·부팅 재개는 [서비스 가이드](ROLE1_MONITOR_SERVICE.md)에 구현돼 있으며 실제 차량 STR/ignition 검증과 구분한다. 요구별 최신 판정은 [현황표](ROLE1_COMPLETION_STATUS.md)를 따른다.
 
-이 문서의 기본 예시는 **디버그 수동 세션의 Room 저장과 프로세스 재실행 복원**이다. 메모리 화면 값뿐 아니라 `TripTracker`의 정밀 상태와 `PolicyInterventionManager`의 판단 상태를 함께 복원한다. 수동 예시에는 실제 차량의 재부팅 시간 변환·SDK 수신·감시 서비스·부팅 자동 실행이 없다. 실제 SDK 수신·운행은 위 별도 경로로 연결했고 서비스·부팅은 후속이다. **TRP_003 전체 완료가 아니다.**
+이 문서의 기본 예시는 **디버그 수동 세션의 Room 저장과 프로세스 재실행 복원**이다. 메모리 화면 값뿐 아니라 `TripTracker`의 정밀 상태와 `PolicyInterventionManager`의 판단 상태를 함께 복원한다. 수동 예시에는 실제 차량의 재부팅 시간 변환·SDK 수신·감시 서비스·부팅 자동 실행이 없다. 실제 SDK 수신·운행·감시 서비스·부팅 재개는 별도 REAL 경로로 구현돼 있다. **TRP_003 전체 완료가 아니다.**
 
 ## 저장소와 호환성
 
@@ -12,7 +12,7 @@
 - `app/signal/InterventionCheckpoint.kt`, `TripSessionCodec.kt`: 개입 판단·인증·중단된 확인의 논리 시각 보존. 실행 요청 ID나 경유지 실행 예약을 재생하지 않는다.
 - `engine/session/TripSnapshotValidator.kt`: Android 없이 공개 상태·정밀 근거·구간 합계의 일관성 검증.
 
-의존성은 app에 **Room runtime/compiler 2.8.5 + KSP2 2.3.13**만 추가했다. AGP 9.4.0·Kotlin 2.4.21·Gradle 9.6.0·minSdk 28·compile/target 37은 유지했다. [Room 공식 의존성·호환 조건](https://developer.android.com/jetpack/androidx/releases/room), [AGP 내장 Kotlin의 KSP 안내](https://developer.android.com/build/migrate-to-built-in-kotlin), [KSP 공식 릴리스](https://github.com/google/ksp/releases)를 확인하고 실제 빌드·기기 시험을 수행했다. 전체 도구 조합을 공식 호환 표가 보증한다는 뜻은 아니다.
+의존성은 app에 **Room runtime/compiler 2.8.5 + KSP2 2.3.13**만 추가했다. AGP 9.4.0·Kotlin 2.4.21·Gradle 9.6.0·현재 설정은 minSdk 28·compileSdk 37·targetSdk 34다. 당시 Room 도입 이후 target만 34로 변경했고 이번에는 도구/의존성 버전을 바꾸지 않았다. [Room 공식 의존성·호환 조건](https://developer.android.com/jetpack/androidx/releases/room), [AGP 내장 Kotlin의 KSP 안내](https://developer.android.com/build/migrate-to-built-in-kotlin), [KSP 공식 릴리스](https://github.com/google/ksp/releases)를 확인하고 실제 빌드·기기 시험을 수행했다. 전체 도구 조합을 공식 호환 표가 보증한다는 뜻은 아니다.
 
 디버그 DB는 앱 내부의 `awakedrive_debug_trip.db`다. SDK/제품 세션과 섞지 않는 별도 DB이며 실제 저장소 구현은 main 소스에 있어 후속 제품 조립에서도 사용할 수 있다. 스키마는 `app/schemas/...TripDatabase/1.json`으로 내보낸다. 파괴적 마이그레이션은 사용하지 않는다. 후속 스키마 변경에는 버전 증가·명시적 마이그레이션이 필요하다. DB는 [Android 백업 규칙](https://developer.android.com/identity/data/autobackup)에서 클라우드·기기 이전 제외 대상으로 지정했다.
 
@@ -47,7 +47,7 @@ MSG-15의 진행 중 `endMs=null`은 내부에서 **관측 시각까지 확정�
 
 기존 수동 경로는 실제 차량 시간축(`ELAPSED_REALTIME`) 복원을 지원하지 않는다. 새 SDK 전용 경로는 별도 `WALL_EPOCH` 이력을 UNKNOWN 활성 상태로 복원한다. 저장된 REAL 입력은 신선한 차량 관측으로 재사용하지 않고 `STALE_INPUT`으로 구별한다. 수동 세션은 ‘저장한 수동 입력 재개’로 표시한다. 수동 시각은 실제 날짜가 오래 지났어도 자동으로 진행하지 않는 사용자 설정값이다.
 
-재부팅 전후 `elapsedRealtime`의 변환, 꺼진 시간·실제 OFF의 증명, BOOT_COMPLETED·FGS는 후속 범위다. 수동 저장본을 사용자가 다시 여는 경로와 실제 부팅 자동 복원을 혼동하지 않는다. 화면이 살아 있는 범위의 저장 주기를 검증했으며 백그라운드·절전 중 10초 저장 보장까지 완료한 것은 아니다.
+REAL의 BOOT_COMPLETED·FGS·새 시계 앵커 복원은 구현돼 있다. 재부팅 전후 elapsed를 직접 변환해 합산하지 않는다. 꺼진 시간·실제 OFF의 증명과 차량 STR은 현재 AVD에서 별도 제약이다. 수동 저장본을 사용자가 다시 여는 경로와 실제 부팅 자동 복원을 혼동하지 않는다. 화면이 살아 있는 범위의 저장 주기를 검증했으며 백그라운드·절전 중 10초 저장 보장까지 완료한 것은 아니다.
 
 이후 추가한 [Hub 주기·품질 시험](ROLE1_SIGNAL_HUB.md)은 별도 패널·가짜 시계를 사용한다. Room 수동 운행의 관측 경로와 저장 시계는 유지하며, 가짜 REAL 입력이나 Hub 시험 시간을 저장된 운행에 합산하지 않는다. Hub 시험 상태 자체는 Room에 저장하지 않는다.
 

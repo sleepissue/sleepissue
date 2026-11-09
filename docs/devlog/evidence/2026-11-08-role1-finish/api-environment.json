@@ -1,0 +1,16 @@
+{
+  "Vehicle2.3.2": "62b5dd2c4c0523fd13c2e64040cd775bc89a14ce54f35a37560d0eb4eb3fab40",
+  "NaviHelper3.0.5": "915feb7246215e6999f4695ba6b51cf31e4c6a5d8a8c1b36f16a3ba353569201",
+  "navi-data3.0.4": "4da974b6b0050662c4b346d3fca96073c8c1f241ce10c7d667cfef64cbceedaf",
+  "officialNaviSampleCommit": "76ed592487a1eab7ba102b9d4b321705426886fe",
+  "halSupport": {
+    "IGNITION_STATE": false,
+    "HVAC_TEMPERATURE_CURRENT": true,
+    "HVAC_SEAT_VENTILATION": true
+  },
+  "carServiceInjection": "SecurityException: requires non-user build",
+  "consoleCurrentTemperatureInput": false,
+  "consoleDedicatedVentilationInput": false,
+  "sdkVentilationControlAndReadback": true,
+  "debugOnlyControlPermissionsAbsentFromRelease": true
+}

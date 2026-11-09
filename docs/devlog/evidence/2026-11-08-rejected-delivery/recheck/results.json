@@ -1,0 +1,81 @@
+{
+  "negativeControl": {
+    "tests": 6,
+    "failures": 4,
+    "cases": [
+      {
+        "name": "errorAndPermissionLossAreStillEmittedAndInvalidatePendingCallbacks",
+        "failure": null
+      },
+      {
+        "name": "newerCallbackThenOlderCallbackDoesNotReplayTheStoredCallbackToHub",
+        "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+      },
+      {
+        "name": "reversedDeliveryOrderWithinTheSameMillisecondDoesNotReplayTheStoredCallback",
+        "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+      },
+      {
+        "name": "ignoredInitialQueryAfterCallbackUpdatesOnlyItsDiagnosticQueryCount",
+        "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+      },
+      {
+        "name": "realSubscriptionRequeryChangedValueAndNullRemainConfirmationsWhileCallbackNullIsAnObservation",
+        "failure": null
+      },
+      {
+        "name": "rejectedRequeryAfterLatestCallbackCannotEmitItsStoredCallbackAgain",
+        "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+      }
+    ],
+    "output": "거부 후 Hub callbacks=2 raw=2 emit=2 · 확인=100\n거부 후 Hub callbacks=2 raw=2 emit=2 · 확인=100\n최초 조회 무시 후 callbacks=2 raw=2\n과거 재조회 거부 후 callbacks=2 raw=2\n"
+  },
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 327,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "hubRegression": {
+    "tests": 6,
+    "failures": 0,
+    "cases": [
+      {
+        "name": "errorAndPermissionLossAreStillEmittedAndInvalidatePendingCallbacks",
+        "failure": null
+      },
+      {
+        "name": "newerCallbackThenOlderCallbackDoesNotReplayTheStoredCallbackToHub",
+        "failure": null
+      },
+      {
+        "name": "reversedDeliveryOrderWithinTheSameMillisecondDoesNotReplayTheStoredCallback",
+        "failure": null
+      },
+      {
+        "name": "ignoredInitialQueryAfterCallbackUpdatesOnlyItsDiagnosticQueryCount",
+        "failure": null
+      },
+      {
+        "name": "realSubscriptionRequeryChangedValueAndNullRemainConfirmationsWhileCallbackNullIsAnObservation",
+        "failure": null
+      },
+      {
+        "name": "rejectedRequeryAfterLatestCallbackCannotEmitItsStoredCallbackAgain",
+        "failure": null
+      }
+    ],
+    "output": "거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100\n거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100\n최초 조회 무시 후 callbacks=1 raw=1\n과거 재조회 거부 후 callbacks=1 raw=1\n"
+  },
+  "assembleDebug": true,
+  "baselineTests": 473,
+  "existingHubRegressionTests": 6,
+  "addedAcceptanceContractTests": 1,
+  "apkSha256": "968d57484e74aab327fa04b51b728386d3550b45a3004a2438d0701602bce1a8"
+}

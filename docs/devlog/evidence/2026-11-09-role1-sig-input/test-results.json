@@ -1,0 +1,31 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 339,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "total": 492,
+  "priorBaseline": {
+    "engine": 153,
+    "app": 337,
+    "total": 490,
+    "roomBoundaryDeviceTests": 3,
+    "ventilationGearDeviceTests": 1,
+    "recordDate": "2026-11-08",
+    "automaticTestsIncludedInCurrentFullRun": true,
+    "roomBoundaryDeviceRerun": false,
+    "ventilationGearDeviceRerun": false
+  },
+  "currentNaviDeviceTests": 1,
+  "build": "BUILD SUCCESSFUL, 81 tasks executed",
+  "debugApkSha256": "37a1b1e5f27f48c4505b1e7bbbcbd857ba4ddb950db4c4a7223b5c77518e1582",
+  "installedApkSha256": "37a1b1e5f27f48c4505b1e7bbbcbd857ba4ddb950db4c4a7223b5c77518e1582",
+  "deviceApkMatchesFinalBuild": true
+}

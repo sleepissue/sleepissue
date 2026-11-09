@@ -1,0 +1,92 @@
+{
+  "head": "f5c6ad9e179383ddb2b5cff3aad9ac4230afabe2",
+  "kind": "BASELINE_REAL_SDK",
+  "session": 1,
+  "capturedAtElapsedMs": 228338,
+  "fields": {
+    "TURN_SIGNAL": {
+      "raw": "OFF",
+      "normalized": "OFF",
+      "callbacks": 1,
+      "queries": 1,
+      "receivedMs": 107530,
+      "ageSinceReceiptMs": 120808,
+      "quality": {
+        "availability": "STALE",
+        "observationSequence": 103,
+        "observedAtMs": null,
+        "observedTimeBasis": "UNKNOWN",
+        "receivedAtElapsedMs": 107530,
+        "selectionReason": "NO_VALID_INPUT",
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null,
+        "stateConfirmedAtElapsedMs": null,
+        "stateLeaseUntilElapsedMs": null
+      }
+    },
+    "BRAKE_ON": {
+      "raw": "false",
+      "normalized": false,
+      "callbacks": 1,
+      "queries": 1,
+      "receivedMs": 107545,
+      "ageSinceReceiptMs": 120793,
+      "quality": {
+        "availability": "STALE",
+        "observationSequence": 105,
+        "observedAtMs": null,
+        "observedTimeBasis": "UNKNOWN",
+        "receivedAtElapsedMs": 107545,
+        "selectionReason": "NO_VALID_INPUT",
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null,
+        "stateConfirmedAtElapsedMs": null,
+        "stateLeaseUntilElapsedMs": null
+      }
+    },
+    "CRUISE_ACTIVE": {
+      "raw": "ENABLED",
+      "normalized": false,
+      "callbacks": 1,
+      "queries": 1,
+      "receivedMs": 108355,
+      "ageSinceReceiptMs": 119983,
+      "quality": {
+        "availability": "STALE",
+        "observationSequence": 131,
+        "observedAtMs": null,
+        "observedTimeBasis": "UNKNOWN",
+        "receivedAtElapsedMs": 108355,
+        "selectionReason": "NO_VALID_INPUT",
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null,
+        "stateConfirmedAtElapsedMs": null,
+        "stateLeaseUntilElapsedMs": null
+      }
+    },
+    "CRUISE_TARGET_KPH": {
+      "raw": "13.8889",
+      "normalized": 50.00004,
+      "callbacks": 1,
+      "queries": 1,
+      "receivedMs": 108353,
+      "ageSinceReceiptMs": 119985,
+      "quality": {
+        "availability": "STALE",
+        "observationSequence": 127,
+        "observedAtMs": null,
+        "observedTimeBasis": "UNKNOWN",
+        "receivedAtElapsedMs": 108353,
+        "selectionReason": "NO_VALID_INPUT",
+        "source": "REAL",
+        "sourceRateHz": null,
+        "sourceRateInfo": null,
+        "stateConfirmedAtElapsedMs": null,
+        "stateLeaseUntilElapsedMs": null
+      }
+    }
+  }
+}

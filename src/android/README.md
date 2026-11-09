@@ -19,7 +19,7 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 
 2026-11-02에 추가한 [운행 규칙 가이드](../../docs/setup/ROLE1_TRIP_RULES.md)는 정책 선택·밀리초 정밀 상태·Hub 연결을 설명한다. **개발 대상은 Pleos Playground 가상 차량**이다. REAL은 SDK·Virtual Console 입력, DEMO는 앱 JSON 재생 입력이다. 이번 운행 규칙의 실행 결과는 [11-02 개발 기록](../../docs/devlog/2026-11-02.md)에 별도로 남긴다.
 
-[디버그 화면 사용 가이드](../../docs/setup/DEBUG_HARNESS.md)에 Android Studio·ADB 실행 방법과 직접 따라 할 검증 순서를 정리했다. Android Studio에서 app의 `debug` 변형을 선택해 Run하면 `AwakeDrive 개발 검증`이 열린다. 실제 음성·차량·내비 SDK는 실행하지 않으며 가상 결과를 직접 주입한다.
+[디버그 화면 사용 가이드](../../docs/setup/DEBUG_HARNESS.md)에 Android Studio·ADB 실행 방법과 직접 따라 할 검증 순서를 정리했다. Android Studio에서 app의 `debug` 변형을 선택해 Run하면 `AwakeDrive 개발 검증`이 열린다. 수동 패널은 가상 결과를 주입한다. 별도 실제 SDK 검증/REAL 감시 경로는 [최신 1번 현황표](../../docs/setup/ROLE1_COMPLETION_STATUS.md)를 따른다.
 
 ## 빌드 환경
 
@@ -30,7 +30,7 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 | app Kotlin | AGP 내장 Kotlin 유지. 별도 `kotlin-android` 플러그인은 적용하지 않는다. 루트에서 선택한 KGP를 공통 사용한다. |
 | Gradle 데몬 JDK | 기존 25 유지. [Gradle 공식 Java 호환 표](https://docs.gradle.org/current/userguide/compatibility.html#java_runtime)에서 9.1 이상은 Java 25 실행 지원. |
 | Java / Kotlin 바이트코드 | 두 모듈 모두 11. 빌드 실행용 JDK와 별개다. |
-| Android SDK | min 28, compile/target 37 유지. Build Tools 기본값 36.0.0. 로컬에 부족했던 Platform 37·Build Tools 36을 설치했다. |
+| Android SDK | minSdk 28, compileSdk 37, targetSdk 34. Build Tools 기본값 36.0.0. 로컬에 부족했던 Platform 37·Build Tools 36을 설치했다. |
 | Coroutines | core/test 1.10.2. Flow 전달과 가상 시간 시험에 사용. |
 | Room / KSP2 | app에 runtime/compiler 2.8.5와 KSP 2.3.13 추가. [공식 근거와 적용 범위](../../docs/setup/ROLE1_PERSISTENCE.md#저장소와-호환성). |
 
@@ -47,7 +47,7 @@ cd /home/a/StudioProjects/sleepissue/src/android
 ./gradlew :engine:test :app:testDebugUnitTest assembleDebug
 ```
 
-SDK 경로는 로컬 환경 변수 또는 Git 제외된 `local.properties`로 제공한다. 기존 SDK 34만 설치되어 있어도 compile/target을 낮추지 않는다. 저장소에 Wrapper JAR가 있으며 Gradle·SDK 의존성 최초 다운로드에는 네트워크가 필요하다.
+SDK 경로는 로컬 환경 변수 또는 Git 제외된 `local.properties`로 제공한다. compileSdk 37을 설치하고 유지한다. targetSdk는 현재 설정인34를 사용하며 compileSdk와 혼동하지 않는다. 저장소에 Wrapper JAR가 있으며 Gradle·SDK 의존성 최초 다운로드에는 네트워크가 필요하다.
 
 ## 검증과 남은 작업
 
@@ -77,9 +77,9 @@ Pleos Maven과 Vehicle·NaviHelper·TextToSpeech·SpeechToText 의존성은 기�
 
 2026-11-03 Hub 추가 후: engine **83개**·app **120개**, 합계 **203개** 통과. 기존 168개를 보존하고 주기·원천 Hz·최신성·중재·Hub 패널·수동 저장 세션 분리 시험 35개를 추가했다. 전체 Room/앱 문맥 기기 시험 **9개**와 `assembleDebug`도 성공했다. [주기·버퍼·생명주기 계약과 직접 누를 버튼](../../docs/setup/ROLE1_SIGNAL_HUB.md)을 참고한다.
 
-최종 Compose 서비스 화면·감시 서비스·부팅 수신기·실제 재부팅 시간축은 후속 범위이며 TRP_003 전체 완료가 아니다. Hub의 가짜 입력 중재·주기 발행·원천 Hz·최신성은 구현했으며, 실제 SDK 원단위/관측 시간축 확인·콜백 어댑터와 JSON 재생·제품 최신성 정책 확정은 남아 있다. 디버그 조립은 비교용 정차 정책 `V03_RETROACTIVE`·`EXCLUDE`를 [가정]으로 명시하고, 정상 회복 후 상태 초기화 요청은 미연결로 표시한다. 실제 Playground SDK가 필요한 TC를 통과한 것으로 표시하지 않는다.
+제품 Compose 화면은5번 연결 대기이며, REAL 감시 서비스·부팅 수신기·새 시계 앵커 복원은 구현돼 있다. 실제 ignition/STR은 별도 환경 제약·미검증이므로 TRP_003 전체 완료가 아니다. Hub의 가짜 입력 중재·주기 발행·원천 Hz·최신성은 구현했으며, 실제 SDK 원단위/관측 시간축 확인·콜백 어댑터와 JSON 재생·제품 최신성 정책 확정은 남아 있다. 디버그 조립은 비교용 정차 정책 `V03_RETROACTIVE`·`EXCLUDE`를 [가정]으로 명시하고, 정상 회복 후 상태 초기화 요청은 미연결로 표시한다. 실제 Playground SDK가 필요한 TC를 통과한 것으로 표시하지 않는다.
 
-2026-11-07: [실제 Playground 운행·Room 연결](../../docs/setup/ROLE1_REAL_TRIP.md) — debug 전용 `Playground SDK 운행·Room`, REAL 전용 Hub/Tracker와 별도 `awakedrive_sdk_trip.db`. 기존 수동/데모/개입 구현은 보존하며 감시 서비스·부팅은 후속이다.
+2026-11-07: [실제 Playground 운행·Room 연결](../../docs/setup/ROLE1_REAL_TRIP.md) — debug 전용 `Playground SDK 운행·Room`, REAL 전용 Hub/Tracker와 별도 `awakedrive_sdk_trip.db`. 기존 수동/데모/개입 구현을 보존한다. 이 화면 소유 연결 이후 추가한 감시·부팅 구현은 아래 서비스 절을 따른다.
 
 
 ### REAL 감시 서비스 (2026-11-07)
