@@ -57,17 +57,11 @@ data class EngineConfig(
     // ── 취약 시간대 (예보 REQ_FCS_005, 맥락 가중 K도 같은 값을 씀) ──────────
 
     // 기획서 4-5: 새벽 2~7시·오후 2~5시 (Horne & Reyner 1995, 도로교통공단)
-    val vulnerableBaseRanges: List<VulnerableTimeRange> = listOf(
-        VulnerableTimeRange.hours(2, 7),
-        VulnerableTimeRange.hours(14, 17),
-    ),
+    // 값은 VulnerableTimeDefaults 한 곳에 있다 (2번 맥락 가중 K도 같은 값을 기본값으로 씀).
+    val vulnerableBaseRanges: List<VulnerableTimeRange> = VulnerableTimeDefaults.BASE,
 
-    // SRS REQ_FAT_015: 연령대 설정 시 추가되는 시간대
-    val vulnerableAgeRanges: Map<AgeBand, List<VulnerableTimeRange>> = mapOf(
-        AgeBand.TWENTIES to listOf(VulnerableTimeRange.hours(4, 8)),
-        AgeBand.THIRTIES_FORTIES to listOf(VulnerableTimeRange.hours(22, 2)),
-        AgeBand.FIFTIES_PLUS to listOf(VulnerableTimeRange.hours(14, 18)),
-    ),
+    // SRS REQ_FAT_015: 연령대 설정 시 추가되는 시간대 (20대 4~8시, 30·40대 22~2시, 50대 이상 14~18시)
+    val vulnerableAgeRanges: Map<AgeBand, List<VulnerableTimeRange>> = VulnerableTimeDefaults.BY_AGE,
 
     // ── 예보 (ForecastEngine) ─────────────────────────────
 
@@ -113,6 +107,14 @@ data class EngineConfig(
         21 to "밤",
     ),
 
+    // ── 2번 졸음 엔진 (FatigueEngine·BaselineStore·PatternClassifier·AssistModeDetector) ──
+    // 문턱값 본문과 근거는 각 묶음 파일에 있다. 엔진은 FatigueEngine(EngineConfig)로 만든다.
+    // 취약 시간대는 위 vulnerableBaseRanges·vulnerableAgeRanges를 쓴다 (fatigue.context 안의 같은 칸은 무시됨).
+    val fatigue: FatigueConfig = FatigueConfig(),
+    val baseline: BaselineConfig = BaselineConfig(),
+    val pattern: PatternConfig = PatternConfig(),
+    val assist: AssistConfig = AssistConfig(),
+
     // ── 3번 음성 확인·실내 (CheckManager·VoiceAgent·SpeechAgent·CabinMonitor) ──
     // 단계 전환 문턱값(단계 점수·30초 승급·10분 재알림·10분 유지)은 위의 1번 값을 쓴다.
     val voiceSlowRatio: Double = 1.5,
@@ -133,6 +135,61 @@ data class EngineConfig(
     val rearPassengerMaximumWaitMs: Long = 180_000L,
     val conversationSilenceForDriverCheckMs: Long = 30_000L,
     val passengerTrendRecheckMs: Long = 600_000L,
+
+    // ── 4번 앞쪽 쉼터 고르기 (RestAreaSelector, 기획서 10장) ──
+    // REQ_RST_002: 현재 위치에서 이 거리 안의 쉼터만 후보 (39.9 km → 후보, 40.1 km → 제외). 단위 m (REQ_SIG_010)
+    val restAreaSearchRadiusM: Float = 40_000f,
+    // REQ_RST_002: 최근 1분 이동 방향과 쉼터 방위각의 차 허용치 (44.9° → 후보, 45.1° → 제외)
+    val restAreaHeadingToleranceDeg: Float = 45f,
+    // REQ_RST_003: 쉼터 차로 방위각과 차 진행 방향의 차가 이 값 안이면 같은 방향 차로
+    // [가설] 근거: 전처리본에서 2 km 안 반대편 쌍 163개의 차로 방위각 차가 최소 149°·중앙 180° (2026-11-04)
+    val restAreaCarriagewayToleranceDeg: Float = 90f,
+    // REQ_RST_003: 차로 방향을 모르는 쉼터(순환선 등 전처리본 10곳)를 후보에 넣을지
+    val restAreaIncludeUnknownDirection: Boolean = false, // [가설] 반대편 쉼터 안내를 막는 쪽
+
+    // ── 4번 경유지 추가 (NaviBridge, REQ_RST_004·006) ──
+    // addWaypoint는 결과를 돌려주지 않으므로 onWayPointInfo에 쉼터가 보일 때까지 기다리는 한도.
+    // RST_006(실패 시 2 s 안 거리 안내)보다 짧아야 한다.
+    val waypointConfirmTimeoutMs: Long = 1_500L, // [가설] 에뮬레이터 TC_RST_004에서 실측 후 조정
+    // 내비가 돌려준 경유지 좌표가 쉼터에서 이 거리 안이면 같은 곳으로 본다 (poiId가 안 맞을 때 대비)
+    val waypointMatchRadiusM: Float = 200f, // [가설]
+    // 경유지 확인 중 getWaypointInfo를 다시 묻는 간격
+    val waypointPollIntervalMs: Long = 250L, // [가설]
+
+    // ── 4번 운전석 통풍 (ClimateController, 기획서 6장 통풍 규칙) ──
+    // 켤 때 목표 단계. 차가 알려 준 최대 단계보다 크면 최대 단계로 줄인다
+    val ventilationTargetLevel: Int = 3, // [가설] 에뮬레이터 범위 확인 후 조정
+    // setHvacSeatVentilation 뒤 다시 읽어 반영을 기다리는 한도
+    val ventilationVerifyTimeoutMs: Long = 2_000L, // [가설]
+    // "통풍을 켜 보세요" 안내 뒤 운전자가 켰는지 기다리는 한도
+    val ventilationManualWaitMs: Long = 30_000L, // [가설]
+    // 반영 확인 중 상태를 다시 읽는 간격
+    val ventilationPollIntervalMs: Long = 250L, // [가설]
+
+    // ── 4번 휴식 인증 (RestCertifier, 기획서 7-1·7-3) ──
+    // 쉼터·휴게소 반경. 이 안에서 P단(또는 시동 꺼짐)이어야 휴식으로 센다
+    val restCertifyRadiusM: Float = 150f,
+    // 휴식 인증에 필요한 연속 시간 (15분)
+    val restCertifyMinMs: Long = 900_000L,
+
+    // ── 4번 파워냅 (NapSession, 기획서 7-1) ──
+    val napDurationMs: Long = 900_000L,
+    // 알람 소리가 가장 작은 단계에서 최대까지 커지는 데 걸리는 시간
+    val napAlarmRampMs: Long = 30_000L, // [가설]
+    // 아무도 끄지 않을 때 알람을 멈추는 한도
+    val napAlarmMaxMs: Long = 120_000L, // [가설]
+
+    // ── 4번 보상 (RewardRules, 기획서 7-3) ──
+    // 보상 대상 ①: 직전 휴식(또는 출발) 뒤 이만큼 운전한 뒤의 휴식
+    val rewardMinDriveSec: Long = 7_200L,
+    // 보상 대상 ②: 이 단계 이상 알림을 받은 뒤의 휴식 (2 = 확인 단계)
+    val rewardMinStageLevel: Int = 2,
+    // 악용 방지: 하루 최대 횟수
+    val rewardDailyMax: Int = 4,
+    // 악용 방지: 같은 쉼터 재인정 금지 시간 (2시간)
+    val rewardSameAreaCooldownMs: Long = 7_200_000L,
+    // 악용 방지: 직전 인정 쉼터에서 이만큼 떨어져야 함. [가정] 주행 거리 대신 쉼터 사이 직선 거리로 잰다(더 엄격한 쪽)
+    val rewardMinMoveM: Float = 30_000f,
 ) {
     init {
         require(signalFrameIntervalMs > 0) { "신호 발행 간격은 양수여야 합니다." }
@@ -159,5 +216,26 @@ data class EngineConfig(
             assistedOperationGapSec).all { it > 0 }) { "개입의 시간 경계는 양수여야 합니다." }
         require(slowCheckCountForRest > 0) { "느림 확인 횟수는 양수여야 합니다." }
         require(restDistanceReminderM.isFinite() && restDistanceReminderM > 0) { "쉼터 재안내 거리는 양수여야 합니다." }
+        require(restAreaSearchRadiusM.isFinite() && restAreaSearchRadiusM > 0) { "쉼터 검색 반경은 양수여야 합니다." }
+        require(restAreaHeadingToleranceDeg.isFinite() && restAreaHeadingToleranceDeg in 0f..180f) {
+            "쉼터 방위각 허용치는 0~180도여야 합니다."
+        }
+        require(restAreaCarriagewayToleranceDeg.isFinite() && restAreaCarriagewayToleranceDeg in 0f..180f) {
+            "차로 방향 허용치는 0~180도여야 합니다."
+        }
+        require(waypointConfirmTimeoutMs > 0) { "경유지 확인 대기 시간은 양수여야 합니다." }
+        require(waypointMatchRadiusM.isFinite() && waypointMatchRadiusM > 0) { "경유지 일치 반경은 양수여야 합니다." }
+        require(waypointPollIntervalMs in 1 until waypointConfirmTimeoutMs) { "경유지 재조회 간격은 확인 한도보다 짧아야 합니다." }
+        require(ventilationTargetLevel > 0) { "통풍 목표 단계는 양수여야 합니다." }
+        require(listOf(ventilationVerifyTimeoutMs, ventilationManualWaitMs, ventilationPollIntervalMs).all { it > 0 }) {
+            "통풍 확인 시간은 양수여야 합니다."
+        }
+        require(restCertifyRadiusM.isFinite() && restCertifyRadiusM > 0) { "휴식 인증 반경은 양수여야 합니다." }
+        require(restCertifyMinMs > 0) { "휴식 인증 시간은 양수여야 합니다." }
+        require(napDurationMs > 0 && napAlarmRampMs > 0 && napAlarmMaxMs >= napAlarmRampMs) {
+            "파워냅 시간은 양수이고 알람 한도는 커지는 시간 이상이어야 합니다."
+        }
+        require(rewardMinDriveSec > 0 && rewardMinStageLevel in 1..3 && rewardDailyMax > 0 &&
+            rewardSameAreaCooldownMs > 0 && rewardMinMoveM.isFinite() && rewardMinMoveM >= 0) { "보상 조건 값이 잘못됐습니다." }
     }
 }

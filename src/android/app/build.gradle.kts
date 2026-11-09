@@ -32,6 +32,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    sourceSets {
+        // 4번 쉼터 표(REQ_RST_001): 전처리본 폴더를 그대로 assets로 묶는다. 복사본을 두지 않기 위해서다.
+        getByName("main").assets.srcDir(rootProject.file("../../data/rest_areas/processed"))
+    }
 }
 
 ksp {
