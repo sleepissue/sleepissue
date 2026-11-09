@@ -27,3 +27,14 @@ python3 src/tools-py/analyze_demo_timeaxis.py \
 ```
 
 독립 실제 시작→처리완료 경과, Clock 목표, Flow 인계완료 시각, Hub 발행시각을 구분한다. 고정된짧은6run·장기4run만 감사하고 별도스모크는 합산하지 않는다. 원본3채널 순서/누락/중복/hash와 발행누락·최종tail을 따로 확인한다. `DemoClock.realElapsedMs`는 종료 목표에서고정될수있어달성배속의분모로쓰지않는다. [시간축검토](../../docs/devlog/2026-11-06-demo-timeaxis.md)를 따른다.
+## 쉼터 전처리 (4번, REQ_RST_001)
+
+```bash
+python3 src/tools-py/preprocess_rest_areas.py          # 저장소 루트에서. 검사 통과 시 저장
+python3 src/tools-py/preprocess_rest_areas.py --check  # 검사만
+```
+
+- 입력: `data/rest_areas/전국졸음쉼터표준데이터.csv`, `전국휴게소정보표준데이터.csv` (공공데이터포털, CP949)
+- 출력: `data/rest_areas/processed/rest_areas.csv` (UTF-8) — 앱 assets로 그대로 들어간다
+- 원본을 새로 받으면 다시 돌리고, `./gradlew :app:testDebugUnitTest`(RestAreaRepositoryTest)로 확인한다
+- 열 설명·방향 계산 방법은 스크립트 맨 위 주석 참고

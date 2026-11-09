@@ -120,6 +120,7 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         }
         listOf("ROW_1_LEFT", "ROW_1_RIGHT", "ROW_2_LEFT", "ROW_2_CENTER", "ROW_2_RIGHT").forEach {
             permission("SEAT:$it", "pleos.car.permission.CAR_SEATS")
+            permission("BELT:$it", "pleos.car.permission.CAR_SEATS")
         }
         permission("SEAT_TEMPERATURE:ROW_1_LEFT", "pleos.car.permission.CAR_SEATS")
         NaviField.entries.forEach { permission(it.name, "pleos.car.permission.NAVI_ROUTE") }
@@ -232,6 +233,24 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                 }
             }
         }, { e -> seats.forEach { failure("SEAT:${it.name}", e) } }) }
+        attempt("BELT:ROW_1_LEFT") { seat.checkSeatBeltBuckledCapabilities({ c: CapabilityConfig, areas: List<SeatArea> ->
+            seats.forEach { position ->
+                val key = "BELT:${position.name}"; val area = SeatArea(position)
+                if (area !in areas) post { store.capability(key, false, "개별 영역 미지원"); emit(key) }
+                else checked(key, c, position.name) {
+                    val listener = object : SeatBeltBuckledStateListener {
+                        override fun onSeatBeltBuckledStateUpdated(state: Boolean?) =
+                            received(key, state, state, SdkDelivery.CALLBACK, note = "true=체결, false=미체결, null=모름")
+                        override fun onFailed(e: Exception) = failure(key, e)
+                    }
+                    seat.getCurrentSeatBeltBuckledState(area, {
+                        received(key, it, it, SdkDelivery.QUERY, note = "true=체결, false=미체결, null=모름")
+                    }, { failure(key, it) })
+                    cleanup += { seat.unregisterSeatBeltBuckledState(area, listener) }
+                    seat.registerSeatBeltBuckledState(area, listener)
+                }
+            }
+        }, { e -> seats.forEach { failure("BELT:${it.name}", e) } }) }
         val driver = SeatArea(SeatValue.ROW_1_LEFT)
         attempt("VENTILATION_LEVEL") { seat.checkSeatVentilationCapabilities({ c, areas ->
             if (driver !in areas) post { store.capability("VENTILATION_LEVEL", false, "운전석 개별 영역 미지원"); emit("VENTILATION_LEVEL") }

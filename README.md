@@ -7,6 +7,8 @@
 - **프로젝트 전체 맥락(기획·일정·아키텍처·규칙)**: [`CLAUDE.md`](CLAUDE.md) (Codex 등 다른 코딩 에이전트는 같은 내용의 [`AGENTS.md`](AGENTS.md) 참고)
 - **파일트리·Git플로우 매뉴얼(처음 합류하는 사람용, PDF 포함)**: [`docs/setup/파일트리_Git플로우_매뉴얼.md`](docs/setup/파일트리_Git플로우_매뉴얼.md)
 - **지금 누가 뭘 하는지**: [`PROGRESS.md`](PROGRESS.md)
+- **2번 졸음 판단 엔진 설명·팀원별 할 일**: [`docs/fatigue-engine/README.md`](docs/fatigue-engine/README.md)
+- **Pleos 메일 답변 (11/5, ADAS SDK 불가·조향 1 Hz)**: [`docs/meetings/2026-11-05_Pleos_메일답변.md`](docs/meetings/2026-11-05_Pleos_메일답변.md)
 - **문서 폴더 구조**: [`docs/README.md`](docs/README.md)
 - **Android 프로젝트 구조**: [`src/android/README.md`](src/android/README.md)
 - **Playground SDK 실시간 검증·Virtual Console 조작**: [`docs/setup/ROLE1_PLAYGROUND_SDK.md`](docs/setup/ROLE1_PLAYGROUND_SDK.md)

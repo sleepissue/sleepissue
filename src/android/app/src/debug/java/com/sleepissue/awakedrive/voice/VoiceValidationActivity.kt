@@ -10,12 +10,21 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.sleepissue.awakedrive.cabin.CabinMonitor
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
+import com.sleepissue.awakedrive.engine.check.CheckVerdict
 import com.sleepissue.awakedrive.engine.check.QuestionType
 import com.sleepissue.awakedrive.engine.voice.SpeechIntentParser
+import com.sleepissue.awakedrive.engine.model.ExecutionStatus
+import com.sleepissue.awakedrive.engine.model.GeoPoint
+import com.sleepissue.awakedrive.engine.model.RequestId
+import com.sleepissue.awakedrive.signal.RestAreaCandidate
+import com.sleepissue.awakedrive.signal.SpeechCue
+import com.sleepissue.awakedrive.signal.SpeechRequest
+import kotlinx.coroutines.launch
 
-/** debug APK에서만 포함되는 Pleos TTS·STT·AudioRecord 수동 검증 화면. */
+/** debug APK에서만 포함되는 Pleos TTS·STT·AudioRecord 자동 검증 화면. */
 class VoiceValidationActivity : AppCompatActivity() {
     private lateinit var status: TextView
     private lateinit var ttsOutput: PleosTtsOutput
@@ -23,7 +32,10 @@ class VoiceValidationActivity : AppCompatActivity() {
     private lateinit var tonePlayer: SignalTonePlayer
     private lateinit var coordinator: VoiceCheckCoordinator
     private lateinit var cabinMonitor: CabinMonitor
+    private lateinit var speechPort: VoiceSpeechPort
     private var pendingPermissionAction: (() -> Unit)? = null
+    private var validationRunning = false
+    private var cabinTestStarted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,15 +57,37 @@ class VoiceValidationActivity : AppCompatActivity() {
             recognizer = recognizer,
             tonePlayer = tonePlayer,
         )
+        speechPort = VoiceSpeechPort(VoiceAgent(
+            output = ttsOutput,
+            audioFocus = AndroidDuckingAudioFocus(this),
+            delay = AndroidDelay(),
+        ))
+        lifecycleScope.launch {
+            speechPort.results.collect { result ->
+                append("단계 안내 실행: ${result.status}")
+                if (validationRunning && result.status == ExecutionStatus.SUCCEEDED) {
+                    append("1단계 자동 TTS 완료")
+                    withMicrophonePermission(::testStt)
+                }
+            }
+        }
+        status.post {
+            if (intent.getBooleanExtra(EXTRA_SKIP_TTS, false)) {
+                validationRunning = true
+                cabinTestStarted = false
+                status.text = "TTS 없이 음성 입력 검증을 시작합니다.\n"
+                withMicrophonePermission(::testStt)
+            } else {
+                startAutomaticValidation()
+            }
+        }
     }
 
     private fun buildContent(): ScrollView = ScrollView(this).apply {
         addView(LinearLayout(context).apply {
             orientation = LinearLayout.VERTICAL
             setPadding(32, 32, 32, 32)
-            addView(button("1. TTS ON_DEVICE 확인") { testTts() })
-            addView(button("2. STT 응답 시간 확인") { withMicrophonePermission(::testStt) })
-            addView(button("3. 10초 말소리 감지") { withMicrophonePermission(::testCabinSpeech) })
+            addView(button("전체 검증 다시 실행") { startAutomaticValidation() })
             addView(button("진행 중 검증 취소") { cancelTests() })
             addView(status)
         })
@@ -64,17 +98,32 @@ class VoiceValidationActivity : AppCompatActivity() {
         setOnClickListener { action() }
     }
 
+    private fun startAutomaticValidation() {
+        if (validationRunning) {
+            append("이미 자동 검증이 진행 중입니다.")
+            return
+        }
+        validationRunning = true
+        cabinTestStarted = false
+        status.text = "자동 검증을 시작합니다.\n"
+        testTts()
+    }
+
     private fun testTts() {
-        append("TTS 요청: 잠깐 확인할게요")
-        VoiceAgent(
-            output = ttsOutput,
-            audioFocus = AndroidDuckingAudioFocus(this),
-            delay = AndroidDelay(),
-        ).speak(
-            text = VoiceScripts.DRIVER_CHECK,
-            fallback = FallbackCue.CHECK_PROMPT,
-            onComplete = { append("TTS 완료 또는 대체 음원 종료") },
-        )
+        append("1단계 개입 요청 → 음성 포트 자동 실행")
+        lifecycleScope.launch {
+            val result = speechPort.start(SpeechRequest(
+                requestId = RequestId("voice-validation-${android.os.SystemClock.elapsedRealtime()}"),
+                cue = SpeechCue.REST_AREA_AHEAD,
+                restArea = RestAreaCandidate(
+                    id = "debug-rest-area",
+                    name = "앞쪽 졸음쉼터",
+                    location = GeoPoint(37.0, 127.0),
+                    distanceM = 2_000f,
+                ),
+            ))
+            append("단계 안내 접수: ${result.status}")
+        }
     }
 
     private fun testStt() {
@@ -88,17 +137,36 @@ class VoiceValidationActivity : AppCompatActivity() {
                         "verdict=${result.verdict}, intent=${result.intent}, " +
                         "twoSlow=$consecutiveSlow",
                 )
+                if (!validationRunning) return@start
+                if (result.verdict == CheckVerdict.SLOW && !consecutiveSlow) {
+                    append("응답이 느려 30초 뒤 자동으로 한 번 더 확인합니다.")
+                } else {
+                    testCabinSpeech()
+                }
             },
             onSttFallbackRequired = { append("STT 사용 불가: 버튼 대체가 필요합니다.") },
         )
     }
 
     private fun testCabinSpeech() {
+        if (cabinTestStarted) return
+        cabinTestStarted = true
         append("10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.")
         cabinMonitor.sample(
-            onResult = { append("말소리 감지 결과: $it") },
-            onError = { append("말소리 감지 실패: ${it.message}") },
+            onResult = {
+                append("말소리 감지 결과: $it")
+                finishValidation()
+            },
+            onError = {
+                append("말소리 감지 실패: ${it.message}")
+                finishValidation()
+            },
         )
+    }
+
+    private fun finishValidation() {
+        validationRunning = false
+        append("전체 음성 검증이 끝났습니다.")
     }
 
     private fun withMicrophonePermission(action: () -> Unit) {
@@ -128,11 +196,13 @@ class VoiceValidationActivity : AppCompatActivity() {
             pendingPermissionAction?.invoke()
         } else {
             append("마이크 권한 거절됨: 음성 대신 버튼 확인을 사용해야 합니다.")
+            validationRunning = false
         }
         pendingPermissionAction = null
     }
 
     private fun cancelTests() {
+        validationRunning = false
         coordinator.cancel()
         cabinMonitor.stop()
         append("진행 중 검증 취소됨")
@@ -153,5 +223,6 @@ class VoiceValidationActivity : AppCompatActivity() {
 
     private companion object {
         const val REQUEST_RECORD_AUDIO = 1001
+        const val EXTRA_SKIP_TTS = "skip_tts"
     }
 }

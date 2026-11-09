@@ -61,7 +61,7 @@ class CheckPolicyTest {
     }
 
     @Test
-    fun `좌석과 대화 여부에 따라 확인 대상을 고른다`() {
+    fun `동승자와 대화가 있어도 확인 대상은 항상 운전자다`() {
         assertEquals(
             CheckPlan(CheckTarget.DRIVER_VOICE, useLowerVolume = false),
             policy.selectPlan(OccupancyContext(false, false, false)),
@@ -70,24 +70,18 @@ class CheckPolicyTest {
             CheckPlan(CheckTarget.DRIVER_VOICE, useLowerVolume = true),
             policy.selectPlan(OccupancyContext(true, false, false)),
         )
-        assertEquals(
-            CheckTarget.PASSENGER,
-            policy.selectPlan(OccupancyContext(true, false, true)).target,
-        )
-        assertEquals(
-            CheckTarget.REAR_PASSENGER,
-            policy.selectPlan(OccupancyContext(false, true, true)).target,
-        )
+        assertEquals(CheckTarget.DRIVER_VOICE, policy.selectPlan(OccupancyContext(true, false, true)).target)
+        assertEquals(CheckTarget.DRIVER_VOICE, policy.selectPlan(OccupancyContext(false, true, true)).target)
     }
 
     @Test
-    fun `마이크를 쓸 수 없으면 좌석 여부에 맞는 버튼을 쓴다`() {
+    fun `마이크를 쓸 수 없을 때도 운전자 대체 입력만 쓴다`() {
         assertEquals(
             CheckTarget.DRIVER_BUTTON,
             policy.selectPlan(OccupancyContext(false, false, false, microphoneAvailable = false)).target,
         )
         assertEquals(
-            CheckTarget.PASSENGER_BUTTON,
+            CheckTarget.DRIVER_BUTTON,
             policy.selectPlan(OccupancyContext(true, false, false, microphoneAvailable = false)).target,
         )
     }

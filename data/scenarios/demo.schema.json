@@ -62,7 +62,9 @@
           },
           "lat": {"type": ["number", "null"], "minimum": -90, "maximum": 90},
           "lon": {"type": ["number", "null"], "minimum": -180, "maximum": 180},
-          "power": {"enum": ["ON", "OFF", "RESUME", "UNKNOWN", null]}
+          "power": {"enum": ["ON", "OFF", "RESUME", "UNKNOWN", null]},
+          "distToNextTurnM": {"type": ["number", "null"], "minimum": 0},
+          "cabinTempC": {"type": ["number", "null"]}
         }
       }
     }

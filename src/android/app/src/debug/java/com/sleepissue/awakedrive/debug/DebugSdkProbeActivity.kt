@@ -84,7 +84,7 @@ class DebugSdkProbeActivity : AppCompatActivity() {
                 "SEAT_TEMPERATURE:ROW_1_LEFT") + NaviField.entries.map { it.name }
         keys.forEachIndexed { i, key ->
             val text = label("$key · 미연결", 14f).apply { setPadding(dp(6), dp(8), dp(6), dp(8)); setTextIsSelectable(true) }
-            rows[key] = text; (if (i < 10) vehicle else navi).addView(text)
+            rows[key] = text; (if (key in vehicleKeys) vehicle else navi).addView(text)
         }
         history = label("SDK 변경 기록 없음 · 수동/가짜 입력 기록이 아닙니다.", 13f)
         navi.addView(history)
