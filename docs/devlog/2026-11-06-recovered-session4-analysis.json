@@ -1,0 +1,387 @@
+{
+  "sessionId": 4,
+  "sessionSummary": {
+    "sessionId": 4,
+    "scenarioId": "demo_perf_validation",
+    "firstCapturedElapsedMs": 912298,
+    "lastCapturedElapsedMs": 976879,
+    "finalPhase": "COMPLETED",
+    "finalScenarioMs": 1800000,
+    "totalTicks": 14457,
+    "playingTicks": 2913,
+    "unexpectedNullTicks": 573,
+    "allSignalNullTicks": 568
+  },
+  "detailRows": 689,
+  "detailPlayingRows": 391,
+  "firstDetailCapturedElapsedMs": 912298,
+  "lastDetailCapturedElapsedMs": 976851,
+  "detailClassifications": {
+    "READY": 271,
+    "STARTUP": 1,
+    "PLAYING_ALL_EXPECTED_SIGNALS_NULL": 209,
+    "PLAYING_VALUES_AVAILABLE": 176,
+    "PLAYING_UNEXPECTED_NULL": 5,
+    "COMPLETED": 27
+  },
+  "originalDelivery": {
+    "deliveredSamplesMax": 18000,
+    "lastOriginalSampleMsMax": 1799900,
+    "deliveredCheckpointDecreases": 0,
+    "originalTimeCheckpointDecreases": 0,
+    "originalLagScenarioMs": {
+      "count": 391,
+      "min": 3,
+      "p50": 1239,
+      "p95": 6279,
+      "p99": 8500,
+      "max": 10920
+    },
+    "sampleIntegrityEvidence": "상세는 주기적으로만 보관된다. 체크포인트 단조성으로 원본별 순서·누락·중복을 입증할 수 없다."
+  },
+  "hubPublication": {
+    "emittedFramesMax": 1602,
+    "skippedDeadlinesMax": 16396,
+    "observedUniquePublicationSequences": 390,
+    "adjacentPublicationRealGapMs": {
+      "count": 100,
+      "min": 13,
+      "p50": 33,
+      "p95": 104,
+      "p99": 111,
+      "max": 112
+    },
+    "note": "skippedDeadlines는 Hub 100ms 발행 시한 누락이며 원본 샘플 삭제 수가 아니다. 미보관 상세 행도 원본 누락으로 계산하지 않는다."
+  },
+  "nullDetails": {
+    "unexpectedNullFields": {
+      "SPEED_KPH": 210,
+      "STEERING_DEG": 209,
+      "GEAR": 210,
+      "LAT": 214,
+      "LON": 214
+    },
+    "finalQualityAvailability": {
+      "SPEED_KPH": {
+        "null": 1,
+        "UNAVAILABLE": 210,
+        "AVAILABLE": 180
+      },
+      "STEERING_DEG": {
+        "null": 1,
+        "UNAVAILABLE": 209,
+        "AVAILABLE": 181
+      },
+      "GEAR": {
+        "null": 1,
+        "UNAVAILABLE": 210,
+        "AVAILABLE": 180
+      },
+      "LAT": {
+        "null": 1,
+        "UNAVAILABLE": 214,
+        "AVAILABLE": 176
+      },
+      "LON": {
+        "null": 1,
+        "UNAVAILABLE": 214,
+        "AVAILABLE": 176
+      },
+      "POWER": {
+        "null": 1,
+        "UNAVAILABLE": 214,
+        "AVAILABLE": 176
+      }
+    },
+    "staleDemoUnexpectedFieldRows": 1057,
+    "staleDemoUnexpectedFieldRowsWithReceiptAgeAtMost5Ms": 659,
+    "representativeStaleEvidence": [
+      {
+        "capturedElapsedMs": 941071,
+        "scenarioNowMs": 43320,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 32400,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 10920,
+          "receivedAtElapsedMs": 941071,
+          "receiptAgeRealMs": 0,
+          "selectionReason": null,
+          "observationSequence": 5519
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 32400,
+        "deliveredSamples": 325,
+        "hubEmittedFrames": 21,
+        "hubSkippedDeadlines": 412
+      },
+      {
+        "capturedElapsedMs": 941187,
+        "scenarioNowMs": 50280,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 41200,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 9080,
+          "receivedAtElapsedMs": 941186,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 7015
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 41200,
+        "deliveredSamples": 413,
+        "hubEmittedFrames": 25,
+        "hubSkippedDeadlines": 477
+      },
+      {
+        "capturedElapsedMs": 970270,
+        "scenarioNowMs": 1574659,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 1566000,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8659,
+          "receivedAtElapsedMs": 970269,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 266231
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 1566000,
+        "deliveredSamples": 15661,
+        "hubEmittedFrames": 1361,
+        "hubSkippedDeadlines": 14384
+      },
+      {
+        "capturedElapsedMs": 940734,
+        "scenarioNowMs": 23100,
+        "field": "SPEED_KPH",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 14600,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8500,
+          "receivedAtElapsedMs": 940699,
+          "receiptAgeRealMs": 35,
+          "selectionReason": null,
+          "observationSequence": 2484
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 14600,
+        "deliveredSamples": 147,
+        "hubEmittedFrames": 11,
+        "hubSkippedDeadlines": 200
+      },
+      {
+        "capturedElapsedMs": 941427,
+        "scenarioNowMs": 64680,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 56500,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8180,
+          "receivedAtElapsedMs": 941426,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 9616
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 56500,
+        "deliveredSamples": 566,
+        "hubEmittedFrames": 33,
+        "hubSkippedDeadlines": 613
+      },
+      {
+        "capturedElapsedMs": 941310,
+        "scenarioNowMs": 57660,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 49500,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8160,
+          "receivedAtElapsedMs": 941309,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 8426
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 49500,
+        "deliveredSamples": 496,
+        "hubEmittedFrames": 29,
+        "hubSkippedDeadlines": 547
+      },
+      {
+        "capturedElapsedMs": 940947,
+        "scenarioNowMs": 35880,
+        "field": "SPEED_KPH",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 27800,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8080,
+          "receivedAtElapsedMs": 940946,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 4728
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 27800,
+        "deliveredSamples": 279,
+        "hubEmittedFrames": 18,
+        "hubSkippedDeadlines": 340
+      },
+      {
+        "capturedElapsedMs": 973477,
+        "scenarioNowMs": 1767079,
+        "field": "LAT",
+        "inputDemoQuality": {
+          "availability": "STALE",
+          "source": "DEMO",
+          "observedAtMs": 1759000,
+          "observedTimeBasis": "SCENARIO",
+          "observedAgeMs": 8079,
+          "receivedAtElapsedMs": 973476,
+          "receiptAgeRealMs": 1,
+          "selectionReason": null,
+          "observationSequence": 299041
+        },
+        "finalQuality": {
+          "availability": "UNAVAILABLE",
+          "source": "REAL",
+          "observedAtMs": null,
+          "observedTimeBasis": "UNKNOWN",
+          "observedAgeMs": null,
+          "receivedAtElapsedMs": null,
+          "receiptAgeRealMs": null,
+          "selectionReason": "NO_VALID_INPUT",
+          "observationSequence": null
+        },
+        "lastOriginalSampleMs": 1759000,
+        "deliveredSamples": 17591,
+        "hubEmittedFrames": 1568,
+        "hubSkippedDeadlines": 16102
+      }
+    ],
+    "note": "세션 summary의 null tick은 모든 record 호출 집계다. 이 항목은 보관된 상세 행만 센다."
+  },
+  "sourcePath": "/tmp/awakedrive-preserve-20261106/existing-cache-trace.jsonl",
+  "sourceSha256": "826e11649e2b32d79212d837d8e3131e82966a5dca5fc5af75de0e17f2355882",
+  "provenance": {
+    "requestedTracePath": "/tmp/awakedrive-user-demo-trace-20261106-repeat.jsonl",
+    "requestedTraceAvailable": false,
+    "recoveredFrom": "같은 AVD 앱 cache의 기존 trace (부모 에이전트가 읽기 전용 확보)",
+    "byteIdentityWithRequestedTrace": "확인 불가. 세션4 요약 및 1119ms/2ms 상세 사건은 사용자 제공 수치와 일치."
+  },
+  "confirmedUserStaleEvidence": {
+    "capturedElapsedMs": 958736,
+    "scenarioNowMs": 882619,
+    "observedAtMs": 881500,
+    "observedAgeMs": 1119,
+    "receivedAtElapsedMs": 958734,
+    "receiptAgeRealMs": 2,
+    "fields": [
+      "SPEED_KPH",
+      "STEERING_DEG",
+      "GEAR",
+      "LAT",
+      "LON"
+    ],
+    "demoAvailability": "STALE",
+    "finalAvailability": "UNAVAILABLE",
+    "finalSelectionReason": "NO_VALID_INPUT"
+  },
+  "questionCancellationEvidence": {
+    "questionStartCapturedElapsedMs": 943799,
+    "questionStartScenarioMs": 207000,
+    "questionStartMultiplier": 1,
+    "cancelCapturedElapsedMs": 947538,
+    "cancelScenarioMs": 210739,
+    "cancelMultiplier": 60,
+    "realDeltaMs": 3739,
+    "scenarioDeltaMs": 3739,
+    "questionId": "demo-debug-question-14"
+  }
+}

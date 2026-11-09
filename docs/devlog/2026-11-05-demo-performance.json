@@ -1,0 +1,1184 @@
+{
+  "scope": "DEBUG_JSON_AND_FAKE_QUESTION_ONLY",
+  "finding": "종료 전 전달 지연에 따른 DEMO 관측 TTL 초과. 최소 수정 후에도 기기의 60배 전체 null·발행 deadline 누락은 남음.",
+  "runs": [
+    {
+      "label": "수정 전",
+      "trace": "src/android/app/build/reports/demo-performance/baseline2-trace.jsonl",
+      "sha256": "919b020b3294ce1df4b207ed684e74126dabc223efb6e1d49d42b36189e7762a",
+      "sessionId": 1,
+      "playingTicks": null,
+      "allSignalNullTicks": 54,
+      "allSignalNullDetailRows": 35,
+      "allSignalNullDetailsAfterCancellation": 22,
+      "deliveredSamples": 18000,
+      "vehicleCallbacks": 18001,
+      "hubEmittedFrames": 6241,
+      "hubSkippedDeadlines": 11758,
+      "finalPhase": "COMPLETED",
+      "scenarioTimeMs": 1800000,
+      "hubRunning": false,
+      "clockRatio60": 60.0,
+      "exampleUnexpectedNull": {
+        "type": "sample",
+        "classification": "PLAYING_ALL_EXPECTED_SIGNALS_NULL",
+        "capturedElapsedMs": 351548,
+        "scenarioNowMs": 5640,
+        "playbackScenarioMs": 5520,
+        "playbackRealElapsedMs": 92,
+        "scenarioId": "demo_perf_validation",
+        "scenarioDurationMs": 1800000,
+        "phase": "PLAYING",
+        "playing": true,
+        "sessionId": 1,
+        "segmentMultiplier": 60,
+        "speedMultiplier": 60,
+        "questionId": null,
+        "questionPhase": "IDLE",
+        "questionOutcome": null,
+        "deliveredSamples": 21,
+        "lastOriginalSampleMs": 2000,
+        "lastDeliveryElapsedMs": 351546,
+        "pumpTargetMs": 2040,
+        "pumpFinishedScenarioMs": 5520,
+        "originalLagScenarioMs": 3640,
+        "hubFrameTimeMs": 5520,
+        "hubPublishedAtElapsedMs": 351546,
+        "hubRunning": true,
+        "hubClockFailure": false,
+        "hubEmittedFrames": 2,
+        "hubSkippedDeadlines": 53,
+        "unexpectedNullFields": [
+          "SPEED_KPH",
+          "STEERING_DEG",
+          "GEAR",
+          "LAT",
+          "LON"
+        ],
+        "inputs": {
+          "REAL": {
+            "vehicleCallbacks": 0,
+            "collection": {
+              "vehicle": "STOPPED",
+              "navi": "STOPPED",
+              "power": "STOPPED"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "STEERING_DEG": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "GEAR": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LAT": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LON": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "POWER": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              }
+            }
+          },
+          "DEMO": {
+            "vehicleCallbacks": 21,
+            "collection": {
+              "vehicle": "COLLECTING",
+              "navi": "COLLECTING",
+              "power": "COLLECTING"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351544,
+                "receiptAgeRealMs": 4,
+                "selectionReason": null,
+                "observationSequence": 342
+              },
+              "STEERING_DEG": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351544,
+                "receiptAgeRealMs": 4,
+                "selectionReason": null,
+                "observationSequence": 341
+              },
+              "GEAR": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351544,
+                "receiptAgeRealMs": 4,
+                "selectionReason": null,
+                "observationSequence": 343
+              },
+              "LAT": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351545,
+                "receiptAgeRealMs": 3,
+                "selectionReason": null,
+                "observationSequence": 351
+              },
+              "LON": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351545,
+                "receiptAgeRealMs": 3,
+                "selectionReason": null,
+                "observationSequence": 352
+              },
+              "POWER": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 2000,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 3640,
+                "receivedAtElapsedMs": 351545,
+                "receiptAgeRealMs": 3,
+                "selectionReason": null,
+                "observationSequence": 357
+              }
+            }
+          }
+        },
+        "finalValues": {
+          "speedKph": null,
+          "steeringDeg": null,
+          "gear": null,
+          "lat": null,
+          "lon": null,
+          "power": "UNKNOWN"
+        },
+        "finalQuality": {
+          "SPEED_KPH": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "STEERING_DEG": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "GEAR": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LAT": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LON": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "POWER": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          }
+        }
+      }
+    },
+    {
+      "label": "Player만 수정",
+      "trace": "src/android/app/build/reports/demo-performance/fixed1-trace.jsonl",
+      "sha256": "81970a260d8449aad7596935eb8f56681f6863230385100eed6aee0adc401567",
+      "sessionId": 1,
+      "playingTicks": 5995,
+      "allSignalNullTicks": 205,
+      "allSignalNullDetailRows": 59,
+      "allSignalNullDetailsAfterCancellation": 28,
+      "deliveredSamples": 18000,
+      "vehicleCallbacks": 18001,
+      "hubEmittedFrames": 5546,
+      "hubSkippedDeadlines": 12453,
+      "finalPhase": "COMPLETED",
+      "scenarioTimeMs": 1800000,
+      "hubRunning": false,
+      "clockRatio60": 60.0,
+      "exampleUnexpectedNull": {
+        "type": "sample",
+        "classification": "PLAYING_ALL_EXPECTED_SIGNALS_NULL",
+        "capturedElapsedMs": 594402,
+        "scenarioNowMs": 3660,
+        "playbackScenarioMs": 3480,
+        "playbackRealElapsedMs": 58,
+        "scenarioId": "demo_perf_validation",
+        "scenarioDurationMs": 1800000,
+        "phase": "PLAYING",
+        "playing": true,
+        "sessionId": 1,
+        "segmentMultiplier": 60,
+        "speedMultiplier": 60,
+        "questionId": null,
+        "questionPhase": "IDLE",
+        "questionOutcome": null,
+        "deliveredSamples": 16,
+        "lastOriginalSampleMs": 1500,
+        "lastDeliveryElapsedMs": 594399,
+        "pumpTargetMs": 3480,
+        "pumpFinishedScenarioMs": 3480,
+        "originalLagScenarioMs": 2160,
+        "hubFrameTimeMs": 3540,
+        "hubPublishedAtElapsedMs": 594400,
+        "hubRunning": true,
+        "hubClockFailure": false,
+        "hubEmittedFrames": 1,
+        "hubSkippedDeadlines": 34,
+        "unexpectedNullFields": [
+          "SPEED_KPH",
+          "STEERING_DEG",
+          "GEAR",
+          "LAT",
+          "LON"
+        ],
+        "inputs": {
+          "REAL": {
+            "vehicleCallbacks": 0,
+            "collection": {
+              "vehicle": "STOPPED",
+              "navi": "STOPPED",
+              "power": "STOPPED"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "STEERING_DEG": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "GEAR": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LAT": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LON": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "POWER": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              }
+            }
+          },
+          "DEMO": {
+            "vehicleCallbacks": 16,
+            "collection": {
+              "vehicle": "COLLECTING",
+              "navi": "COLLECTING",
+              "power": "COLLECTING"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594396,
+                "receiptAgeRealMs": 6,
+                "selectionReason": null,
+                "observationSequence": 257
+              },
+              "STEERING_DEG": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594396,
+                "receiptAgeRealMs": 6,
+                "selectionReason": null,
+                "observationSequence": 256
+              },
+              "GEAR": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594396,
+                "receiptAgeRealMs": 6,
+                "selectionReason": null,
+                "observationSequence": 258
+              },
+              "LAT": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594397,
+                "receiptAgeRealMs": 5,
+                "selectionReason": null,
+                "observationSequence": 266
+              },
+              "LON": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594397,
+                "receiptAgeRealMs": 5,
+                "selectionReason": null,
+                "observationSequence": 267
+              },
+              "POWER": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 2160,
+                "receivedAtElapsedMs": 594398,
+                "receiptAgeRealMs": 4,
+                "selectionReason": null,
+                "observationSequence": 272
+              }
+            }
+          }
+        },
+        "finalValues": {
+          "speedKph": null,
+          "steeringDeg": null,
+          "gear": null,
+          "lat": null,
+          "lon": null,
+          "power": "UNKNOWN"
+        },
+        "finalQuality": {
+          "SPEED_KPH": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "STEERING_DEG": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "GEAR": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LAT": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LON": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "POWER": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          }
+        }
+      }
+    },
+    {
+      "label": "worker 분리 후 첫 재생",
+      "trace": "src/android/app/build/reports/demo-performance/final-trace.jsonl",
+      "sha256": "e803497d2780e2c8ca97fa00c94132a048201132d52b4fc60a1ed62967c570d5",
+      "sessionId": 2,
+      "playingTicks": 7801,
+      "allSignalNullTicks": 85,
+      "allSignalNullDetailRows": 27,
+      "allSignalNullDetailsAfterCancellation": 13,
+      "deliveredSamples": 18000,
+      "vehicleCallbacks": 18001,
+      "hubEmittedFrames": 7167,
+      "hubSkippedDeadlines": 10831,
+      "finalPhase": "COMPLETED",
+      "scenarioTimeMs": 1800000,
+      "hubRunning": false,
+      "clockRatio60": 60.0,
+      "exampleUnexpectedNull": {
+        "type": "sample",
+        "classification": "PLAYING_ALL_EXPECTED_SIGNALS_NULL",
+        "capturedElapsedMs": 192059,
+        "scenarioNowMs": 3120,
+        "playbackScenarioMs": 3000,
+        "playbackRealElapsedMs": 50,
+        "scenarioId": "demo_perf_validation",
+        "scenarioDurationMs": 1800000,
+        "phase": "PLAYING",
+        "playing": true,
+        "sessionId": 2,
+        "segmentMultiplier": 60,
+        "speedMultiplier": 60,
+        "questionId": null,
+        "questionPhase": "IDLE",
+        "questionOutcome": null,
+        "deliveredSamples": 16,
+        "lastOriginalSampleMs": 1500,
+        "lastDeliveryElapsedMs": 192057,
+        "pumpTargetMs": 3000,
+        "pumpFinishedScenarioMs": 3000,
+        "originalLagScenarioMs": 1620,
+        "hubFrameTimeMs": 3060,
+        "hubPublishedAtElapsedMs": 192058,
+        "hubRunning": true,
+        "hubClockFailure": false,
+        "hubEmittedFrames": 1,
+        "hubSkippedDeadlines": 29,
+        "unexpectedNullFields": [
+          "SPEED_KPH",
+          "STEERING_DEG",
+          "GEAR",
+          "LAT",
+          "LON"
+        ],
+        "inputs": {
+          "REAL": {
+            "vehicleCallbacks": 0,
+            "collection": {
+              "vehicle": "STOPPED",
+              "navi": "STOPPED",
+              "power": "STOPPED"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "STEERING_DEG": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "GEAR": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LAT": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LON": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "POWER": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              }
+            }
+          },
+          "DEMO": {
+            "vehicleCallbacks": 16,
+            "collection": {
+              "vehicle": "COLLECTING",
+              "navi": "COLLECTING",
+              "power": "COLLECTING"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192046,
+                "receiptAgeRealMs": 13,
+                "selectionReason": null,
+                "observationSequence": 257
+              },
+              "STEERING_DEG": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192046,
+                "receiptAgeRealMs": 13,
+                "selectionReason": null,
+                "observationSequence": 256
+              },
+              "GEAR": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192046,
+                "receiptAgeRealMs": 13,
+                "selectionReason": null,
+                "observationSequence": 258
+              },
+              "LAT": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192054,
+                "receiptAgeRealMs": 5,
+                "selectionReason": null,
+                "observationSequence": 266
+              },
+              "LON": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192054,
+                "receiptAgeRealMs": 5,
+                "selectionReason": null,
+                "observationSequence": 267
+              },
+              "POWER": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 1500,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1620,
+                "receivedAtElapsedMs": 192055,
+                "receiptAgeRealMs": 4,
+                "selectionReason": null,
+                "observationSequence": 272
+              }
+            }
+          }
+        },
+        "finalValues": {
+          "speedKph": null,
+          "steeringDeg": null,
+          "gear": null,
+          "lat": null,
+          "lon": null,
+          "power": "UNKNOWN"
+        },
+        "finalQuality": {
+          "SPEED_KPH": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "STEERING_DEG": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "GEAR": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LAT": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LON": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "POWER": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          }
+        }
+      }
+    },
+    {
+      "label": "worker 분리 후 같은 프로세스 반복",
+      "trace": "src/android/app/build/reports/demo-performance/warm-trace.jsonl",
+      "sha256": "44afe61e7f543b3225230d2dd48b700783c3adc5af067a3bed55f9862e546909",
+      "sessionId": 3,
+      "playingTicks": 9655,
+      "allSignalNullTicks": 66,
+      "allSignalNullDetailRows": 24,
+      "allSignalNullDetailsAfterCancellation": 22,
+      "deliveredSamples": 18000,
+      "vehicleCallbacks": 18001,
+      "hubEmittedFrames": 8772,
+      "hubSkippedDeadlines": 9227,
+      "finalPhase": "COMPLETED",
+      "scenarioTimeMs": 1800000,
+      "hubRunning": false,
+      "clockRatio60": 60.0,
+      "exampleUnexpectedNull": {
+        "type": "sample",
+        "classification": "PLAYING_ALL_EXPECTED_SIGNALS_NULL",
+        "capturedElapsedMs": 324871,
+        "scenarioNowMs": 30360,
+        "playbackScenarioMs": 30360,
+        "playbackRealElapsedMs": 506,
+        "scenarioId": "demo_perf_validation",
+        "scenarioDurationMs": 1800000,
+        "phase": "PLAYING",
+        "playing": true,
+        "sessionId": 3,
+        "segmentMultiplier": 60,
+        "speedMultiplier": 60,
+        "questionId": null,
+        "questionPhase": "IDLE",
+        "questionOutcome": null,
+        "deliveredSamples": 289,
+        "lastOriginalSampleMs": 28800,
+        "lastDeliveryElapsedMs": 324871,
+        "pumpTargetMs": 30360,
+        "pumpFinishedScenarioMs": 30360,
+        "originalLagScenarioMs": 1560,
+        "hubFrameTimeMs": 30360,
+        "hubPublishedAtElapsedMs": 324871,
+        "hubRunning": true,
+        "hubClockFailure": false,
+        "hubEmittedFrames": 108,
+        "hubSkippedDeadlines": 195,
+        "unexpectedNullFields": [
+          "SPEED_KPH",
+          "STEERING_DEG",
+          "GEAR",
+          "LAT",
+          "LON"
+        ],
+        "inputs": {
+          "REAL": {
+            "vehicleCallbacks": 0,
+            "collection": {
+              "vehicle": "STOPPED",
+              "navi": "STOPPED",
+              "power": "STOPPED"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "STEERING_DEG": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "GEAR": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LAT": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "LON": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              },
+              "POWER": {
+                "availability": "UNAVAILABLE",
+                "source": "REAL",
+                "observedAtMs": null,
+                "observedTimeBasis": "UNKNOWN",
+                "observedAgeMs": null,
+                "receivedAtElapsedMs": null,
+                "receiptAgeRealMs": null,
+                "selectionReason": null,
+                "observationSequence": null
+              }
+            }
+          },
+          "DEMO": {
+            "vehicleCallbacks": 289,
+            "collection": {
+              "vehicle": "COLLECTING",
+              "navi": "COLLECTING",
+              "power": "COLLECTING"
+            },
+            "quality": {
+              "SPEED_KPH": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324870,
+                "receiptAgeRealMs": 1,
+                "selectionReason": null,
+                "observationSequence": 4898
+              },
+              "STEERING_DEG": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324870,
+                "receiptAgeRealMs": 1,
+                "selectionReason": null,
+                "observationSequence": 4897
+              },
+              "GEAR": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324870,
+                "receiptAgeRealMs": 1,
+                "selectionReason": null,
+                "observationSequence": 4899
+              },
+              "LAT": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324870,
+                "receiptAgeRealMs": 1,
+                "selectionReason": null,
+                "observationSequence": 4907
+              },
+              "LON": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324870,
+                "receiptAgeRealMs": 1,
+                "selectionReason": null,
+                "observationSequence": 4908
+              },
+              "POWER": {
+                "availability": "STALE",
+                "source": "DEMO",
+                "observedAtMs": 28800,
+                "observedTimeBasis": "SCENARIO",
+                "observedAgeMs": 1560,
+                "receivedAtElapsedMs": 324871,
+                "receiptAgeRealMs": 0,
+                "selectionReason": null,
+                "observationSequence": 4913
+              }
+            }
+          }
+        },
+        "finalValues": {
+          "speedKph": null,
+          "steeringDeg": null,
+          "gear": null,
+          "lat": null,
+          "lon": null,
+          "power": "UNKNOWN"
+        },
+        "finalQuality": {
+          "SPEED_KPH": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "STEERING_DEG": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "GEAR": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LAT": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "LON": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          },
+          "POWER": {
+            "availability": "UNAVAILABLE",
+            "source": "REAL",
+            "observedAtMs": null,
+            "observedTimeBasis": "UNKNOWN",
+            "observedAgeMs": null,
+            "receivedAtElapsedMs": null,
+            "receiptAgeRealMs": null,
+            "selectionReason": "NO_VALID_INPUT",
+            "observationSequence": null
+          }
+        }
+      }
+    }
+  ],
+  "tests": {
+    "priorFull": 324,
+    "preFixLagOnly": 2,
+    "finalLagFile": 5,
+    "finalEngine": 146,
+    "finalApp": 183,
+    "finalTotal": 329,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "assembleDebug": "성공",
+    "rerunTasks": 48
+  },
+  "roomBefore": {
+    "sha256": "2409c465672c18a52d03a02048a4d2fc1f7359f33ae4be45a04fa36d3f1ad2fe",
+    "tableCounts": {
+      "android_metadata": 1,
+      "drive_segment": 1,
+      "room_master_table": 1,
+      "trip_checkpoint": 1
+    }
+  },
+  "roomAfter": {
+    "sha256": "2409c465672c18a52d03a02048a4d2fc1f7359f33ae4be45a04fa36d3f1ad2fe",
+    "tableCounts": {
+      "android_metadata": 1,
+      "drive_segment": 1,
+      "room_master_table": 1,
+      "trip_checkpoint": 1
+    }
+  },
+  "limits": [
+    "tick 수는 시간 비율이 아님. 상세행은 실제100ms 또는 상태 변화마다 기록.",
+    "수정 전 설치본에는 playingTicks가 없어 전체 null 비율을 직접 비교할 수 없음.",
+    "최종 두 실행은 같은 AVD의 창 없는 Cold boot에서 측정. GPU/호스트 부하까지 통제한 성능 비교가 아님.",
+    "clockRatio60은 앱의 시나리오/단조시계 내부 비교이며 독립 시계 교정이나 Hub 600프레임/실제초 보장이 아님.",
+    "실제 SDK+JSON 동시수신·실제 TTS/STT·REAL 전환110ms 검증은 미수행."
+  ]
+}

@@ -65,8 +65,8 @@ dependencies {
     // 기존 엔진 및 코루틴
     implementation(project(":engine"))
     implementation(libs.kotlinx.coroutines.core)
-
-    // Room 데이터베이스
+    // JSON 로더는 Android 밖의 JVM 단위 시험에서도 같은 엄격 파서를 사용한다.
+    implementation("com.google.code.gson:gson:2.11.0")
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
 

@@ -1,0 +1,15 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 297,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "apkSha256": "1b303da6308061d3b726e85b9010a071a5473d4c26a34543f495741ad1ece722"
+}

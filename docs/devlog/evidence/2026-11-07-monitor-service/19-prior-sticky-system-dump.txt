@@ -1,0 +1,30 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 10 active services:
+  * ServiceRecord{8ec8844 u10 com.sleepissue.awakedrive/.service.RealTripMonitorService}
+    intent={cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService}
+    packageName=com.sleepissue.awakedrive
+    processName=com.sleepissue.awakedrive
+    baseDir=/data/app/~~dTPmqJMjrbHmRFvZET6hIg==/com.sleepissue.awakedrive-87JBWSNFX6J0Vu7fVDaYMA==/base.apk
+    dataDir=/data/user/10/com.sleepissue.awakedrive
+    app=ProcessRecord{ae0aeb9 16917:com.sleepissue.awakedrive/u10a182}
+    mAllowWhileInUsePermissionInFgsReason=PROC_STATE_TOP
+    mAllowWIUInBindService=PROC_STATE_TOP
+    mAllowWIUByBindings=DENIED
+    allowUiJobScheduling=true
+    recentCallingPackage=com.sleepissue.awakedrive
+    recentCallingUid=1010182
+    allowStartForeground=PROC_STATE_TOP
+    mAllowStartInBindService=PROC_STATE_TOP
+    mAllowStartByBindings=DENIED
+    startForegroundCount=1
+    infoAllowStartForeground=[callingPackage: com.sleepissue.awakedrive; callingUid: 1010182; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.sleepissue.awakedrive.monitor.START cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:34; callerTargetSdkVersion:34; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+    isForeground=true foregroundId=4101 types=40000000 foregroundNoti=Notification(channel=real_trip_monitor shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x62 color=0x00000000 category=service actions=1 vis=PRIVATE)
+    createTime=-39s620ms startingBgTimeout=--
+    lastActivity=-39s257ms restartTime=-39s620ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=false callStart=true lastStartId=1
+ startCommandResult=1
+    Bindings:
+    * IntentBindRecord{4c3aa79}:
+      intent={cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService}
+      binder=android.os.BinderProxy@7d6a3be
+      requested=true received=true hasBound=false doRebind=false

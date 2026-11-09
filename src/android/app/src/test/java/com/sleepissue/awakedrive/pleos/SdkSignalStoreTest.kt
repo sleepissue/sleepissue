@@ -15,7 +15,8 @@ class SdkSignalStoreTest {
     private val time = Time()
     private fun store() = SdkSignalStore(time, SdkProbePolicy(3_000, 1_000)).also { s ->
         (SignalField.entries.map { it.name } + NaviField.entries.map { it.name } +
-            listOf("SEAT:ROW_1_LEFT", "SEAT:ROW_1_RIGHT")).forEach { s.declare(it, "permission", true) }
+            listOf("SEAT:ROW_1_LEFT", "SEAT:ROW_1_RIGHT", "BELT:ROW_1_LEFT", "BELT:ROW_1_RIGHT"))
+            .forEach { s.declare(it, "permission", true) }
     }
     @Test fun missingNativeTimeStaysUnknownWhileEqualValuesCountAsCallbacks() {
         val s = store()
@@ -141,6 +142,16 @@ class SdkSignalStoreTest {
             assertEquals(SignalAvailability.UNSUPPORTED, s.quality("SEAT:ROW_1_RIGHT").availability)
         }
         assertEquals(3L, s.readings().first { it.key == "SEAT:ROW_1_RIGHT" }.callbacks)
+    }
+    @Test fun seatBeltBooleanPreservesBuckledUnbuckledAndUnknown() {
+        val s = store()
+        s.receive("BELT:ROW_1_RIGHT", true, true, SdkDelivery.QUERY)
+        assertEquals(true, s.seatBelts()!!.frontPassenger)
+        time.now = 1_000
+        s.receive("BELT:ROW_1_RIGHT", false, false, SdkDelivery.CALLBACK)
+        assertEquals(false, s.seatBelts()!!.frontPassenger)
+        time.now = 4_001
+        assertNull(s.seatBelts()!!.frontPassenger)
     }
     @Test fun readableCapabilityAndLateCallbackCannotOverrideDeniedPermission() {
         val s = store(); s.declare("GEAR", "powertrain", false)

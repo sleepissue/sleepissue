@@ -1,0 +1,322 @@
+{
+  "catalogSha256": "f5468e672f284b98f479d44588587ddce42166ca5b38cc89d7226acf308aa6c2",
+  "features": [
+    {
+      "id": "gear-selection",
+      "domain": "motion",
+      "domain_label": "Motion",
+      "label": "Gear Selection",
+      "description": "Publish the current actual gear",
+      "state_key": "gear",
+      "state_path": "actual.value",
+      "write_endpoint": "/vehicle/gear",
+      "control": {
+        "kind": "enum",
+        "field": "gear",
+        "options": [
+          {
+            "label": "P",
+            "value": "Park"
+          },
+          {
+            "label": "R",
+            "value": "Reverse"
+          },
+          {
+            "label": "N",
+            "value": "Neutral"
+          },
+          {
+            "label": "D",
+            "value": "Drive"
+          }
+        ]
+      },
+      "car_property": {
+        "name": "VENDOR_GEAR_SELECTION",
+        "hex_id": "0x21400400",
+        "kind": "vendor",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "brake-pedal-status",
+      "domain": "motion",
+      "domain_label": "Brake",
+      "label": "Brake Pedal",
+      "description": "Publish brake position and the derived pressed status",
+      "state_key": "controls",
+      "state_path": "brake_pct",
+      "unit": "%",
+      "write_endpoint": "/vehicle/controls",
+      "control": {
+        "kind": "range",
+        "field": "brake",
+        "min": 0,
+        "max": 100,
+        "step": 1
+      },
+      "car_property": {
+        "name": "BRAKE_PEDAL_STATUS",
+        "hex_id": "0x21200409",
+        "kind": "vendor",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "cruise-control-state",
+      "domain": "adas",
+      "domain_label": "Driving Mode",
+      "label": "Cruise Control State",
+      "description": "Publish the active AD control mode",
+      "state_key": "driving_mode",
+      "state_path": "ad_mode_state",
+      "write_endpoint": "/vehicle/driving-mode",
+      "control": {
+        "kind": "enum",
+        "field": "ad_mode_state",
+        "options": [
+          {
+            "label": "Not ready",
+            "value": "not_ready"
+          },
+          {
+            "label": "Ready",
+            "value": "ready"
+          },
+          {
+            "label": "Longitudinal",
+            "value": "longitudinal"
+          },
+          {
+            "label": "Lateral",
+            "value": "lateral"
+          },
+          {
+            "label": "Full autonomous",
+            "value": "full_autonomous"
+          }
+        ]
+      },
+      "car_property": {
+        "name": "CRUISE_CONTROL_STATE",
+        "hex_id": "0x11401011",
+        "kind": "system",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "cruise-control-target-speed",
+      "domain": "adas",
+      "domain_label": "Driving Mode",
+      "label": "Cruise Target Speed",
+      "description": "Publish the actual cruise target speed",
+      "state_key": "driving_mode",
+      "state_path": "target_speed_mps",
+      "unit": "m/s",
+      "write_endpoint": "/vehicle/driving-mode",
+      "control": {
+        "kind": "range",
+        "field": "target_speed_mps",
+        "min": 5.556,
+        "max": 27.778,
+        "step": 0.277775
+      },
+      "car_property": {
+        "name": "CRUISE_CONTROL_TARGET_SPEED",
+        "hex_id": "0x11601013",
+        "kind": "system",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "steering-angle",
+      "domain": "motion",
+      "domain_label": "Steering",
+      "label": "Steering Angle",
+      "description": "Publish steering-wheel angle",
+      "state_key": "controls",
+      "state_path": "steering_deg",
+      "unit": "deg",
+      "write_endpoint": "/vehicle/controls",
+      "control": {
+        "kind": "range",
+        "field": "steering",
+        "min": -470,
+        "max": 500,
+        "step": 1
+      },
+      "car_property": {
+        "name": "PERF_STEERING_ANGLE",
+        "hex_id": "0x11600209",
+        "kind": "system",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "hvac-seat-temperature",
+      "domain": "climate",
+      "domain_label": "Climate",
+      "label": "Seat Temperature",
+      "description": "Publish seat ventilation or heating level",
+      "state_key": "hvac",
+      "state_path": "{area}.seat_temp",
+      "write_endpoint": "/vehicle/hvac",
+      "areas": [
+        {
+          "label": "Driver",
+          "value": "driver"
+        },
+        {
+          "label": "Passenger",
+          "value": "passenger"
+        }
+      ],
+      "value_labels": {
+        "-3": "Ventilation 3",
+        "-2": "Ventilation 2",
+        "-1": "Ventilation 1",
+        "0": "Off",
+        "1": "Heating 1",
+        "2": "Heating 2",
+        "3": "Heating 3"
+      },
+      "control": {
+        "kind": "enum",
+        "field_by_area": {
+          "driver": "driver_seat",
+          "passenger": "passenger_seat"
+        },
+        "options": [
+          {
+            "label": "V3",
+            "value": -3
+          },
+          {
+            "label": "V2",
+            "value": -2
+          },
+          {
+            "label": "V1",
+            "value": -1
+          },
+          {
+            "label": "Off",
+            "value": 0
+          },
+          {
+            "label": "H1",
+            "value": 1
+          },
+          {
+            "label": "H2",
+            "value": 2
+          },
+          {
+            "label": "H3",
+            "value": 3
+          }
+        ]
+      },
+      "car_property": {
+        "name": "HVAC_SEAT_TEMPERATURE",
+        "hex_id": "0x1540050B",
+        "kind": "system"
+      }
+    },
+    {
+      "id": "turn-signal-state",
+      "domain": "convenience",
+      "domain_label": "Turn Signal",
+      "label": "Turn Signal State",
+      "description": "Publish the actual turn-signal mode",
+      "state_key": "lights",
+      "state_path": "turn_signal_mode",
+      "write_endpoint": "/vehicle/turn-signal",
+      "control": {
+        "kind": "enum",
+        "field": "mode",
+        "options": [
+          {
+            "label": "Off",
+            "value": "Off"
+          },
+          {
+            "label": "Blink left",
+            "value": "BlinkLeft"
+          },
+          {
+            "label": "Blink right",
+            "value": "BlinkRight"
+          },
+          {
+            "label": "Flash left",
+            "value": "FlashLeft"
+          },
+          {
+            "label": "Flash right",
+            "value": "FlashRight"
+          }
+        ]
+      },
+      "car_property": {
+        "name": "TURN_SIGNAL_STATE",
+        "hex_id": "0x11400408",
+        "kind": "system",
+        "area_id": 0
+      }
+    },
+    {
+      "id": "seat-occupancy",
+      "domain": "convenience",
+      "domain_label": "Seat",
+      "label": "Seat Occupancy",
+      "description": "Publish whether the selected seat is occupied",
+      "state_key": "seat",
+      "state_path": "occupied.{area}",
+      "write_endpoint": "/vehicle/seat",
+      "areas": [
+        {
+          "label": "Driver",
+          "value": "driver"
+        },
+        {
+          "label": "Passenger",
+          "value": "passenger"
+        },
+        {
+          "label": "Rear left",
+          "value": "rear_left"
+        },
+        {
+          "label": "Rear right",
+          "value": "rear_right"
+        }
+      ],
+      "control": {
+        "kind": "boolean",
+        "field": "value",
+        "area_field": "area",
+        "params": {
+          "kind": "occupied"
+        },
+        "options": [
+          {
+            "label": "Empty",
+            "value": false
+          },
+          {
+            "label": "Occupied",
+            "value": true
+          }
+        ]
+      },
+      "car_property": {
+        "name": "SEAT_OCCUPANCY",
+        "hex_id": "0x15400BB0",
+        "kind": "system"
+      }
+    }
+  ],
+  "ventilationDedicatedInputPresent": false
+}

@@ -1,0 +1,19 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 280,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "assembleDebug": "PASSED",
+  "assembleDebugAndroidTest": "PASSED",
+  "processReleaseMainManifest": "PASSED",
+  "apkSha256": "559abfc73c683cd1d03b418900b412e06f076278bc4a3be9a13e8fa2c9f5d244",
+  "lintDebug": "FAILED: unchanged voice/PleosSpeechRecognizer.kt:129 MissingPermission"
+}

@@ -1,0 +1,8 @@
+SERVICE com.sleepissue.awakedrive/.service.RealTripMonitorService 894cd6f pid=25456 user=10
+  Client:
+    instance=7e93cad6-9dcf-4170-87e9-3ff45827c25b pid=25456 command=com.sleepissue.awakedrive.monitor.STOP flags=0 id=2
+    foreground=false requested=false stopping=false bootPending=false
+    running=false starts=1 timers=0 generation=2
+    sdkOwner=null status=명시적 중지 · UNKNOWN · 마지막 저장 성공
+    trip=4e5db99c-bae6-4990-bdfd-39c53d5f9145 state=UNKNOWN continuousMs=755049
+    persistence=TripPersistenceState(restore=RESTORED, operation=SAVED, failure=null, lastSavedScenarioMs=1794030046099, lastSavedWallMs=1794030046235, lastSavedElapsedMs=192308, timerBasis=ELAPSED_REALTIME, autoSaveEnabled=true, successfulSaves=4)

@@ -1,0 +1,14 @@
+{
+  "preservedNewRegressionOutputsThenRestoredOriginal": [
+    "src/android/app/build/reports/demo-transport-20261106/complete_observation-normal-first.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/complete_observation-normal-repeat.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/complete_observation-question-cancel-first.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/complete_observation-question-cancel-repeat.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/jvm-transport-matrix.json",
+    "src/android/app/build/reports/demo-transport-20261106/separate_flows-normal-first.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/separate_flows-normal-repeat.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/separate_flows-question-cancel-first.jsonl",
+    "src/android/app/build/reports/demo-transport-20261106/separate_flows-question-cancel-repeat.jsonl"
+  ],
+  "note": "기존 소스나 Room을 되돌린 것이 아니라, 회귀시험이 같은 이름에 쓰는 JVM 산출물 보존이다."
+}

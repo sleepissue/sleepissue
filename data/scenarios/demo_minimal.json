@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "id": "demo_minimal",
+  "startEpochMs": 1793862000000,
+  "source": "DEMO",
+  "speedSegments": [
+    {"fromSec": 0, "toSec": 0.3, "factor": 1}
+  ],
+  "samples": [
+    {
+      "t": 0,
+      "steeringDeg": 1,
+      "speedKph": 80,
+      "gear": "D",
+      "turnSignal": "OFF",
+      "brake": false,
+      "seats": {"driver": true, "frontPassenger": false, "rearLeft": false, "rearCenter": false, "rearRight": false},
+      "cruise": {"active": false, "targetKph": 0},
+      "lat": null,
+      "lon": null,
+      "power": "ON"
+    },
+    {
+      "t": 0.1,
+      "steeringDeg": 1.1,
+      "speedKph": 80,
+      "gear": "D",
+      "turnSignal": "OFF",
+      "brake": false,
+      "seats": {"driver": true, "frontPassenger": false, "rearLeft": false, "rearCenter": false, "rearRight": false},
+      "cruise": {"active": false, "targetKph": 0},
+      "lat": null,
+      "lon": null,
+      "power": "ON"
+    },
+    {
+      "t": 0.2,
+      "steeringDeg": 1.2,
+      "speedKph": 80,
+      "gear": "D",
+      "turnSignal": "OFF",
+      "brake": false,
+      "seats": {"driver": true, "frontPassenger": false, "rearLeft": false, "rearCenter": false, "rearRight": false},
+      "cruise": {"active": false, "targetKph": 0},
+      "lat": null,
+      "lon": null,
+      "power": "ON"
+    }
+  ]
+}

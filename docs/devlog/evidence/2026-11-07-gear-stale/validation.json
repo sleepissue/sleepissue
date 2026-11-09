@@ -1,0 +1,33 @@
+{
+  "branch": "develop-jdw",
+  "head": "6451ed8f519c707e4253f039efb5166c1d8a3b54",
+  "stagedChanges": false,
+  "committedOrPushed": false,
+  "engineProductionVoiceDemoInterventionChanged": false,
+  "freshUnitTests": 450,
+  "roomDeviceTests": 10,
+  "avdTrials": {
+    "before": {
+      "trials": 2,
+      "requestedSecondsPerTrial": 120,
+      "staleTransitions": 0
+    },
+    "after": {
+      "trials": 2,
+      "requestedSecondsPerTrial": 120,
+      "staleTransitions": 0
+    },
+    "finalAutoCapture": {
+      "trials": 1,
+      "requestedSecondsPerTrial": 60,
+      "staleTransitions": 0
+    }
+  },
+  "originalCauseConfirmed": false,
+  "originalExcludedDriveMs": 202,
+  "finalMonitoringRunning": false,
+  "finalActiveTimers": 0,
+  "lintRerun": false,
+  "pastVoiceLintFailurePreserved": true,
+  "sixtyTimesPerformanceChanged": false
+}

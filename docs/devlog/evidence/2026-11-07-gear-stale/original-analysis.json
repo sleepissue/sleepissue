@@ -1,0 +1,18 @@
+{
+  "logUnknownMs": 1794050565043,
+  "logRecoveredMs": 1794050565136,
+  "logDeltaMs": 93,
+  "lastValidSegmentEndMs": 1794050564934,
+  "recoveredSegmentStartMs": 1794050565136,
+  "excludedDriveMs": 202,
+  "baselinePublicationHz": 10.0,
+  "baselineSkippedDeadlines": 0,
+  "originalTimingUnavailable": [
+    "querySchedule",
+    "queryIoStart",
+    "queryResponse",
+    "storeApplied",
+    "staleFrameLeaseEnd"
+  ],
+  "cause": "NOT_YET_DETERMINED"
+}

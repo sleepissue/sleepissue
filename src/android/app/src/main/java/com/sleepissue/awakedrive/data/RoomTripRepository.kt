@@ -13,9 +13,7 @@ class RoomTripRepository(private val dao: TripCheckpointDao, private val config:
             val precise = TripSnapshotValidator.requireValid(snapshot, config)
             val rulePolicy = requireNotNull(snapshot.rulePolicy)
             val owner = requireNotNull(snapshot.ownerState)
-            val decodedOwner = TripSessionCodec.decode(owner)
-            decodedOwner.intervention.requireValid(requireNotNull(snapshot.savedAtScenarioMs), snapshot.state)
-            require(decodedOwner.gear == precise.lastObservation?.gear && decodedOwner.power == precise.lastObservation?.power)
+            requireOwnerValid(snapshot, precise)
             val trip = snapshot.state
             TripCheckpointRows(TripCheckpointEntity(tripId = trip.tripId,
                 continuousDriveSec = trip.continuousDriveSec, baselineRef = trip.baselineRef,
@@ -75,9 +73,7 @@ class RoomTripRepository(private val dao: TripCheckpointDao, private val config:
             val snapshot = TripSnapshot(trip, row.savedAtWallMs, segments, row.savedAtElapsedMs,
                 precise, row.savedAtScenarioMs, policy, Source.valueOf(row.source), TripTimeBasis.valueOf(row.timeBasis), row.ownerState)
             TripSnapshotValidator.requireValid(snapshot, config)
-            val owner = TripSessionCodec.decode(row.ownerState)
-            owner.intervention.requireValid(row.savedAtScenarioMs, trip)
-            require(owner.gear == observation?.gear && owner.power == observation?.power)
+            requireOwnerValid(snapshot, precise)
             TripLoadResult.Loaded(snapshot)
         } catch (cancelled: CancellationException) { throw cancelled }
         catch (_: Exception) { TripLoadResult.Failed(RepositoryFailure.INVALID_DATA) }
@@ -88,4 +84,15 @@ class RoomTripRepository(private val dao: TripCheckpointDao, private val config:
         RepositoryResult.Succeeded
     } catch (cancelled: CancellationException) { throw cancelled }
     catch (_: Exception) { RepositoryResult.Failed(RepositoryFailure.UNAVAILABLE) }
+
+    private fun requireOwnerValid(snapshot: TripSnapshot, precise: TripRuleState) {
+        if (snapshot.timeBasis == TripTimeBasis.WALL_EPOCH) {
+            RealTripCheckpointCodec.requireValid(snapshot, precise)
+        } else {
+            // 기존 수동 운행·개입 checkpoint 형식과 검사 조건은 유지한다.
+            val owner = TripSessionCodec.decode(requireNotNull(snapshot.ownerState))
+            owner.intervention.requireValid(requireNotNull(snapshot.savedAtScenarioMs), snapshot.state)
+            require(owner.gear == precise.lastObservation?.gear && owner.power == precise.lastObservation?.power)
+        }
+    }
 }

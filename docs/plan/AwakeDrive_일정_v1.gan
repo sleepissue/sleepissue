@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="AwakeDrive (깨어있는 드라이브) 일정" company="sleepissue" webLink="http://" view-date="2026-10-27" view-index="0" gantt-divider-location="651" resource-divider-location="335" version="3.3.3316" locale="ko_KR">
-    <description><![CDATA[Pleos Connect 앱 공모전. 기준: 상세기획서 v4·SRS v0.2·CLAUDE.md 2장 일정. 역할은 데이터 흐름 순 분담안(단계 전환→3번, DemoPlayer→5번). 팀장은 4번 겸직으로 가정. 모든 날을 작업일로 둠(주말 포함).]]></description>
+    <description><![CDATA[Pleos Connect 앱 공모전. 기준: 상세기획서 v4·SRS v0.2·CLAUDE.md 2장 일정. 역할은 데이터 흐름 순 분담안. 11/9 갱신: 단계 전환·DemoPlayer는 실제 구현한 1번으로 변경. 팀장은 4번 겸직으로 가정. 모든 날을 작업일로 둠(주말 포함).]]></description>
     <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="이름" width="366" order="0"/>
         <field id="tpd4" name="시작일" width="98" order="1"/>
@@ -38,7 +38,7 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="100" uid="cd0027786f304cec9c855b5b92b5d058" name="0. 준비 (환경·설명회·SRS·인터페이스)" color="#5c6b7a" meeting="false" start="2026-10-26" duration="12" complete="50" expand="true">
+        <task id="100" uid="cd0027786f304cec9c855b5b92b5d058" name="0. 준비 (환경·설명회·SRS·인터페이스)" color="#5c6b7a" meeting="false" start="2026-10-26" duration="12" complete="90" expand="true">
             <task id="1" uid="c8c2f832a0234e1cb5c0f604433b9c3b" name="개발환경 세팅·GitHub 저장소" color="#8c8c8c" meeting="false" start="2026-10-26" duration="2" complete="100" expand="true">
                 <notes><![CDATA[Pleos Emulator v2.1.0, Android Studio Rabbit 1, sleepissue 저장소]]></notes>
             </task>
@@ -61,101 +61,122 @@
                 <notes><![CDATA[메일 문의 1~10번(통풍·TTS/STT·절전·마이크·조향 주기·내비·심사·착석·포그라운드 서비스 유형·NaviHelper 단위)]]></notes>
                 <depend id="9" type="2" difference="7" hardness="Strong"/>
             </task>
-            <task id="6" uid="1157ccbb14424c088082f0b673d0c3b7" name="에뮬레이터 신호·API 동작 확인" color="#8c8c8c" meeting="false" start="2026-10-29" duration="4" complete="0" expand="true">
-                <notes><![CDATA[SRS 8장 체크리스트: PERF_VEHICLE_SPEED 단위(m/s), 조향 갱신 주기, TTS·STT ON_DEVICE, 통풍 반영, NaviHelper 필드, 착석 좌석별, 주행 제한 시 데모 화면 잠김]]></notes>
+            <task id="6" uid="1157ccbb14424c088082f0b673d0c3b7" name="에뮬레이터 신호·API 동작 확인" color="#8c8c8c" meeting="false" start="2026-10-29" duration="4" complete="70" expand="true">
+                <notes><![CDATA[SRS 8장 체크리스트: PERF_VEHICLE_SPEED 단위(m/s), 조향 갱신 주기, TTS·STT ON_DEVICE, 통풍 반영, NaviHelper 필드, 착석 좌석별, 주행 제한 시 데모 화면 잠김
+11/9: 1번 Vehicle·Navi·AAOS 수신 실측(11/3 devlog, D·차속·크루즈·방향지시등·브레이크·실내온도·위치). 메일(11/5) 조향·속도 기본 1 Hz. TTS·STT·통풍 쓰기 실기 기록은 3·4번 확인 필요]]></notes>
                 <depend id="8" type="2" difference="0" hardness="Strong"/>
                 <depend id="30" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="7" uid="87fae05506ef4587899d3e1889f9e96c" name="데모 시나리오 형식 확정 (MSG-11)" color="#e2574c" meeting="false" start="2026-10-30" duration="3" complete="0" expand="true">
-                <notes><![CDATA[필수 8필드 + 선택 lat·lon + 파일 머리 speedSegments (REQ_DMO_001·002)]]></notes>
+            <task id="7" uid="87fae05506ef4587899d3e1889f9e96c" name="데모 시나리오 형식 확정 (MSG-11)" color="#e2574c" meeting="false" start="2026-10-30" duration="3" complete="80" expand="true">
+                <notes><![CDATA[필수 8필드 + 선택 lat·lon + 파일 머리 speedSegments (REQ_DMO_001·002)
+11/9: 2번 형식 제안(docs/fatigue-engine/11, 11/7), 1번 schema(data/scenarios/demo.schema.json)·검증 PR #15. 담당 1·2·5번]]></notes>
                 <depend id="8" type="2" difference="0" hardness="Strong"/>
                 <depend id="52" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="8" uid="7e2cfb727e4c4ee68f60bde95c7a0991" name="인터페이스 data class 커밋 (MSG-01~15)" color="#8c8c8c" meeting="false" start="2026-11-02" duration="1" complete="0" expand="true">
-                <notes><![CDATA[각자 '내보내는' 메시지를 먼저 커밋 → 받는 쪽은 가짜 값으로 개발 시작]]></notes>
+            <task id="8" uid="7e2cfb727e4c4ee68f60bde95c7a0991" name="인터페이스 data class 커밋 (MSG-01~15)" color="#8c8c8c" meeting="false" start="2026-11-02" duration="1" complete="100" expand="true">
+                <notes><![CDATA[각자 '내보내는' 메시지를 먼저 커밋 → 받는 쪽은 가짜 값으로 개발 시작
+11/9: 1·3·4번 11/4 main, 2번 11/7 main(#12)]]></notes>
                 <depend id="10" type="2" difference="0" hardness="Strong"/>
                 <depend id="20" type="2" difference="0" hardness="Strong"/>
                 <depend id="30" type="2" difference="0" hardness="Strong"/>
                 <depend id="40" type="2" difference="0" hardness="Strong"/>
                 <depend id="50" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="9" uid="a08f4ac09c284571ac9c8ac50d28bfb8" name="메일 답변 수신 (목표일)" color="#222222" meeting="true" start="2026-11-07" duration="0" complete="0" expand="true">
-                <notes><![CDATA[답에 따라 통풍(43번)·감시 서비스 유형(12번)·열린 기능(87번) 확정. 늦어지면 대체 동작으로 진행]]></notes>
+            <task id="9" uid="a08f4ac09c284571ac9c8ac50d28bfb8" name="메일 답변 수신 (목표일)" color="#222222" meeting="true" start="2026-11-05" duration="0" complete="100" expand="true">
+                <notes><![CDATA[답에 따라 통풍(43번)·감시 서비스 유형(12번)·열린 기능(87번) 확정. 늦어지면 대체 동작으로 진행
+11/9: 11/5 수신 — ADAS SDK 불가, 조향·속도 기본 1 Hz(같은 값 3초 생략), 화면 없는 FGS 가능 (docs/meetings/2026-11-05_Pleos_메일답변.md)]]></notes>
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
                 <depend id="43" type="2" difference="0" hardness="Strong"/>
                 <depend id="87" type="2" difference="0" hardness="Strong"/>
             </task>
         </task>
-        <task id="200" uid="7959da7922f64adb939996202be367e1" name="1. 1차 MVP 구현 (11/3~11/10 동결)" color="#5c6b7a" meeting="false" start="2026-11-03" duration="7" complete="0" expand="true">
-            <task id="10" uid="726610ebf9ba4b57a20959284f68bfcb" name="[1번] 신호 허브·단위 변환 (SIG)" color="#4a90d9" meeting="false" start="2026-11-03" duration="3" complete="0" expand="true">
-                <notes><![CDATA[REQ_SIG_001~017, MSG-01·14. 차속 m/s→km/h(×3.6)]]></notes>
+        <task id="200" uid="7959da7922f64adb939996202be367e1" name="1. 1차 MVP 구현 (11/3~11/10 동결)" color="#5c6b7a" meeting="false" start="2026-11-03" duration="7" complete="80" expand="true">
+            <task id="10" uid="726610ebf9ba4b57a20959284f68bfcb" name="[1번] 신호 허브·단위 변환 (SIG)" color="#4a90d9" meeting="false" start="2026-11-03" duration="3" complete="90" expand="true">
+                <notes><![CDATA[REQ_SIG_001~017, MSG-01·14. 차속 m/s→km/h(×3.6)
+11/9: main #6. 남음: SIG_001 실측 60초 TC, SIG_009 원천 Hz]]></notes>
                 <depend id="11" type="2" difference="0" hardness="Strong"/>
                 <depend id="42" type="2" difference="0" hardness="Strong"/>
                 <depend id="53" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="11" uid="5044ed2148444efb8132de04bb44b1bc" name="[1번] 운행 규칙 TripRules (정차·연속 운전·24시간 누적·운행 시작)" color="#4a90d9" meeting="false" start="2026-11-06" duration="2" complete="0" expand="true">
-                <notes><![CDATA[REQ_TRP_005~008·010~012, MSG-08·15]]></notes>
+            <task id="11" uid="5044ed2148444efb8132de04bb44b1bc" name="[1번] 운행 규칙 TripRules (정차·연속 운전·24시간 누적·운행 시작)" color="#4a90d9" meeting="false" start="2026-11-06" duration="2" complete="100" expand="true">
+                <notes><![CDATA[REQ_TRP_005~008·010~012, MSG-08·15
+11/9: main #6]]></notes>
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
                 <depend id="44" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="12" uid="bb96757c50f14959a38a394ed42ebf42" name="[1번] 상태 저장·복원·부팅·감시 포그라운드 서비스" color="#4a90d9" meeting="false" start="2026-11-08" duration="1" complete="0" expand="true">
-                <notes><![CDATA[REQ_TRP_001~004·009, PLT_012·013 (서비스 유형은 메일 답)]]></notes>
+            <task id="12" uid="bb96757c50f14959a38a394ed42ebf42" name="[1번] 상태 저장·복원·부팅·감시 포그라운드 서비스" color="#4a90d9" meeting="false" start="2026-11-08" duration="1" complete="80" expand="true">
+                <notes><![CDATA[REQ_TRP_001~004·009, PLT_012·013 (서비스 유형은 메일 답)
+11/9: Room 저장·복원 main #6. 감시 FGS·부팅 수신기는 PR #15 머지 대기]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="20" uid="27704982e09f4522a97b87841be50df1" name="[2번] 게이트·조향 지표 3개 (FAT_001~011)" color="#4caf50" meeting="false" start="2026-11-03" duration="2" complete="0" expand="true">
-                <notes><![CDATA[목적지 없을 때 5분 규칙(FAT_004) 포함]]></notes>
+            <task id="20" uid="27704982e09f4522a97b87841be50df1" name="[2번] 게이트·조향 지표 3개 (FAT_001~011)" color="#4caf50" meeting="false" start="2026-11-03" duration="2" complete="100" expand="true">
+                <notes><![CDATA[목적지 없을 때 5분 규칙(FAT_004) 포함
+11/9: main #12 (11/7)]]></notes>
                 <depend id="21" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="21" uid="cce114ee58464f5381dd1a8bb90ce9b2" name="[2번] 위험 점수·맥락 가중·3분 지수평균 (FAT_012~020)" color="#4caf50" meeting="false" start="2026-11-05" duration="1" complete="0" expand="true">
-                <notes><![CDATA[시나리오 1: K=1.15 → R=61.0]]></notes>
+            <task id="21" uid="cce114ee58464f5381dd1a8bb90ce9b2" name="[2번] 위험 점수·맥락 가중·3분 지수평균 (FAT_012~020)" color="#4caf50" meeting="false" start="2026-11-05" duration="1" complete="100" expand="true">
+                <notes><![CDATA[시나리오 1: K=1.15 → R=61.0
+11/9: main #12 (11/7)]]></notes>
                 <depend id="22" type="2" difference="0" hardness="Strong"/>
                 <depend id="32" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="22" uid="2638caaae6f74f4995e46ff5743132cd" name="[2번] 기준선·출발 피로 (BSL_003~007)" color="#4caf50" meeting="false" start="2026-11-06" duration="1" complete="0" expand="true">
-                <notes><![CDATA[1차는 평소의 나 대신 기본값과 비교]]></notes>
+            <task id="22" uid="2638caaae6f74f4995e46ff5743132cd" name="[2번] 기준선·출발 피로 (BSL_003~007)" color="#4caf50" meeting="false" start="2026-11-06" duration="1" complete="100" expand="true">
+                <notes><![CDATA[1차는 평소의 나 대신 기본값과 비교
+11/9: main #12 (11/7)]]></notes>
                 <depend id="23" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="23" uid="1e0b45e5fae04653aa33c247596b346e" name="[2번] 패턴 분류·안전 우회 (PAT)" color="#4caf50" meeting="false" start="2026-11-07" duration="1" complete="0" expand="true">
-                <notes><![CDATA[REQ_PAT_001~007]]></notes>
+            <task id="23" uid="1e0b45e5fae04653aa33c247596b346e" name="[2번] 패턴 분류·안전 우회 (PAT)" color="#4caf50" meeting="false" start="2026-11-07" duration="1" complete="100" expand="true">
+                <notes><![CDATA[REQ_PAT_001~007
+11/9: REQ_PAT_001~003·005 main #12. 004·006·007은 1번 InterventionPolicy. PAT_004 딴짓 기록 미구현]]></notes>
                 <depend id="24" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="24" uid="9b8c887510394250ad80e8148dfd5740" name="[2번] 보조 주행 판정 (AST)" color="#4caf50" meeting="false" start="2026-11-08" duration="1" complete="0" expand="true">
-                <notes><![CDATA[조향 null → 보조 주행, 재개 → 일반(AST_003), 크루즈 null(AST_008)]]></notes>
+            <task id="24" uid="9b8c887510394250ad80e8148dfd5740" name="[2번] 보조 주행 판정 (AST)" color="#4caf50" meeting="false" start="2026-11-08" duration="1" complete="100" expand="true">
+                <notes><![CDATA[조향 null → 보조 주행, 재개 → 일반(AST_003), 크루즈 null(AST_008)
+11/9: AST_001·003·004·006~008 main #12. AST_005는 1번 PolicyInterventionManager. AST_002는 2차]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="30" uid="68e26b2b716c455a80d656c18e3576e3" name="[3번] TTS·STT ON_DEVICE·의도 표·대체 동작 (VOI)" color="#f39c12" meeting="false" start="2026-11-03" duration="2" complete="0" expand="true">
-                <notes><![CDATA[REQ_VOI_001~008]]></notes>
+            <task id="30" uid="68e26b2b716c455a80d656c18e3576e3" name="[3번] TTS·STT ON_DEVICE·의도 표·대체 동작 (VOI)" color="#f39c12" meeting="false" start="2026-11-03" duration="2" complete="90" expand="true">
+                <notes><![CDATA[REQ_VOI_001~008
+11/9: VoiceAgent·SpeechAgent·ON_DEVICE main #8. 개입 연결은 PR #13]]></notes>
                 <depend id="31" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="31" uid="3a7b9b12842244c0b1132a8d3b15ef45" name="[3번] 음성·동승자 확인, 대답 시간 판정 (CHK)" color="#f39c12" meeting="false" start="2026-11-05" duration="2" complete="0" expand="true">
-                <notes><![CDATA[REQ_CHK_001~013, 보류 최대 20초]]></notes>
+            <task id="31" uid="3a7b9b12842244c0b1132a8d3b15ef45" name="[3번] 음성·동승자 확인, 대답 시간 판정 (CHK)" color="#f39c12" meeting="false" start="2026-11-05" duration="2" complete="80" expand="true">
+                <notes><![CDATA[REQ_CHK_001~013, 보류 최대 20초
+11/9: CheckManager·PassengerCheckFlow main #8. 개입 요청 연결 PR #13 머지 대기]]></notes>
                 <depend id="32" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="32" uid="b87aa499634e422b82ef6fe084e7a873" name="[3번] 단계 전환 상태 머신 (INT)" color="#f39c12" meeting="false" start="2026-11-07" duration="2" complete="0" expand="true">
-                <notes><![CDATA[REQ_INT_001~015 (위험 점수는 2번 21번 작업에서 받음)]]></notes>
+            <task id="32" uid="b87aa499634e422b82ef6fe084e7a873" name="[1번] 단계 전환 상태 머신 (INT)" color="#f39c12" meeting="false" start="2026-11-07" duration="2" complete="100" expand="true">
+                <notes><![CDATA[REQ_INT_001~015 (위험 점수는 2번 21번 작업에서 받음)
+11/9: 1번이 구현(main #6, 11/4). 3번 쪽 단계 전환은 통합 때 제거. INT_015 비활성(Should)]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="40" uid="127105950b5e4eaf975421a44b2cd5c6" name="[4번] 예보 엔진 (FCS)" color="#8e6bbf" meeting="false" start="2026-11-03" duration="2" complete="0" expand="true">
-                <notes><![CDATA[연속 운전 시간 기준, 말투(분/시각), 재계산 6시점]]></notes>
+            <task id="40" uid="127105950b5e4eaf975421a44b2cd5c6" name="[4번] 예보 엔진 (FCS)" color="#8e6bbf" meeting="false" start="2026-11-03" duration="2" complete="100" expand="true">
+                <notes><![CDATA[연속 운전 시간 기준, 말투(분/시각), 재계산 6시점
+11/9: main #7]]></notes>
                 <depend id="41" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="41" uid="356e84dbe7a74a19ae2e06e745389149" name="[4번] 쉼터 데이터 내장 (졸음쉼터 + 휴게소 시도)" color="#8e6bbf" meeting="false" start="2026-11-05" duration="1" complete="0" expand="true">
-                <notes><![CDATA[REQ_RST_001. 휴게소 좌표 없으면 2차]]></notes>
+            <task id="41" uid="356e84dbe7a74a19ae2e06e745389149" name="[4번] 쉼터 데이터 내장 (졸음쉼터 + 휴게소 시도)" color="#8e6bbf" meeting="false" start="2026-11-05" duration="1" complete="100" expand="true">
+                <notes><![CDATA[REQ_RST_001. 휴게소 좌표 없으면 2차
+11/9: 졸음쉼터 253 + 휴게소 215 = 468곳 내장 (main #9)]]></notes>
                 <depend id="42" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="42" uid="b29ae54ebfd848759ea1eb0db35178fd" name="[4번] 쉼터 선택·경유지 (RST_002~006)" color="#8e6bbf" meeting="false" start="2026-11-06" duration="1" complete="0" expand="true">
-                <notes><![CDATA[NaviState(1번)·addWaypoint]]></notes>
+            <task id="42" uid="b29ae54ebfd848759ea1eb0db35178fd" name="[4번] 쉼터 선택·경유지 (RST_002~006)" color="#8e6bbf" meeting="false" start="2026-11-06" duration="1" complete="100" expand="true">
+                <notes><![CDATA[NaviState(1번)·addWaypoint
+11/9: main #9]]></notes>
                 <depend id="43" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="43" uid="2cb03dd74a5445d8b901ea11860fc114" name="[4번] 운전석 통풍 (CLM)" color="#8e6bbf" meeting="false" start="2026-11-07" duration="1" complete="0" expand="true">
-                <notes><![CDATA[호출 → 재읽기 → 미반영 시 음성 안내 (메일 답 반영)]]></notes>
+            <task id="43" uid="2cb03dd74a5445d8b901ea11860fc114" name="[4번] 운전석 통풍 (CLM)" color="#8e6bbf" meeting="false" start="2026-11-07" duration="1" complete="100" expand="true">
+                <notes><![CDATA[호출 → 재읽기 → 미반영 시 음성 안내 (메일 답 반영)
+11/9: main #10 (호출 뒤 다시 읽어 반영 확인, 안 되면 음성 안내)]]></notes>
                 <depend id="44" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="44" uid="2746420f6d5a454bbc956896e9aefab4" name="[4번] 휴식 인증·파워냅·보상 (RES·RWD)" color="#8e6bbf" meeting="false" start="2026-11-08" duration="1" complete="0" expand="true">
-                <notes><![CDATA[정차 시간 규칙(1번 11번 작업) 사용]]></notes>
+            <task id="44" uid="2746420f6d5a454bbc956896e9aefab4" name="[4번] 휴식 인증·파워냅·보상 (RES·RWD)" color="#8e6bbf" meeting="false" start="2026-11-08" duration="1" complete="100" expand="true">
+                <notes><![CDATA[정차 시간 규칙(1번 11번 작업) 사용
+11/9: main #11. 개입 연결(라우터·RES_011 엔진 초기화·예보 재계산)은 feat/rest-wiring PR]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="50" uid="db65f0f9d3ad4f3f9d4f22a848b1d966" name="[5번] 화면 시안 3장 (주행·단계 알림·휴식)" color="#e2574c" meeting="false" start="2026-11-03" duration="2" complete="0" expand="true">
+            <task id="50" uid="db65f0f9d3ad4f3f9d4f22a848b1d966" name="[5번] 화면 시안 3장 (주행·단계 알림·휴식)" color="#e2574c" meeting="false" start="2026-11-03" duration="2" complete="50" expand="true">
+                <notes><![CDATA[11/9: 저장소에 시안 파일 없음. PR #14에 주행·알림·휴식 Compose 화면 있음 → 5번 확인 필요]]></notes>
                 <depend id="51" type="2" difference="0" hardness="Strong"/>
                 <depend id="52" type="2" difference="0" hardness="Strong"/>
             </task>
@@ -163,20 +184,24 @@
                 <notes><![CDATA[CLAUDE.md 2장 일정 11/5]]></notes>
                 <depend id="54" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="52" uid="2b3aebd7e6464e8dbb4f9bc9ea2fdb71" name="[5번] 데모 시나리오 6종 합성 (src/tools-py)" color="#e2574c" meeting="false" start="2026-11-05" duration="2" complete="0" expand="true">
-                <notes><![CDATA[졸음 시나리오는 순간 점수 70 이상으로(FAT_020 비고)]]></notes>
+            <task id="52" uid="2b3aebd7e6464e8dbb4f9bc9ea2fdb71" name="[5번] 데모 시나리오 6종 합성 (src/tools-py)" color="#e2574c" meeting="false" start="2026-11-05" duration="2" complete="80" expand="true">
+                <notes><![CDATA[졸음 시나리오는 순간 점수 70 이상으로(FAT_020 비고)
+11/9: data/scenarios 6종 JSON PR #14. 형식 검증 PR #15]]></notes>
                 <depend id="53" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="53" uid="25b14904cedf40afa46505952c006b41" name="[5번] DemoPlayer (구간 배속·질문 중 1배속·시동 끔)" color="#e2574c" meeting="false" start="2026-11-07" duration="2" complete="0" expand="true">
-                <notes><![CDATA[REQ_DMO_002~006]]></notes>
+            <task id="53" uid="25b14904cedf40afa46505952c006b41" name="[1번] DemoPlayer (구간 배속·질문 중 1배속·시동 끔)" color="#e2574c" meeting="false" start="2026-11-07" duration="2" complete="80" expand="true">
+                <notes><![CDATA[REQ_DMO_002~006
+11/9: 1번이 ScenarioDemoPlayer·DemoJsonLoader 구현(PR #15). 담당 1번으로 확정]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="54" uid="2d4db63548804378b3bf6af75b21a016" name="[5번] Compose 화면 구현 (UI·신호 그래프·첫 실행 설정)" color="#e2574c" meeting="false" start="2026-11-05" duration="4" complete="0" expand="true">
-                <notes><![CDATA[REQ_UI_001~013]]></notes>
+            <task id="54" uid="2d4db63548804378b3bf6af75b21a016" name="[5번] Compose 화면 구현 (UI·신호 그래프·첫 실행 설정)" color="#e2574c" meeting="false" start="2026-11-05" duration="4" complete="70" expand="true">
+                <notes><![CDATA[REQ_UI_001~013
+11/9: PR #14 — 주행·알림·휴식·첫 실행·리포트 화면, 신호 그래프, FatigueSnapshot 연결. 주행 제한(UI_009)·실제 매니저 연결 확인 필요]]></notes>
                 <depend id="60" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="60" uid="f6da18d0ea534f53978afd7f0f582220" name="1차 통합 (main 병합)·E2E 리허설" color="#8c8c8c" meeting="false" start="2026-11-09" duration="1" complete="0" expand="true">
-                <notes><![CDATA[TC_PRD_001~013 시나리오 1회씩]]></notes>
+            <task id="60" uid="f6da18d0ea534f53978afd7f0f582220" name="1차 통합 (main 병합)·E2E 리허설" color="#8c8c8c" meeting="false" start="2026-11-09" duration="1" complete="20" expand="true">
+                <notes><![CDATA[TC_PRD_001~013 시나리오 1회씩
+11/9: rest-wiring에 main 합침·RES_011 연결. 남음: PR 머지(#15→rest-wiring→#13→#14), 라우터 단일화, 감시 서비스 한 곳 조립, TC_PRD 리허설]]></notes>
                 <depend id="61" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="61" uid="e183a3f8b38741c7ae180493173779b0" name="MVP 동결" color="#222222" meeting="true" start="2026-11-10" duration="0" complete="0" expand="true">
@@ -306,7 +331,7 @@
         <allocation task-id="8" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="30" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="31" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
-        <allocation task-id="32" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="32" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="60" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="70" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="85" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
@@ -336,10 +361,11 @@
         <allocation task-id="1" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="2" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="7" resource-id="4" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="7" resource-id="0" function="Default:0" responsible="false" load="50.0"/>
         <allocation task-id="8" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="50" resource-id="4" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="52" resource-id="4" function="Default:0" responsible="true" load="50.0"/>
-        <allocation task-id="53" resource-id="4" function="Default:0" responsible="true" load="50.0"/>
+        <allocation task-id="53" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
         <allocation task-id="54" resource-id="4" function="Default:0" responsible="true" load="50.0"/>
         <allocation task-id="60" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
         <allocation task-id="71" resource-id="4" function="Default:0" responsible="true" load="100.0"/>

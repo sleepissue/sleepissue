@@ -1,0 +1,11 @@
+{
+  "avd": "Pleos_Connect_2_1_0",
+  "api": 34,
+  "targetSdk": 34,
+  "compileSdk": 37,
+  "supportedPropertyCount": 312,
+  "IGNITION_STATE": false,
+  "GEAR_SELECTION": true,
+  "PERF_VEHICLE_SPEED": true,
+  "powerPolicy": "UNKNOWN; system power is not ignition evidence"
+}

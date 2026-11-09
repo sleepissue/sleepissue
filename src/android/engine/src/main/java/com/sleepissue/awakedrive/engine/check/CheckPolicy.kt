@@ -45,19 +45,10 @@ class CheckPolicy(private val config: EngineConfig = EngineConfig()) {
 
     fun selectPlan(context: OccupancyContext): CheckPlan {
         val passengerPresent = context.frontPassengerPresent || context.rearPassengerPresent
-        if (!context.microphoneAvailable) {
-            return CheckPlan(
-                target = if (passengerPresent) CheckTarget.PASSENGER_BUTTON else CheckTarget.DRIVER_BUTTON,
-                useLowerVolume = passengerPresent,
-            )
-        }
-
-        return when {
-            context.speechDetected && context.frontPassengerPresent ->
-                CheckPlan(CheckTarget.PASSENGER, useLowerVolume = false)
-            context.speechDetected && context.rearPassengerPresent ->
-                CheckPlan(CheckTarget.REAR_PASSENGER, useLowerVolume = false)
-            else -> CheckPlan(CheckTarget.DRIVER_VOICE, useLowerVolume = passengerPresent)
-        }
+        // 동승자 착석·벨트 정보는 탑승 맥락만 나타낸다. 졸음 확인의 응답자는 항상 운전자다.
+        return CheckPlan(
+            target = if (context.microphoneAvailable) CheckTarget.DRIVER_VOICE else CheckTarget.DRIVER_BUTTON,
+            useLowerVolume = passengerPresent,
+        )
     }
 }

@@ -1,0 +1,20 @@
+{
+  "tests": {
+    "engine": {
+      "tests": 149,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 247,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "totalTests": 396,
+  "assembleDebug": "PASSED",
+  "processReleaseMainManifest": "PASSED",
+  "apkSha256": "1decf7ccb2ff79377e354d69cfb9acac3e5cb9a6771d914dc8f63b0493ce507a"
+}

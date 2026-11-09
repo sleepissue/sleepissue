@@ -4,7 +4,7 @@
 
 세부 할 일을 쪼개서 추적하고 싶으면 GitHub Issues를 만들고 여기 "이슈" 칸에 번호(`#12`)만 적어 링크하세요. 매일 이 파일을 열 때마다 어제와 달라진 칸이 있는지만 봐도 전체 진행이 보입니다.
 
-> 역할·모듈·아키텍처의 단일 출처는 [`CLAUDE.md`](CLAUDE.md)(3장·4장·10장)입니다. 이 보드는 그 역할표를 "지금 상태"로 갱신하는 용도입니다. 어디에 뭘 두는지는 [`src/android/README.md`](src/android/README.md) 참고.
+> 최신 역할 재배정은 [`AwakeDrive_일정_v1.gan`](docs/plan/AwakeDrive_일정_v1.gan)을 따른다(개입 3번, DemoPlayer 5번). 기존 구현 기록은 당시 이력으로 보존한다. 역할·모듈·아키텍처의 기본 맥락은 [`CLAUDE.md`](CLAUDE.md)(3장·4장·10장)입니다. 이 보드는 그 역할표를 "지금 상태"로 갱신하는 용도입니다. 어디에 뭘 두는지는 [`src/android/README.md`](src/android/README.md) 참고.
 
 ## 마일스톤
 
@@ -27,8 +27,6 @@
 | --- | --- | --- | --- |
 | VehicleSignalHub | `app/.../signal/` | 진행중 |  |
 | TripStateStore | `app/.../signal/` | 진행중 |  |
-| InterventionManager | `app/.../signal/` (단계 전환 규칙은 `engine/.../intervention/`) | 진행중 |  |
-| DemoPlayer | `app/.../demo/` | 진행중 |  |
 
 2026-11-01: 로컬 `feat/signal-scaffold`에서 **A 기본 틀 완료**. 공통 모델·Clock·EngineConfig·입출력 계약, 단일 Source의 최소 Hub, 메모리 운행 상태, 개입·재생의 명시적 미연결 구현과 시험 전용 Fake를 추가했다. 모듈 전체가 완료된 것은 아니므로 상태는 진행중으로 유지한다.
 
@@ -93,6 +91,45 @@
 - 앱 제거/UTP 없이 교체 설치했다. 전후 Room 모든 논리 행 동일, 같은 가상7분·운행ID·연속/최근2분·P/ON 복원 확인. SDK 시간을 수동 운행에 합산하지 않았다.
 - DemoClock/JSON·FGS·부팅·실제 운행 저장 통합은 후속이다. **TRP_003 전체·SIG_001 실제 60초 엄격 TC·SIG_005 착석 의미·SIG_009 센서 원천 Hz·실제 경로 안내 TC는 완료로 표시하지 않는다.** `develop-jdw`·시작 HEAD `3d135fb` 유지, 이번 작업에서 브랜치 전환/커밋/push 없음.
 
+2026-11-05 DemoClock·JSON·DemoPlayer: `develop-jdw`·HEAD `7bc5ffd`에서 구간별 1/10/60배 재생·질문 중1배·상대/실제/epoch 시간 분리와 엄격 JSON 로더를 구현했다. [재생·시간·버튼 가이드](docs/setup/ROLE1_DEMO_PLAYER.md), [5번 JSON 작성 가이드](docs/setup/ROLE1_DEMO_JSON.md), [검증 기록](docs/devlog/2026-11-05.md) 참고.
+
+- `engine.time.Clock`을 유지하며 데모 전용 `DemoClock`만 배속한다. 음성 실제 경과·기기 날짜는 배속하지 않고 예보에는 별도 `EpochScenarioClock`으로 `startEpochMs + 상대 ms`를 준다. 기존 수동 검증/Room 시계는 변경하지 않았다.
+- `ScenarioDemoPlayer`의 로드/시작/일시정지/재개/중지/초기화·자연 종료, 질문 세대·중복/중첩/늦은 결과·실패/취소와 null 무효화를 구현했다. 출력은 DEMO Source로 기존 Hub에만 공급하며 REAL 우선·DEMO 위경도 쌍 예외를 유지한다.
+- SRS MSG-11의 `t`초·`fromSec/toSec/factor`를 유지하고 파일/JSON/스키마/시간/배속 오류를 구별한다. 최소 예제·JSON Schema·작성 가이드를 제공한다. null·OTHER·HAZARD·power 확장은 가이드에 명시했다. 6종 시나리오 및 Python 별도 검증기는 완료가 아니다.
+- 독립 debug **JSON 데모·배속 검증** 화면은 상대/실제 시간·구간/실효 배속·질문·Hub 최종 값/출처를 표시한다. PR #8 `CheckManager`를 재사용한 가짜 질문·가짜 REAL 시험이며 실제 음성/SDK 수신과 구별한다. 화면 종료 때 Hub/재생을 중지한다. 기존 운행·가짜 Hub·실제 SDK·음성 화면과 Room 저장 코드/스키마를 보존했다.
+- 최종 검증: 기존 JBR25.0.3으로 `:engine:test` **146개** + `:app:testDebugUnitTest` **178개** = **324개 통과**(기존273개+신규51개), 실패/오류/건너뜀0. `assembleDebug`·`git diff --check` 성공. 구간 경계·느린 소비 중pause·실제2300ms응답·질문 종료 즉시 복귀·시계 역행·소유 scope 종료·REAL/DEMO 선택 회귀를 포함한다.
+- **미수행:** 연결 기기 없음에 따라 기기 버튼/실제 성능 ±1%·실제 SDK+JSON 동시 수신·실제 TTS/STT lifecycle. APK 설치·제거/UTP/Wipe/DB삭제 없음. 실제 음성 시작/종료 통보와 모델 변환, 제품 Hub/운행/개입/예보 조립, DMO_005~006 E2E·서비스/부팅은 후속이다. 커밋·push·PR은 생성하지 않았다.
+
+2026-11-05 후속 60배 성능 점검: 종료 전 `PLAYING` 전체null의 원인은 전달 중 배속 시계가 앞서 DEMO 원본이 `STALE`로 제외되는 경로였다. `pump()`의 현재 시각 따라잡기·완전 관측 경계25ms 작업 예산·PAUSED 잔여 전달·전체 전달 후 종료를 추가하고 debug 재생/Hub 수신을 Main 화면 처리와 분리했다. 최초 전체324개·수정 전 지연2개 단독 통과와 구분해 **전체329개(engine146+app183)·assembleDebug를 `--rerun-tasks`로 재검증**했다. Room 전후 논리 행 동일·기존 가상7분 저장본 보존·브랜치/HEAD 유지 확인. **기기 60배 성능은 미해결:** 최종 두 재생 모두 원본18,000개 전달·정상 종료했지만 전체null85/66tick과 누락deadline10,831/9,227회가 남았다. [개발 기록](docs/devlog/2026-11-05.md#최종-기기-결과와-남은-성능-한계)·[근거 요약](docs/devlog/2026-11-05-demo-performance.json)·[직접 확인 순서](docs/setup/ROLE1_DEMO_PLAYER.md#장기-재생과-trace-확인-순서)를 따른다. 실제 SDK+JSON·실제 음성·제품 통합 완료를 뜻하지 않는다.
+
+2026-11-07 실제 SDK 운행·Room 연결: `develop-jdw`의 기존 미커밋 작업을 보존하고 **1번 신호 → 운행 계산 → 전용 Room**을 debug 화면에서 연결했다. [연결·직접 버튼 가이드](docs/setup/ROLE1_REAL_TRIP.md), [검증 기록](docs/devlog/2026-11-07-real-trip.md) 참고.
+
+- 기어 ON_CHANGE는 [가정] 1초 재조회·3초 확인 lease를 적용한다. 원천 변경·실제 수신·재조회 확인 시각을 분리하며 Hub 발행/같은 상태 재조회를 새 센서 관측으로 세지 않는다. 부분 누락은 유지, 명시 null/오류·권한 상실·해제는 무효화한다.
+- 새 `PlaygroundTripSession`이 REAL 전용 Hub·기존 Tracker/Rules/Store와 `TripSaveCoordinator`를 연결한다. 전원 API는 미확인/미연결이며 ON/OFF를 추정하지 않는다. DEMO·수동 시계/운행은 공유하지 않는다.
+- `awakedrive_sdk_trip.db`에서 실제 경과 10초와 상태 전환/정상 중지 즉시 저장을 실행한다. `awakedrive_debug_trip.db`는 보존한다. 원본 정밀 정차·운전 구간·개입 형식/Room 스키마 유지. 복원 원본과 새 입력 대기 UNKNOWN을 구분하고 앱 종료 공백을 합산하지 않는다.
+- 자동 회귀 **engine 153 + app 261 = 414개**, 실패/오류/skip 0. `assembleDebug`·AndroidTest APK·release manifest 처리 통과. 재연결 최초 조회가 과거 callback 계수에 막히던 결함을 새 시험으로 발견하고 수정했다. 최종 Room 기기10개 통과. 실제 D15초 유지·D→P→D·강제 종료/재실행(ID·313,009ms·최근47초/현재UNKNOWN)·중복 연결/재연결·차속 권한 철회/복구를 확인했다. 수동 DB 전후 논리 해시 동일, 최종 APK/설치본 일치. 실제15분/24시간 대기·기어 권한/CarService 강제오류·이동 중 제한은 미검증이다.
+- **진행중 유지:** 화면 종료 후 감시 서비스·절전·실제 전원·BOOT_COMPLETED/실제 재부팅 복원은 후속이다. 다른 담당 판단/음성/쉼터/휴식 연결 대기. TRP_003 전체 완료가 아니다. 개입은3번·DemoPlayer는5번 인계 대상으로 기존 코드·시험·60배 기록을 그대로 보존하고 성능 재작업은 하지 않았다.
+- 브랜치 전환·커밋·push·앱 제거·데이터 초기화 없음. 교체 설치와 직접 instrumentation runner만 사용한다.
+
+2026-11-07 REAL 감시 서비스: 기존 실제 SDK→Hub→운행→전용 Room을 `RealTripMonitorService`로 옮겼다. 화면은 상태와 시작/중지 명령만 담당한다. [서비스 가이드](docs/setup/ROLE1_MONITOR_SERVICE.md), [검증·실제 재부팅 기록](docs/devlog/2026-11-07-monitor-service.md) 참고.
+
+- 비마이크 `specialUse`의 공식 유형/권한·사용자 시작·알림 중지·시스템 sticky 재생성·허용된 BOOT 재개를 연결했다. 사용자 중지 의사는 먼저 저장하고 자동 재시작하지 않는다. SDK 단독 검증 화면과 객체 lease로 소유권을 나눈다.
+- 실제 경과10초/필요 즉시 저장·원본 보존/UNKNOWN 복원·수동/DEMO/REAL 분리를 유지한다. 기어 확인 lease가 끊긴 절전/미관측 공백은 운전·정차·휴식에 더하지 않는다. 재부팅 전후 elapsed를 직접 빼지 않는다.
+- 최종 자동 **engine153+app280=433개**, 실제 Room 기기 **10개** 통과. debug APK/기기시험 APK/release manifest 빌드 성공. 추가 Lint는 변경하지 않은 3번 음성 `PleosSpeechRecognizer.kt:129`의 기존 권한 처리 오류1건으로 실패했으며 범위 밖이라 보존했다. 실제 시작 연타·화면 종료/꺼짐·OS 화면 제한·재진입/회전·SDK 소유 충돌·명시/알림 중지·SIGKILL 재생성·강제 종료 UNKNOWN 복원·권한 철회·실제 BOOT 재개와 중지 뒤 두 번째 재부팅 비재개를 확인했다. 초기 재생성 미재개 관찰은 최종 합격과 구분해 기록했다.
+- 기존 수동 DB 전후 모든 논리 행 동일·integrity ok, REAL ID/구간 보존, 개입·DemoPlayer·60배 구현 보존. 전원 IGNITION_STATE는 공식 의미를 확인했지만 실제 AVD 지원 목록에 없어 UNKNOWN이다. 실제 STR/물리 차량·CarService 강제 장애·기어 권한 철회·15분/24시간 장기 대기·시작 제한 fallback은 미검증이다. 2/3/4/5번 연결은 대기다.
+- `develop-jdw` 유지. 브랜치 전환·커밋·push·앱 삭제·사용자 데이터 초기화 없음. 최종 감시는 중지/UNKNOWN이며 사용자가 **감시 시작**으로 재개한다.
+
+2026-11-07 사용자 직접 감시 확인·중간 저장: 중복 시작 방지, 화면 종료 중 감시/저장 지속, 명시적 중지와 재진입 후 같은 운행 ID/누적 복원을 사용자 직접 조작으로 확인했다. `/tmp/awakedrive-user-monitor-20261107.json`의 기어 STALE→UNKNOWN 1회·로그상93ms 뒤 D 복귀를 대조했으며 원인은 미해결이다. [후속 관찰과 한계](docs/devlog/2026-11-07-monitor-service.md#사용자-직접-확인과-중간-커밋-2026-11-07). 기존 자동433개·Room기기10개는 이전 통과 기록이며 이번 커밋 준비에서 재실행한 숫자가 아니다. 60배 기기 성능 목표 미달·기존 음성 Lint 오류·미검증 범위를 유지하고 개입/데모는 인계 자료로 보존한다.
+
+2026-11-07 기어 STALE 후속 분석: 시작 `develop-jdw`·HEAD `6451ed8`·clean을 기록하고, 원본 로그93ms와 실제 운전 누적 제외 **202ms**를 구분했다. 원본에는 조회 단계 시각이 없어 당시 원인은 미확정이다. [분석·수정·검증 기록](docs/devlog/2026-11-07-gear-stale.md) 참고.
+
+- Main 진행에 의존하던 재조회 예약을 IO 직렬 루프로 옮겼고, 늦은 같은/과거 원천 응답이 새 확인 시각을 되돌리는 결함을 실패 회귀로 확인해 차단했다. 실제 새 D→P·오류/권한/세대 무효화와 UNKNOWN을 유지한다. TTL3초/재조회1초·원천/수신/확인 시간 계약·센서 관측 계수는 보존했다.
+- 조회 예약/실행/응답/반영·마지막 확인/유효 끝·Hub 판정/이유를 제한된 메모리로 계측한다. 자동 진단은 작은 요약, 수동 **진단 저장**은 별도 `cache/gear-collection-audit.json` 상세 기록이며 파일 I/O는 IO에서 처리한다.
+- 이번 전체 강제 재실행 **engine153+app297=450개**, 실제 Room 기기 **10개**, debug/AndroidTest APK·release manifest 빌드 통과. 기존433개/Room10개 과거 기록과 구분한다. AVD D 유지 수정 전120초×2·수정 후120초×2·최종 자동 진단60초×1은 모두 STALE0회지만 **원본 해결 판정은 아니다**. 이번 시작 연타/회전·실제 기어 권한/CarService 장애·STR·재부팅은 재시험하지 않았다.
+- 수동 DB 논리 해시 동일·REAL 같은 ID/기존11개 구간·원본 진단 보존. 재실행 후1,798,726ms/최근708초·현재UNKNOWN 복원, 마지막 감시 중지/타이머0 확인. 브랜치 전환·커밋·push·앱 삭제/초기화 없음. 음성 Lint/60배 성능은 미수정·미해결, 다른 담당 연결 대기를 유지한다.
+
+2026-11-08 사용자 직접 기어 검증: D 유지 **129,494ms**가 단일 운전 구간으로 추가되고 최근 누적 **708→838초**가 됐다. 완료 세션의 조회143회·오류0·기어 STALE0, D 중 실제10초 저장 성공12건과 같은 ID/구간을 진단으로 대조했다. 실제 Room의 같은 ID/구간은 사용자 직접 확인 결과다. [세션/시각·수동 검증 기록](docs/devlog/2026-11-07-gear-stale.md#2026-11-08-사용자-직접-검증과-커밋-준비). 상세 파일은 중지 후 세대2, 최신 진단은90,890ms 뒤 재시작 세대3이므로 누계를 혼합하지 않았다. 원본 STALE 원인은 미확정이며 이번에 재발하지 않았다는 결과로 유지한다. 자동450개·Room10개는 앞선 통과 기록으로 이번 커밋 준비 중 재실행하지 않았다. 음성 Lint·60배 성능·미검증 범위는 그대로 보존한다.
+
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 
 | 모듈 | 위치 | 상태 | 이슈 |
@@ -121,6 +158,7 @@
 | SpeechAgent (STT) | `app/.../voice/` | 대기 |  |
 | CabinMonitor | `app/.../cabin/` | 대기 |  |
 | CheckManager | `app/.../voice/` 또는 `app/.../cabin/` | 대기 |  |
+| InterventionManager | `app/.../signal/`, `engine/.../intervention/` | 인계 대기 (기존 코드·시험·기록 보존) |  |
 
 ### 4번 — 예보·쉼터·휴식 (`feat/rest-*`)
 
@@ -140,9 +178,23 @@
 | 데모 시나리오 6종(JSON) | `data/scenarios/` (합성은 `src/tools-py/`) | 대기 |  |
 | 쉼터 CSV 전처리 | `data/rest_areas/` | 대기 |  |
 | 시연 영상·README | — | 대기 |  |
+| DemoPlayer | `app/.../demo/`, `engine/.../time/` | 인계 대기 (기존 코드·시험·60배 기록 보존) |  |
 
 엔진 쪽 패키지 경로(`engine/.../intervention`, `engine/.../rest`)와 그 패키지를 쓰는 app 쪽 클래스의 정확한 경계는 1주차(1·2·4번)에 확정합니다.
 
 ## 이번 주 막힌 것 (블로커)
 
 -
+
+### 2026-11-06 — 1번 60배 Hub 성능 후속
+
+- develop-jdw 미커밋 작업·Room 논리 데이터 보존, 브랜치 전환/커밋/push/앱 삭제/초기화 없이 작업.
+- 수신/진단/RateMeter 계측·할당 감소, 짧은 묶음/잔여 즉시 양보 재생, 원본3채널 감사, 종료 trace와 지속 저장 상태 추가.
+- engine148 + app202 =350개 및 assembleDebug 통과. 같은 창 있는 AVD에서 일반60배/질문취소→60배 각각2회 재검증, 원본 채널별18000·누락/중복/역행0.
+- **예상외null0·완전발행 미달**: 최종 실제null발행79/156/135/147회, deadline누락5321/5199/5123/5131회. [계측·실패 실험·직접 확인 기록](docs/devlog/2026-11-06.md).
+
+2026-11-06 후속 전달·스케줄 검증: 완전 관측 인계·로드 시 원본 준비·짧은 묶음 양보·명령 기아 방지를 추가했다. 이전350개 검증 이후 현재 **engine149개+app227개=376개·assembleDebug 통과**를 확인했다. 기본 실행 통로는 `DEFAULT_LANE`이며, 같은 AVD의 **실제 예상외null0 목표는 미달**이다. 조건별 측정값·남은 한계·직접 누를 순서는 [후속 개발 기록](docs/devlog/2026-11-06-demo-transport.md)을 따른다. 기존 미커밋 작업과 Room 데이터를 보존했으며 다른 담당 기능을 새로 통합하지 않았다.
+
+2026-11-06 시간축 구조 검토: 기존376개 변경·장기trace·Room을 보존하고, 같은60초/600원본의1·10·60배를 비교했다. 1배는null/deadline0,10배는null0·deadline24/20,60배는실제처리완료2,280/1,415ms·달성26.32/42.40배였다. 완료watermark로Hub시계만늦추는안은최신성·시한·원천Hz를왜곡하는반례가있어기본적용하지않았다. 생산시간축/정책은유지하고요청/목표/실제완료배속표시·독립경과계측을추가했다. 기존376개포함 **385개(engine149+app236)·assembleDebug통과**, 최신성/완전발행목표는여전히미달이다. [검토·기기결과·직접확인](docs/devlog/2026-11-06-demo-timeaxis.md)·[요구의시간축구분](docs/devlog/2026-11-06-demo-timeaxis-requirements.md).
+
+2026-11-07 SIG_001~017 SDK 수집 보완: 기존 385개·Room·미커밋 작업을 보존했다. API 지원과 의미 보류를 분리하고, 권한 상실/미지원 뒤 늦은 수신·시각 역행·통풍 SDK 범위를 보호했다. Console의 좌석 온열/냉각과 실제 통풍을 별도 진단으로 확인했다. 기존 385개 포함 **396개(engine149+app247)·assembleDebug·release manifest 확인**. 조향 물리량/착석 UNKNOWN 손실은 미해결이며 통풍1단계 입력·활성 내비 경로와 일부 지연 TC는 미확인이다. SDK Hub 73.085초 감사의 최대 간격147ms·110ms 초과20회로 SIG_001 시간 TC도 미달이다. [보완·기기 결과·직접 버튼 순서](docs/devlog/2026-11-07-signal-sdk.md). 다른 담당 통합·60배 재작업·브랜치 전환·커밋·push·초기화는 하지 않았다.

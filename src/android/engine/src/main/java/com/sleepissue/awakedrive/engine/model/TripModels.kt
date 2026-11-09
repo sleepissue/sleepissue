@@ -3,8 +3,8 @@ package com.sleepissue.awakedrive.engine.model
 import com.sleepissue.awakedrive.engine.session.TripRulePolicy
 import com.sleepissue.awakedrive.engine.session.TripRuleState
 
-/** 수동 논리 시각만 중단 지점에서 재개한다. 실제 차량의 재부팅 시간 변환은 별도 계약이다. */
-enum class TripTimeBasis { MANUAL_SCENARIO, ELAPSED_REALTIME }
+/** WALL_EPOCH는 세션 시작 날짜 + 단조 경과 시각이다. 재실행 중 관측 공백은 누적하지 않는다. */
+enum class TripTimeBasis { MANUAL_SCENARIO, ELAPSED_REALTIME, WALL_EPOCH }
 
 enum class DriveState { UNKNOWN, DRIVING, PAUSED }
 
