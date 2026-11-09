@@ -22,6 +22,7 @@ class VoiceCheckCoordinator(
     private var generation = 0L
     private var latestIntent = SpeechIntent.NONE
     private var previousResult: CheckResult? = null
+    private var promptSettle: Runnable? = null
     private var timeout: Runnable? = null
     private var recheck: Runnable? = null
 
@@ -56,38 +57,42 @@ class VoiceCheckCoordinator(
         }
         resultConsumer = ::deliver
 
-        tonePlayer.play {
-            if (currentGeneration != generation) return@play
-            checkManager.onBeepEnded()
-            var unavailable = false
-            val started = recognizer.start(
-                questionType,
-                RecognitionCallbacks(
-                    onSpeechLatency = checkManager::onVoiceLatencyMeasured,
-                    onIntent = { if (currentGeneration == generation) latestIntent = it },
-                    onEnded = { finishCurrent(currentGeneration) },
-                    onUnavailable = {
-                        if (currentGeneration == generation) {
-                            unavailable = true
-                            onSttFallbackRequired()
-                        }
-                    },
-                ),
-            )
-            if (started) {
-                timeout = Runnable {
-                    if (currentGeneration != generation) return@Runnable
-                    recognizer.stop()
-                    handler.postDelayed(
-                        { finishCurrent(currentGeneration) },
-                        config.sttFinalizationGraceMs,
-                    )
+        promptSettle = Runnable {
+            if (currentGeneration != generation) return@Runnable
+            promptSettle = null
+            tonePlayer.play {
+                if (currentGeneration != generation) return@play
+                checkManager.onBeepEnded()
+                var unavailable = false
+                val started = recognizer.start(
+                    questionType,
+                    RecognitionCallbacks(
+                        onSpeechLatency = checkManager::onVoiceLatencyMeasured,
+                        onIntent = { if (currentGeneration == generation) latestIntent = it },
+                        onEnded = { finishCurrent(currentGeneration) },
+                        onUnavailable = {
+                            if (currentGeneration == generation) {
+                                unavailable = true
+                                onSttFallbackRequired()
+                            }
+                        },
+                    ),
+                )
+                if (started) {
+                    timeout = Runnable {
+                        if (currentGeneration != generation) return@Runnable
+                        recognizer.stop()
+                        handler.postDelayed(
+                            { finishCurrent(currentGeneration) },
+                            config.sttFinalizationGraceMs,
+                        )
+                    }
+                        .also { handler.postDelayed(it, config.voiceResponseTimeoutMs) }
+                } else if (unavailable) {
+                    finishCurrent(currentGeneration)
                 }
-                    .also { handler.postDelayed(it, config.voiceResponseTimeoutMs) }
-            } else if (unavailable) {
-                finishCurrent(currentGeneration)
             }
-        }
+        }.also { handler.postDelayed(it, config.voicePromptSettleMs) }
     }
 
     private var activeBaselineMs = 0L
@@ -113,8 +118,10 @@ class VoiceCheckCoordinator(
     fun cancel() {
         generation++
         completed = true
+        promptSettle?.let(handler::removeCallbacks)
         timeout?.let(handler::removeCallbacks)
         recheck?.let(handler::removeCallbacks)
+        promptSettle = null
         timeout = null
         recheck = null
         recognizer.stop()
