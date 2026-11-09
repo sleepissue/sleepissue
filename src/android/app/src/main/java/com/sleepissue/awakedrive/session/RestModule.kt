@@ -27,8 +27,14 @@ import kotlinx.coroutines.Job
  *
  * ```kotlin
  * val rest = RestModule(context, scope, clock) { text -> voiceAgent.speakAndWait(text) }
+ * // 예보(FCS_001·004): 출발 피로 false→true, 휴식 인증 뒤에 다시 계산해 1번에 Forecast로 넘긴다
+ * val forecast = ForecastCoordinator(ForecastEngine(clock, config), clock, manager,
+ *     { ForecastCoordinator.inputFrom(tripStore.state.value, hub.latestNavi.value) }, { RequestId("fc-${++k}") })
+ * scope.launch { forecast.watchDepartureFatigue(runner.snapshots.map { it.baseline.departureFatigue }) }
+ * // 휴식 인증 + 회복 정상(RES_011): 2번 엔진 평활값 0 + 예보 재계산
+ * val reset = RestRecoveryReset({ runner.onRestCertified() }, forecast)
  * val router = InterventionRouter(manager, check = checkPort, speech = speechPort,
- *     rest = rest.restPort, climate = rest.climate, newInputId = { RequestId("in-${++n}") })
+ *     rest = rest.restPort, climate = rest.climate, recoveryReset = { reset(it) }, newInputId = { RequestId("in-${++n}") })
  * router.start(scope)
  * val wiring = rest.wire(manager, router, hub, { tripStore.state.value.continuousDriveSec }, { RequestId("rest-${++m}") })
  * // 화면: rest.restMonitor.ui(휴식 화면), rest.nap.state(파워냅 화면), rest.ledger.stamps(스탬프),

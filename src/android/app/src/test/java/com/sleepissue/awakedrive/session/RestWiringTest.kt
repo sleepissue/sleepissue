@@ -1,6 +1,9 @@
 package com.sleepissue.awakedrive.session
 
 import com.sleepissue.awakedrive.engine.config.EngineConfig
+import com.sleepissue.awakedrive.engine.forecast.ForecastEngine
+import com.sleepissue.awakedrive.engine.forecast.ForecastInput
+import com.sleepissue.awakedrive.engine.forecast.ForecastRecalcTrigger
 import com.sleepissue.awakedrive.engine.intervention.InterventionPolicy
 import com.sleepissue.awakedrive.engine.model.CheckContext
 import com.sleepissue.awakedrive.engine.model.CheckOutcome
@@ -142,7 +145,12 @@ class RestWiringTest {
         val spoken = mutableListOf<String>()
         val rest = RestAreaRestPort({ listOf(shelter) }, { id -> shelter.takeIf { it.id == id } }, RestAreaSelector(), bridge, work)
         private val newInput = { RequestId("input-${++input}") }
-        val router = InterventionRouter(manager, check = check, speech = null, rest = rest, climate = climate, newInputId = newInput)
+        var fatigueResets = 0
+        val forecast = ForecastCoordinator(ForecastEngine(clock), clock, manager, { ForecastInput(150, null, 0, emptyList()) }, newInput)
+        val reset = RestRecoveryReset({ fatigueResets++ }, forecast)
+        val router = InterventionRouter(
+            manager, check = check, speech = null, rest = rest, climate = climate, recoveryReset = { reset(it) }, newInputId = newInput,
+        )
         val monitor = RestSessionMonitor(RestCertifier(listOf(shelter)), RewardLedger(InMemoryRestRecordStore(), clock), clock, climate)
         val nap = NapSession(NapTimer(), object : NapAlarm {
             override fun start(rampMs: Long, maxMs: Long) = Unit
@@ -239,6 +247,47 @@ class RestWiringTest {
         rig.nap.wake() // 알람을 끔
         runCurrent()
         assertEquals(1, rig.checks(CheckContext.RECOVERY).size)
+        rig.work.cancel()
+    }
+
+    @Test
+    fun `휴식 인증 + 회복 정상 → 엔진 평활값 초기화, 연속 0 기준 예보 재계산 1회 (RES_011)`() = runTest {
+        val rig = Rig(this)
+        rig.start()
+        rig.hub.at(0, Gear.P, shelter.location)
+        step(rig)
+        repeat(15) { step(rig, min) }
+        val recovery = rig.checks(CheckContext.RECOVERY).single()
+        assertEquals(0, rig.fatigueResets)
+
+        rig.check.progress(ExecutionResult(recovery.requestId, ExecutionStatus.STARTED))
+        rig.check.complete(CheckResult(recovery.requestId, CheckContext.RECOVERY, CheckOutcome.NORMAL, 800, ResponseIntent.YES, ResponseChannel.VOICE))
+        runCurrent()
+
+        assertEquals(1, rig.fatigueResets)
+        val forecasts = rig.manager.inputs.filterIsInstance<InterventionInput.Forecast>()
+        assertEquals(1, forecasts.size)
+        val result = rig.forecast.latest.value!!
+        assertEquals(ForecastRecalcTrigger.REST_VERIFIED, result.trigger)
+        // 입력의 연속 150분이 아니라 0분 기준 → 기본 120분 뒤
+        assertEquals(120, result.remainingMin)
+        assertEquals(rig.clock.scenarioMs + 120 * min, forecasts.single().value.dueAtMs)
+        rig.work.cancel()
+    }
+
+    @Test
+    fun `회복 느림이면 엔진 초기화 안 함`() = runTest {
+        val rig = Rig(this)
+        rig.start()
+        rig.hub.at(0, Gear.P, shelter.location)
+        step(rig)
+        repeat(15) { step(rig, min) }
+        val recovery = rig.checks(CheckContext.RECOVERY).single()
+        rig.check.progress(ExecutionResult(recovery.requestId, ExecutionStatus.STARTED))
+        rig.check.complete(CheckResult(recovery.requestId, CheckContext.RECOVERY, CheckOutcome.SLOW, 2_600, ResponseIntent.YES, ResponseChannel.VOICE))
+        runCurrent()
+        assertEquals(0, rig.fatigueResets)
+        assertTrue(rig.manager.inputs.none { it is InterventionInput.Forecast })
         rig.work.cancel()
     }
 
