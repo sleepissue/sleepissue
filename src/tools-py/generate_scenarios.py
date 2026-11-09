@@ -133,12 +133,16 @@ def generate_drowsy():
                 2 * math.pi * 0.05 * sleepy_sec
             )
 
-            # 7.5초마다 큰 조향 변화
-            # 분당 약 8회
+            # 7.5초마다 부드러운 큰 조향 변화
+            # 3초 동안 서서히 꺾었다가 복귀
+            # 급격한 6도 이상 변화와 구분
             large_event = sleepy_sec % 7.5
 
-            if large_event < 0.3:
-                steering += 7.0
+            if large_event < 3.0:
+                if large_event < 1.5:
+                    steering += 7.0 * (large_event / 1.5)
+                else:
+                    steering += 7.0 * ((3.0 - large_event) / 1.5)
 
             # 150초마다 급조향
             # 약 2분 30초 간격
