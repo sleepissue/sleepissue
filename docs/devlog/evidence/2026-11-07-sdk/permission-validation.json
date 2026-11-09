@@ -1,0 +1,30 @@
+{
+  "permission": "android.car.permission.CAR_SPEED",
+  "grantedBefore": true,
+  "restoredToOriginalGrant": true,
+  "pidBeforeRevocation": "7584",
+  "pidAfterRevocation": null,
+  "systemTerminatedProcessOnRevocation": true,
+  "deniedFrameWasNull": true,
+  "deniedStateLogRows": 1,
+  "restoredReading": {
+    "apiReadable": true,
+    "availability": "AVAILABLE",
+    "callbacks": 0,
+    "key": "SPEED_KPH",
+    "maxValue": null,
+    "minValue": null,
+    "nativeMs": 100083500,
+    "normalization": "NORMALIZED",
+    "note": "부호 있는 m/s → 속력 abs × 3.6 km/h",
+    "permission": "android.car.permission.CAR_SPEED",
+    "permissionGranted": true,
+    "queries": 1,
+    "raw": "0.0",
+    "receivedMs": 100083517,
+    "rejectedDeliveries": 0,
+    "support": "AAOS READ mode=2 maxHz=20.0",
+    "value": 0.0
+  },
+  "limitations": "시스템이UID프로세스를종료했으므로같은살아있는세션에서늦은callback경로를실기로입증한것은아님. 해당경로는회귀시험으로검증."
+}

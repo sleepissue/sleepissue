@@ -1,0 +1,33 @@
+{
+  "sdkRawBooleansAtEachOccupiedCommand": {
+    "driver": {
+      "SEAT:ROW_1_LEFT": "false",
+      "SEAT:ROW_1_RIGHT": "true",
+      "SEAT:ROW_2_LEFT": "true",
+      "SEAT:ROW_2_CENTER": "true",
+      "SEAT:ROW_2_RIGHT": "true"
+    },
+    "passenger": {
+      "SEAT:ROW_1_LEFT": "true",
+      "SEAT:ROW_1_RIGHT": "false",
+      "SEAT:ROW_2_LEFT": "true",
+      "SEAT:ROW_2_CENTER": "true",
+      "SEAT:ROW_2_RIGHT": "true"
+    },
+    "rear_left": {
+      "SEAT:ROW_1_LEFT": "true",
+      "SEAT:ROW_1_RIGHT": "true",
+      "SEAT:ROW_2_LEFT": "false",
+      "SEAT:ROW_2_CENTER": "true",
+      "SEAT:ROW_2_RIGHT": "true"
+    },
+    "rear_right": {
+      "SEAT:ROW_1_LEFT": "true",
+      "SEAT:ROW_1_RIGHT": "true",
+      "SEAT:ROW_2_LEFT": "true",
+      "SEAT:ROW_2_CENTER": "true",
+      "SEAT:ROW_2_RIGHT": "false"
+    }
+  },
+  "note": "각 명령 전에 이전 좌석을 Empty로 복귀한 raw 비교다. canonical 착석 의미를 확정하지 않는다."
+}

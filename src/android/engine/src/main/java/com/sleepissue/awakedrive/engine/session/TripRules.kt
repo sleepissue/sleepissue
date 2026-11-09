@@ -17,6 +17,18 @@ class TripRules(
 ) {
     private val rolling = RollingDriveWindow(config.rollingDriveWindowMs)
 
+    /**
+     * 저장 이력은 보존하되 마지막 관측을 현재 입력으로 재사용하지 않는다.
+     * 저장 시각에서 관측의 유효 구간을 끝내고, 공백은 UNKNOWN으로 전진한다.
+     * 이전 정차/OFF의 연속 증명은 끝난다. 호출자는 원본 저장본을 별도로 표시할 수 있다.
+     */
+    fun resumeWithUnavailableInput(previous: TripRuleState, resumeAtMs: Long): TripRuleState {
+        val savedAt = requireNotNull(previous.lastObservation).tMs
+        require(resumeAtMs >= savedAt) { "복원 시각이 저장된 논리 시각보다 이릅니다." }
+        val suspended = reduce(previous, TripObservation(savedAt, null, null)).state
+        return reduce(suspended, TripObservation(resumeAtMs, null, null)).state
+    }
+
     fun reduce(previous: TripRuleState, input: TripObservation): TripRuleResult {
         val before = previous.lastObservation
         require(before == null || input.tMs >= before.tMs) { "운행 관측 시각이 역행했습니다." }

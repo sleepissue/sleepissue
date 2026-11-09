@@ -1,0 +1,18 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 261,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "apkSha256": "38246430443578a566a18b06fd5f2a245eaa406126fa0e1f60f3ee4251c3f923",
+  "assembleDebug": "PASSED",
+  "assembleDebugAndroidTest": "PASSED",
+  "processReleaseMainManifest": "PASSED"
+}

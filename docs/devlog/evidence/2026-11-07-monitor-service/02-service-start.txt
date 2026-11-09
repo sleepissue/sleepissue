@@ -1,0 +1,44 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 10 active services:
+  * ServiceRecord{6d5aa05 u10 com.sleepissue.awakedrive/.service.RealTripMonitorService}
+    intent={cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService}
+    packageName=com.sleepissue.awakedrive
+    processName=com.sleepissue.awakedrive
+    baseDir=/data/app/~~3mxwgUreuGkrJ2ValVKgBw==/com.sleepissue.awakedrive-bJsRvkOzOUG7mWMSmxfsNA==/base.apk
+    dataDir=/data/user/10/com.sleepissue.awakedrive
+    app=ProcessRecord{c89e896 9490:com.sleepissue.awakedrive/u10a182}
+    mAllowWhileInUsePermissionInFgsReason=PROC_STATE_TOP
+    mAllowWIUInBindService=PROC_STATE_TOP
+    mAllowWIUByBindings=DENIED
+    allowUiJobScheduling=true
+    recentCallingPackage=com.sleepissue.awakedrive
+    recentCallingUid=1010182
+    allowStartForeground=PROC_STATE_TOP
+    mAllowStartInBindService=PROC_STATE_TOP
+    mAllowStartByBindings=DENIED
+    startForegroundCount=0
+    infoAllowStartForeground=[callingPackage: com.sleepissue.awakedrive; callingUid: 1010182; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { act=com.sleepissue.awakedrive.monitor.START cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:34; callerTargetSdkVersion:34; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+    createTime=-32s303ms startingBgTimeout=--
+    lastActivity=-20ms restartTime=-32s303ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=false callStart=false lastStartId=1
+ startCommandResult=0
+    executeNesting=1 executeFg=true executingStart=-20ms
+    Delivered Starts:
+    #0 id=1 dur=-20ms dc=1
+      intent=Intent { act=com.sleepissue.awakedrive.monitor.START cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService }
+    Bindings:
+    * IntentBindRecord{dd1566 CREATE}:
+      intent={cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService}
+      binder=android.os.BinderProxy@d8b60a7
+      requested=true received=true hasBound=true doRebind=false
+      * Client AppBindRecord{3f53954 ProcessRecord{c89e896 9490:com.sleepissue.awakedrive/u10a182}}
+        Per-process Connections:
+          ConnectionRecord{573517c u10 CR com.sleepissue.awakedrive/.service.RealTripMonitorService:@95fa06f flags=0x1}
+    All Connections:
+      ConnectionRecord{573517c u10 CR com.sleepissue.awakedrive/.service.RealTripMonitorService:@95fa06f flags=0x1}
+
+  Connection bindings to services:
+  * ConnectionRecord{573517c u10 CR com.sleepissue.awakedrive/.service.RealTripMonitorService:@95fa06f flags=0x1}
+    binding=AppBindRecord{3f53954 com.sleepissue.awakedrive/.service.RealTripMonitorService:com.sleepissue.awakedrive}
+    activity=ActivityRecord{196252a u10 com.sleepissue.awakedrive/.debug.DebugSdkTripActivity t1000291}
+    conn=android.os.BinderProxy@95fa06f flags=0x1

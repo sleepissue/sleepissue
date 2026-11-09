@@ -3,6 +3,7 @@ package com.sleepissue.awakedrive.signal
 import com.sleepissue.awakedrive.engine.model.*
 import com.sleepissue.awakedrive.engine.signal.*
 import com.sleepissue.awakedrive.engine.time.Clock
+import com.sleepissue.awakedrive.performance.WorkProbe
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.*
@@ -298,4 +299,62 @@ class PeriodicSignalHubTest {
         assertEquals(0L, hub.latestFrame.value!!.qualityOf(SignalField.SPEED_KPH).receivedAtElapsedMs)
         hub.stop()
     }
+
+    @Test fun aBurstOfSourceCallbacksKeepsAllCountsAndPublishesDiagnosticsOnlyAtTheFrameBoundary() = runTest {
+        val time = FakeClock(); val source = FakeSignalSource()
+        var nanos = 0L
+        val probe = WorkProbe(nanoTime = { ++nanos })
+        val hub = VehicleSignalHub(listOf(HubSourceSet(Source.DEMO, source, rateTimeBasis = ObservationTimeBasis.SCENARIO)),
+            time, policy(), probe = probe)
+        hub.start(backgroundScope)
+        val diagnosticsBefore = probe.snapshot().getValue("HUB_DIAGNOSTICS").getValue("calls").toLong()
+        for (at in 0L until 60_000L step 100) {
+            time.scenarioMs = at; time.elapsedMs = at / 60
+            source.emit(input(Source.DEMO, at, 40f, basis = ObservationTimeBasis.SCENARIO)); runCurrent()
+        }
+        assertEquals(diagnosticsBefore, probe.snapshot().getValue("HUB_DIAGNOSTICS").getValue("calls").toLong())
+        time.scenarioMs = 60_000; time.elapsedMs = 1_000
+        assertTrue(hub.publishDue())
+        val diagnostics = hub.diagnostics.value
+        assertEquals(600L, diagnostics.inputs.getValue(Source.DEMO).vehicleCallbacks)
+        assertEquals(600L, diagnostics.inputs.getValue(Source.DEMO).steeringRate.acceptedObservations)
+        assertEquals(9.9f, diagnostics.inputs.getValue(Source.DEMO).steeringRate.hz!!, 0.0001f)
+        assertEquals(1L, diagnostics.emittedFrames)
+        assertEquals(599L, diagnostics.skippedDeadlines)
+        assertEquals(40f, hub.latestFrame.value!!.speedKph!!, 0f)
+        assertEquals(diagnostics.inputs.getValue(Source.DEMO).vehicleQuality.getValue(SignalField.STEERING_DEG),
+            hub.latestFrame.value!!.qualityOf(SignalField.STEERING_DEG).copy(selectionReason = null))
+        hub.stop()
+    }
+
+    @Test fun youngReceiptDoesNotMakeAnOldScenarioObservationFresh() = runTest {
+        val rig = Rig(this); rig.open()
+        rig.time.scenarioMs = 2_000; rig.time.elapsedMs = 200
+        rig.demo.emit(input(Source.DEMO, 1_000, 40f, basis = ObservationTimeBasis.SCENARIO)); runCurrent()
+        rig.time.scenarioMs = 2_119; rig.time.elapsedMs = 202
+        assertTrue(rig.hub.publishDue())
+        val quality = rig.hub.diagnostics.value.inputs.getValue(Source.DEMO).vehicleQuality.getValue(SignalField.SPEED_KPH)
+        assertEquals(1_000L, quality.observedAtMs)
+        assertEquals(200L, quality.receivedAtElapsedMs)
+        assertEquals(SignalAvailability.STALE, quality.availability)
+        assertNull(rig.hub.latestFrame.value!!.speedKph)
+        rig.hub.stop()
+    }
+
+    @Test fun activeRawObservationSubscriberKeepsPartialFieldsAndDuplicateReceiptIdentity() = runTest {
+        val rig = Rig(this)
+        val received = mutableListOf<VehicleObservation>()
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { rig.hub.rawVehicleObservations.collect { received += it } }
+        rig.open(); rig.send(Source.DEMO, 0)
+        rig.time.scenarioMs = 100; rig.time.elapsedMs = 100
+        rig.demo.emit(input(Source.DEMO, 0, 40f, basis = ObservationTimeBasis.SCENARIO).copy(
+            updatedFields = setOf(SignalField.SPEED_KPH))); runCurrent()
+        assertEquals(2, received.size)
+        assertEquals(SignalField.entries.toSet(), received.first().updatedFields)
+        assertEquals(setOf(SignalField.SPEED_KPH), received.last().updatedFields)
+        assertEquals(setOf(SignalField.SPEED_KPH), received.last().frame.quality.keys)
+        assertEquals(received.first().frame.qualityOf(SignalField.SPEED_KPH), received.last().frame.qualityOf(SignalField.SPEED_KPH))
+        rig.hub.stop()
+    }
+
 }

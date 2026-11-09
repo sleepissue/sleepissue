@@ -88,6 +88,7 @@ class DebugHarnessViewModel(application: Application) : AndroidViewModel(applica
 
 /** debug 소스에만 존재하는 수동 조작 화면이다. 서비스용 화면·SDK 실행과 분리한다. */
 class DebugHarnessActivity : AppCompatActivity() {
+    private var demoRedirect = false
     private val model by lazy { ViewModelProvider(this)[DebugHarnessViewModel::class.java] }
     private val controller get() = model.controller
     private val uiScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -117,6 +118,34 @@ class DebugHarnessActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (intent.getBooleanExtra("sdkTrip", false)) {
+            demoRedirect = true
+            startActivity(Intent(this, DebugSdkTripActivity::class.java)
+                .putExtra("sdkTripAutoConnect", intent.getBooleanExtra("sdkTripAutoConnect", false))
+                .putExtra("sdkTripCapture", intent.getBooleanExtra("sdkTripCapture", false)))
+            finish()
+            return
+        }
+        if (intent.getBooleanExtra("sdkProbe", false)) {
+            // 실제 SDK 검증 진입은 Room ViewModel을 생성하지 않는다.
+            demoRedirect = true
+            startActivity(Intent(this, DebugSdkProbeActivity::class.java)
+                .putExtra("sdkAutoConnect", intent.getBooleanExtra("sdkAutoConnect", false))
+                .putExtra("sdkCapture", intent.getBooleanExtra("sdkCapture", false)))
+            finish()
+            return
+        }
+        // 비교 실행의 내부 전달 경로만 고른다. 이 경로는 Room ViewModel을 만들지 않는다.
+        val transport = intent.getStringExtra("demoTransport")
+        if (transport == "SEPARATE_FLOWS" || transport == "COMPLETE_OBSERVATION") {
+            demoRedirect = true
+            startActivity(Intent(this, DebugDemoActivity::class.java).putExtra("demoTransport", transport)
+                .putExtra("demoWorker", intent.getStringExtra("demoWorker"))
+                .putExtra("demoScenarioAsset", intent.getStringExtra("demoScenarioAsset"))
+                .putExtra("demoDetailedTiming", intent.getStringExtra("demoDetailedTiming")))
+            finish()
+            return
+        }
         val root = column().apply {
             setBackgroundColor(backgroundColor)
             setPadding(dp(16), dp(12), dp(16), dp(12))
@@ -133,8 +162,14 @@ class DebugHarnessActivity : AppCompatActivity() {
             typeface = Typeface.DEFAULT_BOLD
         })
         root.addView(label("가상 입력 전용 · Room 저장·복원 · 음성·내비·차량 SDK 실행 없음", 12f, mutedColor))
+        root.addView(button("JSON 데모·배속 검증") {
+            startActivity(Intent(this, DebugDemoActivity::class.java))
+        })
         root.addView(button("Playground SDK 실시간 검증") {
             startActivity(Intent(this, DebugSdkProbeActivity::class.java))
+        })
+        root.addView(button("Playground SDK 운행·Room") {
+            startActivity(Intent(this, DebugSdkTripActivity::class.java))
         })
         root.addView(button("Hub 가짜 REAL/DEMO 검증") {
             startActivity(Intent(this, DebugHubProbeActivity::class.java))
@@ -177,12 +212,15 @@ class DebugHarnessActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        if (demoRedirect) return
         collectionJob = uiScope.launch { controller.state.collect(::render) }
     }
 
     override fun onStop() {
-        model.scoreDraft = scoreInput.text.toString()
-        model.trendingDraft = trendingInput.isChecked
+        if (!demoRedirect) {
+            model.scoreDraft = scoreInput.text.toString()
+            model.trendingDraft = trendingInput.isChecked
+        }
         collectionJob?.cancel()
         collectionJob = null
         super.onStop()

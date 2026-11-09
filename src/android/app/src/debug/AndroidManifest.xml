@@ -5,6 +5,13 @@
     <application
         android:label="AwakeDrive 개발 검증"
         tools:replace="android:label">
+        <activity android:name="com.sleepissue.awakedrive.debug.DebugSdkTripActivity"
+            android:exported="false" android:theme="@style/Theme.AwakeDrive.DebugHarness" />
+        <activity
+            android:name="com.sleepissue.awakedrive.debug.DebugDemoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AwakeDrive.DebugHarness"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="com.sleepissue.awakedrive.debug.DebugSdkProbeActivity"
             android:exported="false"

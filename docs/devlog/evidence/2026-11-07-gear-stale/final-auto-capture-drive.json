@@ -1,0 +1,6825 @@
+{
+  "capturedAtElapsedMs": 25331333,
+  "serviceInstance": "05adf97d-2dce-4a89-bc4a-284ee203674a",
+  "running": true,
+  "starts": 1,
+  "activeTimers": 1,
+  "generation": 1,
+  "trip": {
+    "continuousDriveSec": 1795,
+    "driveState": "DRIVING",
+    "last24hDriveSec": 708,
+    "lastGear": "D",
+    "provisionalStopSec": 0,
+    "runStartMs": 1794024181806,
+    "stage": "NORMAL",
+    "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+  },
+  "precise": {
+    "continuousDriveMs": 1795725,
+    "driveSegments": [
+      {
+        "endMs": 1794024182613,
+        "startMs": 1794024181806
+      },
+      {
+        "endMs": 1794024199107,
+        "startMs": 1794024183614
+      },
+      {
+        "endMs": 1794024231210,
+        "startMs": 1794024230707
+      },
+      {
+        "endMs": 1794024239808,
+        "startMs": 1794024232616
+      },
+      {
+        "endMs": 1794024476208,
+        "startMs": 1794024461006
+      },
+      {
+        "endMs": 1794024492407,
+        "startMs": 1794024484306
+      },
+      {
+        "endMs": 1794029296439,
+        "startMs": 1794029269041
+      },
+      {
+        "endMs": 1794029341970,
+        "startMs": 1794029305740
+      },
+      {
+        "endMs": 1794050450134,
+        "startMs": 1794050432434
+      },
+      {
+        "endMs": 1794050564934,
+        "startMs": 1794050528534
+      },
+      {
+        "endMs": 1794050568233,
+        "startMs": 1794050565136
+      },
+      {
+        "endMs": 1794053298781,
+        "startMs": 1794053178180
+      },
+      {
+        "endMs": 1794053503124,
+        "startMs": 1794053383725
+      },
+      {
+        "endMs": 1794054304652,
+        "startMs": 1794054184152
+      },
+      {
+        "endMs": 1794054555026,
+        "startMs": 1794054435427
+      },
+      {
+        "endMs": 1794055185254,
+        "startMs": 1794055125254
+      }
+    ],
+    "lastObservation": {
+      "gear": "D",
+      "tMs": 1794055185254
+    },
+    "pendingNewTrip": false,
+    "restResetEmitted": false,
+    "trip": {
+      "continuousDriveSec": 1795,
+      "driveState": "DRIVING",
+      "last24hDriveSec": 708,
+      "lastGear": "D",
+      "provisionalStopSec": 0,
+      "runStartMs": 1794024181806,
+      "stage": "NORMAL",
+      "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+    }
+  },
+  "persistence": {
+    "autoSaveEnabled": true,
+    "lastSavedElapsedMs": 25322082,
+    "lastSavedScenarioMs": 1794055175954,
+    "lastSavedWallMs": 1794055176010,
+    "operation": "SAVED",
+    "restore": "RESTORED",
+    "successfulSaves": 7,
+    "timerBasis": "ELAPSED_REALTIME"
+  },
+  "events": [
+    "1794055119450 · 복원 전 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=1730436ms 정차=5701ms 최근24h=648s",
+    "1794055119456 · 복원 후 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=UNKNOWN 연속=1730436ms 정차=0ms 최근24h=648s · 현재 기어/전원 미확정, 앱 종료 공백 제외",
+    "1794055119651 · SDK 입력 연결 세대 1 · REAL 전용 · 전원 API 미연결",
+    "1794055119981 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=1730436ms 정차=0ms 최근24h=648s · gear=P · AVAILABLE",
+    "1794055120072 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=1730436ms 정차=0ms 최근24h=648s",
+    "1794055125258 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1735725ms 정차=0ms 최근24h=648s · gear=D · AVAILABLE",
+    "1794055125275 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1735725ms 정차=0ms 최근24h=648s",
+    "1794055135883 · 실제 경과 10초 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1746325ms 정차=0ms 최근24h=658s",
+    "1794055145912 · 실제 경과 10초 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1756324ms 정차=0ms 최근24h=668s",
+    "1794055155966 · 실제 경과 10초 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1766324ms 정차=0ms 최근24h=678s",
+    "1794055165992 · 실제 경과 10초 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1776425ms 정차=0ms 최근24h=688s",
+    "1794055176017 · 실제 경과 10초 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=DRIVING 연속=1786425ms 정차=0ms 최근24h=698s"
+  ],
+  "hub": {
+    "clockFailure": false,
+    "emittedFrames": 656,
+    "inputs": {
+      "REAL": {
+        "collection": {
+          "navi": "COLLECTING",
+          "power": "NOT_CONNECTED",
+          "vehicle": "COLLECTING"
+        },
+        "naviQuality": {
+          "LAT": {
+            "availability": "AVAILABLE",
+            "observationSequence": 2146,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331104,
+            "source": "REAL"
+          },
+          "LON": {
+            "availability": "AVAILABLE",
+            "observationSequence": 2147,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331104,
+            "source": "REAL"
+          },
+          "HEADING_DEG": {
+            "availability": "UNAVAILABLE",
+            "observationSequence": 2148,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331104,
+            "source": "REAL"
+          },
+          "REMAIN_TIME_SEC": {
+            "availability": "UNAVAILABLE",
+            "observationSequence": 2149,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331109,
+            "source": "REAL"
+          },
+          "REMAIN_DIST_M": {
+            "availability": "UNAVAILABLE",
+            "observationSequence": 2150,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331109,
+            "source": "REAL"
+          },
+          "DIST_TO_NEXT_TURN_M": {
+            "availability": "UNAVAILABLE",
+            "observationSequence": 2151,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25331109,
+            "source": "REAL"
+          }
+        },
+        "powerQuality": {
+          "availability": "UNAVAILABLE",
+          "observedTimeBasis": "UNKNOWN",
+          "source": "REAL"
+        },
+        "steeringRate": {
+          "acceptedObservations": 0,
+          "duplicateObservations": 0,
+          "observationsInWindow": 0,
+          "reversedObservations": 0,
+          "status": "UNMEASURABLE",
+          "timeBasis": "UNKNOWN"
+        },
+        "vehicleCallbacks": 564,
+        "vehicleQuality": {
+          "STEERING_DEG": {
+            "availability": "UNSUPPORTED",
+            "observationSequence": 2064,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25329101,
+            "source": "REAL",
+            "sourceRateInfo": {
+              "acceptedObservations": 0,
+              "duplicateObservations": 0,
+              "observationsInWindow": 0,
+              "reversedObservations": 0,
+              "status": "UNMEASURABLE",
+              "timeBasis": "UNKNOWN"
+            }
+          },
+          "SPEED_KPH": {
+            "availability": "AVAILABLE",
+            "observationSequence": 2153,
+            "observedAtMs": 25331300,
+            "observedTimeBasis": "ELAPSED_REALTIME",
+            "receivedAtElapsedMs": 25331301,
+            "source": "REAL"
+          },
+          "GEAR": {
+            "availability": "AVAILABLE",
+            "observationSequence": 220,
+            "observedAtMs": 25271265,
+            "observedTimeBasis": "ELAPSED_REALTIME",
+            "receivedAtElapsedMs": 25271266,
+            "source": "REAL",
+            "stateConfirmedAtElapsedMs": 25331184,
+            "stateLeaseUntilElapsedMs": 25334184
+          },
+          "TURN_SIGNAL": {
+            "availability": "STALE",
+            "observationSequence": 83,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25267457,
+            "source": "REAL"
+          },
+          "BRAKE_ON": {
+            "availability": "STALE",
+            "observationSequence": 97,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25267497,
+            "source": "REAL"
+          },
+          "CRUISE_ACTIVE": {
+            "availability": "STALE",
+            "observationSequence": 129,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25268968,
+            "source": "REAL"
+          },
+          "CRUISE_TARGET_KPH": {
+            "availability": "STALE",
+            "observationSequence": 102,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25267722,
+            "source": "REAL"
+          },
+          "SEATS": {
+            "availability": "UNSUPPORTED",
+            "observationSequence": 150,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25269155,
+            "source": "REAL"
+          },
+          "VENTILATION_LEVEL": {
+            "availability": "STALE",
+            "observationSequence": 152,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25269211,
+            "source": "REAL"
+          },
+          "CABIN_TEMP_C": {
+            "availability": "STALE",
+            "observationSequence": 180,
+            "observedTimeBasis": "UNKNOWN",
+            "receivedAtElapsedMs": 25270274,
+            "source": "REAL"
+          }
+        }
+      }
+    },
+    "mode": "PERIODIC",
+    "nextPublicationAtMs": 25331425,
+    "publicationRate": {
+      "acceptedObservations": 656,
+      "belowMinimum": false,
+      "duplicateObservations": 0,
+      "hz": 10.0,
+      "observationsInWindow": 100,
+      "reversedObservations": 0,
+      "status": "MEASURED",
+      "timeBasis": "ELAPSED_REALTIME"
+    },
+    "publicationTimeBasis": "ELAPSED_REALTIME",
+    "running": true,
+    "sessionId": 1,
+    "skippedDeadlines": 0
+  },
+  "audit": {
+    "hubFrames": 656,
+    "incidentCapacity": 3,
+    "incidentRowCapacity": 97,
+    "incidents": [],
+    "maxConfirmedGapMs": 1056,
+    "maxIoDispatchLagMs": 3,
+    "maxReadMs": 4,
+    "maxScheduleLagMs": 55,
+    "maxStoreHandoffMs": 1021,
+    "noRenewalResponses": 0,
+    "peaks": {
+      "IO_DISPATCH": {
+        "atMs": 25265904,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "ioStartedMs": 25265904,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      "READ": {
+        "atMs": 25265908,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "ioStartedMs": 25265904,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "responseMs": 25265908,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      "STORE_HANDOFF": {
+        "atMs": 25268932,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "ioStartedMs": 25267910,
+          "resumedMs": 25267910,
+          "scheduledMs": 25266909
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25267911,
+        "gear": "P",
+        "leaseUntilMs": 25270911,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25266907,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25267911,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      "CONFIRM_GAP": {
+        "atMs": 25268971,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "ioStartedMs": 25268966,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25268967,
+        "gear": "P",
+        "leaseUntilMs": 25271967,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25267911,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25268967,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      "SCHEDULE": {
+        "atMs": 25268966,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      }
+    },
+    "queryErrors": 0,
+    "queryResponses": 66,
+    "queryStarts": 66,
+    "rowCapacity": 512,
+    "rows": [
+      {
+        "atMs": 25265853,
+        "availability": "UNAVAILABLE",
+        "evaluationFromMs": 25265835,
+        "evaluationToMs": 25265853,
+        "hubSequence": 1,
+        "observationSequence": 15,
+        "reason": "NO_VALID_INPUT",
+        "receivedAtElapsedMs": 25265748,
+        "scenarioMs": 1794055119763,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-2"
+      },
+      {
+        "atMs": 25265901,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "scheduledMs": 25265901
+        },
+        "stage": "SCHEDULED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25265901,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "stage": "RESUMED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25265904,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "ioStartedMs": 25265904,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25265905,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25266905,
+          "generation": 1,
+          "id": 2,
+          "scheduledMs": 25265905
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25265908,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "ioStartedMs": 25265904,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "responseMs": 25265908,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25265987,
+        "attempt": {
+          "delivery": "QUERY",
+          "dueMs": 25265901,
+          "generation": 1,
+          "id": 1,
+          "ioStartedMs": 25265904,
+          "resumedMs": 25265901,
+          "scheduledMs": 25265901
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25265908,
+        "gear": "P",
+        "leaseUntilMs": 25268908,
+        "nativeMs": 24700995,
+        "observationSequence": 1,
+        "reason": "QUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265908,
+        "renewed": true,
+        "responseMs": 25265908,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25265998,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25265987,
+        "gear": "P",
+        "leaseUntilMs": 25268987,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25265908,
+        "reason": "CALLBACK · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25265987,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25266045,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25265987,
+        "evaluationFromMs": 25266037,
+        "evaluationToMs": 25266045,
+        "gear": "P",
+        "hubSequence": 3,
+        "leaseUntilMs": 25268987,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055119965,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25266906,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25266905,
+          "generation": 1,
+          "id": 2,
+          "resumedMs": 25266906,
+          "scheduledMs": 25265905
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25266906,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25266905,
+          "generation": 1,
+          "id": 2,
+          "ioStartedMs": 25266906,
+          "resumedMs": 25266906,
+          "scheduledMs": 25265905
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25266907,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25266905,
+          "generation": 1,
+          "id": 2,
+          "ioStartedMs": 25266906,
+          "resumedMs": 25266906,
+          "scheduledMs": 25265905
+        },
+        "responseMs": 25266907,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25266907,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25266905,
+          "generation": 1,
+          "id": 2,
+          "ioStartedMs": 25266906,
+          "resumedMs": 25266906,
+          "scheduledMs": 25265905
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25266907,
+        "gear": "P",
+        "leaseUntilMs": 25269907,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25265987,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25266907,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25266909,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "scheduledMs": 25266909
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25266929,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25266907,
+        "evaluationFromMs": 25266927,
+        "evaluationToMs": 25266929,
+        "gear": "P",
+        "hubSequence": 12,
+        "leaseUntilMs": 25269907,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055120855,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25267910,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "resumedMs": 25267910,
+          "scheduledMs": 25266909
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25267910,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "ioStartedMs": 25267910,
+          "resumedMs": 25267910,
+          "scheduledMs": 25266909
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25267911,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "ioStartedMs": 25267910,
+          "resumedMs": 25267910,
+          "scheduledMs": 25266909
+        },
+        "responseMs": 25267911,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25267911,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "scheduledMs": 25267911
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25268932,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25267909,
+          "generation": 1,
+          "id": 3,
+          "ioStartedMs": 25267910,
+          "resumedMs": 25267910,
+          "scheduledMs": 25266909
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25267911,
+        "gear": "P",
+        "leaseUntilMs": 25270911,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25266907,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25267911,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25268964,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25267911,
+        "evaluationFromMs": 25268963,
+        "evaluationToMs": 25268964,
+        "gear": "P",
+        "hubSequence": 32,
+        "leaseUntilMs": 25270911,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055122891,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25268966,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25268966,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "ioStartedMs": 25268966,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25268967,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "ioStartedMs": 25268966,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "responseMs": 25268967,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25268967,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25269967,
+          "generation": 1,
+          "id": 5,
+          "scheduledMs": 25268967
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25268971,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25268911,
+          "generation": 1,
+          "id": 4,
+          "ioStartedMs": 25268966,
+          "resumedMs": 25268966,
+          "scheduledMs": 25267911
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25268967,
+        "gear": "P",
+        "leaseUntilMs": 25271967,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25267911,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25268967,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25269030,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25268967,
+        "evaluationFromMs": 25269030,
+        "evaluationToMs": 25269030,
+        "gear": "P",
+        "hubSequence": 33,
+        "leaseUntilMs": 25271967,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055122958,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25269972,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25269967,
+          "generation": 1,
+          "id": 5,
+          "resumedMs": 25269972,
+          "scheduledMs": 25268967
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25269972,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25269967,
+          "generation": 1,
+          "id": 5,
+          "ioStartedMs": 25269972,
+          "resumedMs": 25269972,
+          "scheduledMs": 25268967
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25269974,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25269967,
+          "generation": 1,
+          "id": 5,
+          "ioStartedMs": 25269972,
+          "resumedMs": 25269972,
+          "scheduledMs": 25268967
+        },
+        "responseMs": 25269974,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25269974,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25270974,
+          "generation": 1,
+          "id": 6,
+          "scheduledMs": 25269974
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25269980,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25269967,
+          "generation": 1,
+          "id": 5,
+          "ioStartedMs": 25269972,
+          "resumedMs": 25269972,
+          "scheduledMs": 25268967
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25269974,
+        "gear": "P",
+        "leaseUntilMs": 25272974,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25268967,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25269974,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25270030,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25269974,
+        "evaluationFromMs": 25270027,
+        "evaluationToMs": 25270030,
+        "gear": "P",
+        "hubSequence": 43,
+        "leaseUntilMs": 25272974,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055123954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25270976,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25270974,
+          "generation": 1,
+          "id": 6,
+          "resumedMs": 25270976,
+          "scheduledMs": 25269974
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25270976,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25270974,
+          "generation": 1,
+          "id": 6,
+          "ioStartedMs": 25270976,
+          "resumedMs": 25270976,
+          "scheduledMs": 25269974
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25270977,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25270974,
+          "generation": 1,
+          "id": 6,
+          "ioStartedMs": 25270976,
+          "resumedMs": 25270976,
+          "scheduledMs": 25269974
+        },
+        "responseMs": 25270977,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25270978,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25270974,
+          "generation": 1,
+          "id": 6,
+          "ioStartedMs": 25270976,
+          "resumedMs": 25270976,
+          "scheduledMs": 25269974
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25270977,
+        "gear": "P",
+        "leaseUntilMs": 25273977,
+        "nativeMs": 24700995,
+        "observationSequence": 2,
+        "previousConfirmedMs": 25269974,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25265987,
+        "renewed": true,
+        "responseMs": 25270977,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25270978,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25271978,
+          "generation": 1,
+          "id": 7,
+          "scheduledMs": 25270978
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25271030,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25270977,
+        "evaluationFromMs": 25271029,
+        "evaluationToMs": 25271030,
+        "gear": "P",
+        "hubSequence": 53,
+        "leaseUntilMs": 25273977,
+        "nativeMs": 24700995,
+        "observationSequence": 36,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25265987,
+        "scenarioMs": 1794055124957,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25271266,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25271266,
+        "gear": "D",
+        "leaseUntilMs": 25274266,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25270977,
+        "reason": "CALLBACK · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25271266,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25271328,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25271266,
+        "evaluationFromMs": 25271326,
+        "evaluationToMs": 25271328,
+        "gear": "D",
+        "hubSequence": 56,
+        "leaseUntilMs": 25274266,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055125254,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25271979,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25271978,
+          "generation": 1,
+          "id": 7,
+          "resumedMs": 25271979,
+          "scheduledMs": 25270978
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25271979,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25271978,
+          "generation": 1,
+          "id": 7,
+          "ioStartedMs": 25271979,
+          "resumedMs": 25271979,
+          "scheduledMs": 25270978
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25271980,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25271978,
+          "generation": 1,
+          "id": 7,
+          "ioStartedMs": 25271979,
+          "resumedMs": 25271979,
+          "scheduledMs": 25270978
+        },
+        "responseMs": 25271980,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25271981,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25271978,
+          "generation": 1,
+          "id": 7,
+          "ioStartedMs": 25271979,
+          "resumedMs": 25271979,
+          "scheduledMs": 25270978
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25271980,
+        "gear": "D",
+        "leaseUntilMs": 25274980,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25271266,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25271980,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25271983,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25272983,
+          "generation": 1,
+          "id": 8,
+          "scheduledMs": 25271983
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25272029,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25271980,
+        "evaluationFromMs": 25272027,
+        "evaluationToMs": 25272029,
+        "gear": "D",
+        "hubSequence": 63,
+        "leaseUntilMs": 25274980,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055125955,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25272983,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25272983,
+          "generation": 1,
+          "id": 8,
+          "resumedMs": 25272983,
+          "scheduledMs": 25271983
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25272983,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25272983,
+          "generation": 1,
+          "id": 8,
+          "ioStartedMs": 25272983,
+          "resumedMs": 25272983,
+          "scheduledMs": 25271983
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25272985,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25272983,
+          "generation": 1,
+          "id": 8,
+          "ioStartedMs": 25272983,
+          "resumedMs": 25272983,
+          "scheduledMs": 25271983
+        },
+        "responseMs": 25272985,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25272985,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25273985,
+          "generation": 1,
+          "id": 9,
+          "scheduledMs": 25272985
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25272985,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25272983,
+          "generation": 1,
+          "id": 8,
+          "ioStartedMs": 25272983,
+          "resumedMs": 25272983,
+          "scheduledMs": 25271983
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25272985,
+        "gear": "D",
+        "leaseUntilMs": 25275985,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25271980,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25272985,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25273028,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25272985,
+        "evaluationFromMs": 25273027,
+        "evaluationToMs": 25273028,
+        "gear": "D",
+        "hubSequence": 73,
+        "leaseUntilMs": 25275985,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055126955,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25273986,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25273985,
+          "generation": 1,
+          "id": 9,
+          "resumedMs": 25273986,
+          "scheduledMs": 25272985
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25273986,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25273985,
+          "generation": 1,
+          "id": 9,
+          "ioStartedMs": 25273986,
+          "resumedMs": 25273986,
+          "scheduledMs": 25272985
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25273987,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25273985,
+          "generation": 1,
+          "id": 9,
+          "ioStartedMs": 25273986,
+          "resumedMs": 25273986,
+          "scheduledMs": 25272985
+        },
+        "responseMs": 25273987,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25273987,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25274987,
+          "generation": 1,
+          "id": 10,
+          "scheduledMs": 25273987
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25273988,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25273985,
+          "generation": 1,
+          "id": 9,
+          "ioStartedMs": 25273986,
+          "resumedMs": 25273986,
+          "scheduledMs": 25272985
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25273987,
+        "gear": "D",
+        "leaseUntilMs": 25276987,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25272985,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25273987,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25274027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25273987,
+        "evaluationFromMs": 25274026,
+        "evaluationToMs": 25274027,
+        "gear": "D",
+        "hubSequence": 83,
+        "leaseUntilMs": 25276987,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055127954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25274988,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25274987,
+          "generation": 1,
+          "id": 10,
+          "resumedMs": 25274988,
+          "scheduledMs": 25273987
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25274988,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25274987,
+          "generation": 1,
+          "id": 10,
+          "ioStartedMs": 25274988,
+          "resumedMs": 25274988,
+          "scheduledMs": 25273987
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25274990,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25274987,
+          "generation": 1,
+          "id": 10,
+          "ioStartedMs": 25274988,
+          "resumedMs": 25274988,
+          "scheduledMs": 25273987
+        },
+        "responseMs": 25274990,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25274990,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25275990,
+          "generation": 1,
+          "id": 11,
+          "scheduledMs": 25274990
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25274991,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25274987,
+          "generation": 1,
+          "id": 10,
+          "ioStartedMs": 25274988,
+          "resumedMs": 25274988,
+          "scheduledMs": 25273987
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25274990,
+        "gear": "D",
+        "leaseUntilMs": 25277990,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25273987,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25274990,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25275027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25274990,
+        "evaluationFromMs": 25275026,
+        "evaluationToMs": 25275027,
+        "gear": "D",
+        "hubSequence": 93,
+        "leaseUntilMs": 25277990,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055128954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25275991,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25275990,
+          "generation": 1,
+          "id": 11,
+          "resumedMs": 25275991,
+          "scheduledMs": 25274990
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25275991,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25275990,
+          "generation": 1,
+          "id": 11,
+          "ioStartedMs": 25275991,
+          "resumedMs": 25275991,
+          "scheduledMs": 25274990
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25275992,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25275990,
+          "generation": 1,
+          "id": 11,
+          "ioStartedMs": 25275991,
+          "resumedMs": 25275991,
+          "scheduledMs": 25274990
+        },
+        "responseMs": 25275992,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25275992,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25276992,
+          "generation": 1,
+          "id": 12,
+          "scheduledMs": 25275992
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25275993,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25275990,
+          "generation": 1,
+          "id": 11,
+          "ioStartedMs": 25275991,
+          "resumedMs": 25275991,
+          "scheduledMs": 25274990
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25275992,
+        "gear": "D",
+        "leaseUntilMs": 25278992,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25274990,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25275992,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25276028,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25275992,
+        "evaluationFromMs": 25276026,
+        "evaluationToMs": 25276028,
+        "gear": "D",
+        "hubSequence": 103,
+        "leaseUntilMs": 25278992,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055129954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25277000,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25276992,
+          "generation": 1,
+          "id": 12,
+          "resumedMs": 25277000,
+          "scheduledMs": 25275992
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25277000,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25276992,
+          "generation": 1,
+          "id": 12,
+          "ioStartedMs": 25277000,
+          "resumedMs": 25277000,
+          "scheduledMs": 25275992
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25277001,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25276992,
+          "generation": 1,
+          "id": 12,
+          "ioStartedMs": 25277000,
+          "resumedMs": 25277000,
+          "scheduledMs": 25275992
+        },
+        "responseMs": 25277001,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25277002,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25278002,
+          "generation": 1,
+          "id": 13,
+          "scheduledMs": 25277002
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25277002,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25276992,
+          "generation": 1,
+          "id": 12,
+          "ioStartedMs": 25277000,
+          "resumedMs": 25277000,
+          "scheduledMs": 25275992
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25277001,
+        "gear": "D",
+        "leaseUntilMs": 25280001,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25275992,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25277001,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25277027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25277001,
+        "evaluationFromMs": 25277026,
+        "evaluationToMs": 25277027,
+        "gear": "D",
+        "hubSequence": 113,
+        "leaseUntilMs": 25280001,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055130954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25278003,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25278002,
+          "generation": 1,
+          "id": 13,
+          "resumedMs": 25278003,
+          "scheduledMs": 25277002
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25278003,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25278002,
+          "generation": 1,
+          "id": 13,
+          "ioStartedMs": 25278003,
+          "resumedMs": 25278003,
+          "scheduledMs": 25277002
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25278004,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25278002,
+          "generation": 1,
+          "id": 13,
+          "ioStartedMs": 25278003,
+          "resumedMs": 25278003,
+          "scheduledMs": 25277002
+        },
+        "responseMs": 25278004,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25278004,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25279004,
+          "generation": 1,
+          "id": 14,
+          "scheduledMs": 25278004
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25278004,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25278002,
+          "generation": 1,
+          "id": 13,
+          "ioStartedMs": 25278003,
+          "resumedMs": 25278003,
+          "scheduledMs": 25277002
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25278004,
+        "gear": "D",
+        "leaseUntilMs": 25281004,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25277001,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25278004,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25278027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25278004,
+        "evaluationFromMs": 25278026,
+        "evaluationToMs": 25278027,
+        "gear": "D",
+        "hubSequence": 123,
+        "leaseUntilMs": 25281004,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055131954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25279005,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25279004,
+          "generation": 1,
+          "id": 14,
+          "resumedMs": 25279005,
+          "scheduledMs": 25278004
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25279005,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25279004,
+          "generation": 1,
+          "id": 14,
+          "ioStartedMs": 25279005,
+          "resumedMs": 25279005,
+          "scheduledMs": 25278004
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25279005,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25279004,
+          "generation": 1,
+          "id": 14,
+          "ioStartedMs": 25279005,
+          "resumedMs": 25279005,
+          "scheduledMs": 25278004
+        },
+        "responseMs": 25279005,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25279006,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25280006,
+          "generation": 1,
+          "id": 15,
+          "scheduledMs": 25279006
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25279006,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25279004,
+          "generation": 1,
+          "id": 14,
+          "ioStartedMs": 25279005,
+          "resumedMs": 25279005,
+          "scheduledMs": 25278004
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25279005,
+        "gear": "D",
+        "leaseUntilMs": 25282005,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25278004,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25279005,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25279027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25279005,
+        "evaluationFromMs": 25279026,
+        "evaluationToMs": 25279027,
+        "gear": "D",
+        "hubSequence": 133,
+        "leaseUntilMs": 25282005,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055132954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25280006,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25280006,
+          "generation": 1,
+          "id": 15,
+          "resumedMs": 25280006,
+          "scheduledMs": 25279006
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25280006,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25280006,
+          "generation": 1,
+          "id": 15,
+          "ioStartedMs": 25280006,
+          "resumedMs": 25280006,
+          "scheduledMs": 25279006
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25280007,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25280006,
+          "generation": 1,
+          "id": 15,
+          "ioStartedMs": 25280006,
+          "resumedMs": 25280006,
+          "scheduledMs": 25279006
+        },
+        "responseMs": 25280007,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25280008,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25280006,
+          "generation": 1,
+          "id": 15,
+          "ioStartedMs": 25280006,
+          "resumedMs": 25280006,
+          "scheduledMs": 25279006
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25280007,
+        "gear": "D",
+        "leaseUntilMs": 25283007,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25279005,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25280007,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25280008,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25281008,
+          "generation": 1,
+          "id": 16,
+          "scheduledMs": 25280008
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25280028,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25280007,
+        "evaluationFromMs": 25280026,
+        "evaluationToMs": 25280028,
+        "gear": "D",
+        "hubSequence": 143,
+        "leaseUntilMs": 25283007,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055133954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25281009,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25281008,
+          "generation": 1,
+          "id": 16,
+          "resumedMs": 25281009,
+          "scheduledMs": 25280008
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25281009,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25281008,
+          "generation": 1,
+          "id": 16,
+          "ioStartedMs": 25281009,
+          "resumedMs": 25281009,
+          "scheduledMs": 25280008
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25281010,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25281008,
+          "generation": 1,
+          "id": 16,
+          "ioStartedMs": 25281009,
+          "resumedMs": 25281009,
+          "scheduledMs": 25280008
+        },
+        "responseMs": 25281010,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25281011,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25281008,
+          "generation": 1,
+          "id": 16,
+          "ioStartedMs": 25281009,
+          "resumedMs": 25281009,
+          "scheduledMs": 25280008
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25281010,
+        "gear": "D",
+        "leaseUntilMs": 25284010,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25280007,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25281010,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25281011,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25282011,
+          "generation": 1,
+          "id": 17,
+          "scheduledMs": 25281011
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25281028,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25281010,
+        "evaluationFromMs": 25281026,
+        "evaluationToMs": 25281028,
+        "gear": "D",
+        "hubSequence": 153,
+        "leaseUntilMs": 25284010,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055134954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25282015,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25282011,
+          "generation": 1,
+          "id": 17,
+          "resumedMs": 25282015,
+          "scheduledMs": 25281011
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25282015,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25282011,
+          "generation": 1,
+          "id": 17,
+          "ioStartedMs": 25282015,
+          "resumedMs": 25282015,
+          "scheduledMs": 25281011
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25282017,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25282011,
+          "generation": 1,
+          "id": 17,
+          "ioStartedMs": 25282015,
+          "resumedMs": 25282015,
+          "scheduledMs": 25281011
+        },
+        "responseMs": 25282017,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25282017,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25282011,
+          "generation": 1,
+          "id": 17,
+          "ioStartedMs": 25282015,
+          "resumedMs": 25282015,
+          "scheduledMs": 25281011
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25282017,
+        "gear": "D",
+        "leaseUntilMs": 25285017,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25281010,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25282017,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25282019,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25283019,
+          "generation": 1,
+          "id": 18,
+          "scheduledMs": 25282019
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25282030,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25282017,
+        "evaluationFromMs": 25282029,
+        "evaluationToMs": 25282030,
+        "gear": "D",
+        "hubSequence": 163,
+        "leaseUntilMs": 25285017,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055135957,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25283019,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25283019,
+          "generation": 1,
+          "id": 18,
+          "resumedMs": 25283019,
+          "scheduledMs": 25282019
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25283019,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25283019,
+          "generation": 1,
+          "id": 18,
+          "ioStartedMs": 25283019,
+          "resumedMs": 25283019,
+          "scheduledMs": 25282019
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25283021,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25283019,
+          "generation": 1,
+          "id": 18,
+          "ioStartedMs": 25283019,
+          "resumedMs": 25283019,
+          "scheduledMs": 25282019
+        },
+        "responseMs": 25283021,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25283021,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25284021,
+          "generation": 1,
+          "id": 19,
+          "scheduledMs": 25283021
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25283021,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25283019,
+          "generation": 1,
+          "id": 18,
+          "ioStartedMs": 25283019,
+          "resumedMs": 25283019,
+          "scheduledMs": 25282019
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25283021,
+        "gear": "D",
+        "leaseUntilMs": 25286021,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25282017,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25283021,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25283027,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25283021,
+        "evaluationFromMs": 25283026,
+        "evaluationToMs": 25283027,
+        "gear": "D",
+        "hubSequence": 173,
+        "leaseUntilMs": 25286021,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055136954,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25284022,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25284021,
+          "generation": 1,
+          "id": 19,
+          "resumedMs": 25284022,
+          "scheduledMs": 25283021
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25284022,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25284021,
+          "generation": 1,
+          "id": 19,
+          "ioStartedMs": 25284022,
+          "resumedMs": 25284022,
+          "scheduledMs": 25283021
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25284023,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25284021,
+          "generation": 1,
+          "id": 19,
+          "ioStartedMs": 25284022,
+          "resumedMs": 25284022,
+          "scheduledMs": 25283021
+        },
+        "responseMs": 25284023,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25284023,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25285023,
+          "generation": 1,
+          "id": 20,
+          "scheduledMs": 25284023
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25284024,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25284021,
+          "generation": 1,
+          "id": 19,
+          "ioStartedMs": 25284022,
+          "resumedMs": 25284022,
+          "scheduledMs": 25283021
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25284023,
+        "gear": "D",
+        "leaseUntilMs": 25287023,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25283021,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25284023,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25284026,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25284023,
+        "evaluationFromMs": 25284026,
+        "evaluationToMs": 25284026,
+        "gear": "D",
+        "hubSequence": 183,
+        "leaseUntilMs": 25287023,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055137953,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25285025,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25285023,
+          "generation": 1,
+          "id": 20,
+          "resumedMs": 25285025,
+          "scheduledMs": 25284023
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25285025,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25285023,
+          "generation": 1,
+          "id": 20,
+          "ioStartedMs": 25285025,
+          "resumedMs": 25285025,
+          "scheduledMs": 25284023
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25285029,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25285023,
+          "generation": 1,
+          "id": 20,
+          "ioStartedMs": 25285025,
+          "resumedMs": 25285025,
+          "scheduledMs": 25284023
+        },
+        "responseMs": 25285029,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25285029,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25285023,
+          "generation": 1,
+          "id": 20,
+          "ioStartedMs": 25285025,
+          "resumedMs": 25285025,
+          "scheduledMs": 25284023
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25285029,
+        "gear": "D",
+        "leaseUntilMs": 25288029,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25284023,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25285029,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25285030,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25286030,
+          "generation": 1,
+          "id": 21,
+          "scheduledMs": 25285030
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25285134,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25285029,
+        "evaluationFromMs": 25285132,
+        "evaluationToMs": 25285134,
+        "gear": "D",
+        "hubSequence": 194,
+        "leaseUntilMs": 25288029,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055139060,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25286035,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25286030,
+          "generation": 1,
+          "id": 21,
+          "resumedMs": 25286035,
+          "scheduledMs": 25285030
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25286035,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25286030,
+          "generation": 1,
+          "id": 21,
+          "ioStartedMs": 25286035,
+          "resumedMs": 25286035,
+          "scheduledMs": 25285030
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25286036,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25286030,
+          "generation": 1,
+          "id": 21,
+          "ioStartedMs": 25286035,
+          "resumedMs": 25286035,
+          "scheduledMs": 25285030
+        },
+        "responseMs": 25286036,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25286036,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25287036,
+          "generation": 1,
+          "id": 22,
+          "scheduledMs": 25286036
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25286037,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25286030,
+          "generation": 1,
+          "id": 21,
+          "ioStartedMs": 25286035,
+          "resumedMs": 25286035,
+          "scheduledMs": 25285030
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25286036,
+        "gear": "D",
+        "leaseUntilMs": 25289036,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25285029,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25286036,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25286126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25286036,
+        "evaluationFromMs": 25286125,
+        "evaluationToMs": 25286126,
+        "gear": "D",
+        "hubSequence": 204,
+        "leaseUntilMs": 25289036,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055140053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25287038,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25287036,
+          "generation": 1,
+          "id": 22,
+          "resumedMs": 25287038,
+          "scheduledMs": 25286036
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25287038,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25287036,
+          "generation": 1,
+          "id": 22,
+          "ioStartedMs": 25287038,
+          "resumedMs": 25287038,
+          "scheduledMs": 25286036
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25287040,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25287036,
+          "generation": 1,
+          "id": 22,
+          "ioStartedMs": 25287038,
+          "resumedMs": 25287038,
+          "scheduledMs": 25286036
+        },
+        "responseMs": 25287040,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25287040,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25288040,
+          "generation": 1,
+          "id": 23,
+          "scheduledMs": 25287040
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25287040,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25287036,
+          "generation": 1,
+          "id": 22,
+          "ioStartedMs": 25287038,
+          "resumedMs": 25287038,
+          "scheduledMs": 25286036
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25287040,
+        "gear": "D",
+        "leaseUntilMs": 25290040,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25286036,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25287040,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25287127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25287040,
+        "evaluationFromMs": 25287126,
+        "evaluationToMs": 25287127,
+        "gear": "D",
+        "hubSequence": 214,
+        "leaseUntilMs": 25290040,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055141054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25288041,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25288040,
+          "generation": 1,
+          "id": 23,
+          "resumedMs": 25288041,
+          "scheduledMs": 25287040
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25288041,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25288040,
+          "generation": 1,
+          "id": 23,
+          "ioStartedMs": 25288041,
+          "resumedMs": 25288041,
+          "scheduledMs": 25287040
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25288042,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25288040,
+          "generation": 1,
+          "id": 23,
+          "ioStartedMs": 25288041,
+          "resumedMs": 25288041,
+          "scheduledMs": 25287040
+        },
+        "responseMs": 25288042,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25288042,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25289042,
+          "generation": 1,
+          "id": 24,
+          "scheduledMs": 25288042
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25288058,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25288040,
+          "generation": 1,
+          "id": 23,
+          "ioStartedMs": 25288041,
+          "resumedMs": 25288041,
+          "scheduledMs": 25287040
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25288042,
+        "gear": "D",
+        "leaseUntilMs": 25291042,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25287040,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25288042,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25288127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25288042,
+        "evaluationFromMs": 25288126,
+        "evaluationToMs": 25288127,
+        "gear": "D",
+        "hubSequence": 224,
+        "leaseUntilMs": 25291042,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055142054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25289043,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25289042,
+          "generation": 1,
+          "id": 24,
+          "resumedMs": 25289043,
+          "scheduledMs": 25288042
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25289043,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25289042,
+          "generation": 1,
+          "id": 24,
+          "ioStartedMs": 25289043,
+          "resumedMs": 25289043,
+          "scheduledMs": 25288042
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25289044,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25289042,
+          "generation": 1,
+          "id": 24,
+          "ioStartedMs": 25289043,
+          "resumedMs": 25289043,
+          "scheduledMs": 25288042
+        },
+        "responseMs": 25289044,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25289044,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25289042,
+          "generation": 1,
+          "id": 24,
+          "ioStartedMs": 25289043,
+          "resumedMs": 25289043,
+          "scheduledMs": 25288042
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25289044,
+        "gear": "D",
+        "leaseUntilMs": 25292044,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25288042,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25289044,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25289045,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25290045,
+          "generation": 1,
+          "id": 25,
+          "scheduledMs": 25289045
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25289131,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25289044,
+        "evaluationFromMs": 25289130,
+        "evaluationToMs": 25289131,
+        "gear": "D",
+        "hubSequence": 234,
+        "leaseUntilMs": 25292044,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055143058,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25290047,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25290045,
+          "generation": 1,
+          "id": 25,
+          "resumedMs": 25290047,
+          "scheduledMs": 25289045
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25290047,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25290045,
+          "generation": 1,
+          "id": 25,
+          "ioStartedMs": 25290047,
+          "resumedMs": 25290047,
+          "scheduledMs": 25289045
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25290048,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25290045,
+          "generation": 1,
+          "id": 25,
+          "ioStartedMs": 25290047,
+          "resumedMs": 25290047,
+          "scheduledMs": 25289045
+        },
+        "responseMs": 25290048,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25290049,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25291049,
+          "generation": 1,
+          "id": 26,
+          "scheduledMs": 25290049
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25290049,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25290045,
+          "generation": 1,
+          "id": 25,
+          "ioStartedMs": 25290047,
+          "resumedMs": 25290047,
+          "scheduledMs": 25289045
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25290048,
+        "gear": "D",
+        "leaseUntilMs": 25293048,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25289044,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25290048,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25290126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25290048,
+        "evaluationFromMs": 25290125,
+        "evaluationToMs": 25290126,
+        "gear": "D",
+        "hubSequence": 244,
+        "leaseUntilMs": 25293048,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055144053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25291050,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25291049,
+          "generation": 1,
+          "id": 26,
+          "resumedMs": 25291050,
+          "scheduledMs": 25290049
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25291050,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25291049,
+          "generation": 1,
+          "id": 26,
+          "ioStartedMs": 25291050,
+          "resumedMs": 25291050,
+          "scheduledMs": 25290049
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25291052,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25291049,
+          "generation": 1,
+          "id": 26,
+          "ioStartedMs": 25291050,
+          "resumedMs": 25291050,
+          "scheduledMs": 25290049
+        },
+        "responseMs": 25291052,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25291052,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25292052,
+          "generation": 1,
+          "id": 27,
+          "scheduledMs": 25291052
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25291052,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25291049,
+          "generation": 1,
+          "id": 26,
+          "ioStartedMs": 25291050,
+          "resumedMs": 25291050,
+          "scheduledMs": 25290049
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25291052,
+        "gear": "D",
+        "leaseUntilMs": 25294052,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25290048,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25291052,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25291127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25291052,
+        "evaluationFromMs": 25291126,
+        "evaluationToMs": 25291127,
+        "gear": "D",
+        "hubSequence": 254,
+        "leaseUntilMs": 25294052,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055145054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25292053,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25292052,
+          "generation": 1,
+          "id": 27,
+          "resumedMs": 25292053,
+          "scheduledMs": 25291052
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25292053,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25292052,
+          "generation": 1,
+          "id": 27,
+          "ioStartedMs": 25292053,
+          "resumedMs": 25292053,
+          "scheduledMs": 25291052
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25292054,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25292052,
+          "generation": 1,
+          "id": 27,
+          "ioStartedMs": 25292053,
+          "resumedMs": 25292053,
+          "scheduledMs": 25291052
+        },
+        "responseMs": 25292054,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25292054,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25292052,
+          "generation": 1,
+          "id": 27,
+          "ioStartedMs": 25292053,
+          "resumedMs": 25292053,
+          "scheduledMs": 25291052
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25292054,
+        "gear": "D",
+        "leaseUntilMs": 25295054,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25291052,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25292054,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25292055,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25293055,
+          "generation": 1,
+          "id": 28,
+          "scheduledMs": 25292055
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25292127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25292054,
+        "evaluationFromMs": 25292126,
+        "evaluationToMs": 25292127,
+        "gear": "D",
+        "hubSequence": 264,
+        "leaseUntilMs": 25295054,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055146054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25293056,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25293055,
+          "generation": 1,
+          "id": 28,
+          "resumedMs": 25293056,
+          "scheduledMs": 25292055
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25293056,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25293055,
+          "generation": 1,
+          "id": 28,
+          "ioStartedMs": 25293056,
+          "resumedMs": 25293056,
+          "scheduledMs": 25292055
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25293057,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25293055,
+          "generation": 1,
+          "id": 28,
+          "ioStartedMs": 25293056,
+          "resumedMs": 25293056,
+          "scheduledMs": 25292055
+        },
+        "responseMs": 25293057,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25293057,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25294057,
+          "generation": 1,
+          "id": 29,
+          "scheduledMs": 25293057
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25293057,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25293055,
+          "generation": 1,
+          "id": 28,
+          "ioStartedMs": 25293056,
+          "resumedMs": 25293056,
+          "scheduledMs": 25292055
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25293057,
+        "gear": "D",
+        "leaseUntilMs": 25296057,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25292054,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25293057,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25293126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25293057,
+        "evaluationFromMs": 25293126,
+        "evaluationToMs": 25293126,
+        "gear": "D",
+        "hubSequence": 274,
+        "leaseUntilMs": 25296057,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055147054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25294058,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25294057,
+          "generation": 1,
+          "id": 29,
+          "resumedMs": 25294058,
+          "scheduledMs": 25293057
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25294058,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25294057,
+          "generation": 1,
+          "id": 29,
+          "ioStartedMs": 25294058,
+          "resumedMs": 25294058,
+          "scheduledMs": 25293057
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25294059,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25294057,
+          "generation": 1,
+          "id": 29,
+          "ioStartedMs": 25294058,
+          "resumedMs": 25294058,
+          "scheduledMs": 25293057
+        },
+        "responseMs": 25294059,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25294059,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25295059,
+          "generation": 1,
+          "id": 30,
+          "scheduledMs": 25294059
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25294059,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25294057,
+          "generation": 1,
+          "id": 29,
+          "ioStartedMs": 25294058,
+          "resumedMs": 25294058,
+          "scheduledMs": 25293057
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25294059,
+        "gear": "D",
+        "leaseUntilMs": 25297059,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25293057,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25294059,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25294126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25294059,
+        "evaluationFromMs": 25294126,
+        "evaluationToMs": 25294126,
+        "gear": "D",
+        "hubSequence": 284,
+        "leaseUntilMs": 25297059,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055148054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25295060,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25295059,
+          "generation": 1,
+          "id": 30,
+          "resumedMs": 25295060,
+          "scheduledMs": 25294059
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25295060,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25295059,
+          "generation": 1,
+          "id": 30,
+          "ioStartedMs": 25295060,
+          "resumedMs": 25295060,
+          "scheduledMs": 25294059
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25295062,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25295059,
+          "generation": 1,
+          "id": 30,
+          "ioStartedMs": 25295060,
+          "resumedMs": 25295060,
+          "scheduledMs": 25294059
+        },
+        "responseMs": 25295062,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25295063,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25295059,
+          "generation": 1,
+          "id": 30,
+          "ioStartedMs": 25295060,
+          "resumedMs": 25295060,
+          "scheduledMs": 25294059
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25295062,
+        "gear": "D",
+        "leaseUntilMs": 25298062,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25294059,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25295062,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25295064,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25296064,
+          "generation": 1,
+          "id": 31,
+          "scheduledMs": 25295064
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25295126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25295062,
+        "evaluationFromMs": 25295125,
+        "evaluationToMs": 25295126,
+        "gear": "D",
+        "hubSequence": 294,
+        "leaseUntilMs": 25298062,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055149053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25296064,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25296064,
+          "generation": 1,
+          "id": 31,
+          "resumedMs": 25296064,
+          "scheduledMs": 25295064
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25296064,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25296064,
+          "generation": 1,
+          "id": 31,
+          "ioStartedMs": 25296064,
+          "resumedMs": 25296064,
+          "scheduledMs": 25295064
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25296065,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25296064,
+          "generation": 1,
+          "id": 31,
+          "ioStartedMs": 25296064,
+          "resumedMs": 25296064,
+          "scheduledMs": 25295064
+        },
+        "responseMs": 25296065,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25296066,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25297065,
+          "generation": 1,
+          "id": 32,
+          "scheduledMs": 25296066
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25296066,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25296064,
+          "generation": 1,
+          "id": 31,
+          "ioStartedMs": 25296064,
+          "resumedMs": 25296064,
+          "scheduledMs": 25295064
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25296065,
+        "gear": "D",
+        "leaseUntilMs": 25299065,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25295062,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25296065,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25296126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25296065,
+        "evaluationFromMs": 25296126,
+        "evaluationToMs": 25296126,
+        "gear": "D",
+        "hubSequence": 304,
+        "leaseUntilMs": 25299065,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055150053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25297067,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25297065,
+          "generation": 1,
+          "id": 32,
+          "resumedMs": 25297067,
+          "scheduledMs": 25296066
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25297067,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25297065,
+          "generation": 1,
+          "id": 32,
+          "ioStartedMs": 25297067,
+          "resumedMs": 25297067,
+          "scheduledMs": 25296066
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25297068,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25297065,
+          "generation": 1,
+          "id": 32,
+          "ioStartedMs": 25297067,
+          "resumedMs": 25297067,
+          "scheduledMs": 25296066
+        },
+        "responseMs": 25297068,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25297068,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25298068,
+          "generation": 1,
+          "id": 33,
+          "scheduledMs": 25297068
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25297068,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25297065,
+          "generation": 1,
+          "id": 32,
+          "ioStartedMs": 25297067,
+          "resumedMs": 25297067,
+          "scheduledMs": 25296066
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25297068,
+        "gear": "D",
+        "leaseUntilMs": 25300068,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25296065,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25297068,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25297127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25297068,
+        "evaluationFromMs": 25297126,
+        "evaluationToMs": 25297127,
+        "gear": "D",
+        "hubSequence": 314,
+        "leaseUntilMs": 25300068,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055151054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25298069,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25298068,
+          "generation": 1,
+          "id": 33,
+          "resumedMs": 25298069,
+          "scheduledMs": 25297068
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25298069,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25298068,
+          "generation": 1,
+          "id": 33,
+          "ioStartedMs": 25298069,
+          "resumedMs": 25298069,
+          "scheduledMs": 25297068
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25298071,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25298068,
+          "generation": 1,
+          "id": 33,
+          "ioStartedMs": 25298069,
+          "resumedMs": 25298069,
+          "scheduledMs": 25297068
+        },
+        "responseMs": 25298071,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25298072,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25298068,
+          "generation": 1,
+          "id": 33,
+          "ioStartedMs": 25298069,
+          "resumedMs": 25298069,
+          "scheduledMs": 25297068
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25298071,
+        "gear": "D",
+        "leaseUntilMs": 25301071,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25297068,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25298071,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25298072,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25299072,
+          "generation": 1,
+          "id": 34,
+          "scheduledMs": 25298072
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25298126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25298071,
+        "evaluationFromMs": 25298125,
+        "evaluationToMs": 25298126,
+        "gear": "D",
+        "hubSequence": 324,
+        "leaseUntilMs": 25301071,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055152053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25299073,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25299072,
+          "generation": 1,
+          "id": 34,
+          "resumedMs": 25299073,
+          "scheduledMs": 25298072
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25299073,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25299072,
+          "generation": 1,
+          "id": 34,
+          "ioStartedMs": 25299073,
+          "resumedMs": 25299073,
+          "scheduledMs": 25298072
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25299077,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25299072,
+          "generation": 1,
+          "id": 34,
+          "ioStartedMs": 25299073,
+          "resumedMs": 25299073,
+          "scheduledMs": 25298072
+        },
+        "responseMs": 25299077,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25299077,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25300077,
+          "generation": 1,
+          "id": 35,
+          "scheduledMs": 25299077
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25299085,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25299072,
+          "generation": 1,
+          "id": 34,
+          "ioStartedMs": 25299073,
+          "resumedMs": 25299073,
+          "scheduledMs": 25298072
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25299077,
+        "gear": "D",
+        "leaseUntilMs": 25302077,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25298071,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25299077,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25299126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25299077,
+        "evaluationFromMs": 25299126,
+        "evaluationToMs": 25299126,
+        "gear": "D",
+        "hubSequence": 334,
+        "leaseUntilMs": 25302077,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055153054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25300087,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25300077,
+          "generation": 1,
+          "id": 35,
+          "resumedMs": 25300087,
+          "scheduledMs": 25299077
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25300087,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25300077,
+          "generation": 1,
+          "id": 35,
+          "ioStartedMs": 25300087,
+          "resumedMs": 25300087,
+          "scheduledMs": 25299077
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25300088,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25300077,
+          "generation": 1,
+          "id": 35,
+          "ioStartedMs": 25300087,
+          "resumedMs": 25300087,
+          "scheduledMs": 25299077
+        },
+        "responseMs": 25300088,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25300088,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25300077,
+          "generation": 1,
+          "id": 35,
+          "ioStartedMs": 25300087,
+          "resumedMs": 25300087,
+          "scheduledMs": 25299077
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25300088,
+        "gear": "D",
+        "leaseUntilMs": 25303088,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25299077,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25300088,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25300089,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25301089,
+          "generation": 1,
+          "id": 36,
+          "scheduledMs": 25300089
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25300126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25300088,
+        "evaluationFromMs": 25300126,
+        "evaluationToMs": 25300126,
+        "gear": "D",
+        "hubSequence": 344,
+        "leaseUntilMs": 25303088,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055154054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-5"
+      },
+      {
+        "atMs": 25301090,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25301089,
+          "generation": 1,
+          "id": 36,
+          "resumedMs": 25301090,
+          "scheduledMs": 25300089
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25301090,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25301089,
+          "generation": 1,
+          "id": 36,
+          "ioStartedMs": 25301090,
+          "resumedMs": 25301090,
+          "scheduledMs": 25300089
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25301092,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25301089,
+          "generation": 1,
+          "id": 36,
+          "ioStartedMs": 25301090,
+          "resumedMs": 25301090,
+          "scheduledMs": 25300089
+        },
+        "responseMs": 25301092,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25301092,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25302092,
+          "generation": 1,
+          "id": 37,
+          "scheduledMs": 25301092
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25301092,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25301089,
+          "generation": 1,
+          "id": 36,
+          "ioStartedMs": 25301090,
+          "resumedMs": 25301090,
+          "scheduledMs": 25300089
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25301092,
+        "gear": "D",
+        "leaseUntilMs": 25304092,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25300088,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25301092,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25301126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25301092,
+        "evaluationFromMs": 25301126,
+        "evaluationToMs": 25301126,
+        "gear": "D",
+        "hubSequence": 354,
+        "leaseUntilMs": 25304092,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055155054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25302093,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25302092,
+          "generation": 1,
+          "id": 37,
+          "resumedMs": 25302093,
+          "scheduledMs": 25301092
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25302093,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25302092,
+          "generation": 1,
+          "id": 37,
+          "ioStartedMs": 25302093,
+          "resumedMs": 25302093,
+          "scheduledMs": 25301092
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25302094,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25302092,
+          "generation": 1,
+          "id": 37,
+          "ioStartedMs": 25302093,
+          "resumedMs": 25302093,
+          "scheduledMs": 25301092
+        },
+        "responseMs": 25302094,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25302094,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25303094,
+          "generation": 1,
+          "id": 38,
+          "scheduledMs": 25302094
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25302095,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25302092,
+          "generation": 1,
+          "id": 37,
+          "ioStartedMs": 25302093,
+          "resumedMs": 25302093,
+          "scheduledMs": 25301092
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25302094,
+        "gear": "D",
+        "leaseUntilMs": 25305094,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25301092,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25302094,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25302127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25302094,
+        "evaluationFromMs": 25302126,
+        "evaluationToMs": 25302127,
+        "gear": "D",
+        "hubSequence": 364,
+        "leaseUntilMs": 25305094,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055156054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25303098,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25303094,
+          "generation": 1,
+          "id": 38,
+          "resumedMs": 25303098,
+          "scheduledMs": 25302094
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25303098,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25303094,
+          "generation": 1,
+          "id": 38,
+          "ioStartedMs": 25303098,
+          "resumedMs": 25303098,
+          "scheduledMs": 25302094
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25303102,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25303094,
+          "generation": 1,
+          "id": 38,
+          "ioStartedMs": 25303098,
+          "resumedMs": 25303098,
+          "scheduledMs": 25302094
+        },
+        "responseMs": 25303102,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25303102,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25304102,
+          "generation": 1,
+          "id": 39,
+          "scheduledMs": 25303102
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25303102,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25303094,
+          "generation": 1,
+          "id": 38,
+          "ioStartedMs": 25303098,
+          "resumedMs": 25303098,
+          "scheduledMs": 25302094
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25303102,
+        "gear": "D",
+        "leaseUntilMs": 25306102,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25302094,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25303102,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25303126,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25303102,
+        "evaluationFromMs": 25303125,
+        "evaluationToMs": 25303126,
+        "gear": "D",
+        "hubSequence": 374,
+        "leaseUntilMs": 25306102,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055157053,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25304104,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25304102,
+          "generation": 1,
+          "id": 39,
+          "resumedMs": 25304104,
+          "scheduledMs": 25303102
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25304104,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25304102,
+          "generation": 1,
+          "id": 39,
+          "ioStartedMs": 25304104,
+          "resumedMs": 25304104,
+          "scheduledMs": 25303102
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25304105,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25304102,
+          "generation": 1,
+          "id": 39,
+          "ioStartedMs": 25304104,
+          "resumedMs": 25304104,
+          "scheduledMs": 25303102
+        },
+        "responseMs": 25304105,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25304105,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25305105,
+          "generation": 1,
+          "id": 40,
+          "scheduledMs": 25304105
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25304117,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25304102,
+          "generation": 1,
+          "id": 39,
+          "ioStartedMs": 25304104,
+          "resumedMs": 25304104,
+          "scheduledMs": 25303102
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25304105,
+        "gear": "D",
+        "leaseUntilMs": 25307105,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25303102,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25304105,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25304127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25304105,
+        "evaluationFromMs": 25304126,
+        "evaluationToMs": 25304127,
+        "gear": "D",
+        "hubSequence": 384,
+        "leaseUntilMs": 25307105,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055158054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25305106,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25305105,
+          "generation": 1,
+          "id": 40,
+          "resumedMs": 25305106,
+          "scheduledMs": 25304105
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25305106,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25305105,
+          "generation": 1,
+          "id": 40,
+          "ioStartedMs": 25305106,
+          "resumedMs": 25305106,
+          "scheduledMs": 25304105
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25305107,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25305105,
+          "generation": 1,
+          "id": 40,
+          "ioStartedMs": 25305106,
+          "resumedMs": 25305106,
+          "scheduledMs": 25304105
+        },
+        "responseMs": 25305107,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25305107,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25306107,
+          "generation": 1,
+          "id": 41,
+          "scheduledMs": 25305107
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25305108,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25305105,
+          "generation": 1,
+          "id": 40,
+          "ioStartedMs": 25305106,
+          "resumedMs": 25305106,
+          "scheduledMs": 25304105
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25305107,
+        "gear": "D",
+        "leaseUntilMs": 25308107,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25304105,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25305107,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25305127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25305107,
+        "evaluationFromMs": 25305126,
+        "evaluationToMs": 25305127,
+        "gear": "D",
+        "hubSequence": 394,
+        "leaseUntilMs": 25308107,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055159054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25306108,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25306107,
+          "generation": 1,
+          "id": 41,
+          "resumedMs": 25306108,
+          "scheduledMs": 25305107
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25306108,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25306107,
+          "generation": 1,
+          "id": 41,
+          "ioStartedMs": 25306108,
+          "resumedMs": 25306108,
+          "scheduledMs": 25305107
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25306110,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25306107,
+          "generation": 1,
+          "id": 41,
+          "ioStartedMs": 25306108,
+          "resumedMs": 25306108,
+          "scheduledMs": 25305107
+        },
+        "responseMs": 25306110,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25306110,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25306107,
+          "generation": 1,
+          "id": 41,
+          "ioStartedMs": 25306108,
+          "resumedMs": 25306108,
+          "scheduledMs": 25305107
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25306110,
+        "gear": "D",
+        "leaseUntilMs": 25309110,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25305107,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25306110,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25306120,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25307120,
+          "generation": 1,
+          "id": 42,
+          "scheduledMs": 25306120
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25306127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25306110,
+        "evaluationFromMs": 25306126,
+        "evaluationToMs": 25306127,
+        "gear": "D",
+        "hubSequence": 404,
+        "leaseUntilMs": 25309110,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055160054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25307121,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25307120,
+          "generation": 1,
+          "id": 42,
+          "resumedMs": 25307121,
+          "scheduledMs": 25306120
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25307121,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25307120,
+          "generation": 1,
+          "id": 42,
+          "ioStartedMs": 25307121,
+          "resumedMs": 25307121,
+          "scheduledMs": 25306120
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25307123,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25307120,
+          "generation": 1,
+          "id": 42,
+          "ioStartedMs": 25307121,
+          "resumedMs": 25307121,
+          "scheduledMs": 25306120
+        },
+        "responseMs": 25307123,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25307123,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25308123,
+          "generation": 1,
+          "id": 43,
+          "scheduledMs": 25307123
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25307123,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25307120,
+          "generation": 1,
+          "id": 42,
+          "ioStartedMs": 25307121,
+          "resumedMs": 25307121,
+          "scheduledMs": 25306120
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25307123,
+        "gear": "D",
+        "leaseUntilMs": 25310123,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25306110,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25307123,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25307127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25307123,
+        "evaluationFromMs": 25307126,
+        "evaluationToMs": 25307127,
+        "gear": "D",
+        "hubSequence": 414,
+        "leaseUntilMs": 25310123,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055161054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-1"
+      },
+      {
+        "atMs": 25308123,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25308123,
+          "generation": 1,
+          "id": 43,
+          "resumedMs": 25308123,
+          "scheduledMs": 25307123
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25308123,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25308123,
+          "generation": 1,
+          "id": 43,
+          "ioStartedMs": 25308123,
+          "resumedMs": 25308123,
+          "scheduledMs": 25307123
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25308124,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25308123,
+          "generation": 1,
+          "id": 43,
+          "ioStartedMs": 25308123,
+          "resumedMs": 25308123,
+          "scheduledMs": 25307123
+        },
+        "responseMs": 25308124,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25308125,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25309125,
+          "generation": 1,
+          "id": 44,
+          "scheduledMs": 25308125
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25308125,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25308123,
+          "generation": 1,
+          "id": 43,
+          "ioStartedMs": 25308123,
+          "resumedMs": 25308123,
+          "scheduledMs": 25307123
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25308124,
+        "gear": "D",
+        "leaseUntilMs": 25311124,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25307123,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25308124,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25308127,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25308124,
+        "evaluationFromMs": 25308126,
+        "evaluationToMs": 25308127,
+        "gear": "D",
+        "hubSequence": 424,
+        "leaseUntilMs": 25311124,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055162054,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25309125,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25309125,
+          "generation": 1,
+          "id": 44,
+          "resumedMs": 25309125,
+          "scheduledMs": 25308125
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25309125,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25309125,
+          "generation": 1,
+          "id": 44,
+          "ioStartedMs": 25309125,
+          "resumedMs": 25309125,
+          "scheduledMs": 25308125
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25309127,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25309125,
+          "generation": 1,
+          "id": 44,
+          "ioStartedMs": 25309125,
+          "resumedMs": 25309125,
+          "scheduledMs": 25308125
+        },
+        "responseMs": 25309127,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25309127,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25310127,
+          "generation": 1,
+          "id": 45,
+          "scheduledMs": 25309127
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25309128,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25309125,
+          "generation": 1,
+          "id": 44,
+          "ioStartedMs": 25309125,
+          "resumedMs": 25309125,
+          "scheduledMs": 25308125
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25309127,
+        "gear": "D",
+        "leaseUntilMs": 25312127,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25308124,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25309127,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25309226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25309127,
+        "evaluationFromMs": 25309225,
+        "evaluationToMs": 25309226,
+        "gear": "D",
+        "hubSequence": 435,
+        "leaseUntilMs": 25312127,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055163153,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25310128,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25310127,
+          "generation": 1,
+          "id": 45,
+          "resumedMs": 25310128,
+          "scheduledMs": 25309127
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25310128,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25310127,
+          "generation": 1,
+          "id": 45,
+          "ioStartedMs": 25310128,
+          "resumedMs": 25310128,
+          "scheduledMs": 25309127
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25310129,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25310127,
+          "generation": 1,
+          "id": 45,
+          "ioStartedMs": 25310128,
+          "resumedMs": 25310128,
+          "scheduledMs": 25309127
+        },
+        "responseMs": 25310129,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25310129,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25311129,
+          "generation": 1,
+          "id": 46,
+          "scheduledMs": 25310129
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25310129,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25310127,
+          "generation": 1,
+          "id": 45,
+          "ioStartedMs": 25310128,
+          "resumedMs": 25310128,
+          "scheduledMs": 25309127
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25310129,
+        "gear": "D",
+        "leaseUntilMs": 25313129,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25309127,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25310129,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25310226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25310129,
+        "evaluationFromMs": 25310226,
+        "evaluationToMs": 25310226,
+        "gear": "D",
+        "hubSequence": 445,
+        "leaseUntilMs": 25313129,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055164154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25311130,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25311129,
+          "generation": 1,
+          "id": 46,
+          "resumedMs": 25311130,
+          "scheduledMs": 25310129
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25311130,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25311129,
+          "generation": 1,
+          "id": 46,
+          "ioStartedMs": 25311130,
+          "resumedMs": 25311130,
+          "scheduledMs": 25310129
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25311130,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25311129,
+          "generation": 1,
+          "id": 46,
+          "ioStartedMs": 25311130,
+          "resumedMs": 25311130,
+          "scheduledMs": 25310129
+        },
+        "responseMs": 25311130,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25311130,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25312130,
+          "generation": 1,
+          "id": 47,
+          "scheduledMs": 25311130
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25311131,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25311129,
+          "generation": 1,
+          "id": 46,
+          "ioStartedMs": 25311130,
+          "resumedMs": 25311130,
+          "scheduledMs": 25310129
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25311130,
+        "gear": "D",
+        "leaseUntilMs": 25314130,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25310129,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25311130,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25311227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25311130,
+        "evaluationFromMs": 25311226,
+        "evaluationToMs": 25311227,
+        "gear": "D",
+        "hubSequence": 455,
+        "leaseUntilMs": 25314130,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055165154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25312131,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25312130,
+          "generation": 1,
+          "id": 47,
+          "resumedMs": 25312131,
+          "scheduledMs": 25311130
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25312131,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25312130,
+          "generation": 1,
+          "id": 47,
+          "ioStartedMs": 25312131,
+          "resumedMs": 25312131,
+          "scheduledMs": 25311130
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25312133,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25312130,
+          "generation": 1,
+          "id": 47,
+          "ioStartedMs": 25312131,
+          "resumedMs": 25312131,
+          "scheduledMs": 25311130
+        },
+        "responseMs": 25312133,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25312134,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25313134,
+          "generation": 1,
+          "id": 48,
+          "scheduledMs": 25312134
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25312134,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25312130,
+          "generation": 1,
+          "id": 47,
+          "ioStartedMs": 25312131,
+          "resumedMs": 25312131,
+          "scheduledMs": 25311130
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25312133,
+        "gear": "D",
+        "leaseUntilMs": 25315133,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25311130,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25312133,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25312227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25312133,
+        "evaluationFromMs": 25312226,
+        "evaluationToMs": 25312227,
+        "gear": "D",
+        "hubSequence": 465,
+        "leaseUntilMs": 25315133,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055166154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25313134,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25313134,
+          "generation": 1,
+          "id": 48,
+          "resumedMs": 25313134,
+          "scheduledMs": 25312134
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25313134,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25313134,
+          "generation": 1,
+          "id": 48,
+          "ioStartedMs": 25313134,
+          "resumedMs": 25313134,
+          "scheduledMs": 25312134
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25313136,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25313134,
+          "generation": 1,
+          "id": 48,
+          "ioStartedMs": 25313134,
+          "resumedMs": 25313134,
+          "scheduledMs": 25312134
+        },
+        "responseMs": 25313136,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25313137,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25314137,
+          "generation": 1,
+          "id": 49,
+          "scheduledMs": 25313137
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25313137,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25313134,
+          "generation": 1,
+          "id": 48,
+          "ioStartedMs": 25313134,
+          "resumedMs": 25313134,
+          "scheduledMs": 25312134
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25313136,
+        "gear": "D",
+        "leaseUntilMs": 25316136,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25312133,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25313136,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25313227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25313136,
+        "evaluationFromMs": 25313226,
+        "evaluationToMs": 25313227,
+        "gear": "D",
+        "hubSequence": 475,
+        "leaseUntilMs": 25316136,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055167154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25314138,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25314137,
+          "generation": 1,
+          "id": 49,
+          "resumedMs": 25314138,
+          "scheduledMs": 25313137
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25314138,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25314137,
+          "generation": 1,
+          "id": 49,
+          "ioStartedMs": 25314138,
+          "resumedMs": 25314138,
+          "scheduledMs": 25313137
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25314139,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25314137,
+          "generation": 1,
+          "id": 49,
+          "ioStartedMs": 25314138,
+          "resumedMs": 25314138,
+          "scheduledMs": 25313137
+        },
+        "responseMs": 25314139,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25314140,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25315140,
+          "generation": 1,
+          "id": 50,
+          "scheduledMs": 25314140
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25314140,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25314137,
+          "generation": 1,
+          "id": 49,
+          "ioStartedMs": 25314138,
+          "resumedMs": 25314138,
+          "scheduledMs": 25313137
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25314139,
+        "gear": "D",
+        "leaseUntilMs": 25317139,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25313136,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25314139,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25314226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25314139,
+        "evaluationFromMs": 25314226,
+        "evaluationToMs": 25314226,
+        "gear": "D",
+        "hubSequence": 485,
+        "leaseUntilMs": 25317139,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055168153,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25315140,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25315140,
+          "generation": 1,
+          "id": 50,
+          "resumedMs": 25315140,
+          "scheduledMs": 25314140
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25315140,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25315140,
+          "generation": 1,
+          "id": 50,
+          "ioStartedMs": 25315140,
+          "resumedMs": 25315140,
+          "scheduledMs": 25314140
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25315142,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25315140,
+          "generation": 1,
+          "id": 50,
+          "ioStartedMs": 25315140,
+          "resumedMs": 25315140,
+          "scheduledMs": 25314140
+        },
+        "responseMs": 25315142,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25315142,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25316142,
+          "generation": 1,
+          "id": 51,
+          "scheduledMs": 25315142
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25315142,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25315140,
+          "generation": 1,
+          "id": 50,
+          "ioStartedMs": 25315140,
+          "resumedMs": 25315140,
+          "scheduledMs": 25314140
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25315142,
+        "gear": "D",
+        "leaseUntilMs": 25318142,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25314139,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25315142,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25315226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25315142,
+        "evaluationFromMs": 25315225,
+        "evaluationToMs": 25315226,
+        "gear": "D",
+        "hubSequence": 495,
+        "leaseUntilMs": 25318142,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055169153,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25316143,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25316142,
+          "generation": 1,
+          "id": 51,
+          "resumedMs": 25316143,
+          "scheduledMs": 25315142
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25316143,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25316142,
+          "generation": 1,
+          "id": 51,
+          "ioStartedMs": 25316143,
+          "resumedMs": 25316143,
+          "scheduledMs": 25315142
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25316144,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25316142,
+          "generation": 1,
+          "id": 51,
+          "ioStartedMs": 25316143,
+          "resumedMs": 25316143,
+          "scheduledMs": 25315142
+        },
+        "responseMs": 25316144,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25316144,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25317144,
+          "generation": 1,
+          "id": 52,
+          "scheduledMs": 25316144
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25316144,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25316142,
+          "generation": 1,
+          "id": 51,
+          "ioStartedMs": 25316143,
+          "resumedMs": 25316143,
+          "scheduledMs": 25315142
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25316144,
+        "gear": "D",
+        "leaseUntilMs": 25319144,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25315142,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25316144,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25316226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25316144,
+        "evaluationFromMs": 25316225,
+        "evaluationToMs": 25316226,
+        "gear": "D",
+        "hubSequence": 505,
+        "leaseUntilMs": 25319144,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055170153,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25317145,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25317144,
+          "generation": 1,
+          "id": 52,
+          "resumedMs": 25317145,
+          "scheduledMs": 25316144
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25317145,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25317144,
+          "generation": 1,
+          "id": 52,
+          "ioStartedMs": 25317145,
+          "resumedMs": 25317145,
+          "scheduledMs": 25316144
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25317145,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25317144,
+          "generation": 1,
+          "id": 52,
+          "ioStartedMs": 25317145,
+          "resumedMs": 25317145,
+          "scheduledMs": 25316144
+        },
+        "responseMs": 25317145,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25317146,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25318146,
+          "generation": 1,
+          "id": 53,
+          "scheduledMs": 25317146
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25317155,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25317144,
+          "generation": 1,
+          "id": 52,
+          "ioStartedMs": 25317145,
+          "resumedMs": 25317145,
+          "scheduledMs": 25316144
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25317145,
+        "gear": "D",
+        "leaseUntilMs": 25320145,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25316144,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25317145,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25317226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25317145,
+        "evaluationFromMs": 25317226,
+        "evaluationToMs": 25317226,
+        "gear": "D",
+        "hubSequence": 515,
+        "leaseUntilMs": 25320145,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055171154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25318146,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25318146,
+          "generation": 1,
+          "id": 53,
+          "resumedMs": 25318146,
+          "scheduledMs": 25317146
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25318146,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25318146,
+          "generation": 1,
+          "id": 53,
+          "ioStartedMs": 25318146,
+          "resumedMs": 25318146,
+          "scheduledMs": 25317146
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25318147,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25318146,
+          "generation": 1,
+          "id": 53,
+          "ioStartedMs": 25318146,
+          "resumedMs": 25318146,
+          "scheduledMs": 25317146
+        },
+        "responseMs": 25318147,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25318147,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25318146,
+          "generation": 1,
+          "id": 53,
+          "ioStartedMs": 25318146,
+          "resumedMs": 25318146,
+          "scheduledMs": 25317146
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25318147,
+        "gear": "D",
+        "leaseUntilMs": 25321147,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25317145,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25318147,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25318148,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25319148,
+          "generation": 1,
+          "id": 54,
+          "scheduledMs": 25318148
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25318226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25318147,
+        "evaluationFromMs": 25318226,
+        "evaluationToMs": 25318226,
+        "gear": "D",
+        "hubSequence": 525,
+        "leaseUntilMs": 25321147,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055172154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25319151,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25319148,
+          "generation": 1,
+          "id": 54,
+          "resumedMs": 25319151,
+          "scheduledMs": 25318148
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25319151,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25319148,
+          "generation": 1,
+          "id": 54,
+          "ioStartedMs": 25319151,
+          "resumedMs": 25319151,
+          "scheduledMs": 25318148
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25319155,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25319148,
+          "generation": 1,
+          "id": 54,
+          "ioStartedMs": 25319151,
+          "resumedMs": 25319151,
+          "scheduledMs": 25318148
+        },
+        "responseMs": 25319155,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25319155,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25320155,
+          "generation": 1,
+          "id": 55,
+          "scheduledMs": 25319155
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25319155,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25319148,
+          "generation": 1,
+          "id": 54,
+          "ioStartedMs": 25319151,
+          "resumedMs": 25319151,
+          "scheduledMs": 25318148
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25319155,
+        "gear": "D",
+        "leaseUntilMs": 25322155,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25318147,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25319155,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25319227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25319155,
+        "evaluationFromMs": 25319226,
+        "evaluationToMs": 25319227,
+        "gear": "D",
+        "hubSequence": 535,
+        "leaseUntilMs": 25322155,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055173154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25320156,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25320155,
+          "generation": 1,
+          "id": 55,
+          "resumedMs": 25320156,
+          "scheduledMs": 25319155
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25320156,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25320155,
+          "generation": 1,
+          "id": 55,
+          "ioStartedMs": 25320156,
+          "resumedMs": 25320156,
+          "scheduledMs": 25319155
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25320157,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25320155,
+          "generation": 1,
+          "id": 55,
+          "ioStartedMs": 25320156,
+          "resumedMs": 25320156,
+          "scheduledMs": 25319155
+        },
+        "responseMs": 25320157,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25320157,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25321157,
+          "generation": 1,
+          "id": 56,
+          "scheduledMs": 25320157
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25320177,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25320155,
+          "generation": 1,
+          "id": 55,
+          "ioStartedMs": 25320156,
+          "resumedMs": 25320156,
+          "scheduledMs": 25319155
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25320157,
+        "gear": "D",
+        "leaseUntilMs": 25323157,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25319155,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25320157,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25320230,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25320157,
+        "evaluationFromMs": 25320228,
+        "evaluationToMs": 25320230,
+        "gear": "D",
+        "hubSequence": 545,
+        "leaseUntilMs": 25323157,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055174156,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25321158,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25321157,
+          "generation": 1,
+          "id": 56,
+          "resumedMs": 25321158,
+          "scheduledMs": 25320157
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25321158,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25321157,
+          "generation": 1,
+          "id": 56,
+          "ioStartedMs": 25321158,
+          "resumedMs": 25321158,
+          "scheduledMs": 25320157
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25321159,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25321157,
+          "generation": 1,
+          "id": 56,
+          "ioStartedMs": 25321158,
+          "resumedMs": 25321158,
+          "scheduledMs": 25320157
+        },
+        "responseMs": 25321159,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25321159,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25322159,
+          "generation": 1,
+          "id": 57,
+          "scheduledMs": 25321159
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25321160,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25321157,
+          "generation": 1,
+          "id": 56,
+          "ioStartedMs": 25321158,
+          "resumedMs": 25321158,
+          "scheduledMs": 25320157
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25321159,
+        "gear": "D",
+        "leaseUntilMs": 25324159,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25320157,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25321159,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25321226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25321159,
+        "evaluationFromMs": 25321226,
+        "evaluationToMs": 25321226,
+        "gear": "D",
+        "hubSequence": 555,
+        "leaseUntilMs": 25324159,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055175154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25322160,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25322159,
+          "generation": 1,
+          "id": 57,
+          "resumedMs": 25322160,
+          "scheduledMs": 25321159
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25322160,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25322159,
+          "generation": 1,
+          "id": 57,
+          "ioStartedMs": 25322160,
+          "resumedMs": 25322160,
+          "scheduledMs": 25321159
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25322161,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25322159,
+          "generation": 1,
+          "id": 57,
+          "ioStartedMs": 25322160,
+          "resumedMs": 25322160,
+          "scheduledMs": 25321159
+        },
+        "responseMs": 25322161,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25322162,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25323162,
+          "generation": 1,
+          "id": 58,
+          "scheduledMs": 25322162
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25322162,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25322159,
+          "generation": 1,
+          "id": 57,
+          "ioStartedMs": 25322160,
+          "resumedMs": 25322160,
+          "scheduledMs": 25321159
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25322161,
+        "gear": "D",
+        "leaseUntilMs": 25325161,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25321159,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25322161,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25322236,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25322161,
+        "evaluationFromMs": 25322236,
+        "evaluationToMs": 25322236,
+        "gear": "D",
+        "hubSequence": 565,
+        "leaseUntilMs": 25325161,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055176163,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25323163,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25323162,
+          "generation": 1,
+          "id": 58,
+          "resumedMs": 25323163,
+          "scheduledMs": 25322162
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25323163,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25323162,
+          "generation": 1,
+          "id": 58,
+          "ioStartedMs": 25323163,
+          "resumedMs": 25323163,
+          "scheduledMs": 25322162
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25323164,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25323162,
+          "generation": 1,
+          "id": 58,
+          "ioStartedMs": 25323163,
+          "resumedMs": 25323163,
+          "scheduledMs": 25322162
+        },
+        "responseMs": 25323164,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25323164,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25324164,
+          "generation": 1,
+          "id": 59,
+          "scheduledMs": 25323164
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25323165,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25323162,
+          "generation": 1,
+          "id": 58,
+          "ioStartedMs": 25323163,
+          "resumedMs": 25323163,
+          "scheduledMs": 25322162
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25323164,
+        "gear": "D",
+        "leaseUntilMs": 25326164,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25322161,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25323164,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25323227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25323164,
+        "evaluationFromMs": 25323226,
+        "evaluationToMs": 25323227,
+        "gear": "D",
+        "hubSequence": 575,
+        "leaseUntilMs": 25326164,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055177154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25324165,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25324164,
+          "generation": 1,
+          "id": 59,
+          "resumedMs": 25324165,
+          "scheduledMs": 25323164
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25324165,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25324164,
+          "generation": 1,
+          "id": 59,
+          "ioStartedMs": 25324165,
+          "resumedMs": 25324165,
+          "scheduledMs": 25323164
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25324168,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25324164,
+          "generation": 1,
+          "id": 59,
+          "ioStartedMs": 25324165,
+          "resumedMs": 25324165,
+          "scheduledMs": 25323164
+        },
+        "responseMs": 25324168,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25324168,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25324164,
+          "generation": 1,
+          "id": 59,
+          "ioStartedMs": 25324165,
+          "resumedMs": 25324165,
+          "scheduledMs": 25323164
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25324168,
+        "gear": "D",
+        "leaseUntilMs": 25327168,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25323164,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25324168,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25324169,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25325169,
+          "generation": 1,
+          "id": 60,
+          "scheduledMs": 25324169
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25324227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25324168,
+        "evaluationFromMs": 25324226,
+        "evaluationToMs": 25324227,
+        "gear": "D",
+        "hubSequence": 585,
+        "leaseUntilMs": 25327168,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055178154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25325170,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25325169,
+          "generation": 1,
+          "id": 60,
+          "resumedMs": 25325170,
+          "scheduledMs": 25324169
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25325170,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25325169,
+          "generation": 1,
+          "id": 60,
+          "ioStartedMs": 25325170,
+          "resumedMs": 25325170,
+          "scheduledMs": 25324169
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25325172,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25325169,
+          "generation": 1,
+          "id": 60,
+          "ioStartedMs": 25325170,
+          "resumedMs": 25325170,
+          "scheduledMs": 25324169
+        },
+        "responseMs": 25325172,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25325172,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25326172,
+          "generation": 1,
+          "id": 61,
+          "scheduledMs": 25325172
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25325172,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25325169,
+          "generation": 1,
+          "id": 60,
+          "ioStartedMs": 25325170,
+          "resumedMs": 25325170,
+          "scheduledMs": 25324169
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25325172,
+        "gear": "D",
+        "leaseUntilMs": 25328172,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25324168,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25325172,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25325227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25325172,
+        "evaluationFromMs": 25325226,
+        "evaluationToMs": 25325227,
+        "gear": "D",
+        "hubSequence": 595,
+        "leaseUntilMs": 25328172,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055179154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25326173,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25326172,
+          "generation": 1,
+          "id": 61,
+          "resumedMs": 25326173,
+          "scheduledMs": 25325172
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25326173,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25326172,
+          "generation": 1,
+          "id": 61,
+          "ioStartedMs": 25326173,
+          "resumedMs": 25326173,
+          "scheduledMs": 25325172
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25326174,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25326172,
+          "generation": 1,
+          "id": 61,
+          "ioStartedMs": 25326173,
+          "resumedMs": 25326173,
+          "scheduledMs": 25325172
+        },
+        "responseMs": 25326174,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25326174,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25327174,
+          "generation": 1,
+          "id": 62,
+          "scheduledMs": 25326174
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25326174,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25326172,
+          "generation": 1,
+          "id": 61,
+          "ioStartedMs": 25326173,
+          "resumedMs": 25326173,
+          "scheduledMs": 25325172
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25326174,
+        "gear": "D",
+        "leaseUntilMs": 25329174,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25325172,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25326174,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25326227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25326174,
+        "evaluationFromMs": 25326226,
+        "evaluationToMs": 25326227,
+        "gear": "D",
+        "hubSequence": 605,
+        "leaseUntilMs": 25329174,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055180154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-6"
+      },
+      {
+        "atMs": 25327175,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25327174,
+          "generation": 1,
+          "id": 62,
+          "resumedMs": 25327175,
+          "scheduledMs": 25326174
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25327175,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25327174,
+          "generation": 1,
+          "id": 62,
+          "ioStartedMs": 25327175,
+          "resumedMs": 25327175,
+          "scheduledMs": 25326174
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25327176,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25327174,
+          "generation": 1,
+          "id": 62,
+          "ioStartedMs": 25327175,
+          "resumedMs": 25327175,
+          "scheduledMs": 25326174
+        },
+        "responseMs": 25327176,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25327176,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25328176,
+          "generation": 1,
+          "id": 63,
+          "scheduledMs": 25327176
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25327176,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25327174,
+          "generation": 1,
+          "id": 62,
+          "ioStartedMs": 25327175,
+          "resumedMs": 25327175,
+          "scheduledMs": 25326174
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25327176,
+        "gear": "D",
+        "leaseUntilMs": 25330176,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25326174,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25327176,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25327227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25327176,
+        "evaluationFromMs": 25327226,
+        "evaluationToMs": 25327227,
+        "gear": "D",
+        "hubSequence": 615,
+        "leaseUntilMs": 25330176,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055181154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25328177,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25328176,
+          "generation": 1,
+          "id": 63,
+          "resumedMs": 25328177,
+          "scheduledMs": 25327176
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25328177,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25328176,
+          "generation": 1,
+          "id": 63,
+          "ioStartedMs": 25328177,
+          "resumedMs": 25328177,
+          "scheduledMs": 25327176
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25328178,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25328176,
+          "generation": 1,
+          "id": 63,
+          "ioStartedMs": 25328177,
+          "resumedMs": 25328177,
+          "scheduledMs": 25327176
+        },
+        "responseMs": 25328178,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25328178,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25329178,
+          "generation": 1,
+          "id": 64,
+          "scheduledMs": 25328178
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25328178,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25328176,
+          "generation": 1,
+          "id": 63,
+          "ioStartedMs": 25328177,
+          "resumedMs": 25328177,
+          "scheduledMs": 25327176
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25328178,
+        "gear": "D",
+        "leaseUntilMs": 25331178,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25327176,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25328178,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25328227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25328178,
+        "evaluationFromMs": 25328226,
+        "evaluationToMs": 25328227,
+        "gear": "D",
+        "hubSequence": 625,
+        "leaseUntilMs": 25331178,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055182154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-3"
+      },
+      {
+        "atMs": 25329179,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25329178,
+          "generation": 1,
+          "id": 64,
+          "resumedMs": 25329179,
+          "scheduledMs": 25328178
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25329179,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25329178,
+          "generation": 1,
+          "id": 64,
+          "ioStartedMs": 25329179,
+          "resumedMs": 25329179,
+          "scheduledMs": 25328178
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25329180,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25329178,
+          "generation": 1,
+          "id": 64,
+          "ioStartedMs": 25329179,
+          "resumedMs": 25329179,
+          "scheduledMs": 25328178
+        },
+        "responseMs": 25329180,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25329180,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25330180,
+          "generation": 1,
+          "id": 65,
+          "scheduledMs": 25329180
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25329180,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25329178,
+          "generation": 1,
+          "id": 64,
+          "ioStartedMs": 25329179,
+          "resumedMs": 25329179,
+          "scheduledMs": 25328178
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25329180,
+        "gear": "D",
+        "leaseUntilMs": 25332180,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25328178,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25329180,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25329226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25329180,
+        "evaluationFromMs": 25329225,
+        "evaluationToMs": 25329226,
+        "gear": "D",
+        "hubSequence": 635,
+        "leaseUntilMs": 25332180,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055183153,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25330181,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25330180,
+          "generation": 1,
+          "id": 65,
+          "resumedMs": 25330181,
+          "scheduledMs": 25329180
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25330181,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25330180,
+          "generation": 1,
+          "id": 65,
+          "ioStartedMs": 25330181,
+          "resumedMs": 25330181,
+          "scheduledMs": 25329180
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25330182,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25330180,
+          "generation": 1,
+          "id": 65,
+          "ioStartedMs": 25330181,
+          "resumedMs": 25330181,
+          "scheduledMs": 25329180
+        },
+        "responseMs": 25330182,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25330182,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25331182,
+          "generation": 1,
+          "id": 66,
+          "scheduledMs": 25330182
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25330182,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25330180,
+          "generation": 1,
+          "id": 65,
+          "ioStartedMs": 25330181,
+          "resumedMs": 25330181,
+          "scheduledMs": 25329180
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25330182,
+        "gear": "D",
+        "leaseUntilMs": 25333182,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25329180,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25330182,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25330227,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25330182,
+        "evaluationFromMs": 25330226,
+        "evaluationToMs": 25330227,
+        "gear": "D",
+        "hubSequence": 645,
+        "leaseUntilMs": 25333182,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055184154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25331183,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25331182,
+          "generation": 1,
+          "id": 66,
+          "resumedMs": 25331183,
+          "scheduledMs": 25330182
+        },
+        "stage": "RESUMED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25331183,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25331182,
+          "generation": 1,
+          "id": 66,
+          "ioStartedMs": 25331183,
+          "resumedMs": 25331183,
+          "scheduledMs": 25330182
+        },
+        "stage": "IO_STARTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25331184,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25331182,
+          "generation": 1,
+          "id": 66,
+          "ioStartedMs": 25331183,
+          "resumedMs": 25331183,
+          "scheduledMs": 25330182
+        },
+        "responseMs": 25331184,
+        "stage": "RESPONSE",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25331184,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25332184,
+          "generation": 1,
+          "id": 67,
+          "scheduledMs": 25331184
+        },
+        "stage": "SCHEDULED",
+        "threadName": "DefaultDispatcher-worker-4"
+      },
+      {
+        "atMs": 25331184,
+        "attempt": {
+          "delivery": "REQUERY",
+          "dueMs": 25331182,
+          "generation": 1,
+          "id": 66,
+          "ioStartedMs": 25331183,
+          "resumedMs": 25331183,
+          "scheduledMs": 25330182
+        },
+        "availability": "AVAILABLE",
+        "confirmedMs": 25331184,
+        "gear": "D",
+        "leaseUntilMs": 25334184,
+        "nativeMs": 25271265,
+        "observationSequence": 3,
+        "previousConfirmedMs": 25330182,
+        "reason": "REQUERY · 반영 시 현재 세대 확인",
+        "receivedAtElapsedMs": 25271266,
+        "renewed": true,
+        "responseMs": 25331184,
+        "stage": "STORE_APPLIED",
+        "threadName": "main"
+      },
+      {
+        "atMs": 25331226,
+        "availability": "AVAILABLE",
+        "confirmedMs": 25331184,
+        "evaluationFromMs": 25331226,
+        "evaluationToMs": 25331226,
+        "gear": "D",
+        "hubSequence": 655,
+        "leaseUntilMs": 25334184,
+        "nativeMs": 25271265,
+        "observationSequence": 220,
+        "reason": "REAL_FRESH",
+        "receivedAtElapsedMs": 25271266,
+        "scenarioMs": 1794055185154,
+        "stage": "HUB_SELECTED",
+        "threadName": "DefaultDispatcher-worker-4"
+      }
+    ],
+    "rowsRecorded": 401,
+    "scheduler": "IO_FIXED_DELAY",
+    "staleBracketMs": 0,
+    "staleFrames": 0,
+    "staleTransitions": 0,
+    "timelineIncluded": true
+  }
+}

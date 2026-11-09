@@ -32,10 +32,18 @@ import kotlin.math.abs
 class PlaygroundSignalAdapter(private val context: Context, private val clock: Clock,
     val policy: SdkProbePolicy, private val scope: CoroutineScope) {
     val store = SdkSignalStore(clock, policy)
+    val gearAudit = GearCollectionAudit(clock, scheduler = "IO_FIXED_DELAY")
     private val handler = Handler(Looper.getMainLooper())
-    private var active = false
+    @Volatile private var active = false
+    private var vehicleBootstrap: Job? = null
+    private var started = false
+    @Volatile private var carGeneration = 0L
+    @Volatile private var carReady = false
+    private var gearPoll: Job? = null
+    private var permissionPoll: Job? = null
+    private val carCleanup = mutableListOf<() -> Unit>()
     private val cleanup = mutableListOf<() -> Unit>()
-    private var vehicle: Vehicle? = null
+    @Volatile private var vehicle: Vehicle? = null
     private var navi: NaviHelper? = null
     private var car: Car? = null
     private var poll: Job? = null
@@ -69,6 +77,14 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         val receipt = clock.elapsedRealtimeMs()
         post { store.receiveSeatSdkValue(key, raw, delivery, receipt); emit(key) }
     }
+    private fun steeringReceived(raw: Float?, delivery: SdkDelivery) {
+        val receipt = clock.elapsedRealtimeMs()
+        post { store.receiveSteeringSdkValue(raw, delivery, receipt); emit("STEERING_DEG") }
+    }
+    private fun boundedIntReceived(key: String, raw: Int?, delivery: SdkDelivery, diagnosticOnly: Boolean = false) {
+        val receipt = clock.elapsedRealtimeMs()
+        post { store.receiveBoundedInt(key, raw, delivery, receipt, diagnosticOnly); emit(key) }
+    }
     private fun checked(key: String, config: CapabilityConfig, extra: String = "", subscribe: () -> Unit) = post {
         val readable = config.accessType == AccessType.READ || config.accessType == AccessType.READ_WRITE
         store.capability(key, readable, "${config.accessType} $extra"); emit(key)
@@ -76,9 +92,13 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         if (readable && permitted) try { subscribe() } catch (e: Exception) { failure(key, e) }
     }
     private fun attempt(key: String, action: () -> Unit) { try { action() } catch (e: Exception) { failure(key, e) } }
+    private fun attemptGroup(keys: List<String>, action: () -> Unit) {
+        try { action() } catch (e: Exception) { keys.forEach { failure(it, e) } }
+    }
 
     fun start() {
-        check(!active); active = true; mutableStatus.value = "연결 요청 · capability 확인 중"
+        check(!started) { "어댑터는 한 세션에서 한 번만 시작합니다. 재연결은 새 인스턴스를 사용하세요." }
+        started = true; active = true; mutableStatus.value = "연결 요청 · capability 확인 중"
         SignalField.entries.filter { it != SignalField.SEATS }.forEach {
             val p = when (it) {
                 SignalField.SPEED_KPH -> "android.car.permission.CAR_SPEED"
@@ -93,30 +113,40 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         listOf("ROW_1_LEFT", "ROW_1_RIGHT", "ROW_2_LEFT", "ROW_2_CENTER", "ROW_2_RIGHT").forEach {
             permission("SEAT:$it", "pleos.car.permission.CAR_SEATS")
         }
+        permission("SEAT_TEMPERATURE:ROW_1_LEFT", "pleos.car.permission.CAR_SEATS")
         NaviField.entries.forEach { permission(it.name, "pleos.car.permission.NAVI_ROUTE") }
         store.readings().forEach { emit(it.key) }
         naviBus.value = store.naviState()
-        try { connectVehicle() } catch (e: Exception) {
-            store.readings().filter { it.permission.startsWith("pleos.car") && !it.permission.endsWith("NAVI_ROUTE") }
-                .forEach { failure(it.key, e) }
+        // Vehicle 2.3.2의 capability 확인에는 Kotlin reflection 비용이 있다.
+        // 기기 ANR에서 이 호출이 main을 막는 것을 확인해 초기 확인만 작업 스레드로 분리한다.
+        val vehicleKeys = store.readings().filter { it.permission.startsWith("pleos.car") && !it.permission.endsWith("NAVI_ROUTE") }.map { it.key }
+        vehicleBootstrap = scope.launch(Dispatchers.IO) {
+            try { connectVehicle() }
+            catch (e: Exception) { vehicleKeys.forEach { failure(it, e) } }
+            finally { if (!active) runCatching { vehicle?.release() } }
         }
         try { connectCar() } catch (e: Exception) {
             listOf("SPEED_KPH", "GEAR").forEach { failure(it, e) }
         }
         try { connectNavi() } catch (e: Exception) { NaviField.entries.forEach { failure(it.name, e) } }
         mutableStatus.value = "연결 요청 완료 · 신호별 지원/오류를 확인하세요"
+        permissionPoll = scope.launch {
+            while (isActive && active) {
+                store.readings().filter { it.permissionGranted && context.checkSelfPermission(it.permission) != PackageManager.PERMISSION_GRANTED }
+                    .forEach { store.block(it.key, SignalAvailability.PERMISSION_DENIED, "수집 중 권한 상실 · 재연결 필요"); emit(it.key) }
+                delay(policy.stateRequeryMs)
+            }
+        }
     }
     private fun connectVehicle() {
         val v = Vehicle(context.applicationContext).also { vehicle = it; it.initialize() }
         val s = v.getSteeringWheel()
         val steering = object : SteeringWheelAngleListener {
-            override fun onSteeringWheelAngleUpdated(angle: Float?) = received("STEERING_DEG", angle, null, SdkDelivery.CALLBACK,
-                note = "전륜각 °, 좌측 음수. 운전대 회전각 아님 → 엔진 연결 보류", availability = SignalAvailability.UNSUPPORTED)
+            override fun onSteeringWheelAngleUpdated(angle: Float?) = steeringReceived(angle, SdkDelivery.CALLBACK)
             override fun onFailed(e: Exception) = failure("STEERING_DEG", e)
         }
         attempt("STEERING_DEG") { s.checkSteeringWheelAngleCapabilities({ c, b -> checked("STEERING_DEG", c, b.toString()) {
-            s.getCurrentSteeringWheelAngle({ received("STEERING_DEG", it, null, SdkDelivery.QUERY,
-                note = "전륜각 ° → 운전대각 변환 불가", availability = SignalAvailability.UNSUPPORTED) }, { failure("STEERING_DEG", it) })
+            s.getCurrentSteeringWheelAngle({ steeringReceived(it, SdkDelivery.QUERY) }, { failure("STEERING_DEG", it) })
             cleanup += { s.unregisterSteeringWheelAngle(steering) }; s.registerSteeringWheelAngle(steering)
         } }, { failure("STEERING_DEG", it) }) }
         val t = v.getTurnSignal()
@@ -171,7 +201,7 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
     private fun connectSeats(v: Vehicle) {
         val seat = v.getSeat()
         val seats = listOf(SeatValue.ROW_1_LEFT, SeatValue.ROW_1_RIGHT, SeatValue.ROW_2_LEFT, SeatValue.ROW_2_CENTER, SeatValue.ROW_2_RIGHT)
-        attempt("SEAT:ROW_1_LEFT") { seat.checkSeatOccupancyCapabilities({ c: CapabilityConfig, areas: List<SeatArea> ->
+        attemptGroup(seats.map { "SEAT:${it.name}" }) { seat.checkSeatOccupancyCapabilities({ c: CapabilityConfig, areas: List<SeatArea> ->
             seats.forEach { position ->
                 val key = "SEAT:${position.name}"; val area = SeatArea(position)
                 // 결합 영역을 개별 좌석으로 오인하지 않는다.
@@ -190,14 +220,33 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         attempt("VENTILATION_LEVEL") { seat.checkSeatVentilationCapabilities({ c, areas ->
             if (driver !in areas) post { store.capability("VENTILATION_LEVEL", false, "운전석 개별 영역 미지원"); emit("VENTILATION_LEVEL") }
             else checked("VENTILATION_LEVEL", c, "ROW_1_LEFT ${areas[driver]}") {
+                val bounds = areas.getValue(driver)
+                require(bounds.minValue >= 0) { "통풍 단계는 비음수여야 합니다." }
+                store.bounds("VENTILATION_LEVEL", bounds.minValue, bounds.maxValue)
                 val listener = object : HvacSeatVentilationListener {
-                    override fun onHvacSeatVentilationUpdated(ventilation: Int?) = received("VENTILATION_LEVEL", ventilation, ventilation?.takeIf { it >= 0 }, SdkDelivery.CALLBACK)
+                    override fun onHvacSeatVentilationUpdated(ventilation: Int?) = boundedIntReceived("VENTILATION_LEVEL", ventilation, SdkDelivery.CALLBACK)
                     override fun onFailed(e: Exception) = failure("VENTILATION_LEVEL", e)
                 }
-                seat.getHvacSeatVentilationState(driver, { received("VENTILATION_LEVEL", it, it?.takeIf { n -> n >= 0 }, SdkDelivery.QUERY) }, { failure("VENTILATION_LEVEL", it) })
+                seat.getHvacSeatVentilationState(driver, { boundedIntReceived("VENTILATION_LEVEL", it, SdkDelivery.QUERY) }, { failure("VENTILATION_LEVEL", it) })
                 cleanup += { seat.unregisterHvacSeatVentilation(driver, listener) }; seat.registerHvacSeatVentilation(driver, listener)
             }
         }, { failure("VENTILATION_LEVEL", it) }) }
+        // Console의 V1/V3는 이 온열/냉각 속성이다. 별도 통풍 단계로 바꿔 쓰지 않는다.
+        val temperatureKey = "SEAT_TEMPERATURE:ROW_1_LEFT"
+        attempt(temperatureKey) { seat.checkSeatTemperatureCapabilities({ c, areas ->
+            if (driver !in areas) post { store.capability(temperatureKey, false, "운전석 개별 영역 미지원"); emit(temperatureKey) }
+            else checked(temperatureKey, c, "ROW_1_LEFT ${areas[driver]} · 별도 온열/냉각 진단") {
+                val bounds = areas.getValue(driver)
+                store.bounds(temperatureKey, bounds.minValue, bounds.maxValue)
+                val listener = object : HvacSeatTemperatureListener {
+                    override fun onHvacSeatTemperatureUpdated(temperature: Int?) =
+                        boundedIntReceived(temperatureKey, temperature, SdkDelivery.CALLBACK, diagnosticOnly = true)
+                    override fun onFailed(e: Exception) = failure(temperatureKey, e)
+                }
+                seat.getHvacSeatTemperature(driver, { boundedIntReceived(temperatureKey, it, SdkDelivery.QUERY, diagnosticOnly = true) }, { failure(temperatureKey, it) })
+                cleanup += { seat.unregisterHvacSeatTemperature(driver, listener) }; seat.registerHvacSeatTemperature(driver, listener)
+            }
+        }, { failure(temperatureKey, it) }) }
         val h = v.getHVAC()
         attempt("CABIN_TEMP_C") { h.checkHvacTemperatureCurrentCapabilities({ c, areas ->
             if (driver !in areas) post { store.capability("CABIN_TEMP_C", false, "운전석 개별 실내온도 영역 미지원"); emit("CABIN_TEMP_C") }
@@ -216,11 +265,20 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
             listOf("SPEED_KPH", "GEAR").forEach { store.capability(it, false, "AAOS 아님"); emit(it) }; return
         }
         car = Car.createCar(context, handler, Car.CAR_WAIT_TIMEOUT_DO_NOT_WAIT) { connected, ready -> post {
-            if (!ready) { listOf("SPEED_KPH", "GEAR").forEach { failure(it, IllegalStateException("CarService 연결 해제")) } }
+            if (!ready) {
+                carReady = false; carGeneration++; gearPoll?.cancel(); gearPoll = null
+                carCleanup.asReversed().forEach { runCatching(it) }; carCleanup.clear()
+                listOf("SPEED_KPH", "GEAR").forEach { store.block(it, SignalAvailability.ERROR, "CarService 연결 해제"); emit(it) }
+            }
             else {
+                if (carReady) return@post
+                carReady = true
+                val generation = ++carGeneration
+                fun current() = active && carReady && carGeneration == generation
                 val manager = connected.getCarManager(Car.PROPERTY_SERVICE) as CarPropertyManager
                 mapOf(VehiclePropertyIds.PERF_VEHICLE_SPEED to "SPEED_KPH", VehiclePropertyIds.GEAR_SELECTION to "GEAR").forEach { (id, key) ->
                     attempt(key) {
+                        store.beginCollection(key)
                         if (context.checkSelfPermission(store.readings().first { it.key == key }.permission) != PackageManager.PERMISSION_GRANTED) {
                             store.failed(key, SignalAvailability.PERMISSION_DENIED, "권한 없음"); emit(key)
                         } else {
@@ -228,7 +286,10 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                             if (config == null || config.access and 1 == 0) { store.capability(key, false, "AAOS property 읽기 미지원"); emit(key) }
                             else {
                                 store.capability(key, true, "AAOS READ mode=${config.changeMode} maxHz=${config.maxSampleRate}"); emit(key)
-                                fun deliver(value: CarPropertyValue<*>, kind: SdkDelivery) {
+                                fun deliver(value: CarPropertyValue<*>, kind: SdkDelivery, queryStartedMs: Long? = null,
+                                    auditAttempt: GearQueryAttempt? = null) {
+                                    val receipt = clock.elapsedRealtimeMs()
+                                    if (auditAttempt != null) gearAudit.responded(auditAttempt, receipt)
                                     val raw = if (value.status == CarPropertyValue.STATUS_AVAILABLE) value.value else null
                                     val availability = when (value.status) {
                                         CarPropertyValue.STATUS_AVAILABLE -> null
@@ -241,18 +302,56 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
                                         VehicleGear.GEAR_PARK -> Gear.P; VehicleGear.GEAR_REVERSE -> Gear.R
                                         VehicleGear.GEAR_NEUTRAL -> Gear.N; VehicleGear.GEAR_DRIVE -> Gear.D; else -> null
                                     }
-                                    received(key, raw, normalized, kind, value.timestamp.takeIf { it > 0 }?.div(1_000_000),
-                                        if (key == "SPEED_KPH") "부호 있는 m/s → 속력 abs × 3.6 km/h" else "VehicleGear → P/R/N/D", availability)
+                                    post {
+                                        if (current()) {
+                                            val before = if (key == "GEAR") store.quality(key) else null
+                                            store.receive(key, raw, normalized, kind, value.timestamp.takeIf { it > 0 }?.div(1_000_000),
+                                                if (key == "SPEED_KPH") "부호 있는 m/s → 속력 abs × 3.6 km/h" else "VehicleGear → P/R/N/D · ON_CHANGE 재확인",
+                                                availability, receipt, queryStartedMs = queryStartedMs)
+                                            if (before != null) {
+                                                val after = store.quality(key)
+                                                gearAudit.applied(auditAttempt, receipt, before, after,
+                                                    store.vehicleInput(key)?.gear, after.stateConfirmedAtElapsedMs == receipt,
+                                                    "${kind.name} · 반영 시 현재 세대 확인")
+                                            }
+                                            emit(key)
+                                        }
+                                    }
+                                }
+                                fun carFailure(error: Throwable, auditAttempt: GearQueryAttempt? = null) {
+                                    val responseMs = clock.elapsedRealtimeMs()
+                                    if (auditAttempt != null) gearAudit.responded(auditAttempt, responseMs, error = true)
+                                    post {
+                                    if (current()) {
+                                        val before = if (key == "GEAR") store.quality(key) else null
+                                        store.block(key, if (error is SecurityException) SignalAvailability.PERMISSION_DENIED else SignalAvailability.ERROR,
+                                            "${error.javaClass.simpleName} · 구독/조회 실패, 재연결 필요")
+                                        if (before != null) gearAudit.applied(auditAttempt, responseMs, before, store.quality(key),
+                                            null, false, error.javaClass.simpleName)
+                                        emit(key)
+                                    }
+                                    }
                                 }
                                 val callback = object : CarPropertyManager.CarPropertyEventCallback {
                                     override fun onChangeEvent(value: CarPropertyValue<*>) = deliver(value, SdkDelivery.CALLBACK)
-                                    override fun onErrorEvent(propId: Int, areaId: Int) = failure(key, IllegalStateException("AAOS property error $propId/$areaId"))
+                                    override fun onErrorEvent(propId: Int, areaId: Int) = carFailure(IllegalStateException("AAOS property error $propId/$areaId"))
                                 }
-                                cleanup += { manager.unregisterCallback(callback, id) }
-                                if (!manager.registerCallback(callback, id, 1_000f / EngineConfig().signalFrameIntervalMs)) throw IllegalStateException("AAOS 구독 거절")
+                                carCleanup += { manager.unregisterCallback(callback, id) }
+                                if (!manager.registerCallback(callback, id, 1_000f / EngineConfig().signalFrameIntervalMs)) {
+                                    carFailure(IllegalStateException("AAOS 구독 거절")); return@attempt
+                                }
                                 // 최초 값 조회와 구독 이벤트 계수는 분리한다.
+                                val initialAudit = if (key == "GEAR") gearAudit.resumed(gearAudit.schedule(generation,
+                                    SdkDelivery.QUERY, clock.elapsedRealtimeMs())) else null
                                 scope.launch(Dispatchers.IO) {
-                                    attempt(key) { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.QUERY) }
+                                    val attempt = initialAudit?.let { gearAudit.ioStarted(it) }
+                                    try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.QUERY, auditAttempt = attempt) }
+                                    catch (e: Exception) { carFailure(e, attempt) }
+                                }
+                                if (key == "GEAR") gearPoll = launchGearRequeryLoop(scope, clock,
+                                    policy.stateRequeryMs, generation, gearAudit, ::current) { attempt, queryStarted ->
+                                    try { deliver(manager.getProperty<Any>(id, 0), SdkDelivery.REQUERY, queryStarted, attempt) }
+                                    catch (e: Exception) { carFailure(e, attempt) }
                                 }
                             }
                         }
@@ -313,12 +412,13 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
             poll = scope.launch {
                 while (isActive && active) {
                     // 요청 자체는 센서 관측이 아니다. 응답 이벤트에만 수신 시각을 부여한다.
-                    attempt("LAT") { n.getCurrentLocationInfo() }
+                    if (!routeGate.acceptsRouteValues()) clearRoute("활성 경로 상태 미수신/만료")
+                    attemptGroup(listOf("LAT", "LON", "HEADING_DEG")) { n.getCurrentLocationInfo() }
                     try { n.getRouteStateInfo() } catch (e: Exception) {
                         routeGate.clear(); clearRoute("경로 상태 조회 실패")
                         listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M", "DIST_TO_NEXT_TURN_M").forEach { failure(it, e) }
                     }
-                    attempt("REMAIN_DIST_M") { n.getDestinationInfo() }
+                    attemptGroup(listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M")) { n.getDestinationInfo() }
                     attempt("DIST_TO_NEXT_TURN_M") { n.getTBTInfo() }
                     delay(policy.naviPollMs)
                 }
@@ -334,7 +434,10 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
     }
     /** main 스레드에서 호출한다. 늦은 연결/조회 콜백은 active 검사로 폐기한다. */
     fun close() {
-        active = false; poll?.cancel(); poll = null
+        active = false; carReady = false; carGeneration++
+        vehicleBootstrap?.cancel(); gearPoll?.cancel(); permissionPoll?.cancel(); poll?.cancel(); poll = null
+        carCleanup.asReversed().forEach { runCatching(it) }; carCleanup.clear()
+        store.readings().forEach { store.block(it.key, SignalAvailability.UNAVAILABLE, "SDK 세션 종료") }
         cleanup.asReversed().forEach { runCatching(it) }; cleanup.clear()
         runCatching { navi?.release() }; runCatching { vehicle?.release() }; runCatching { car?.disconnect() }
         navi = null; vehicle = null; car = null
