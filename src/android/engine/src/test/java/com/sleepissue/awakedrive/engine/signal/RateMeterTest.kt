@@ -92,4 +92,60 @@ class RateMeterTest {
         assertEquals(5f, meter.sample(10_100).hz!!, 0f)
         assertEquals(50L, meter.sample(10_100).acceptedObservations)
     }
+
+    @Test fun denseObservationsGrowAndWrapWithoutDroppingAnySourceTimestamp() {
+        val meter = RateMeter(); meter.start(0, elapsed)
+        for (at in 0L..20_000L) assertEquals(RateObservationResult.ACCEPTED, meter.observe(at, elapsed, at))
+        val full = meter.sample(20_000)
+        assertEquals(20_001L, full.acceptedObservations)
+        assertEquals(10_000, full.observationsInWindow)
+        assertEquals(1_000f, full.hz!!, 0f)
+        assertEquals(9_000, meter.sample(21_000).observationsInWindow)
+        assertEquals(0, meter.sample(30_000).observationsInWindow)
+        meter.stop(); meter.start(30_000, elapsed)
+        assertEquals(RateObservationResult.ACCEPTED, meter.observe(30_000, elapsed, 30_000))
+        assertEquals(1L, meter.sample(30_000).acceptedObservations)
+        assertEquals(1, meter.sample(30_000).observationsInWindow)
+    }
+
+    @Test fun samplingAnInvalidClockStillRecordsEveryFurtherReversal() {
+        val meter = RateMeter(); meter.start(0, elapsed)
+        assertEquals(1L, meter.sample(-1).reversedObservations)
+        assertEquals(2L, meter.sample(-2).reversedObservations)
+        meter.start(0, elapsed)
+        assertEquals(RateObservationResult.ACCEPTED, meter.observe(0, elapsed, 0))
+        assertEquals(RateObservationResult.DUPLICATE, meter.observe(0, elapsed, 0))
+        assertEquals(1L, meter.sample(0).acceptedObservations)
+        assertEquals(1L, meter.sample(0).duplicateObservations)
+    }
+
+
+    @Test fun lastKnownSnapshotUsesOnlyTheRecordedTimeAndKeepsCountersAcrossStop() {
+        val meter = RateMeter()
+        assertEquals(SourceRate(), meter.lastKnownSnapshot())
+        meter.start(0, elapsed)
+        for (at in 0L..10_000L step 100) meter.observe(at, elapsed, at)
+        val measured = meter.sample(10_000)
+        assertEquals(10f, measured.hz!!, 0f)
+        assertEquals(measured, meter.lastKnownSnapshot())
+        assertEquals(measured, meter.lastKnownSnapshot())
+        val reversed = meter.sample(9_999)
+        assertEquals(RateStatus.UNMEASURABLE, reversed.status)
+        assertEquals(1L, reversed.reversedObservations)
+        assertEquals(reversed, meter.lastKnownSnapshot())
+        meter.stop()
+        val stopped = meter.lastKnownSnapshot()
+        assertEquals(RateStatus.INTERRUPTED, stopped.status)
+        assertNull(stopped.hz)
+        assertEquals(101L, stopped.acceptedObservations)
+        assertEquals(1L, stopped.reversedObservations)
+        assertEquals(0, stopped.observationsInWindow)
+        assertEquals(stopped, meter.lastKnownSnapshot())
+        meter.start(20_000, elapsed)
+        val restarted = meter.lastKnownSnapshot()
+        assertEquals(RateStatus.WARMING_UP, restarted.status)
+        assertEquals(0L, restarted.acceptedObservations)
+        assertEquals(0L, restarted.reversedObservations)
+    }
+
 }

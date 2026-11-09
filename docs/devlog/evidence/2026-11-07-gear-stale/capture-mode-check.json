@@ -1,0 +1,55 @@
+{
+  "sidecarUnchangedByAutomaticSummary": true,
+  "automaticCaptureAdvanced": true,
+  "automaticTimelineIncluded": false,
+  "automaticRows": 0,
+  "manualTimelineIncluded": true,
+  "manualRows": 421,
+  "threadsByStage": {
+    "SCHEDULED": [
+      "DefaultDispatcher-worker-1",
+      "DefaultDispatcher-worker-2",
+      "DefaultDispatcher-worker-3",
+      "DefaultDispatcher-worker-4",
+      "DefaultDispatcher-worker-5",
+      "DefaultDispatcher-worker-6",
+      "main"
+    ],
+    "RESUMED": [
+      "DefaultDispatcher-worker-1",
+      "DefaultDispatcher-worker-2",
+      "DefaultDispatcher-worker-3",
+      "DefaultDispatcher-worker-4",
+      "DefaultDispatcher-worker-5",
+      "DefaultDispatcher-worker-6",
+      "main"
+    ],
+    "IO_STARTED": [
+      "DefaultDispatcher-worker-1",
+      "DefaultDispatcher-worker-2",
+      "DefaultDispatcher-worker-3",
+      "DefaultDispatcher-worker-4",
+      "DefaultDispatcher-worker-5",
+      "DefaultDispatcher-worker-6"
+    ],
+    "RESPONSE": [
+      "DefaultDispatcher-worker-1",
+      "DefaultDispatcher-worker-2",
+      "DefaultDispatcher-worker-3",
+      "DefaultDispatcher-worker-4",
+      "DefaultDispatcher-worker-5",
+      "DefaultDispatcher-worker-6"
+    ],
+    "STORE_APPLIED": [
+      "main"
+    ],
+    "HUB_SELECTED": [
+      "DefaultDispatcher-worker-1",
+      "DefaultDispatcher-worker-2",
+      "DefaultDispatcher-worker-3",
+      "DefaultDispatcher-worker-4",
+      "DefaultDispatcher-worker-5",
+      "DefaultDispatcher-worker-6"
+    ]
+  }
+}

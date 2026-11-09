@@ -1,0 +1,62 @@
+Calculating task graph as configuration cache cannot be reused because file 'app/build.gradle.kts' has changed.
+> Task :engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :engine:processResources NO-SOURCE
+> Task :engine:processTestResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :app:javaPreCompileDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :engine:compileKotlin
+> Task :engine:compileJava NO-SOURCE
+> Task :engine:classes UP-TO-DATE
+> Task :engine:jar
+> Task :app:mergeDebugResources
+> Task :engine:compileTestKotlin
+> Task :engine:compileTestJava NO-SOURCE
+> Task :engine:testClasses UP-TO-DATE
+> Task :engine:test
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:kspDebugKotlin
+
+> Task :app:compileDebugKotlin
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:293:57 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:294:68 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:339:57 'fun unregisterCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:340:46 'fun registerCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int, p2: Float): Boolean' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:kspDebugUnitTestKotlin
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:76:74 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:77:31 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PlaygroundTripSessionTest.kt:170:48 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoPerformanceTest.kt:41:89 'val id: Long' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoTransportPerformanceTest.kt:48:89 'val id: Long' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:testDebugUnitTest
+
+[Incubating] Problems report is available at: file:///home/a/StudioProjects/sleepissue/src/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 35s
+30 actionable tasks: 30 executed
+Configuration cache entry stored.

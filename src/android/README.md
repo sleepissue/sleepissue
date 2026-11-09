@@ -6,7 +6,7 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 
 - `engine/`: Android 비의존 공통 모델, 세 시간축 `Clock`, `EngineConfig`, 정차·운행 규칙 `TripRules`, 최근 구간 합산 `RollingDriveWindow`, 단계 전환 `InterventionPolicy`, 원천 10초 `RateMeter`와 필드 최신성·선택 규칙. 조향 기반 졸음 점수 계산기는 후속 작업이다.
 - `app/.../signal/`: `VehicleSignalHub`의 수동 관측 경로와 정책 기반 10Hz/REAL·DEMO 중재 경로, 공유 단위 정규화, 메모리 `TripStateStore`, 규칙 연결 `TripTracker`, 입출력 ports, `InterventionManager` 계약과 정책 연결 `PolicyInterventionManager`, 명시적 미연결 구현.
-- `app/.../demo/`: `DemoPlayer` 계약과 명시적 미연결 구현. JSON 로드·배속·재생은 후속 작업이다.
+- `app/.../demo/`: `DemoPlayer` 계약·미연결 구현과 실제 `ScenarioDemoPlayer`·엄격 JSON 로더. DEMO 입력은 기존 Hub를 거치고 구간1/10/60배·질문 중1배를 지원한다. 제품 운행/개입·실제 음성 lifecycle 연결은 후속이다.
 - `app/.../data/`: 실제 `RoomTripRepository`·트랜잭션 DAO·스키마. 공개 운행 10종과 정밀 운행/개입 근거·DriveSegment를 함께 저장한다. `signal/TripSaveCoordinator`가 저장 주기·실패·삭제를 관리한다.
 - `app/src/test/`: 결정적인 Fake, 연결·단위·품질·출처·중지·외부 요청 계약 시험과 실행 가능한 사용 예시. Fake는 배포 코드에 포함하지 않는다.
 - `app/src/debug/`: 기존 Hub·운행·개입 로직을 수동 조작하는 개발 검증 화면·전용 런처. 가상 시간·기어·시동·위험 점수·확인·휴식 결과를 주입하고 상태·요청·시간순 기록·Room 저장/복원을 표시한다. 독립 가짜 REAL/DEMO Hub 패널로 주기·원천 Hz·만료·중재를 확인한다. `release`에는 포함되지 않는다.
@@ -14,6 +14,8 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 - `app/src/androidTest/.../data/`: 실제 Room round-trip·원자성·손상/실패/삭제·실제 경과 10초 저장 시험.
 
 다른 담당의 연결 방법은 [A 기본 틀 가이드](../../docs/setup/ROLE1_SCAFFOLD.md), 실제 작업·검증 기록은 [2026-11-01 개발 기록](../../docs/devlog/2026-11-01.md), 모듈 전체 상태는 [PROGRESS](../../PROGRESS.md)를 본다.
+
+2026-11-05 추가한 [DemoClock·Player 검증 화면](../../docs/setup/ROLE1_DEMO_PLAYER.md)과 [5번 JSON 작성 규칙·최소 예제](../../docs/setup/ROLE1_DEMO_JSON.md)는 독립 데모 세션을 사용한다. 기존 수동 운행·Room 시계/저장본을 공유하거나 덮지 않는다. 예보의 epoch 시각과 음성의 실제 반응 시간 계약도 이 가이드에 정리했다.
 
 2026-11-02에 추가한 [운행 규칙 가이드](../../docs/setup/ROLE1_TRIP_RULES.md)는 정책 선택·밀리초 정밀 상태·Hub 연결을 설명한다. **개발 대상은 Pleos Playground 가상 차량**이다. REAL은 SDK·Virtual Console 입력, DEMO는 앱 JSON 재생 입력이다. 이번 운행 규칙의 실행 결과는 [11-02 개발 기록](../../docs/devlog/2026-11-02.md)에 별도로 남긴다.
 
@@ -59,7 +61,11 @@ SDK 경로는 로컬 환경 변수 또는 Git 제외된 `local.properties`로 �
 
 `:engine:test`는 순수 Kotlin 계약 시험이며, `:app:testDebugUnitTest`도 에뮬레이터 없이 실행한다. 기기 시험·실제 API 호출·앱 첫 화면 실행을 대신하지 않는다. 생성물은 `app/build/outputs/apk/debug/app-debug.apk`이며 Git 제외 대상이다.
 
+2026-11-05 DemoClock/JSON 추가 후: engine **146개**·app **178개**, 총 **324개**가 실패/오류/건너뜀0으로 통과했고 `assembleDebug`도 성공했다. 추가51개는 시간·로더·재생·질문·기존 Hub 선택·debug 조립 회귀다. 연결된 기기가 없어 실제 버튼·SDK+JSON 동시 수신·음성 lifecycle은 미수행이며 Room 데이터/스키마를 보존했다. [해당 개발 기록](../../docs/devlog/2026-11-05.md)을 참고한다.
+
 Pleos Maven과 Vehicle·NaviHelper·TextToSpeech·SpeechToText 의존성은 기존 설정을 유지한다. 이번 작업은 SDK 메서드를 호출하지 않으며 권한·지원·원단위·장치 연동이 검증된 것은 아니다.
+
+2026-11-05 후속 성능 점검에서는 지연 회귀5개를 포함해 전체**329개(engine146+app183)**·`assembleDebug`를 `--rerun-tasks`로 다시 검증했다. 최초324개와 지연2개 단독 통과 기록과 구분한다. 기기에서 원본18,000개 전달·종료·Room 전후 논리 행 보존을 확인했으나 **60배 전체null·Hub 발행deadline 누락은 남아 있다.** [최종 측정과 한계](../../docs/devlog/2026-11-05.md#최종-기기-결과와-남은-성능-한계)를 확인한다.
 
 2026-11-03 Room 추가 후: 전체 engine 69개·app 99개(합계 **168개**)와 `assembleDebug` 성공. Pleos 에뮬레이터의 전체 기기 시험 **9개**(실제 Room 8개·기존 앱 문맥 1개)도 통과했다. 저장·재실행·정차 보정·개입/인증/회복·삭제 버튼 시험은 [저장·복원 가이드](../../docs/setup/ROLE1_PERSISTENCE.md)와 [개발 기록](../../docs/devlog/2026-11-03.md#room-저장복원-구현)을 따른다. 기기 시험은 실행 중인 에뮬레이터가 필요하며 테스트 러너의 설치/제거로 대상 앱 DB가 지워질 수 있다.
 
@@ -72,3 +78,10 @@ Pleos Maven과 Vehicle·NaviHelper·TextToSpeech·SpeechToText 의존성은 기�
 2026-11-03 Hub 추가 후: engine **83개**·app **120개**, 합계 **203개** 통과. 기존 168개를 보존하고 주기·원천 Hz·최신성·중재·Hub 패널·수동 저장 세션 분리 시험 35개를 추가했다. 전체 Room/앱 문맥 기기 시험 **9개**와 `assembleDebug`도 성공했다. [주기·버퍼·생명주기 계약과 직접 누를 버튼](../../docs/setup/ROLE1_SIGNAL_HUB.md)을 참고한다.
 
 최종 Compose 서비스 화면·감시 서비스·부팅 수신기·실제 재부팅 시간축은 후속 범위이며 TRP_003 전체 완료가 아니다. Hub의 가짜 입력 중재·주기 발행·원천 Hz·최신성은 구현했으며, 실제 SDK 원단위/관측 시간축 확인·콜백 어댑터와 JSON 재생·제품 최신성 정책 확정은 남아 있다. 디버그 조립은 비교용 정차 정책 `V03_RETROACTIVE`·`EXCLUDE`를 [가정]으로 명시하고, 정상 회복 후 상태 초기화 요청은 미연결로 표시한다. 실제 Playground SDK가 필요한 TC를 통과한 것으로 표시하지 않는다.
+
+2026-11-07: [실제 Playground 운행·Room 연결](../../docs/setup/ROLE1_REAL_TRIP.md) — debug 전용 `Playground SDK 운행·Room`, REAL 전용 Hub/Tracker와 별도 `awakedrive_sdk_trip.db`. 기존 수동/데모/개입 구현은 보존하며 감시 서비스·부팅은 후속이다.
+
+
+### REAL 감시 서비스 (2026-11-07)
+
+`app/.../service/RealTripMonitorService`가 SDK·Hub·PlaygroundTripSession·실제 경과 저장 타이머를 단일 소유한다. 기존 debug **Playground SDK 운행·Room**은 상태·시작/중지 명령만 전달한다. **돌아가기**나 화면 꺼짐은 중지가 아니며 알림 또는 **감시 중지**로 끝낸다. 비마이크 `specialUse`의 공식 실행 조건·BOOT/사용자 강제 종료 차이·전원 UNKNOWN·전용 DB 구분과 직접 버튼은 [서비스 가이드](../../docs/setup/ROLE1_MONITOR_SERVICE.md), 실제 검증과 미검증 범위는 [서비스 개발 기록](../../docs/devlog/2026-11-07-monitor-service.md)을 따른다. 기존 화면 소유 연결 설명보다 이 추가 내용을 우선한다.

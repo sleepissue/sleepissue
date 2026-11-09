@@ -1,0 +1,210 @@
+{
+  "scope": "REAL_PLAYGROUND_TRIP_ONLY",
+  "capturedAtElapsedMs": 27025579,
+  "logicalMs": 1794024744147,
+  "status": "중지 · 마지막 관측 저장 성공 · 감시 서비스 미연결",
+  "connected": false,
+  "generation": 4,
+  "power": "UNCONNECTED_API_UNCONFIRMED",
+  "trip": {
+    "baselineRef": null,
+    "continuousDriveSec": 427,
+    "continuousDriveSecBeforeStop": null,
+    "driveState": "UNKNOWN",
+    "last24hDriveSec": 47,
+    "lastGear": "P",
+    "lastLocation": null,
+    "provisionalStopSec": 0,
+    "runStartMs": 1794024181806,
+    "stage": "NORMAL",
+    "stopStartMs": null,
+    "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+  },
+  "precise": {
+    "continuousBeforeStopMs": null,
+    "continuousDriveMs": 427058,
+    "driveSegments": [
+      {
+        "endMs": 1794024182613,
+        "startMs": 1794024181806
+      },
+      {
+        "endMs": 1794024199107,
+        "startMs": 1794024183614
+      },
+      {
+        "endMs": 1794024231210,
+        "startMs": 1794024230707
+      },
+      {
+        "endMs": 1794024239808,
+        "startMs": 1794024232616
+      },
+      {
+        "endMs": 1794024476208,
+        "startMs": 1794024461006
+      },
+      {
+        "endMs": 1794024492407,
+        "startMs": 1794024484306
+      }
+    ],
+    "lastObservation": {
+      "gear": null,
+      "power": null,
+      "tMs": 1794024742123
+    },
+    "offStartedAtMs": null,
+    "pendingNewTrip": false,
+    "restResetEmitted": false,
+    "stopStartedAtMs": null,
+    "trip": {
+      "baselineRef": null,
+      "continuousDriveSec": 427,
+      "continuousDriveSecBeforeStop": null,
+      "driveState": "UNKNOWN",
+      "last24hDriveSec": 47,
+      "lastGear": "P",
+      "lastLocation": null,
+      "provisionalStopSec": 0,
+      "runStartMs": 1794024181806,
+      "stage": "NORMAL",
+      "stopStartMs": null,
+      "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+    }
+  },
+  "restoredSnapshot": {
+    "driveSegments": [
+      {
+        "endMs": 1794024182613,
+        "startMs": 1794024181806
+      },
+      {
+        "endMs": 1794024199107,
+        "startMs": 1794024183614
+      },
+      {
+        "endMs": 1794024231210,
+        "startMs": 1794024230707
+      },
+      {
+        "endMs": 1794024239808,
+        "startMs": 1794024232616
+      },
+      {
+        "endMs": 1794024476208,
+        "startMs": 1794024461006
+      },
+      {
+        "endMs": 1794024492407,
+        "startMs": 1794024484306
+      }
+    ],
+    "ownerState": "REAL_TRIP_V1:AAFQAAA=",
+    "preciseState": {
+      "continuousBeforeStopMs": 420161,
+      "continuousDriveMs": 420161,
+      "driveSegments": [
+        {
+          "endMs": 1794024182613,
+          "startMs": 1794024181806
+        },
+        {
+          "endMs": 1794024199107,
+          "startMs": 1794024183614
+        },
+        {
+          "endMs": 1794024231210,
+          "startMs": 1794024230707
+        },
+        {
+          "endMs": 1794024239808,
+          "startMs": 1794024232616
+        },
+        {
+          "endMs": 1794024476208,
+          "startMs": 1794024461006
+        },
+        {
+          "endMs": 1794024492407,
+          "startMs": 1794024484306
+        }
+      ],
+      "lastObservation": {
+        "gear": "P",
+        "power": null,
+        "tMs": 1794024725229
+      },
+      "offStartedAtMs": null,
+      "pendingNewTrip": false,
+      "restResetEmitted": false,
+      "stopStartedAtMs": 1794024725229,
+      "trip": {
+        "baselineRef": null,
+        "continuousDriveSec": 420,
+        "continuousDriveSecBeforeStop": 420,
+        "driveState": "PAUSED",
+        "last24hDriveSec": 47,
+        "lastGear": "P",
+        "lastLocation": null,
+        "provisionalStopSec": 0,
+        "runStartMs": 1794024181806,
+        "stage": "NORMAL",
+        "stopStartMs": 1794024725229,
+        "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+      }
+    },
+    "rulePolicy": {
+      "shortStopAccumulation": "EXCLUDE",
+      "stopTime": "V03_RETROACTIVE"
+    },
+    "savedAtElapsedMs": 27006693,
+    "savedAtScenarioMs": 1794024725229,
+    "savedAtWallMs": 1794024725261,
+    "source": "REAL",
+    "state": {
+      "baselineRef": null,
+      "continuousDriveSec": 420,
+      "continuousDriveSecBeforeStop": 420,
+      "driveState": "PAUSED",
+      "last24hDriveSec": 47,
+      "lastGear": "P",
+      "lastLocation": null,
+      "provisionalStopSec": 0,
+      "runStartMs": 1794024181806,
+      "stage": "NORMAL",
+      "stopStartMs": 1794024725229,
+      "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145"
+    },
+    "timeBasis": "WALL_EPOCH"
+  },
+  "persistence": {
+    "autoSaveEnabled": true,
+    "failure": null,
+    "lastSavedElapsedMs": 27023651,
+    "lastSavedScenarioMs": 1794024742123,
+    "lastSavedWallMs": 1794024742219,
+    "operation": "SAVED",
+    "restore": "RESTORED",
+    "successfulSaves": 4,
+    "timerBasis": "ELAPSED_REALTIME"
+  },
+  "events": [
+    "1794024733926 · 복원 전 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=420161ms 정차=0ms 최근24h=47s",
+    "1794024733933 · 복원 후 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=UNKNOWN 연속=420161ms 정차=0ms 최근24h=47s · 현재 기어/전원 미확정, 앱 종료 공백 제외",
+    "1794024734015 · SDK 입력 연결 세대 1 · REAL 전용 · 전원 API 미연결",
+    "1794024734534 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=420161ms 정차=0ms 최근24h=47s · gear=P · AVAILABLE",
+    "1794024734600 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=420161ms 정차=0ms 최근24h=47s",
+    "1794024739915 · SDK 입력 중지 · 현재 UNKNOWN · 종료를 시동 OFF로 해석하지 않음",
+    "1794024740315 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=425462ms 정차=5301ms 최근24h=47s",
+    "1794024740316 · SDK 입력 연결 세대 3 · REAL 전용 · 전원 API 미연결",
+    "1794024740530 · SDK 상태 전환 id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=425462ms 정차=0ms 최근24h=47s · gear=P · AVAILABLE",
+    "1794024740540 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=425462ms 정차=0ms 최근24h=47s",
+    "1794024742220 · SDK 입력 중지 · 현재 UNKNOWN · 종료를 시동 OFF로 해석하지 않음",
+    "1794024742322 · 즉시 저장 성공 · id=4e5db99c-bae6-4990-bdfd-39c53d5f9145 운행=PAUSED 연속=427058ms 정차=1596ms 최근24h=47s"
+  ],
+  "readings": null,
+  "sdkHistory": null,
+  "frame": null,
+  "hub": null
+}

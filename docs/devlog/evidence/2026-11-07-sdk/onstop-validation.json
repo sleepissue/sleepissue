@@ -1,0 +1,24 @@
+{
+  "measurementValid": true,
+  "pidBefore": "8838",
+  "pidAfter": "8838",
+  "sameLiveProcess": true,
+  "captureReason": "수집 종료 직전",
+  "captureUnchangedAfterTwoSeconds": true,
+  "action": "새task의미연결SDK화면으로가려onStop유도. Room미진입.",
+  "lastPublicationAudit": {
+    "duplicates": 0,
+    "firstPublishedAtElapsedMs": 100079357,
+    "frames": 8408,
+    "gapsOver110ms": 174,
+    "gapsOverLimit": 174,
+    "lastPublishedAtElapsedMs": 100920055,
+    "maxGapMs": 110,
+    "maxPublishedGapMs": 150,
+    "missingSequences": 0,
+    "outOfOrder": 0,
+    "sessionId": 1,
+    "timeSpanMs": 840698
+  },
+  "passed": true
+}

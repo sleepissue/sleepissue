@@ -16,7 +16,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.emptyFlow
 
-enum class DemoPhase { NOT_LOADED, READY, PLAYING, PAUSED, STOPPED, FAILED }
+enum class DemoPhase { NOT_LOADED, READY, PLAYING, PAUSED, STOPPED, COMPLETED, FAILED }
+
+/** 판정 완료·장치 실패·실행 취소를 무응답과 섞지 않고 질문 잠금을 해제한다. */
+enum class DemoQuestionOutcome { FINISHED, FAILED, CANCELLED }
 
 data class DemoPlaybackState(
     val connection: ExecutionStatus = ExecutionStatus.NOT_CONNECTED,
@@ -24,9 +27,22 @@ data class DemoPlaybackState(
     val scenarioId: String? = null,
     val speedMultiplier: Int? = null,
     val questionRequestId: RequestId? = null,
+    val sessionId: Long = 0,
+    val scenarioTimeMs: Long = 0,
+    val realElapsedMs: Long = 0,
+    val segmentMultiplier: Int? = null,
+    val questionOutcome: DemoQuestionOutcome? = null,
+    val error: DemoLoadError? = null,
+    val failureMessage: String? = null,
+    // 원본 세 채널의 Flow 인계 완료 수다. Hub 수신 수·주기 발행 수와 구별한다.
+    val deliveredSamples: Long = 0,
+    val lastOriginalSampleMs: Long? = null,
+    val lastDeliveryElapsedMs: Long? = null,
+    val pumpTargetMs: Long? = null,
+    val pumpFinishedScenarioMs: Long? = null,
 )
 
-/** 로드 경로·JSON 형식·배속 계산은 B의 구현 대상이다. scenarioId는 시나리오 식별자다. */
+/** scenarioId는 저장소가 해석하는 식별자다. 질문 이벤트는 현재 재생 sessionId를 반드시 전달한다. */
 sealed interface DemoCommand {
     val requestId: RequestId
     data class Load(override val requestId: RequestId, val scenarioId: String) : DemoCommand
@@ -35,8 +51,9 @@ sealed interface DemoCommand {
     data class Resume(override val requestId: RequestId) : DemoCommand
     data class Stop(override val requestId: RequestId) : DemoCommand
     data class Reset(override val requestId: RequestId) : DemoCommand
-    data class QuestionStarted(override val requestId: RequestId) : DemoCommand
-    data class QuestionFinished(override val requestId: RequestId) : DemoCommand
+    data class QuestionStarted(override val requestId: RequestId, val sessionId: Long? = null) : DemoCommand
+    data class QuestionFinished(override val requestId: RequestId, val sessionId: Long? = null,
+        val outcome: DemoQuestionOutcome = DemoQuestionOutcome.FINISHED) : DemoCommand
 }
 
 /** 재생 출력도 실제 입력과 같은 Hub 입력 계약을 사용한다. 엔진을 직접 호출하지 않는다. */

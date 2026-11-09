@@ -1,5 +1,7 @@
 # Playground SDK 입력 연결·실시간 검증
 
+2026-11-07 후속: 기어 ON_CHANGE는 1초 재조회/3초 확인 lease로 현재 상태를 유지하며 변경·수신·확인 시각은 분리한다. 다른 연속 신호 TTL은 유지한다. 전용 [SDK 운행·Room 화면](ROLE1_REAL_TRIP.md)을 추가했고 아래 기존 SDK 진단 화면은 계속 Room과 분리한다.
+
 `PlaygroundSignalAdapter`는 실제 Vehicle 2.3.2·NaviHelper 3.0.5와 AAOS를 읽어 별도 `VehicleSignalHub`에 `Source.REAL`로 전달한다. `REAL`은 Playground 가상 차량에서 받은 입력이라는 뜻이다. 물리 차량 검증이나 가짜 REAL 패널의 성공을 뜻하지 않는다.
 
 운행·개입·Room 화면과 가짜 Hub 화면을 보존했다. SDK 화면에는 Tracker·TripStateStore·Room·가짜 입력·음성/경유지 실행을 연결하지 않는다. 앱을 닫아도 저장 운행에 OFF를 만들지 않으며, SDK 경과 시간을 수동 운행에 더하지 않는다.
@@ -42,7 +44,7 @@
 | 다음 안내 거리 | `getTBTInfo` / `onTBTInfo` | P.NAVI_ROUTE. TBTInfo.distance m 중 가장 가까운 유효 비음수 거리. 빈 목록·활성 경로 미확인은 null. 안내 유형별 실제 경로 시험은 후속 |
 | 진행 방향 | 현재 위치 응답들의 최근 `EngineConfig.headingWindowMs=60_000` 창 | SDK heading 원단위는 공개 소스에서 확인하지 못해 그대로 사용하지 않음. 같은 위치/첫 위치는 null, 위치 변화가 있으면 방위각을 계산. 실제 이동 경로 시험은 미검증 |
 
-화면의 **SDK 원시 → 정규화 → 최종**은 서로 다른 값이다. 예를 들어 기어 raw 4는 P로 정규화돼도, 원천 시각이 오래되면 Hub 최종은 null/STALE이다. 수신 기록은 그 응답을 받았을 때의 정규화 결과이며 현재 최신성을 보장하는 기록이 아니다.
+화면의 **SDK 원시 → 정규화 → 최종**은 서로 다른 값이다. 예를 들어 기어 raw 4는 P로 정규화된다. 기어의 원천 변경 시각이 오래되어도 현재 상태 재조회가 성공해 확인 lease 안이면 AVAILABLE을 유지하고, 확인이 만료되거나 오류가 나면 null/STALE 또는 오류가 된다. 수신 기록은 그 응답을 받았을 때의 정규화 결과이며 현재 최신성을 보장하는 기록이 아니다.
 
 Vehicle은 `Vehicle.initialize()` 뒤 도메인 객체를 얻고 capability `AccessType.READ/READ_WRITE`를 확인한 경우만 읽기·구독한다. NONE/WRITE나 지원 영역 없음은 UNSUPPORTED다. 최초 조회와 콜백은 별도 계수다. 늦은 최초 조회가 이미 받은 콜백을 덮지 않는다.
 
@@ -58,7 +60,7 @@ NaviHelper는 해당 버전에 별도 capability API가 없다. `initialize(onCo
 - AAOS만 `CarPropertyValue.timestamp`의 elapsedRealtime **ns÷1,000,000 → ms**를 보존한다. 원천 Hz는 같은/역행 시각을 각각 중복/측정 불가로 구별한다. 최초 조회를 센서 콜백으로 세지 않는다.
 - 수신 Hz는 최근 10초의 **콜백 도착 횟수**다. 동일 값이라도 실제 새 콜백은 센다. 온전한 창 전·미지원·권한/연결 오류는 알 수 없음이다. 활성 수집의 무콜백 창만 0Hz다. 원천 Hz나 SDK 설정 요청 Hz와 같은 뜻이 아니다.
 - Hub Hz는 발행 순번/시각으로 별도 측정한다. Android 스케줄링 지연 때 과거 프레임을 만들지 않고 deadline 누락을 표시한다. 화면의 ‘표시 고정’은 표시만 멈추며 SDK/Hub 수집은 계속한다. ‘수신 기록’은 최근 실제 값/품질 변경 최대 100건의 캡처를 보여 준다. 반복된 같은 값의 콜백은 계수에 반영하고 변경 기록만 생략한다. 중지 뒤 기록은 이전 세션이라고 표시하고 새 연결 때 비운다. Room에는 저장하지 않는다.
-- **[가정] SDK 검증 화면 TTL은 관측/수신 각각 3초**, 경계 포함, 원천 시각 없으면 수신 경과 허용, DEMO 입력 없음. 기존 가짜 패널 TTL 1초와 독립이다. 이벤트형 기어/좌석은 값이 그대로면 콜백이 적어 3초 뒤 STALE/null일 수 있다. 제품의 신호별 TTL·이벤트 유지·재조회 정책은 미확정이다.
+- **[가정] 일반 신호 TTL은 관측/수신 각각 3초**, 경계 포함, 원천 시각 없으면 수신 경과 허용, DEMO 입력 없음. 기어는 별도 1초 재조회/3초 확인 lease를 사용하며 같은 상태 응답은 센서 관측/수신 시각을 바꾸지 않는다. 기존 가짜 패널 TTL 1초와 독립이다. 다른 이벤트형 신호의 제품 정책은 별도 확정 대상이다.
 - 차량은 명시적 `updatedFields` 부분 갱신이다. 내비는 모든 필드의 값·기존 수신 시각을 가진 완전 스냅샷이다. 공유 정규화기는 어댑터가 준 수신 시각을 보존하므로 목적지 응답이나 Hub 재발행이 위치 최신성을 연장하지 않는다. 완전 관측 null의 기존 ‘모름/지움’ 의미는 유지한다.
 - 개별 좌석 품질을 별도로 표시한다. Hub의 SEATS 묶음은 가장 오래된 구성 좌석 시각을 사용해 다른 좌석의 오래된 착석 근거를 연장하지 않는다. 보수적으로 묶음 전체가 STALE이 될 수 있다.
 - SDK 콜백 진단 계수는 Hub 소비 속도와 독립이다. 차량 전달 버퍼는 128개·DROP_OLDEST, 내비는 최신 스냅샷 StateFlow다. 화면/Hub가 느리면 중간 업데이트를 잃을 수 있어 원본 기록 통로로 사용하면 안 된다. Hub 출력의 기존 대기 1/DROP_OLDEST 정책도 유지한다.
@@ -79,18 +81,18 @@ adb -s emulator-5554 shell am start -W --user current \
   -n com.sleepissue.awakedrive/com.sleepissue.awakedrive.debug.DebugHarnessActivity
 ```
 
-교체 설치는 메모리를 종료할 수 있다. 중요한 수동 상태는 기존 화면의 ‘즉시 저장’으로 먼저 저장한다. **앱 제거·pm clear·Wipe·Gradle connectedDebugAndroidTest는 수동 저장본이 있는 기기에서 실행하지 않는다.** 이번 시험은 DB를 백업한 뒤 `install -r`로만 교체하며 같은 DB의 논리 행을 비교한다. Room 스키마·DB명·저장/복원 코드는 변경하지 않았다. SDK 화면을 나가 수동 가상 시각·ID·누적을 확인한다.
+교체 설치는 메모리를 종료할 수 있다. 중요한 수동 상태는 기존 화면의 ‘즉시 저장’으로 먼저 저장한다. **앱 제거·pm clear·Wipe·Gradle connectedDebugAndroidTest는 수동 저장본이 있는 기기에서 실행하지 않는다.** 이번 시험은 DB를 백업한 뒤 `install -r`로만 교체하며 같은 DB의 논리 행을 비교한다. 기존 수동 DB명·스키마는 보존한다. 후속 실제 운행 연결의 별도 DB와 owner 형식은 위 전용 가이드에 설명했다. SDK 화면을 나가 수동 가상 시각·ID·누적을 확인한다.
 
 ## 직접 누를 순서
 
 1. Pleos Connect v2.1.0을 Cold boot한다. 기존 AVD/앱 데이터를 지우지 않는다. PC에서 `adb -s emulator-5554 forward tcp:8088 tcp:8088` 뒤 **브라우저로 `http://127.0.0.1:8088/`를 열어 둔다.** Console의 AVD Enabled·DDS ONLINE을 확인한다. 페이지 세션 heartbeat가 끊기면 입력은 HTTP 503/emulator_inactive로 거절될 수 있다. 이 오류를 앱 수신 성공으로 세면 안 된다.
 2. 앱의 기존 Room 요약을 확인하고 **Playground SDK 실시간 검증**을 누른다. 수동 화면의 D/P·시간 버튼을 SDK 입력으로 사용하지 않는다.
 3. P/0km/h에서 **차속 권한**을 누르고 Android 동의창에서 허용한다(이 이미지의 동의창은 ‘위치 정보’라는 그룹 이름으로 표시됐다. 요청한 권한은 CAR_SPEED다). 거부하면 SPEED_KPH는 null/PERMISSION_DENIED여야 한다. 권한창을 닫은 뒤 **연결**을 누른다. 이미 연결돼 있었다면 **재연결**한다. 신호별 READ/지원 상태와 조회·콜백 계수가 실제로 늘어난 것을 확인한 뒤 입력을 바꾼다. 전역 ‘연결 요청 완료’는 모든 신호 수신 성공을 뜻하지 않는다.
-4. Console에서 방향지시등을 켜면 차량 기본 카메라 팝업이 SDK 상단을 덮을 수 있다. 팝업의 X로 닫은 뒤 SDK 버튼을 누른다. 먼저 속도 0에서 Console Motion의 Gear Selection을 D로 바꾼다. GEAR 원시 VehicleGear 값과 정규화 D, REAL/AVAILABLE을 확인한다. 가만히 두면 이 화면의 임시 TTL 때문에 STALE이 될 수 있다. P로 다시 바꾸면 새 콜백과 P를 확인한다.
+4. Console에서 방향지시등을 켜면 차량 기본 카메라 팝업이 SDK 상단을 덮을 수 있다. 팝업의 X로 닫은 뒤 SDK 버튼을 누른다. 먼저 속도 0에서 Console Motion의 Gear Selection을 D로 바꾼다. GEAR 원시 VehicleGear 값과 정규화 D, REAL/AVAILABLE을 확인한다. 기어를 유지해도 재조회 확인이 성공하면 3초 뒤 AVAILABLE을 유지한다. 원천 변경·실제 수신과 재조회 확인 시각을 따로 확인한다. P로 다시 바꾸면 새 콜백과 P를 확인한다.
 5. Console에서 차속을 80km/h 부근으로 올린다(상단 ACCEL/가속 페달). OS가 화면을 가리면 정차해 P/0으로 돌아온 다음 **수신 기록**에서 SPEED_KPH 원시 약 22.22m/s → 약 80km/h가 실제로 들어왔는지 확인한다. 움직이는 페달/브라우저 물리 계산으로 값이 변하므로 딱 80을 유지한다고 가정하지 않는다. AAOS 원천 ms와 수신 경과가 따로 표시돼야 한다.
 6. Motion → Steering Angle을 10°로 바꾼다. SDK에서 실제 받은 부호(이번 장치에서는 -10°)와 콜백 증가, **정규화 null/UNSUPPORTED·전륜각 경고**를 확인한다. 이는 의도한 의미 보호다. Convenience → Turn Signal State를 Blink left/right로 바꾸면 LEFT/RIGHT를 확인한다. Brake Pedal 0→50%면 BRAKE_ON false→true를 확인한다. 이 입력들도 P/0에서 바꾸거나 정차 후 수신 기록에서 읽을 수 있다.
 7. ADAS → Cruise Target Speed를 **20m/s**로 바꾸면 원시20→72km/h다. Cruise Control State는 Console/SDK의 서로 다른 enum 명칭을 그대로 추측하지 않고 화면의 실제 SDK raw enum을 함께 확인한다. ACTIVATED만 true, ENABLED/SUSPENDED는 false, 모호한 상태는 null이다.
-8. Convenience → Seat Occupancy에서 Passenger를 Empty/Occupied로 바꿔 SDK Boolean과 수신 계수를 본다. **현재 버전은 착석 정규화를 보류해 null/UNSUPPORTED가 정상**이다. SDK 원시 Boolean을 빈 좌석/동승자 존재의 증거로 쓰지 않는다. Climate에서 실제 지원하는 운전석 Seat Ventilation을 변경하면 단계가 표시된다. Temperature Set은 현재 실내온도가 아니므로 CABIN_TEMP_C가 같은 값으로 즉시 바뀐다고 기대하면 안 된다. SDK 현재 온도 조회/콜백의 값을 확인한다.
+8. Convenience → Seat Occupancy에서 Passenger를 Empty/Occupied로 바꿔 SDK Boolean과 수신 계수를 본다. **현재 버전은 착석 정규화를 보류해 null/UNSUPPORTED가 정상**이다. SDK 원시 Boolean을 빈 좌석/동승자 존재의 증거로 쓰지 않는다. Climate의 Seat Temperature V1/V3는 `SEAT_TEMPERATURE:ROW_1_LEFT` 진단에 -1/-3으로 들어오며 별도 `VENTILATION_LEVEL`을 바꾸는 입력이 아니다. 현재 Console catalog에는 `HVAC_SEAT_VENTILATION` 전용 입력이 없어 통풍 OFF→1→OFF는 미확인이다. Temperature Set은 현재 실내온도가 아니므로 CABIN_TEMP_C가 같은 값으로 즉시 바뀐다고 기대하면 안 된다. SDK 현재 온도 조회/콜백의 값을 확인한다.
 9. 내비 위치는 기본 좌표 쌍을 표시한다. 목적지가 없으면 남은 시간/거리/회전은 null이다. 내비 앱에서 경로 안내가 활성화되고 실제 이벤트가 와야 남은 초/m/TBT를 확인할 수 있다. 이 경로 안내 수동 시험은 아래 검증 기록의 미검증 여부를 확인한다.
 10. 10초 이상 지나면 수신 Hz와 Hub Hz를 비교한다. 센서 시각 없는 Vehicle/Navi의 **원천 Hz는 알 수 없음**이어야 한다. 원시 조향 콜백 증가를 Hub 10Hz 발행 횟수로 대체해서 세면 안 된다. **표시 고정/재개**로 같은 시점의 값과 계수를 천천히 읽는다(수집은 계속됨).
 11. **중지**하면 값/캐시가 비고 발행/연결이 종료된다. **재연결**하면 새 세션으로 계수를 시작한다. **운행·Room으로 돌아가기** 후 기존 저장 가상 시각·운행 ID·정차 근거·누적이 같아야 한다. 다음 명령으로 프로세스를 종료/재실행해도 마지막 저장본부터 복원돼야 한다.
@@ -114,3 +116,21 @@ adb -s emulator-5554 shell am start -W --user current \
 /home/a/Android/Sdk/emulator/emulator -avd Pleos_Connect_2_1_0 -no-snapshot \
   -gpu host -feature -Vulkan -memory 4096 -cores 4
 ```
+
+
+## 2026-11-07 SIG 수집 보완
+
+SDK API 지원(`apiReadable`)과 정규화 상태를 따로 표시한다. 조향은 `SEMANTIC_UNCONFIRMED`, 착석은 `LOSSY_SDK_BOOLEAN`으로 기존 null 격리를 유지한다. API READ 수신 자체를 미지원이라고 판정하지 않는다. Console 온열/냉각은 `DIAGNOSTIC_ONLY`로 받고 통풍에 치환하지 않으며 통풍은 SDK가 알려 준 영역별 범위 안에서만 수용한다.
+
+수집 중 권한 거부·capability 미지원 뒤 늦은 수신과 수신시각 역행을 차단하고, 비활성 상태 전이는 중복 없이 기록한다. 보호 폐기는 별도 계수다. `callbacks`와 수신 Hz는 수용한 callback 기준이며 원천 센서 Hz를 뜻하지 않는다. **진단 저장**은 raw/정규화/최종 품질/수신 시각/발행 감사를 `cache/sdk-signal-probe.json`에 저장하고 진행·완료·실패를 화면에 남긴다. SDK 화면은 Room을 쓰지 않는다.
+
+396개 시험·assembleDebug·release manifest 확인, 실제 Console API→SDK 대조와 남은 TC는 [11월7일 보완 기록](../devlog/2026-11-07-signal-sdk.md)에 정리했다. [구현 전17개 현황](../devlog/2026-11-06-signal-sdk-review.md)과 [공식 SDK/API34 근거](../devlog/2026-11-06-signal-sdk-api-evidence.md)를 함께 본다. 새 증거로 기존11월3일 기록을 덮어쓰지 않았다.
+
+Room ViewModel을 만들지 않는 자동 검증 진입은 다음과 같다. 일반 사용은 기존 화면의 **Playground SDK 실시간 검증 → 연결**이다. 자동 진입은 별도 task이므로 돌아가기 버튼은 이전 화면을 닫는 동작이며 Room 화면을 새로 만들지 않는다.
+
+```bash
+adb shell am start --user 10 -n com.sleepissue.awakedrive/.debug.DebugHarnessActivity \
+  --ez sdkProbe true --ez sdkAutoConnect true --ez sdkCapture true
+```
+
+이미 앱 task가 실행 중이면 Intent가 현재 화면에만 전달될 수 있다. 새 세션 검증은 데이터 유지 `am force-stop` 뒤 진입하고, 실제 onStop만 검증할 때는 새 task의 자동 연결 없는 SDK 화면으로 가린다. 주행 제한을 우회하지 않으며 백그라운드 지속 수집을 보장하지 않는다.

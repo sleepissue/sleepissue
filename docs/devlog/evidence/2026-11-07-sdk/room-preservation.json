@@ -1,0 +1,31 @@
+{
+  "before": {
+    "logicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+    "tables": {
+      "android_metadata": 1,
+      "drive_segment": 1,
+      "room_master_table": 1,
+      "trip_checkpoint": 1
+    },
+    "integrityCheck": [
+      [
+        "ok"
+      ]
+    ]
+  },
+  "after": {
+    "logicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+    "tables": {
+      "android_metadata": 1,
+      "drive_segment": 1,
+      "room_master_table": 1,
+      "trip_checkpoint": 1
+    },
+    "integrityCheck": [
+      [
+        "ok"
+      ]
+    ]
+  },
+  "logicalEqual": true
+}

@@ -1,0 +1,102 @@
+{
+  "database": "awakedrive_sdk_trip.db",
+  "logicalSha256": "0c247af855d1422886e3c721d124963e88ed01c5a9bb130765c0b122564cffb2",
+  "integrity": "ok",
+  "tables": {
+    "android_metadata": [
+      {
+        "locale": "ko_KR"
+      }
+    ],
+    "drive_segment": [
+      {
+        "checkpointId": 1,
+        "ordinal": 0,
+        "startMs": 1794024181806,
+        "endMs": 1794024182613
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 1,
+        "startMs": 1794024183614,
+        "endMs": 1794024199107
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 2,
+        "startMs": 1794024230707,
+        "endMs": 1794024231210
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 3,
+        "startMs": 1794024232616,
+        "endMs": 1794024239808
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 4,
+        "startMs": 1794024461006,
+        "endMs": 1794024476208
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 5,
+        "startMs": 1794024484306,
+        "endMs": 1794024492407
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 6,
+        "startMs": 1794029269041,
+        "endMs": 1794029296439
+      },
+      {
+        "checkpointId": 1,
+        "ordinal": 7,
+        "startMs": 1794029305740,
+        "endMs": 1794029341970
+      }
+    ],
+    "room_master_table": [
+      {
+        "id": 42,
+        "identity_hash": "23a32c5c204742058427a05958900b51"
+      }
+    ],
+    "trip_checkpoint": [
+      {
+        "id": 1,
+        "formatVersion": 1,
+        "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+        "continuousDriveSec": 581,
+        "baselineRef": null,
+        "stage": "NORMAL",
+        "lastLat": null,
+        "lastLon": null,
+        "lastGear": "P",
+        "runStartMs": 1794024181806,
+        "stopStartMs": 1794029427994,
+        "driveState": "PAUSED",
+        "continuousDriveMs": 581258,
+        "continuousBeforeStopMs": 572256,
+        "provisionalStopSec": 9,
+        "observationMs": 1794029436996,
+        "observationGear": "P",
+        "observationPower": null,
+        "offStartedAtMs": null,
+        "pendingNewTrip": 0,
+        "restResetEmitted": 0,
+        "segmentCount": 8,
+        "savedAtScenarioMs": 1794029436996,
+        "savedAtWallMs": 1794029437015,
+        "savedAtElapsedMs": 840379,
+        "stopTimePolicy": "V03_RETROACTIVE",
+        "shortStopPolicy": "EXCLUDE",
+        "source": "REAL",
+        "timeBasis": "WALL_EPOCH",
+        "ownerState": "REAL_TRIP_V1:AAFQAAA="
+      }
+    ]
+  }
+}

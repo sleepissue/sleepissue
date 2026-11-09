@@ -1,0 +1,75 @@
+{
+  "branch": "develop-jdw",
+  "head": "7bc5ffd49e87b2bed7d05068d812b637ef1ef458",
+  "build": {
+    "engine": {
+      "tests": 153,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 261,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "apkSha256": "38246430443578a566a18b06fd5f2a245eaa406126fa0e1f60f3ee4251c3f923",
+    "assembleDebug": "PASSED",
+    "assembleDebugAndroidTest": "PASSED",
+    "processReleaseMainManifest": "PASSED"
+  },
+  "instrumentation": {
+    "tests": 10,
+    "passed": 10,
+    "log": "instrumentation-final.txt"
+  },
+  "forceStopRestore": {
+    "tripId": "4e5db99c-bae6-4990-bdfd-39c53d5f9145",
+    "continuousDriveMs": 313009,
+    "stopStartedAtMsInStoredSnapshot": 1794024492407,
+    "continuousBeforeStopMsInStoredSnapshot": 279910,
+    "driveSegmentCount": 6,
+    "last24hDriveSecAfterRestore": 47,
+    "currentDriveStateAfterRestore": "UNKNOWN",
+    "connectedBeforeNewInput": false
+  },
+  "permission": {
+    "pidBefore": "16377",
+    "pidAfterRevoke": "",
+    "restoredPermission": "GRANTED",
+    "restoredSpeed": 0,
+    "finalConnected": false
+  },
+  "preservation": {
+    "beforeLogicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+    "afterLogicalSha256": "c9961514d35261a0aec539d34c3bb0123d8756c24f9f01625bef0a80dfd23d9f",
+    "integrity": "ok",
+    "tables": {
+      "android_metadata": 1,
+      "trip_checkpoint": 1,
+      "drive_segment": 1,
+      "room_master_table": 1
+    },
+    "installedApkSha256": "38246430443578a566a18b06fd5f2a245eaa406126fa0e1f60f3ee4251c3f923",
+    "installedMatchesBuild": true
+  },
+  "finalSdkConnected": false,
+  "unverified": [
+    "실제 5/15분 정차 대기",
+    "실제 24시간 경과",
+    "CAR_POWERTRAIN 권한 철회(일반 권한)",
+    "실제 CarService 연결 해제/구독 오류",
+    "이동 중 OS 주행 제한 경로",
+    "실제 전원 입력",
+    "화면 종료 후 감시 서비스",
+    "절전",
+    "실제 재부팅/BOOT_COMPLETED"
+  ],
+  "integrationWaiting": [
+    "2번 졸음 엔진",
+    "3번 개입/음성",
+    "4번 쉼터/휴식",
+    "5번 제품 데모 통합"
+  ]
+}
