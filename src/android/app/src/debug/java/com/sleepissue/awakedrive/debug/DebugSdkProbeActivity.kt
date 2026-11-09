@@ -79,10 +79,11 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         root.addView(label("주행 중 OS가 화면을 가릴 수 있습니다. P/0으로 돌아와 오른쪽 아래 실제 SDK 변경 기록을 확인하세요.", 12f))
         val columns = LinearLayout(this)
         val vehicle = column(); val navi = column()
-        val keys = SignalField.entries.map { it.name } +
+        val vehicleKeys = SignalField.entries.map { it.name } +
             listOf("SEAT:ROW_1_LEFT", "SEAT:ROW_1_RIGHT", "SEAT:ROW_2_LEFT", "SEAT:ROW_2_CENTER", "SEAT:ROW_2_RIGHT",
-                "SEAT_TEMPERATURE:ROW_1_LEFT") + NaviField.entries.map { it.name }
-        keys.forEachIndexed { i, key ->
+                "SEAT_TEMPERATURE:ROW_1_LEFT")
+        val keys = vehicleKeys + NaviField.entries.map { it.name }
+        keys.forEach { key ->
             val text = label("$key · 미연결", 14f).apply { setPadding(dp(6), dp(8), dp(6), dp(8)); setTextIsSelectable(true) }
             rows[key] = text; (if (key in vehicleKeys) vehicle else navi).addView(text)
         }

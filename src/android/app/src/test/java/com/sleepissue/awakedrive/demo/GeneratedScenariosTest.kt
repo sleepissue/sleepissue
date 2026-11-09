@@ -1,5 +1,9 @@
 package com.sleepissue.awakedrive.demo
 
+import com.google.gson.JsonParser
+import com.sleepissue.awakedrive.engine.model.NaviField
+import com.sleepissue.awakedrive.engine.model.SignalAvailability
+import com.sleepissue.awakedrive.engine.model.SignalField
 import org.junit.Assert.*
 import org.junit.Test
 import java.io.File
@@ -23,9 +27,9 @@ class GeneratedScenariosTest {
         val scenarioDirectory = generateSequence(
             File(System.getProperty("user.dir", ".")).canonicalFile
         ) { it.parentFile }
-            .map { File(it, "data/scenarios-validation") }
+            .map { File(it, "data/scenarios-demo") }
             .firstOrNull { it.isDirectory }
-            ?: error("data/scenarios-validation 폴더를 찾을 수 없습니다.")
+            ?: error("커밋된 data/scenarios-demo 폴더를 찾을 수 없습니다.")
 
         for (name in names) {
             val file = File(scenarioDirectory, "$name.json")
@@ -42,21 +46,24 @@ class GeneratedScenariosTest {
                     assertEquals(1799900L, scenario.samples.last().tMs)
                     assertEquals(1800000L, scenario.durationMs)
 
-                    // 회전 거리와 실내 온도의 실제 전달 여부 검사
+                    val declared = JsonParser.parseString(file.readText()).asJsonObject.getAsJsonArray("samples")
                     val first = scenario.samples.first()
-
-                    assertNotNull("$name 회전 거리 누락", first.navi.distToNextTurnM)
-                    assertNotNull("$name 실내 온도 누락", first.vehicle.cabinTempC)
-
+                    // 졸음 시나리오의 필수 두 값과 나머지 시나리오의 선택 필드/null 계약을 함께 확인한다.
                     scenario.samples.forEachIndexed { index, sample ->
-                        assertNotNull(
-                            "$name 샘플 $index: 회전 거리 누락",
-                            sample.navi.distToNextTurnM
-                        )
-                        assertNotNull(
-                            "$name 샘플 $index: 실내 온도 누락",
-                            sample.vehicle.cabinTempC
-                        )
+                        val raw = declared[index].asJsonObject
+                        fun optional(key: String): Float? = raw.get(key)?.takeUnless { it.isJsonNull }?.asFloat
+                        val distance = optional("distToNextTurnM")
+                        val temperature = optional("cabinTempC")
+                        if (name == "drowsy") {
+                            assertNotNull("$name 샘플 $index: 회전 거리 누락", distance)
+                            assertNotNull("$name 샘플 $index: 실내 온도 누락", temperature)
+                        }
+                        assertEquals("$name 샘플 $index: 회전 거리 전달", distance, sample.navi.distToNextTurnM)
+                        assertEquals("$name 샘플 $index: 실내 온도 전달", temperature, sample.vehicle.cabinTempC)
+                        assertEquals(if (distance == null) SignalAvailability.UNAVAILABLE else SignalAvailability.AVAILABLE,
+                            sample.navi.qualityOf(NaviField.DIST_TO_NEXT_TURN_M).availability)
+                        assertEquals(if (temperature == null) SignalAvailability.UNAVAILABLE else SignalAvailability.AVAILABLE,
+                            sample.vehicle.quality.getValue(SignalField.CABIN_TEMP_C).availability)
                     }
 
                     println(

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkCarDeliveryHubTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-09T06:17:03.189Z" hostname="a" time="0.03">
+  <properties/>
+  <testcase name="initialAaosQuerySuppliesStateWithoutInventingCallbacksOrSensorObservations" classname="com.sleepissue.awakedrive.pleos.SdkCarDeliveryHubTest" time="0.022"/>
+  <testcase name="sameAndChangedGearQueriesUpdateStateWithoutInventingRawObservationsOrCallbacks" classname="com.sleepissue.awakedrive.pleos.SdkCarDeliveryHubTest" time="0.005"/>
+  <testcase name="rejectedOldAaosDeliveryCannotReplayThePreviousCallbackOrRollBackItsTimes" classname="com.sleepissue.awakedrive.pleos.SdkCarDeliveryHubTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

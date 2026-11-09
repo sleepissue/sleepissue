@@ -1,0 +1,122 @@
+{
+  "debug": {
+    "path": "src/android/app/build/intermediates/merged_manifests/debug/processDebugManifest/AndroidManifest.xml",
+    "permissions": [
+      "pleos.car.permission.NAVI_ROUTE_SEARCH",
+      "pleos.car.permission.CONTROL_CAR_SEATS",
+      "pleos.car.permission.CAR_DRIVE",
+      "pleos.car.permission.CAR_LIGHTS",
+      "pleos.car.permission.CAR_SEATS",
+      "pleos.car.permission.CAR_CLIMATE",
+      "pleos.car.permission.NAVI_ROUTE",
+      "pleos.car.permission.NAVI_CUSTOM_MAP",
+      "android.car.permission.CAR_SPEED",
+      "android.car.permission.CAR_POWERTRAIN",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.RECORD_AUDIO",
+      "pleos.car.permission.TTS_SERVICE",
+      "pleos.car.permission.STT_SERVICE",
+      "android.permission.INTERNET",
+      "ai.pleos.playground.service.vehicle.VEHICLE_BINDING",
+      "com.sleepissue.awakedrive.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "activities": [
+      {
+        "name": "com.sleepissue.awakedrive.debug.DebugSdkTripActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      },
+      {
+        "name": "com.sleepissue.awakedrive.debug.DebugDemoActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      },
+      {
+        "name": "com.sleepissue.awakedrive.debug.DebugSdkProbeActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      },
+      {
+        "name": "com.sleepissue.awakedrive.debug.DebugHubProbeActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      },
+      {
+        "name": "com.sleepissue.awakedrive.debug.DebugHarnessActivity",
+        "exported": "true",
+        "label": "AwakeDrive 개발 검증",
+        "launcher": false
+      },
+      {
+        "name": "com.sleepissue.awakedrive.voice.VoiceValidationActivity",
+        "exported": "true",
+        "label": "음성 기능 자동 검증",
+        "launcher": true
+      },
+      {
+        "name": "com.sleepissue.awakedrive.ui.DrivingPreviewActivity",
+        "exported": "true",
+        "label": "AwakeDrive",
+        "launcher": true
+      },
+      {
+        "name": "com.sleepissue.awakedrive.service.RealTripMonitorActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      },
+      {
+        "name": "androidx.compose.ui.tooling.PreviewActivity",
+        "exported": "true",
+        "label": null,
+        "launcher": false
+      }
+    ]
+  },
+  "release": {
+    "path": "src/android/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml",
+    "permissions": [
+      "pleos.car.permission.CAR_DRIVE",
+      "pleos.car.permission.CAR_LIGHTS",
+      "pleos.car.permission.CAR_SEATS",
+      "pleos.car.permission.CAR_CLIMATE",
+      "pleos.car.permission.NAVI_ROUTE",
+      "pleos.car.permission.NAVI_ROUTE_SEARCH",
+      "pleos.car.permission.NAVI_CUSTOM_MAP",
+      "pleos.car.permission.CONTROL_CAR_SEATS",
+      "android.car.permission.CAR_SPEED",
+      "android.car.permission.CAR_POWERTRAIN",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+      "android.permission.POST_NOTIFICATIONS",
+      "android.permission.RECEIVE_BOOT_COMPLETED",
+      "android.permission.RECORD_AUDIO",
+      "pleos.car.permission.TTS_SERVICE",
+      "pleos.car.permission.STT_SERVICE",
+      "android.permission.INTERNET",
+      "ai.pleos.playground.service.vehicle.VEHICLE_BINDING",
+      "com.sleepissue.awakedrive.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "activities": [
+      {
+        "name": "com.sleepissue.awakedrive.ui.DrivingPreviewActivity",
+        "exported": "true",
+        "label": "AwakeDrive",
+        "launcher": true
+      },
+      {
+        "name": "com.sleepissue.awakedrive.service.RealTripMonitorActivity",
+        "exported": "false",
+        "label": null,
+        "launcher": false
+      }
+    ]
+  }
+}

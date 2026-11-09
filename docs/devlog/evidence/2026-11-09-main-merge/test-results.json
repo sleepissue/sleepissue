@@ -1,0 +1,45 @@
+{
+  "previousRun": {
+    "engine": 153,
+    "app": 339,
+    "total": 492,
+    "kind": "pre-merge historical evidence"
+  },
+  "modules": {
+    "engine": {
+      "tests": 333,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 408,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "total": 741,
+  "increaseFromPrevious": 249,
+  "deviceSmoke": {
+    "uniqueTests": 1,
+    "stableRuns": [
+      {
+        "durationSec": 3.786,
+        "passed": 1
+      },
+      {
+        "durationSec": 3.816,
+        "passed": 1
+      }
+    ],
+    "notSummedAsSeparateTests": true,
+    "scope": "product launcher + SDK probe; existing SDK owner modeled by lease fixture, not concurrent live monitor service"
+  },
+  "build": "BUILD SUCCESSFUL, 81 tasks executed",
+  "debugApkSha256": "0bdafbaa37878fdd99f8dc5e4fa3d7d540996c6c7f76b32199682fbc9e0d9653",
+  "androidTestApkSha256": "6102469c74071ecbcff657b4c90d5fa67ffc06e28044ac2632401fc779aa7079",
+  "installedDebugApkSha256": "0bdafbaa37878fdd99f8dc5e4fa3d7d540996c6c7f76b32199682fbc9e0d9653",
+  "installedAndroidTestApkSha256": "6102469c74071ecbcff657b4c90d5fa67ffc06e28044ac2632401fc779aa7079",
+  "installedArtifactsMatch": true
+}

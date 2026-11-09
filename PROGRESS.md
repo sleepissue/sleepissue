@@ -150,6 +150,8 @@
 
 2026-11-09 1번 남은 SIG 실제 입력 후속: [현황표](docs/setup/ROLE1_COMPLETION_STATUS.md)·[실행/5종 결과표·직접 버튼](docs/devlog/2026-11-09-role1-sig-input.md)을 갱신했다. 기존 미커밋 모드 gate 보완을 보존하고 실제 기본 내비에서 **NaviHelper→어댑터→Hub60초/50m/TBT50m, 시험 경로 취소 후 세 값null**을 확인했다. 이전 `activeObserved=false` 원본에도 `ROUTE_GUIDING/false`가 있었으므로 입력 조건 미충족 서술을 정정한다. 위치 공백/오류 후 이력 단절의 Hub 회귀1개를 추가했으며 **이번 전체 자동492개(engine153+app339)·assembleDebug·AndroidTest APK·release manifest 성공**, 활성 내비 결합 기기1개는 별도다. 기존490개·Room 경계3개·통풍/기어 결합1개는 이전 기록이며 Room/통풍 기기시험은 재실행하지 않았다. geo fix는 Android GPS→내비 앱 배송까지 확인됐으나 NaviHelper 고정 위치로 **이동 heading 미검증**. 현재온도19.1°C·50표본 유지/READ만 확인했고 공개 변경 입력은 미확보다. 실제 교차로 통과·자연 도착·1초 시한은 미시험, **엄격110ms 미달은 별도 성능 과제**다. DB 모든 논리 행·기존 진단81개 파일·다른 담당 소스와 기존 미커밋 작업 보존, main 읽기 전용 비교만 수행. 전환·병합·커밋·push·삭제/초기화/Wipe 없음. 4번에게 확인할 provider/POI/이동·현재온도 입력 질문을 기록했다.
 
+2026-11-09 develop-jdw 최신 main 병합: 기존 미커밋100개 파일을 **08da2b9**에 원본 그대로 선별 커밋한 뒤 `git fetch origin`, `git merge origin/main`으로 **main5195e25 → 병합c39bcca**, 텍스트 충돌0. [SHA·호환 수정·팀 연결 계약·직접 실행 순서](docs/devlog/2026-11-09-main-merge.md)를 기록했다. 모드 gate/상태 재조회/거부 배송/관측 구분의 핵심8개 파일은 선별 커밋과 바이트 동일하며 main의BELT 변경도 보존했다. 새 UI launcher 미등록·SDK 화면 vehicleKeys 미정의·팀 데모 시험의 미존재 로컬 fixture 경로를 최소 보완했다. **병합 전492개와 구분한 병합 후741개(engine333+app408), 실패/오류/skip0·assembleDebug·AndroidTest APK·release manifest 성공**. 새 UI는 기동하지만 실제 신호/판단/음성/휴식의 제품 조립은 대기다. 수동/REAL DB·원본 진단 보존, 기존 성능/입력/STR 한계 유지. push·PR 생성/merge는 하지 않는다.
+
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 
 | 모듈 | 위치 | 상태 | 이슈 |

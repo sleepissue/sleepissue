@@ -1,0 +1,10 @@
+{
+  "pleos/SdkNaviDelivery.kt": true,
+  "pleos/SdkStateSubscription.kt": true,
+  "pleos/SdkStateDelivery.kt": true,
+  "pleos/SdkStateNormalization.kt": true,
+  "pleos/SdkCarDelivery.kt": true,
+  "signal/PeriodicSignalHub.kt": true,
+  "signal/SignalPorts.kt": true,
+  "signal/VehicleSignalHub.kt": true
+}

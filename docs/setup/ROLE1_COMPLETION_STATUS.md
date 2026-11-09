@@ -2,6 +2,8 @@
 
 기준은 `AwakeDrive_일정_v1.gan`의 1번 배정(SIG_001~017, TRP_001~012, PLT_012·013)이다. 최신은 [11/9 실제 내비 입력 후속](../devlog/2026-11-09-role1-sig-input.md), 이전 종합은 [11/8 실행 기록](../devlog/2026-11-08-role1-finish.md)이다. REAL은 Playground SDK·Virtual Console 입력이며 물리 차량 시험이 아니다. 완료율이나 공식 TC Pass를 산출하지 않는다.
 
+**11/9 main 병합 후속:** [로컬 병합·호환성 기록](../devlog/2026-11-09-main-merge.md). 기존 작업을08da2b9로 보존하고 최신 main5195e25를 develop-jdw에 c39bcca로 병합했다. 아래492개는 병합 전 SIG 실행이며, **병합 후 전체 자동시험은741개(engine333+app408), 실패/오류/skip0**, debug/AndroidTest APK·release manifest 성공이다. 팀 UI/엔진/음성/쉼터 코드는 반영됐지만 제품 UI의 실제 Hub·운행·엔진·음성·휴식 조립은 여전히 연결 대기다. 수집기/Hub/내비 gate 보완은 유지했으며, 새 UI manifest 등록·SDK 검증 화면의 미정의 변수·팀 데모 시험의 로컬 fixture 의존만 호환 보완했다. main의4번 제어 권한은 release에도 반영되므로 이전 ‘fixture 제어 권한은 debug 전용’은 당시 상태로 구분한다. 엄격110ms·이동 heading·현재온도 변경·STR은 병합으로 해결되지 않았다.
+
 `구현 완료`는 해당 계산/수집 경로가 존재하고 회귀가 통과했다는 뜻이다. `기기 확인`은 명시한 조건의 AVD 결과다. `미검증`, `환경 미지원`, `의미 보류`, `다른 담당 연결 대기`를 상위 기능 전체 완료로 합치지 않는다. 기존480개·Room10개와 함께 11/8의 **자동490개·Room 경계 기기3개·통풍/기어 Hub 기기1개**도 이전 실행 근거다. **이번 최종 자동시험은 engine153 + app339 = 492개**, 실패·오류·skip0, debug/AndroidTest APK·release manifest 성공이며 실제 활성 내비 결합 기기1개는 별도다. Room·통풍/기어 기기시험은 이번에 재실행하지 않았다. 이전 내비 `activeObserved=false` 원본에도 실제 안내 모드와60초/50m/TBT50m가 있었으므로 당시 ‘입력 조건 미충족’ 서술을 정정한다. 조건 미충족·GPS OK를 TC 통과로 세지 않는다.
 
 ## 요구별 상태

@@ -19,7 +19,7 @@ Android Studio에서 이 폴더를 연다. 앱 패키지는 `com.sleepissue.awak
 
 2026-11-02에 추가한 [운행 규칙 가이드](../../docs/setup/ROLE1_TRIP_RULES.md)는 정책 선택·밀리초 정밀 상태·Hub 연결을 설명한다. **개발 대상은 Pleos Playground 가상 차량**이다. REAL은 SDK·Virtual Console 입력, DEMO는 앱 JSON 재생 입력이다. 이번 운행 규칙의 실행 결과는 [11-02 개발 기록](../../docs/devlog/2026-11-02.md)에 별도로 남긴다.
 
-[디버그 화면 사용 가이드](../../docs/setup/DEBUG_HARNESS.md)에 Android Studio·ADB 실행 방법과 직접 따라 할 검증 순서를 정리했다. Android Studio에서 app의 `debug` 변형을 선택해 Run하면 `AwakeDrive 개발 검증`이 열린다. 수동 패널은 가상 결과를 주입한다. 별도 실제 SDK 검증/REAL 감시 경로는 [최신 1번 현황표](../../docs/setup/ROLE1_COMPLETION_STATUS.md)를 따른다.
+[디버그 화면 사용 가이드](../../docs/setup/DEBUG_HARNESS.md)에 Android Studio·ADB 실행 방법과 직접 따라 할 검증 순서를 정리했다. 11/9 main 병합 후 제품 UI launcher는 `AwakeDrive`(`DrivingPreviewActivity`)다. 기존1번 화면은 `adb shell am start --user 10 -n com.sleepissue.awakedrive/.debug.DebugHarnessActivity`로 명시 실행하며, `--ez sdkProbe true`를 더하면 Room을 열지 않고 SDK 독립 화면으로 들어간다. 수동 패널은 가상 결과를 주입한다. 제품 UI는 아직 실제 Hub/엔진과 조립되지 않았다. [병합 검증·실행 순서](../../docs/devlog/2026-11-09-main-merge.md)와 별도 SDK/REAL 감시의 [최신 1번 현황표](../../docs/setup/ROLE1_COMPLETION_STATUS.md)를 따른다.
 
 ## 빌드 환경
 
