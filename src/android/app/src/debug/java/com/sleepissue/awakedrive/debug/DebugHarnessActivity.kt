@@ -54,6 +54,8 @@ import kotlinx.coroutines.isActive
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import androidx.compose.ui.platform.ComposeView
+import com.sleepissue.awakedrive.ui.DebugInterventionScreen
 
 /** 화면 재생성은 구독만 교체하고 가상 검증 세션은 그대로 보존한다. */
 class DebugHarnessViewModel(application: Application) : AndroidViewModel(application) {
@@ -204,7 +206,66 @@ class DebugHarnessActivity : AppCompatActivity() {
             body.addView(controlsScroll, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 0.5f))
             body.addView(inspection, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 0.5f))
         }
-        root.addView(body, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f))
+        // 기존 팀원 디버그 화면 유지
+        root.addView(
+            body,
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1f
+            )
+        )
+
+// AwakeDrive Compose UI 미리보기
+        val awakeDrivePreview = ComposeView(this).apply {
+            visibility = View.GONE
+
+            setContent {
+                DebugInterventionScreen(
+                    controller = controller
+                )
+            }
+        }
+
+// 미리보기 화면을 기존 화면 아래에 추가
+        root.addView(
+            awakeDrivePreview,
+            LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                0,
+                1f
+            )
+        )
+
+// 기존 화면과 미리보기 화면을 전환하는 버튼
+        val previewButton = button("💜 AwakeDrive UI 미리보기") {
+
+            if (awakeDrivePreview.visibility == View.GONE) {
+
+                // 기존 조작 화면 숨기기
+                body.visibility = View.GONE
+
+                // AwakeDrive UI 표시
+                awakeDrivePreview.visibility = View.VISIBLE
+
+            } else {
+
+                // AwakeDrive UI 숨기기
+                awakeDrivePreview.visibility = View.GONE
+
+                // 기존 조작 화면 다시 표시
+                body.visibility = View.VISIBLE
+            }
+        }
+
+// 버튼은 요약 정보 바로 아래에 배치
+        root.addView(
+            previewButton,
+            3,
+            fullWidth()
+        )
+
+// 기존 화면 설정 유지
         setContentView(root)
         ViewCompat.requestApplyInsets(root)
         render(controller.state.value)
