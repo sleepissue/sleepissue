@@ -12,7 +12,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.collect
 
 /** SDK 수집의 기기 회귀용이다. Room·운행·서비스·가짜 입력을 만들지 않는다. */
-internal class Role1LiveSdkSession(context: Context) {
+internal class Role1LiveSdkSession(context: Context, naviTimingObserver: ((SdkNaviTimingPoint) -> Unit)? = null) {
     private val clock = object : Clock {
         override fun scenarioTimeMs() = SystemClock.elapsedRealtime()
         override fun elapsedRealtimeMs() = SystemClock.elapsedRealtime()
@@ -20,7 +20,7 @@ internal class Role1LiveSdkSession(context: Context) {
     }
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
     private val policy = SdkProbePolicy(3_000, 1_000)
-    val adapter = PlaygroundSignalAdapter(context, clock, policy, scope)
+    val adapter = PlaygroundSignalAdapter(context, clock, policy, scope, naviTimingObserver = naviTimingObserver)
     private val fresh = SignalFreshnessPolicy(3_000, 3_000, MissingObservationPolicy.USE_RECEIPT_AGE)
     val hub = VehicleSignalHub(listOf(HubSourceSet(Source.REAL, adapter.vehicleSource, adapter.naviSource,
         rateTimeBasis = ObservationTimeBasis.UNKNOWN)), clock,

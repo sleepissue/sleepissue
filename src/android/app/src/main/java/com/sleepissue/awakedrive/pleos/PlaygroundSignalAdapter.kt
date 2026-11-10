@@ -31,7 +31,9 @@ import kotlin.math.abs
 /** 공개 SDK 2.3.2/3.0.5 계약만 사용한다. 제어 API·가짜 입력·운행/Room 의존성은 없다. */
 class PlaygroundSignalAdapter internal constructor(private val context: Context, private val clock: Clock,
     val policy: SdkProbePolicy, private val scope: CoroutineScope,
-    private val readFeaturesFactory: (Vehicle) -> VehicleReadFeatures = ::PleosVehicleReadFeatures) {
+    private val readFeaturesFactory: (Vehicle) -> VehicleReadFeatures = ::PleosVehicleReadFeatures,
+    naviTimingObserver: ((SdkNaviTimingPoint) -> Unit)? = null) {
+    private val naviAudit = naviTimingObserver?.let { SdkNaviTimingAudit(clock, it) }
     val store = SdkSignalStore(clock, policy)
     val gearAudit = GearCollectionAudit(clock, scheduler = "IO_FIXED_DELAY")
     private val handler = Handler(Looper.getMainLooper())
@@ -407,7 +409,12 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
         val listener = object : NaviHelperEventListener {
             override fun onRouteStateInfo(routeStateInfo: RouteStateInfo) {
                 val receipt = clock.elapsedRealtimeMs()
-                post { reports.route(routeStateInfo, receipt) }
+                naviAudit?.point("CALLBACK", "route", receipt, mode = routeStateInfo.naviMode.toString())
+                post {
+                    naviAudit?.point("ADAPTER_BEGIN", "route", mode = routeStateInfo.naviMode.toString())
+                    reports.route(routeStateInfo, receipt)
+                    naviAudit?.point("ADAPTER_END", "route", mode = routeStateInfo.naviMode.toString())
+                }
             }
             override fun onCurrentLocationInfo(currentLocationInfo: CurrentLocationInfo) {
                 val receipt = clock.elapsedRealtimeMs()
@@ -416,7 +423,13 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
             }
             override fun onDestinationInfo(destinationInfo: DestinationInfo) {
                 val receipt = clock.elapsedRealtimeMs()
-                post { reports.destination(destinationInfo.remainTime, destinationInfo.remainDistance, receipt) }
+                naviAudit?.point("CALLBACK", "destination", receipt,
+                    seconds = destinationInfo.remainTime, meters = destinationInfo.remainDistance)
+                post {
+                    naviAudit?.point("ADAPTER_BEGIN", "destination", seconds = destinationInfo.remainTime, meters = destinationInfo.remainDistance)
+                    reports.destination(destinationInfo.remainTime, destinationInfo.remainDistance, receipt)
+                    naviAudit?.point("ADAPTER_END", "destination", seconds = destinationInfo.remainTime, meters = destinationInfo.remainDistance)
+                }
             }
             override fun onTBTInfo(tbtInfoList: List<TBTInfo>) {
                 val receipt = clock.elapsedRealtimeMs()
@@ -431,16 +444,20 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
             NaviField.entries.forEach { store.capability(it.name, true, "NaviHelper 연결/권한 확인; 별도 capability API 없음") }
             poll = scope.launch {
                 while (isActive && active) {
+                    naviAudit?.point("POLL_BEGIN", "poll")
                     // 요청 자체는 센서 관측이 아니다. 응답 이벤트에만 수신 시각을 부여한다.
                     if (!routeGate.acceptsRouteValues()) clearRoute("활성 경로 상태 미수신/만료")
-                    attemptGroup(listOf("LAT", "LON", "HEADING_DEG")) { n.getCurrentLocationInfo() }
-                    try { n.getRouteStateInfo() } catch (e: Exception) {
+                    attemptGroup(listOf("LAT", "LON", "HEADING_DEG")) { traceNaviCall(naviAudit, "location") { n.getCurrentLocationInfo() } }
+                    try { traceNaviCall(naviAudit, "route") { n.getRouteStateInfo() } } catch (e: Exception) {
                         routeGate.clear(); clearRoute("경로 상태 조회 실패")
                         listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M", "DIST_TO_NEXT_TURN_M").forEach { failure(it, e) }
                     }
-                    attemptGroup(listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M")) { n.getDestinationInfo() }
-                    attempt("DIST_TO_NEXT_TURN_M") { n.getTBTInfo() }
+                    attemptGroup(listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M")) { traceNaviCall(naviAudit, "destination") { n.getDestinationInfo() } }
+                    attempt("DIST_TO_NEXT_TURN_M") { traceNaviCall(naviAudit, "tbt") { n.getTBTInfo() } }
+                    naviAudit?.point("TIMER_ARMED", "poll")
+                    val sleepStarted = if (naviAudit != null) clock.elapsedRealtimeMs() else -1L
                     delay(policy.naviPollMs)
+                    naviAudit?.point("TIMER_RESUMED", "poll", dueAtMs = sleepStarted + policy.naviPollMs)
                 }
             }
         } }, onFailed = { e -> NaviField.entries.forEach { failure(it.name, e) } })
