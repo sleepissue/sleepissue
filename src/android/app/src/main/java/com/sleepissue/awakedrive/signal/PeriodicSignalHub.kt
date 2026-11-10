@@ -24,6 +24,7 @@ internal class PeriodicSignalHub(
     private val gearObserver: ((GearSelectionDecision) -> Unit)? = null,
     // 두 번째 값은 실제 버스 emit 직전 elapsed다. 기존 메타데이터/관측 시각을 덮지 않는다.
     private val emissionObserver: ((FramePublication, Long) -> Unit)? = null,
+    private val timingObserver: ((HubTimingPoint) -> Unit)? = null,
 ) : SignalHubSession {
     private inner class Input(val definition: HubSourceSet) {
         var epoch = 0L
@@ -122,8 +123,14 @@ internal class PeriodicSignalHub(
         inputs.values.filter { it.definition.initiallyEnabled }.forEach { startInputLocked(it) }
         if (policy.tickDriver == HubTickDriver.AUTOMATIC) owner!!.launch {
             while (isActive) {
-                val wait = withStateLock { (nextDeadline - publicationNow()).coerceIn(1, config.signalFrameIntervalMs) }
+                var scheduled = 0L
+                val wait = withStateLock("timer") {
+                    scheduled = nextDeadline
+                    (nextDeadline - publicationNow()).coerceIn(1, config.signalFrameIntervalMs)
+                }
+                timing(HubTimingStage.TIMER_SCHEDULED, "timer", scheduled)
                 delay(wait)
+                timing(HubTimingStage.TIMER_RESUMED, "timer", scheduled)
                 publishDue()
             }
         }
@@ -180,7 +187,7 @@ internal class PeriodicSignalHub(
         var end = InputCollectionStatus.COMPLETED
         var failure = SignalAvailability.UNAVAILABLE
         try {
-            source().collect { value -> withStateLock {
+            source().collect { value -> withStateLock(channel) {
                 if (session == generation && epoch == input.epoch && diagnostics.value.running) {
                     // 수집 경로에서는 값·품질·계수만 갱신한다. 전체 진단은 발행/수집 상태 변경 때 만든다.
                     probe.measure(WorkStage.HUB_RECEIVE) { accept(value) }
@@ -297,8 +304,9 @@ internal class PeriodicSignalHub(
     }
 
     override suspend fun publishDue(): Boolean {
+        timing(HubTimingStage.PUBLISH_ENTERED, "publish")
         val started = probe.begin(WorkStage.HUB_PUBLISH)
-        try { return withStateLock {
+        try { return withStateLock("publish") {
             if (job?.isActive != true || !diagnostics.value.running || diagnostics.value.clockFailure) return@withStateLock false
             val now = publicationNow()
             val scenario = clock.scenarioTimeMs(); val elapsed = clock.elapsedRealtimeMs()
@@ -308,6 +316,7 @@ internal class PeriodicSignalHub(
             }
             lastTick = now; lastScenario = scenario; lastElapsed = elapsed
             if (now < nextDeadline) return@withStateLock false
+            val due = nextDeadline
             val missed = (now - nextDeadline) / config.signalFrameIntervalMs
             nextDeadline = Math.addExact(nextDeadline, Math.multiplyExact(missed + 1, config.signalFrameIntervalMs))
             val metadata = FramePublication(generation, diagnostics.value.emittedFrames + 1, elapsed)
@@ -327,10 +336,14 @@ internal class PeriodicSignalHub(
             val navi = selectNavi(scenario, selectionNow, evaluated)
             val p = powerSelector.select(evaluated[Source.REAL]?.power, evaluated[Source.DEMO]?.power, selectionNow)
             val power = PowerEvent(scenario, p.value as? PowerState ?: PowerState.UNKNOWN, p.quality)
+            timing(HubTimingStage.FRAME_READY, "publish", due, metadata.sequence)
             mutableFrame.value = frame; mutableNavi.value = navi; mutablePower.value = power
             updateDiagnostics(evaluated, metadata.sequence, missed)
+            timing(HubTimingStage.DIAGNOSTICS_READY, "publish", due, metadata.sequence)
             emissionObserver?.invoke(metadata, clock.elapsedRealtimeMs())
-            frameBus.tryEmit(Envelope(generation, frame)); powerBus.tryEmit(Envelope(generation, power))
+            frameBus.tryEmit(Envelope(generation, frame))
+            timing(HubTimingStage.EMIT_COMPLETED, "publish", due, metadata.sequence)
+            powerBus.tryEmit(Envelope(generation, power))
             if (now >= nextNaviDeadline) {
                 nextNaviDeadline = Math.addExact(nextNaviDeadline,
                     Math.multiplyExact((now - nextNaviDeadline) / config.naviStateIntervalMs + 1, config.naviStateIntervalMs))
@@ -402,10 +415,24 @@ internal class PeriodicSignalHub(
     }
 
     /** 잠금을 기다리는 시간과 잠금 안 처리 시간을 분리해 계측한다. */
-    private suspend inline fun <T> withStateLock(action: () -> T): T {
+    private suspend inline fun <T> withStateLock(operation: String = "state", action: () -> T): T {
+        timing(HubTimingStage.LOCK_REQUESTED, operation)
         val started = probe.begin(WorkStage.HUB_LOCK_WAIT)
         try { stateLock.lock() } finally { probe.end(WorkStage.HUB_LOCK_WAIT, started) }
-        try { return action() } finally { stateLock.unlock() }
+        try {
+            timing(HubTimingStage.LOCK_ACQUIRED, operation)
+            return action()
+        } finally {
+            try { timing(HubTimingStage.LOCK_RELEASING, operation) }
+            finally { stateLock.unlock() }
+        }
+    }
+
+    private fun timing(stage: HubTimingStage, operation: String, dueAtMs: Long = -1, sequence: Long = -1) {
+        // 호출 인자도 primitive로 유지한다. 계측을 끄면 nullable Long 포장·시계 읽기·점 할당을 하지 않는다.
+        val observer = timingObserver ?: return
+        observer(HubTimingPoint(stage, clock.elapsedRealtimeMs(), System.nanoTime(), operation,
+            dueAtMs.takeIf { it >= 0 }, sequence.takeIf { it > 0 }))
     }
 
     // 부모 취소 중에는 하위 수집기의 finally가 부모 완료 콜백보다 먼저 실행될 수 있다.

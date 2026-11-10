@@ -72,6 +72,29 @@ class SdkSignalFailureTest {
         }
     }
 
+    @Test fun oneSharedUnsupportedSeatCapabilityLogsOnceWithoutLosingIndividualStates() {
+        val store = SdkSignalStore(Time(), SdkProbePolicy(3_000, 1_000))
+        val keys = listOf("ROW_1_LEFT", "ROW_1_RIGHT", "ROW_2_LEFT", "ROW_2_CENTER", "ROW_2_RIGHT").map { "SEAT:$it" }
+        keys.forEach { store.declare(it, "pleos.car.permission.CAR_SEATS", true) }
+        repeat(3) {
+            keys.forEach { key -> store.capability(key, false, "NONE · 공통 착석 capability", disabledLogKey = "SEATS") }
+        }
+        assertEquals(1, store.history().size)
+        assertTrue(store.history().single().contains(" · STATE · SEATS · UNSUPPORTED ·"))
+        assertEquals(5, store.readings().size)
+        store.readings().forEach {
+            assertEquals(false, it.apiReadable)
+            assertEquals(SignalAvailability.UNSUPPORTED, it.availability)
+            assertEquals(SdkNormalization.UNASSESSED, it.normalization)
+            assertNull(it.receivedMs)
+        }
+        keys.forEach { assertNull(store.vehicleInput(it)!!.seats) }
+        // 읽기 가능으로 전환된 뒤 다시 미지원이 되면 새 전이 한 행을 남긴다.
+        keys.forEach { store.capability(it, true, "READ") }
+        keys.forEach { store.capability(it, false, "NONE", disabledLogKey = "SEATS") }
+        assertEquals(2, store.history().count { it.contains(" · STATE · SEATS · UNSUPPORTED ·") })
+    }
+
     private fun assertDenied(store: SdkSignalStore, key: String) {
         assertEquals(SignalAvailability.PERMISSION_DENIED, store.quality(key).availability)
         assertNull(store.vehicleInput(key)!!.speed)

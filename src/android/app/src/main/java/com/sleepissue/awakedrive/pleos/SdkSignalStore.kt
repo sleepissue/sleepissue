@@ -59,11 +59,11 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
         changes.addLast(text)
         while (changes.size > 100) changes.removeFirst()
     }
-    private fun recordDisabledState(key: String) {
+    private fun recordDisabledState(key: String, logKey: String = key) {
         val r = data.getValue(key)
-        if (lastStateLog[key] == r.availability) return
-        lastStateLog[key] = r.availability
-        appendHistory("${clock.elapsedRealtimeMs()}ms · STATE · $key · ${r.availability} · 지원 ${r.support} · ${r.note}")
+        if (lastStateLog[logKey] == r.availability) return
+        lastStateLog[logKey] = r.availability
+        appendHistory("${clock.elapsedRealtimeMs()}ms · STATE · $logKey · ${r.availability} · 지원 ${r.support} · ${r.note}")
     }
     fun history(): List<String> = changes.toList()
     fun readings(): List<SdkReading> = data.values.toList()
@@ -72,15 +72,18 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             availability = if (granted) SignalAvailability.UNAVAILABLE else SignalAvailability.PERMISSION_DENIED)
         if (!granted) recordDisabledState(key)
     }
-    fun capability(key: String, readable: Boolean, description: String = "READ") {
+    fun capability(key: String, readable: Boolean, description: String = "READ", disabledLogKey: String = key) {
         val r = data.getValue(key)
+        if (readable && r.permissionGranted && key.startsWith("SEAT:")) lastStateLog.remove("SEATS")
         data[key] = r.copy(support = description, apiReadable = readable,
             value = r.value.takeIf { readable && r.permissionGranted }, availability = when {
             !r.permissionGranted -> SignalAvailability.PERMISSION_DENIED
             !readable -> SignalAvailability.UNSUPPORTED
             else -> if (r.apiReadable == false) SignalAvailability.UNAVAILABLE else r.availability
         })
-        recordDisabledState(key)
+        // 같은 SDK capability가 여러 좌석을 함께 끄면 필드 로그는 한 번만 남긴다.
+        // 좌석별 apiReadable/품질/원시 진단은 data에 각각 유지한다.
+        recordDisabledState(key, disabledLogKey)
     }
     fun failed(key: String, availability: SignalAvailability, note: String) {
         val old = data.getValue(key)

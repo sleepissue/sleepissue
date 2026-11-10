@@ -12,6 +12,50 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class PeriodicSignalHubTest {
+    @Test fun timingObserverFailureCannotLeaveTheStateMutexLocked() = runTest {
+        for (stage in listOf(HubTimingStage.LOCK_ACQUIRED, HubTimingStage.LOCK_RELEASING)) {
+            val clock = FakeClock()
+            var armed = true
+            val hub = VehicleSignalHub(listOf(HubSourceSet(Source.REAL, FakeSignalSource(),
+                rateTimeBasis = ObservationTimeBasis.ELAPSED_REALTIME)), clock, policy(), timingObserver = {
+                if (armed && it.operation == "publish" && it.stage == stage) {
+                    armed = false
+                    error("계측 콜백 실패")
+                }
+            })
+            hub.start(backgroundScope)
+            clock.scenarioMs = 100; clock.elapsedMs = 100
+            try { hub.publishDue(); fail("계측 실패가 호출자에게 전달돼야 함") }
+            catch (expected: IllegalStateException) { assertEquals("계측 콜백 실패", expected.message) }
+            // 어느 계측 지점에서 실패해도 중지/해제 경로가 mutex를 다시 획득할 수 있어야 한다.
+            withTimeout(1_000) { hub.stop() }
+            assertFalse(hub.diagnostics.value.running)
+        }
+    }
+
+    @Test fun timingPointsKeepDeadlineMetadataAndActualExecutionSeparate() = runTest {
+        val clock = FakeClock()
+        val source = FakeSignalSource()
+        val points = mutableListOf<HubTimingPoint>()
+        val hub = VehicleSignalHub(listOf(HubSourceSet(Source.REAL, source,
+            rateTimeBasis = ObservationTimeBasis.ELAPSED_REALTIME)), clock, policy(),
+            gearObserver = { clock.elapsedMs += 25 }, timingObserver = points::add)
+        hub.start(backgroundScope)
+        source.emit(input(Source.REAL, 0)); runCurrent()
+        clock.scenarioMs = 100; clock.elapsedMs = 100
+        assertTrue(hub.publishDue())
+        val prepared = points.single { it.stage == HubTimingStage.FRAME_READY }
+        val emitted = points.single { it.stage == HubTimingStage.EMIT_COMPLETED }
+        assertEquals(100L, prepared.dueAtMs)
+        assertEquals(125L, prepared.elapsedMs)
+        assertEquals(1L, emitted.sequence)
+        assertEquals(100L, hub.latestFrame.value!!.tMs)
+        assertEquals(100L, hub.latestFrame.value!!.publication!!.publishedAtElapsedMs)
+        assertEquals(0L, hub.latestFrame.value!!.qualityOf(SignalField.GEAR).observedAtMs)
+        assertTrue(points.any { it.operation == "vehicle" && it.stage == HubTimingStage.LOCK_ACQUIRED })
+        hub.stop()
+    }
+
     private fun policy(driver: HubTickDriver = HubTickDriver.MANUAL, ttl: Long = 1_000, allowDemo: Boolean = true) =
         SignalFreshnessPolicy(ttl, ttl, MissingObservationPolicy.REQUIRE_TIMESTAMP).let { limits -> HubPolicy(
             SignalField.entries.associateWith { limits }, NaviField.entries.associateWith { limits }, limits,

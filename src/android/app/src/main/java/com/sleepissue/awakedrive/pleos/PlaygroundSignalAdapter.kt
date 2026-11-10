@@ -29,8 +29,9 @@ import kotlinx.coroutines.flow.*
 import kotlin.math.abs
 
 /** 공개 SDK 2.3.2/3.0.5 계약만 사용한다. 제어 API·가짜 입력·운행/Room 의존성은 없다. */
-class PlaygroundSignalAdapter(private val context: Context, private val clock: Clock,
-    val policy: SdkProbePolicy, private val scope: CoroutineScope) {
+class PlaygroundSignalAdapter internal constructor(private val context: Context, private val clock: Clock,
+    val policy: SdkProbePolicy, private val scope: CoroutineScope,
+    private val readFeaturesFactory: (Vehicle) -> VehicleReadFeatures = ::PleosVehicleReadFeatures) {
     val store = SdkSignalStore(clock, policy)
     val gearAudit = GearCollectionAudit(clock, scheduler = "IO_FIXED_DELAY")
     private val handler = Handler(Looper.getMainLooper())
@@ -94,8 +95,12 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
         post { if (store.receiveBoundedInt(key, raw, delivery, receipt, diagnosticOnly)) emit(key) }
     }
     private fun checked(key: String, config: CapabilityConfig, extra: String = "", subscribe: () -> Unit) = post {
-        val readable = config.accessType == AccessType.READ || config.accessType == AccessType.READ_WRITE
-        store.capability(key, readable, "${config.accessType} $extra"); emit(key)
+        checkedRead(key, SdkReadCapability(config.accessType == AccessType.READ || config.accessType == AccessType.READ_WRITE,
+            "${config.accessType} $extra"), subscribe = subscribe)
+    }
+    private fun checkedRead(key: String, capability: SdkReadCapability, disabledLogKey: String = key, subscribe: () -> Unit) {
+        val readable = capability.readable
+        store.capability(key, readable, capability.description, disabledLogKey); emit(key)
         val permitted = store.readings().first { it.key == key }.permissionGranted
         if (readable && permitted) try { subscribe() } catch (e: Exception) { failure(key, e) }
     }
@@ -161,14 +166,12 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
     }
     private fun connectVehicle() {
         val v = Vehicle(context.applicationContext).also { vehicle = it; it.initialize() }
-        val s = v.getSteeringWheel()
-        val steering = object : SteeringWheelAngleListener {
-            override fun onSteeringWheelAngleUpdated(angle: Float?) = steeringReceived(angle, SdkDelivery.CALLBACK)
-            override fun onFailed(e: Exception) = failure("STEERING_DEG", e)
-        }
-        attempt("STEERING_DEG") { s.checkSteeringWheelAngleCapabilities({ c, b -> checked("STEERING_DEG", c, b.toString()) {
-            s.getCurrentSteeringWheelAngle({ steeringReceived(it, SdkDelivery.QUERY) }, { failure("STEERING_DEG", it) })
-            cleanup += { s.unregisterSteeringWheelAngle(steering) }; s.registerSteeringWheelAngle(steering)
+        val reads = readFeaturesFactory(v)
+        attempt("STEERING_DEG") { reads.steering.check({ capability -> post {
+            checkedRead("STEERING_DEG", capability) {
+                reads.steering.query({ steeringReceived(it, SdkDelivery.QUERY) }, { failure("STEERING_DEG", it) })
+                cleanup += reads.steering.subscribe({ steeringReceived(it, SdkDelivery.CALLBACK) }, { failure("STEERING_DEG", it) })
+            }
         } }, { failure("STEERING_DEG", it) }) }
         val t = v.getTurnSignal()
         val turnState = stateSubscription("TURN_SIGNAL", SdkStateNormalization::turnSignal,
@@ -213,23 +216,22 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
             cleanup += { d.unregisterCruiseControlTargetSpeed(target) }; d.registerCruiseControlTargetSpeed(target)
             targetState.start()
         } }, { targetState.error(it) }) }
-        connectSeats(v)
+        connectSeats(v, reads)
     }
-    private fun connectSeats(v: Vehicle) {
+    private fun connectSeats(v: Vehicle, reads: VehicleReadFeatures) {
         val seat = v.getSeat()
         val seats = listOf(SeatValue.ROW_1_LEFT, SeatValue.ROW_1_RIGHT, SeatValue.ROW_2_LEFT, SeatValue.ROW_2_CENTER, SeatValue.ROW_2_RIGHT)
-        attemptGroup(seats.map { "SEAT:${it.name}" }) { seat.checkSeatOccupancyCapabilities({ c: CapabilityConfig, areas: List<SeatArea> ->
+        attemptGroup(seats.map { "SEAT:${it.name}" }) { reads.occupancy.check({ capability, areas ->
             seats.forEach { position ->
-                val key = "SEAT:${position.name}"; val area = SeatArea(position)
+                val key = "SEAT:${position.name}"
                 // 결합 영역을 개별 좌석으로 오인하지 않는다.
-                if (area !in areas) post { store.capability(key, false, "개별 영역 미지원"); emit(key) }
-                else checked(key, c, position.name) {
-                    val listener = object : SeatOccupancyListener {
-                        override fun onSeatOccupancyUpdated(occupancy: Boolean?) = seatReceived(key, occupancy, SdkDelivery.CALLBACK)
-                        override fun onFailed(e: Exception) = failure(key, e)
+                post {
+                    val supported = position in areas
+                    checkedRead(key, if (supported) capability else SdkReadCapability(false, "개별 영역 미지원"),
+                        disabledLogKey = if (!capability.readable) "SEATS" else key) {
+                        reads.occupancy.query(position, { seatReceived(key, it, SdkDelivery.QUERY) }, { failure(key, it) })
+                        cleanup += reads.occupancy.subscribe(position, { seatReceived(key, it, SdkDelivery.CALLBACK) }, { failure(key, it) })
                     }
-                    seat.getCurrentSeatOccupancy(area, { seatReceived(key, it, SdkDelivery.QUERY) }, { failure(key, it) })
-                    cleanup += { seat.unregisterSeatOccupancy(area, listener) }; seat.registerSeatOccupancy(area, listener)
                 }
             }
         }, { e -> seats.forEach { failure("SEAT:${it.name}", e) } }) }
@@ -252,24 +254,19 @@ class PlaygroundSignalAdapter(private val context: Context, private val clock: C
             }
         }, { e -> seats.forEach { failure("BELT:${it.name}", e) } }) }
         val driver = SeatArea(SeatValue.ROW_1_LEFT)
-        attempt("VENTILATION_LEVEL") { seat.checkSeatVentilationCapabilities({ c, areas ->
-            if (driver !in areas) post { store.capability("VENTILATION_LEVEL", false, "운전석 개별 영역 미지원"); emit("VENTILATION_LEVEL") }
-            else checked("VENTILATION_LEVEL", c, "ROW_1_LEFT ${areas[driver]}") {
-                val bounds = areas.getValue(driver)
-                require(bounds.minValue >= 0) { "통풍 단계는 비음수여야 합니다." }
-                store.bounds("VENTILATION_LEVEL", bounds.minValue, bounds.maxValue)
+        attempt("VENTILATION_LEVEL") { reads.ventilation.check({ capability -> post {
+            checkedRead("VENTILATION_LEVEL", capability) {
+                val min = requireNotNull(capability.minValue)
+                val max = requireNotNull(capability.maxValue)
+                require(min >= 0) { "통풍 단계는 비음수여야 합니다." }
+                store.bounds("VENTILATION_LEVEL", min, max)
                 val state = stateSubscription<Int>("VENTILATION_LEVEL",
-                    { SdkStateNormalization.ventilation(it, bounds.minValue, bounds.maxValue) },
-                    { success, error -> seat.getHvacSeatVentilationState(driver, success, error) },
-                    "SDK 범위 ${bounds.minValue}..${bounds.maxValue} · 실제 통풍 단계, 0=꺼짐")
-                val listener = object : HvacSeatVentilationListener {
-                    override fun onHvacSeatVentilationUpdated(ventilation: Int?) = state.callback(ventilation)
-                    override fun onFailed(e: Exception) = state.error(e)
-                }
-                cleanup += { seat.unregisterHvacSeatVentilation(driver, listener) }; seat.registerHvacSeatVentilation(driver, listener)
+                    { SdkStateNormalization.ventilation(it, min, max) }, reads.ventilation::query,
+                    "SDK 범위 $min..$max · 실제 통풍 단계, 0=꺼짐")
+                cleanup += reads.ventilation.subscribe(state::callback, state::error)
                 state.start()
             }
-        }, { failure("VENTILATION_LEVEL", it) }) }
+        } }, { failure("VENTILATION_LEVEL", it) }) }
         // Console의 V1/V3는 이 온열/냉각 속성이다. 별도 통풍 단계로 바꿔 쓰지 않는다.
         val temperatureKey = "SEAT_TEMPERATURE:ROW_1_LEFT"
         attempt(temperatureKey) { seat.checkSeatTemperatureCapabilities({ c, areas ->

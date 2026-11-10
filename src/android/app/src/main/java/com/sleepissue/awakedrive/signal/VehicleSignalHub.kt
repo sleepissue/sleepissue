@@ -15,8 +15,9 @@ class VehicleSignalHub private constructor(private val session: SignalHubSession
 
     constructor(sources: List<HubSourceSet>, clock: Clock, policy: HubPolicy, config: EngineConfig = EngineConfig(),
         probe: WorkProbe = WorkProbe.NONE, gearObserver: ((GearSelectionDecision) -> Unit)? = null,
-        emissionObserver: ((FramePublication, Long) -> Unit)? = null) :
-        this(PeriodicSignalHub(sources, clock, policy, config, probe, gearObserver, emissionObserver))
+        emissionObserver: ((FramePublication, Long) -> Unit)? = null,
+        timingObserver: ((HubTimingPoint) -> Unit)? = null) :
+        this(PeriodicSignalHub(sources, clock, policy, config, probe, gearObserver, emissionObserver, timingObserver))
 
     companion object {
         /** 수동 운행의 명시적 관측 경로다. 실제 시간 타이머·중재 캐시를 만들지 않는다. */

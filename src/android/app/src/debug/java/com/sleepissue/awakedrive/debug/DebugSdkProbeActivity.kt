@@ -47,9 +47,11 @@ class DebugSdkProbeActivity : AppCompatActivity() {
     private lateinit var captureStatus: TextView
     private var lastCaptureAtMs: Long? = null
     private var publicationAudit = SdkPublicationAudit()
+    private var frameTimeAudit = SdkPublicationAudit()
     private var emissionAudit = SdkPublicationAudit()
     private var sdkLease: PlaygroundSdkOwnership.Lease? = null
     private var workProbe = WorkProbe.NONE
+    private var timingRecorder: DebugHubTimingRecorder? = null
     private val captureFileName get() = intent.getStringExtra("sdkCaptureFile")
         ?.takeIf { it.matches(Regex("sdk-signal-[a-zA-Z0-9-]+\\.json")) } ?: "sdk-signal-probe.json"
 
@@ -104,9 +106,13 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate).also { session = it }
         sessions++
         publicationAudit = SdkPublicationAudit()
+        frameTimeAudit = SdkPublicationAudit()
         emissionAudit = SdkPublicationAudit()
         workProbe = WorkProbe(System::nanoTime)
+        timingRecorder = if (intent.getBooleanExtra("sdkTiming", false)) DebugHubTimingRecorder() else null
+        val timing = timingRecorder
         val audit = publicationAudit
+        val scenarioAudit = frameTimeAudit
         val actualEmissionAudit = emissionAudit
         val a = PlaygroundSignalAdapter(applicationContext, clock, probePolicy, scope).also { adapter = it }
         val freshness = SignalFreshnessPolicy(probePolicy.ttlMs, probePolicy.ttlMs, MissingObservationPolicy.USE_RECEIPT_AGE)
@@ -116,13 +122,20 @@ class DebugSdkProbeActivity : AppCompatActivity() {
                 SignalFallbackPolicy(false, 0, ObservationTimeBasis.ELAPSED_REALTIME), ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config,
             probe = workProbe, emissionObserver = { publication, at ->
                 actualEmissionAudit.record(publication.sessionId, publication.sequence, at)
-            }).also { hub = it }
+                timing?.record(HubTimingPoint(HubTimingStage.EMIT_BEFORE, at, System.nanoTime(),
+                    "publish", sequence = publication.sequence))
+            }, timingObserver = timing?.let { recorder -> { point -> recorder.record(point) } }).also { hub = it }
         scope.launch {
             // 진단 TextView 갱신·SDK main 콜백이 100ms 발행을 직접 막지 않게 한다.
             // 부모 Job은 공유하므로 화면 중지 시 두 dispatcher의 작업이 함께 취소된다.
             h.start(CoroutineScope(scope.coroutineContext + Dispatchers.Default))
             scope.launch(Dispatchers.Default, start = CoroutineStart.UNDISPATCHED) {
-                h.samples.collect { frame -> frame.publication?.let { p -> audit.record(p.sessionId, p.sequence, p.publishedAtElapsedMs) } }
+                h.samples.collect { frame -> frame.publication?.let { p ->
+                    timing?.record(HubTimingPoint(HubTimingStage.CONSUMER_RECEIVED, clock.elapsedRealtimeMs(),
+                        System.nanoTime(), "consumer", sequence = p.sequence))
+                    audit.record(p.sessionId, p.sequence, p.publishedAtElapsedMs)
+                    scenarioAudit.record(p.sessionId, p.sequence, frame.tMs)
+                } }
             }
             a.start()
             while (isActive) {
@@ -164,9 +177,11 @@ class DebugSdkProbeActivity : AppCompatActivity() {
             "diagnostics" to h.diagnostics.value, "frame" to h.latestFrame.value,
             "navi" to h.latestNavi.value, "history" to a.store.history(),
             "publicationAudit" to publicationAudit.snapshot(), "ttlMs" to probePolicy.ttlMs,
+            "frameTimeAudit" to frameTimeAudit.snapshot(),
             "emissionAudit" to emissionAudit.snapshot(),
             "hubScheduler" to "DEFAULT",
-            "workProbe" to workProbe.snapshot())
+            "workProbe" to workProbe.snapshot(),
+            "timing" to timingRecorder?.snapshot(includePoints = reason != "자동 진단"))
         captureStatus.text = "진단 저장 중 · $reason"
         saveJob = captureScope.launch(start = CoroutineStart.UNDISPATCHED) {
             try {
@@ -202,7 +217,7 @@ class DebugSdkProbeActivity : AppCompatActivity() {
         val frame = h.latestFrame.value; val navi = h.latestNavi.value
         val emission = emissionAudit.snapshot()
         fun hz(value: Float?) = value?.let { "%.2f".format(it) } ?: "알 수 없음/측정 전"
-        summary.text = "${a.status.value} · 세션 $sessions · targetSdk ${applicationInfo.targetSdkVersion}\nHub 발행 ${d.emittedFrames}회 / ${hz(d.publicationRate.hz)}Hz · deadline 누락 ${d.skippedDeadlines} · 시계 오류 ${d.clockFailure}\n실제 emit 직전 간격 최대 ${emission.maxPublishedGapMs}ms · 110ms 초과 ${emission.gapsOver110ms}회 (엄격 주기 별도 확인)"
+        summary.text = "${a.status.value} · 세션 $sessions · targetSdk ${applicationInfo.targetSdkVersion}\nHub 발행 ${d.emittedFrames}회 / ${hz(d.publicationRate.hz)}Hz · deadline 누락 ${d.skippedDeadlines} · 시계 오류 ${d.clockFailure}\n실제 emit 직전 간격 최대 ${emission.maxPublishedGapMs}ms · 최소 ${emission.minPublishedGapMs}ms · 110ms 초과 ${emission.gapsOver110ms}회 · 90ms 미만 ${emission.gapsBelow90ms}회 (하한은 몰아 발행 진단용)"
         a.store.readings().forEach { r ->
             val field = runCatching { SignalField.valueOf(r.key) }.getOrNull()
             val nf = runCatching { NaviField.valueOf(r.key) }.getOrNull()
