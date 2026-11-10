@@ -1,0 +1,20 @@
+{
+  "gearBefore": "Park",
+  "gearAfter": "Park",
+  "controlsBefore": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0
+  },
+  "controlsAfter": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0
+  },
+  "modeBefore": "subscribe_hvac_base",
+  "modeAfter": "subscribe_hvac_base",
+  "emulatorActiveAfter": false,
+  "equal": true
+}

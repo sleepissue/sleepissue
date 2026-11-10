@@ -1,0 +1,16 @@
+{
+  "engine": {
+    "tests": 333,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 410,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "measurementInstalledApkSha256": "81bf0671ef553b0992787c82c722301a39b55f5e58a6fbbfebe591a30e0d4694",
+  "builtFinalApkSha256": "879939e3f61c6ac0360d92c2c5e8f62459c5075f9faba93bcb8abaf828e72709"
+}

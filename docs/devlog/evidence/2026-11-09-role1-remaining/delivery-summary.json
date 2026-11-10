@@ -1,0 +1,24 @@
+{
+  "emitBefore": {
+    "frames": 750,
+    "maxGapMs": 130,
+    "over110": 10,
+    "minGapMs": 64,
+    "below90": 12
+  },
+  "emitCompleted": {
+    "frames": 750,
+    "maxGapMs": 145,
+    "over110": 14,
+    "minGapMs": 48,
+    "below90": 14
+  },
+  "consumerReceipt": {
+    "frames": 750,
+    "maxGapMs": 130,
+    "over110": 11,
+    "minGapMs": 65,
+    "below90": 12
+  },
+  "guaranteedOver110UsingCurrentBeforeMinusPreviousAfter": 10
+}

@@ -1,0 +1,28 @@
+getSamples();
+    Code:
+         0: aload_0
+         1: getfield      #28                 // Field sampleObserver:Lkotlin/jvm/functions/Function1;
+         4: dup
+         5: ifnull        38
+         8: astore_1
+         9: iconst_0
+        10: istore_2
+        11: aload_0
+        12: getfield      #288                // Field hub:Lcom/sleepissue/awakedrive/signal/VehicleSignalHub;
+        15: invokevirtual #340                // Method com/sleepissue/awakedrive/signal/VehicleSignalHub.getSamples:()Lkotlinx/coroutines/flow/Flow;
+        18: new           #342                // class com/sleepissue/awakedrive/service/PlaygroundMonitorInput$samples$1$1
+        21: dup
+        22: aload_1
+        23: aconst_null
+        24: invokespecial #345                // Method com/sleepissue/awakedrive/service/PlaygroundMonitorInput$samples$1$1."<init>":(Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)V
+        27: checkcast     #324                // class kotlin/jvm/functions/Function2
+        30: invokestatic  #351                // Method kotlinx/coroutines/flow/FlowKt.onEach:(Lkotlinx/coroutines/flow/Flow;Lkotlin/jvm/functions/Function2;)Lkotlinx/coroutines/flow/Flow;
+        33: nop
+        34: dup
+        35: ifnonnull     46
+        38: pop
+        39: aload_0
+        40: getfield      #288                // Field hub:Lcom/sleepissue/awakedrive/signal/VehicleSignalHub;
+        43: invokevirtual #340                // Method com/sleepissue/awakedrive/signal/VehicleSignalHub.getSamples:()Lkotlinx/coroutines/flow/Flow;
+        46: areturn
+

@@ -1,0 +1,61 @@
+{
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122",
+  "branch": "develop-jdw",
+  "originalFileCount": 94,
+  "originalFilesByteIdentical": true,
+  "changedOriginalPaths": [],
+  "databaseBefore": {
+    "awakedrive_debug_trip.db": {
+      "logicalSha256": "4ab63693107d871c268d6c22accb2166ed7a7956a7e59c8e00247efafed06987",
+      "tableCounts": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "awakedrive_sdk_trip.db": {
+      "logicalSha256": "85bcb5c9876ba3f26198a6ff0f7c06307a8638f904d982381927703377a98f2f",
+      "tableCounts": {
+        "android_metadata": 1,
+        "drive_segment": 18,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    }
+  },
+  "databaseAfter": {
+    "awakedrive_debug_trip.db": {
+      "logicalSha256": "4ab63693107d871c268d6c22accb2166ed7a7956a7e59c8e00247efafed06987",
+      "tableCounts": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "awakedrive_sdk_trip.db": {
+      "logicalSha256": "85bcb5c9876ba3f26198a6ff0f7c06307a8638f904d982381927703377a98f2f",
+      "tableCounts": {
+        "android_metadata": 1,
+        "drive_segment": 18,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    }
+  },
+  "databaseLogicalEqual": true,
+  "installedApkSha256": "879939e3f61c6ac0360d92c2c5e8f62459c5075f9faba93bcb8abaf828e72709",
+  "localApkSha256": "879939e3f61c6ac0360d92c2c5e8f62459c5075f9faba93bcb8abaf828e72709",
+  "apkMatches": true,
+  "servicePresent": false,
+  "debugFixtureInRelease": false,
+  "stagedFileCount": 0,
+  "initialWorkUnchangedFiles": 41,
+  "initialWorkFileCount": 45,
+  "initialPeriodHubAndAuditPreserved": true
+}

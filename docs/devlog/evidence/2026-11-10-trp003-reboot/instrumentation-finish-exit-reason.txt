@@ -1,0 +1,4 @@
+        ApplicationExitInfo #0:
+          timestamp=2026-11-10 13:25:32.847 pid=12032 realUid=1010182 packageUid=1010182 definingUid=1010182 user=10
+          process=com.sleepissue.awakedrive reason=10 (USER REQUESTED) subreason=21 (FORCE STOP) status=0
+          importance=125 pss=0.00 rss=0.00 description=stop com.sleepissue.awakedrive due to finished inst state=empty trace=null

@@ -1,0 +1,135 @@
+  private final void timing(com.sleepissue.awakedrive.signal.HubTimingStage, java.lang.String, long, long);
+    Code:
+         0: aload_0
+         1: getfield      #53                 // Field timingObserver:Lkotlin/jvm/functions/Function1;
+         4: dup
+         5: ifnonnull     10
+         8: pop
+         9: return
+        10: astore        7
+        12: aload         7
+        14: aload_1
+        15: aload_0
+        16: getfield      #33                 // Field clock:Lcom/sleepissue/awakedrive/engine/time/Clock;
+        19: invokeinterface #607,  1          // InterfaceMethod com/sleepissue/awakedrive/engine/time/Clock.elapsedRealtimeMs:()J
+        24: invokestatic  #1873               // Method java/lang/System.nanoTime:()J
+        27: aload_2
+        28: lload_3
+        29: invokestatic  #1344               // Method java/lang/Long.valueOf:(J)Ljava/lang/Long;
+        32: astore        8
+        34: aload         8
+        36: checkcast     #1237               // class java/lang/Number
+        39: invokevirtual #1509               // Method java/lang/Number.longValue:()J
+        42: lstore        9
+        44: astore        18
+        46: lstore        16
+        48: lstore        14
+        50: astore        13
+        52: astore        12
+        54: iconst_0
+        55: istore        11
+        57: lload         9
+        59: lconst_0
+        60: lcmp
+        61: iflt          68
+        64: iconst_1
+        65: goto          69
+        68: iconst_0
+        69: istore        19
+        71: aload         12
+        73: aload         13
+        75: lload         14
+        77: lload         16
+        79: aload         18
+        81: iload         19
+        83: ifeq          91
+        86: aload         8
+        88: goto          92
+        91: aconst_null
+        92: lload         5
+        94: invokestatic  #1344               // Method java/lang/Long.valueOf:(J)Ljava/lang/Long;
+        97: astore        8
+        99: aload         8
+       101: checkcast     #1237               // class java/lang/Number
+       104: invokevirtual #1509               // Method java/lang/Number.longValue:()J
+       107: lstore        9
+       109: astore        19
+       111: astore        18
+       113: lstore        16
+       115: lstore        14
+       117: astore        13
+       119: astore        12
+       121: iconst_0
+       122: istore        11
+       124: lload         9
+       126: lconst_0
+       127: lcmp
+       128: ifle          135
+       131: iconst_1
+       132: goto          136
+       135: iconst_0
+       136: istore        20
+       138: aload         12
+       140: aload         13
+       142: lload         14
+       144: lload         16
+       146: aload         18
+       148: aload         19
+       150: iload         20
+       152: ifeq          160
+       155: aload         8
+       157: goto          161
+       160: aconst_null
+       161: aconst_null
+       162: aconst_null
+       163: sipush        192
+       166: aconst_null
+       167: astore        21
+       169: istore        22
+       171: astore        23
+       173: astore        24
+       175: astore        25
+       177: astore        26
+       179: astore        27
+       181: lstore        28
+       183: lstore        30
+       185: astore        32
+       187: new           #1875               // class com/sleepissue/awakedrive/signal/HubTimingPoint
+       190: dup
+       191: aload         32
+       193: lload         30
+       195: lload         28
+       197: aload         27
+       199: aload         26
+       201: aload         25
+       203: aload         24
+       205: aload         23
+       207: iload         22
+       209: aload         21
+       211: invokespecial #1878               // Method com/sleepissue/awakedrive/signal/HubTimingPoint."<init>":(Lcom/sleepissue/awakedrive/signal/HubTimingStage;JJLjava/lang/String;Ljava/lang/Long;Ljava/lang/Long;Ljava/lang/String;Ljava/lang/Integer;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+       214: invokeinterface #1547,  2         // InterfaceMethod kotlin/jvm/functions/Function1.invoke:(Ljava/lang/Object;)Ljava/lang/Object;
+       219: pop
+       220: return
+
+  static void timing$default(com.sleepissue.awakedrive.signal.PeriodicSignalHub, com.sleepissue.awakedrive.signal.HubTimingStage, java.lang.String, long, long, int, java.lang.Object);
+    Code:
+         0: iload         7
+         2: iconst_4
+         3: iand
+         4: ifeq          11
+         7: ldc2_w        #1886               // long -1l
+        10: lstore_3
+        11: iload         7
+        13: bipush        8
+        15: iand
+        16: ifeq          24
+        19: ldc2_w        #1886               // long -1l
+        22: lstore        5
+        24: aload_0
+        25: aload_1
+        26: aload_2
+        27: lload_3
+        28: lload         5
+        30: invokespecial #1608               // Method timing:(Lcom/sleepissue/awakedrive/signal/HubTimingStage;Ljava/lang/String;JJ)V
+        33: return
+

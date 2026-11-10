@@ -1,0 +1,13 @@
+{
+  "oldPid": 5656,
+  "newPid": 8445,
+  "beforeKillContinuousMs": 13194,
+  "lastSavedContinuousMs": 10894,
+  "restoredContinuousMs": 10894,
+  "differenceMs": 2300,
+  "stage": "CHECK",
+  "baseline": "role1-isolated-baseline",
+  "activeState": "UNKNOWN",
+  "snapshotTenFieldsAsserted": true,
+  "gapWasNotCountedAsOffOrPark": true
+}

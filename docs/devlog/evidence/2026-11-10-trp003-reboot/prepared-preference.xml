@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <boolean name="requested" value="true" />
+    <long name="requested_at_wall_ms" value="1794285068556" />
+    <boolean name="boot_pending" value="false" />
+</map>

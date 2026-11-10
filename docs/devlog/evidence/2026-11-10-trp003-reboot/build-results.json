@@ -1,0 +1,25 @@
+{
+  "engine": {
+    "tests": 333,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 413,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "total": 746,
+  "apks": {
+    "debug": {
+      "path": "src/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "0ec263c098accba2607a4f605b725149b1f1f58bff75f4226ddee17adfff4c52"
+    },
+    "test": {
+      "path": "src/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "sha256": "c5b01b5150814fb8c414eb50d15f656a2cbec81ca1dd88abe6ce31a379684343"
+    }
+  }
+}

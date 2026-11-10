@@ -1,0 +1,7 @@
+{
+  "compilePreparation": "첫 AndroidTest 컴파일의 RepositoryResult/TripLoadResult import 누락을 수정한 뒤 전체 재실행 성공. 그 실패 APK로 기기 부팅시험을 하지 않음.",
+  "instrumentationPreparation": "첫 준비 runner 종료가 USER REQUESTED/FORCE STOP으로 기록됨을 재부팅 전에 확인. 제품 중지보호를 바꾸지 않고 준비 runner를 requested=false로 정리하고 보이는 Activity의 새 확인 클릭으로 재개 의사를 저장.",
+  "actualRebootsOnlyAfterFinalVisibleArm": 2,
+  "hostOracleCorrection": "초기 호스트 assert가 역사 TripState.lastGear를 현재기어로 오인. 소스 계약과 raw checkpoint의 완전 일치를 대조해 현재 precise.lastObservation.gear를 검사하도록 호스트 검사만 정정. 제품 TripRules는 미수정.",
+  "consoleRestore": "재부팅 뒤 공개Console 캐시가 초기화돼 P·조명·공조 입력값을 공개 browser/session과 UI의 동일 HTTP 입력 경로로 복구. SDK 수집은 이미 종료된 뒤이며 세션을 닫아 input_active/emulator_active 원복. 원천/수신시각은 조작하지 않음."
+}

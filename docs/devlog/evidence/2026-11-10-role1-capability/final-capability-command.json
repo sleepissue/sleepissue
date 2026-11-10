@@ -1,0 +1,19 @@
+[
+  "adb",
+  "shell",
+  "am",
+  "instrument",
+  "--user",
+  "10",
+  "-w",
+  "-e",
+  "class",
+  "com.sleepissue.awakedrive.data.Role1CapabilityDeviceTest",
+  "-e",
+  "role1CapabilityFalse",
+  "true",
+  "-e",
+  "role1CapabilityRunId",
+  "final-capability-1794248412",
+  "com.sleepissue.awakedrive.test/androidx.test.runner.AndroidJUnitRunner"
+]

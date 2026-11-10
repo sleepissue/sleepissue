@@ -1,0 +1,582 @@
+{
+  "PROGRESS.md": {
+    "bytes": 44258,
+    "sha256": "8c2e753865de1ecc4f0f1d80a3ebda4675ee7576085b37f3bf7d02d1457aae43"
+  },
+  "docs/devlog/2026-11-09-main-merge.md": {
+    "bytes": 15084,
+    "sha256": "12ca6839fe530c5f4a7bbfbf980778b4a0cd585be19ddea136a30434763f90e9"
+  },
+  "docs/devlog/2026-11-09-plt013.md": {
+    "bytes": 14904,
+    "sha256": "10671635110e7fdd6893abeaa5118bfd8473d5dc75abfc7fe9ae8ac8177c2d71"
+  },
+  "docs/devlog/2026-11-09-role1-remaining.md": {
+    "bytes": 23206,
+    "sha256": "319ffed5f4402272c4f8471f945e7d3c3ef1132db5de4ad05e1cc15987b3fc75"
+  },
+  "docs/devlog/2026-11-09-sig-timing.md": {
+    "bytes": 16578,
+    "sha256": "8ebc500639743071dd3aecbc8a93910eedb83c3530ebfca7e6116ad9fa93d1fd"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/activity-events.txt.gz": {
+    "bytes": 659,
+    "sha256": "ac96e5a4679f399cd28e2d54cc53995b0a0f95ba2ffc7fc11893ca1a84d6bf47"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/analysis-final.json": {
+    "bytes": 2306,
+    "sha256": "14a868b559192074851c4f554ee2bc30d7e4d2e71f3193399582bf5c75ff9e18"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/analyze.py": {
+    "bytes": 7339,
+    "sha256": "1010f136d6fef4583ea6d9f127ab6080d11fced3a9c613dba5cbd37706ea2f36"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/analyzer-tests-final.txt": {
+    "bytes": 1255,
+    "sha256": "d9b5b00e2719483dc7055999df9538336ad9b2f62384b7c3cee63dbbe78b5376"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/analyzer-tests.txt": {
+    "bytes": 1102,
+    "sha256": "50bff13b92687c7015cae7ab0069635897f4e0202bced92578dec6d5c1676fba"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/build-summary.json": {
+    "bytes": 535,
+    "sha256": "0652f121d19292d47e673262d7132f51c8fb28a69a68d115c9cc96db67e784e0"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/completion-harness-final-build.txt": {
+    "bytes": 3600,
+    "sha256": "d065a7831cfc2afa1fe1d2bbfca17705e2059b9e286fa5621e96ce372cd1aa20"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/console-before.json": {
+    "bytes": 28144,
+    "sha256": "bbdcccf8ca6756bddd477221187d33c4977f9762cebf3826b8edaf368ee1b8d2"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/console-driving.json": {
+    "bytes": 27549,
+    "sha256": "d87aece498dd16694ddcae924d7ec6836afb914a8fda95f52e4132e314c632f2"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/console-restoration-check.json": {
+    "bytes": 405,
+    "sha256": "a9bc15d4037763e9bad72c6c38dd991ea69068ff5acd9efc4e512510b7e2e4f1"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/console-restored.json": {
+    "bytes": 28144,
+    "sha256": "4266c65cf5839cb5a0a650c4e491604ec863e05aee5f3bc8c249d767665e2343"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/device-runner.txt": {
+    "bytes": 1404,
+    "sha256": "e6be38b157618b1fddd779db5c2750202b83e076e12fa8e7465da87e74bde634"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/driver-marker-transfer.txt": {
+    "bytes": 28,
+    "sha256": "88804270bcbcc14dab58c7d89ebaf3404c69ffc007366f746a4af08435172f1d"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/driver-startup-parse-error.txt": {
+    "bytes": 774,
+    "sha256": "02d025aae90c68b621bc742653026110ec5e1f750033095bdaa549c2dd34d5e6"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/final-checks.json": {
+    "bytes": 417,
+    "sha256": "fac024c9d5155d4df1edcc4b01b0a8aeec93209dafdb382ad871cb27e3c9ca3b"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/final-test-harness-build.txt": {
+    "bytes": 3488,
+    "sha256": "a455d38601a47df4d58e6e8f775534ce3d017b3309c593bfcbe1fa4698a6ed9c"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/frames-and-saves.json.gz": {
+    "bytes": 362082,
+    "sha256": "a7ec5759a4e63575f7e5373d95ac0414eb2ff205aee85dd38da995eeea76fc95"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/inputs.json": {
+    "bytes": 63676,
+    "sha256": "8b9e3ac330300eccd71b77330215c192d8d3e94e45ae3b864329733438d38ca0"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/manifest-check.json": {
+    "bytes": 594,
+    "sha256": "2e0b8717cb1286718193b914e4d9aaa51111f01e07f679821712df26e9dbc638"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/nav-after-thirty-minutes.png": {
+    "bytes": 147899,
+    "sha256": "b7309f43e0f60f43fd165cd2afcf69433c7b2bd8da290609266d7ecb8b5b427d"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/nav-before-input.png": {
+    "bytes": 288231,
+    "sha256": "275c9ddfe046bf61aa17213c976160ec13899f2d06f69c677d665f6cddefca1a"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/nav-driving.png": {
+    "bytes": 250953,
+    "sha256": "31bc844aab0dc5a1a2998cbc78806a6d907928183dce309c772753f7a76739b2"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/navigation-confirmed.marker": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/navigation-observation.json": {
+    "bytes": 696,
+    "sha256": "851182b43b0e22aee7d35a2ea29c26d3358a09701c2eabce81eb1b2325b197b6"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/notification-first-monitor-failure.txt": {
+    "bytes": 4363,
+    "sha256": "1c3b6de15444fbdffdc41c37c528498838028e233af31b18799b0df5f5c6fcc4"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/notification-fix-build.txt": {
+    "bytes": 4916,
+    "sha256": "e1cdd646efe03e5170694feed45759eb0fdd602100e515a06ba695cdd6e98397"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/notification-regression-runner.txt": {
+    "bytes": 84,
+    "sha256": "7ed6255ef111fd358e229b60d0226e1727a00a50cf0ea2cae05cfee38204a385"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/notification-result.json": {
+    "bytes": 95,
+    "sha256": "eaec3e5765a69f04d2f870de077f07036bdefbdb6c26235ca713ddd15c748a70"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/notification-stop-target-before.txt": {
+    "bytes": 611,
+    "sha256": "60eb1ab9f63a18b876ef3a84930dc75cd144e04ab21d44878dd6e4dfbdca9cf5"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/pre-device-build.txt": {
+    "bytes": 5020,
+    "sha256": "833bb2d81f8de4ff1957c82f2942514ffa91e082df48f41d5f398a6ffea2d5f0"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/preservation-final.json": {
+    "bytes": 2696,
+    "sha256": "5ad33609188afe1709f1b1e5cdd0dd63a26f22eb9c989fe314b54dde779d8e66"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/requirements.json": {
+    "bytes": 2971,
+    "sha256": "806e59b41bc057f2b5aa2bf0d8e0dc193330d4f242ac44d8c1f8008d6957b73e"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/restore-completion-runner.txt": {
+    "bytes": 84,
+    "sha256": "5692fb71c6e2006f60cd9efe5cad1c3e2fb0c72b331164ce3b26c3eddcffe81b"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/restore-result.json": {
+    "bytes": 3620,
+    "sha256": "52f02f3e2fcb94814b70212d6b4a80237833aa68f224ac08dc67dc1823ca0109"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/result.json": {
+    "bytes": 20604,
+    "sha256": "6628ad58385fd2e4b15cb9dd28eeb914028459d502d23a0358dd6d72723b869b"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/screen-samples.json": {
+    "bytes": 40122,
+    "sha256": "2f3b5bf05a2d352d52b4545d14af94938d4d916e39d8b0f4df186fff54fa89cf"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/sdk-samples.json.gz": {
+    "bytes": 114739,
+    "sha256": "8eb4df53cca53bd07e5505b070982d5719b7425d522cf0d2db38cbdb9ce4d1c9"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/service-running.txt": {
+    "bytes": 2081,
+    "sha256": "5a921f4ceb148c1a4a4e61ba17e97c9e233852c78884319da05d215e82bb81ea"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/stopped-diagnostic.json": {
+    "bytes": 21813,
+    "sha256": "bef37625f9e81c887db5297361cf4eea84fdfb1c3b735054dd08dc27a05c7dc9"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/test_analyze.py": {
+    "bytes": 3515,
+    "sha256": "8e1a8b03adf38b68c6954f6425d092daf2bd67b0fb55d73e6cc6f536c048d383"
+  },
+  "docs/devlog/evidence/2026-11-09-plt013/verification-summary.json": {
+    "bytes": 1016,
+    "sha256": "a9fd29fb0105aa3bf04c6dca36d87f21fb05997d5cf51d29b85fa8cbf3ff3235"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/app-runtime.csv": {
+    "bytes": 1389,
+    "sha256": "205a45b0ceefde1f73a5668270c5db139355c36aaa147e7c2232d267fbcc137f"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/clock-snapshots.csv": {
+    "bytes": 727,
+    "sha256": "a2363aea0bf1b3a683fc0c7ac25f7e1c54f993b74399113fa6ae6b30623bf232"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/delivery-summary.json": {
+    "bytes": 433,
+    "sha256": "b41ee9ce27ab55fabe8529267520233dd91aa7ff2ba7aa8f3e9b6bf5ff485765"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/final-checks.json": {
+    "bytes": 382,
+    "sha256": "fa6aa2945dc5c1b166b6b996d2459387cc772e3c58c92310efbe5f387e1005f3"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/final-services.txt": {
+    "bytes": 66,
+    "sha256": "e9990d2b9ce9e862271712ca1ecd0c280ac8cd7a2fd48fc18fb69623521c33b0"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/final-tests-build.txt": {
+    "bytes": 10200,
+    "sha256": "332b12631e69502af24958c40aed628aaf8b6db08f5a6c31fa6b391f93a8f034"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/force-stop-analysis.json": {
+    "bytes": 330,
+    "sha256": "520f71edc9bd0aba3cc216329b93ab29f484b450ad23f92006c3eebcbb199c8f"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/gc-competition.csv": {
+    "bytes": 41401,
+    "sha256": "f34643e7d532226557b018e4d1b905a57ee7aac1bedd8a43ec4a7f6569a9da16"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/kill-intentional-termination-runner.txt": {
+    "bytes": 131,
+    "sha256": "7b26d5c9fdf80c8b23862f5167fcbd4fb8c9ceec6cd200b52581619b7a2c4880"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/kill-progress.json": {
+    "bytes": 1827,
+    "sha256": "484a43f33f085a67136b73f09ba5783c3527cf4929e7e1eaf784952a23adbbb0"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/late-gap-scheduling.json": {
+    "bytes": 3926,
+    "sha256": "83354668e2236a4eb0d79565366615bed432e8ef800aa82803fbfcc408c6250a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/latency-analysis.json": {
+    "bytes": 9930,
+    "sha256": "f137a9fa776ff960bf8fa1d366dcddb2baab947bbee07f1118ae23a0de49b355"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/latency-capture.json.gz": {
+    "bytes": 56315,
+    "sha256": "a01bf0c3e8abfd5371209a087e2dfc1196cded6676d66a45d827aa5964acbedd"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/latency-inputs.json": {
+    "bytes": 268612,
+    "sha256": "2e7addd83ec449cd4ff85322fdeaa2ab2b9180e835c2ae57aa051ce7416caeb0"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/latency-original-state.json": {
+    "bytes": 28151,
+    "sha256": "5fbb01f85e8ae4e5a11b331216946f7dd88b76c9a47132e3efad089ce94b439a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/latency-restored-state.json": {
+    "bytes": 28123,
+    "sha256": "f5113bd286104814e35fb269d07a1c6cdc57e013a2d955b487d023686d9c204b"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-analysis.json": {
+    "bytes": 3165,
+    "sha256": "6ef472791248e572dc4dc8235b2e1b868fa5185ee08024b2781a63d45164c9f5"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-inputs.json": {
+    "bytes": 2316,
+    "sha256": "ad04197187b1274cdf9d4cbe0f53daf7f055f705eb9c0a80143d2db63dbd5b3b"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-nav-background-service.txt": {
+    "bytes": 788,
+    "sha256": "ec10758f3700fca8a30bad3431a3e04b6bbf94cf3199fc612b4dc361d8c28bed"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-original-state.json": {
+    "bytes": 28123,
+    "sha256": "f5113bd286104814e35fb269d07a1c6cdc57e013a2d955b487d023686d9c204b"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-result.json": {
+    "bytes": 84073,
+    "sha256": "804a3aadfe36dd6f5b8a358b8a7ed345551f79ab60969593629fc43afcb37ffe"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/long-runner.txt": {
+    "bytes": 91,
+    "sha256": "1de12882f51473f51b97ee42b5ee9596c8b7a73dd9e8ee362635619710139f7a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/notification-final-runner.txt": {
+    "bytes": 87,
+    "sha256": "87f0aa5b9e08d3de4895722586959fb2ab6274c6bf8f0afc058289602c266f45"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/notification-final.json": {
+    "bytes": 114,
+    "sha256": "96ad2f7a9bcaf0d9b338d74a9a3a9f13c9c6c6c338d4a26c6c69055d85b1d3cf"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/pauses.csv": {
+    "bytes": 5746,
+    "sha256": "94004ea448d681954538b51fbb632c4f906a6b9159fa7af85b079c7f15977fef"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/perfetto-start.txt": {
+    "bytes": 5,
+    "sha256": "e8e36f75ec8659f134619f982005f88805458ccf0db0af3f97788996e754c497"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/perfetto.json.gz": {
+    "bytes": 156653,
+    "sha256": "e1a7722274b65de3b851f4aaca77249870d0ea3161ff6b555bb0322bee4128de"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/preservation-final.json": {
+    "bytes": 1889,
+    "sha256": "fc889ebd5fbce65be21eff5250ceef2b6273d4ff96ecc37120c3964d8a85df7b"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/requirements.json": {
+    "bytes": 53377,
+    "sha256": "e5d16dd1d069347d4dcd5c28d45b704c5d52efd17e97024ea7c1dd17aeb4161c"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/restore-after-kill-runner.txt": {
+    "bytes": 86,
+    "sha256": "c39db3e55d7e9048a594070f4e7259e1ea696b16237089d7171cf5371b42e6a3"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/restore-after-kill.json": {
+    "bytes": 3314,
+    "sha256": "22e383fac365a3e32ae5ab1f2aa2c31820e6c4e714c9e719581b082aa7f0806d"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/restore-after-long-runner.txt": {
+    "bytes": 87,
+    "sha256": "31606fea587dc22f7568c98d2080a74e43b6c1608e0d77a1cd8339886ab3a9e3"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/restore-after-long.json": {
+    "bytes": 2914,
+    "sha256": "35a2b2ab69ac0cae8ee12580731e5f269f2e6f0ad328405c4b0151c0dce2fefd"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/runtime-overlap.json": {
+    "bytes": 362,
+    "sha256": "71082e0a7cda4795a22c703904e3508516947ec040c6a0b34f943f51bf47ae46"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/sched.pbtxt": {
+    "bytes": 532,
+    "sha256": "44db7a296f8ab2aa4d1ccc6652313f5caa20f7a22fca793a81b5e8eebc9f178a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/service-notification-runner.txt": {
+    "bytes": 1355,
+    "sha256": "bf9cf74e2c0e9e01e5bd8a72a9ef8c17b402725496f9e78ae7231a805c522d17"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/service-notification.json": {
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/service-ownership-runner.txt": {
+    "bytes": 86,
+    "sha256": "4eb4dda00f486742f89ed920a3d288ab93d8b0ad8b58afda372dce0ed6930197"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/service-ownership.json": {
+    "bytes": 198,
+    "sha256": "498c1160d03236276bd044ef4e57e5c60811a98b4c64cedfd38a365f9ac46ebb"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/speed-permission-denied.json.gz": {
+    "bytes": 4832,
+    "sha256": "15606f5ebcbd364915115d5ad479213e20a5121a3f2a8669433ae4980eb3fd5a"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/speed-permission-restored.json.gz": {
+    "bytes": 4823,
+    "sha256": "6f06e8da693de2e18ac0fd4395fd554be7c73ef2a18ae8fac50a160d125b6071"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/speed-permission-summary.json": {
+    "bytes": 12596,
+    "sha256": "5615ab38dce22f5fcd00ba0ab57956e4a4969a1e2168a3749a70b19cef134f1e"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/system-trace-summary.json": {
+    "bytes": 1042,
+    "sha256": "917bf2f3c7a63a94bd2a4d62e23113ffa4f6e700e2106bc34dee6893c13ba4bc"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/tests-build-summary.json": {
+    "bytes": 375,
+    "sha256": "c6a35b325e9feb2d3e7e4726653ee4023f1aa0a1c3ad9542f60a1423ec339d8b"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/thread-states.csv.gz": {
+    "bytes": 267660,
+    "sha256": "e77feb6b8483066b58c3a31e5e5d2d21802df06bb809d5940a342ca5dcfb64d6"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/timer-waker.csv": {
+    "bytes": 238,
+    "sha256": "3e6191723a78315c9aa5bb6e84e5e3aa0fe6a9c58c3f5e65de722c278859d583"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/ventilation-latency.json": {
+    "bytes": 7406,
+    "sha256": "c6ac8bee9620b5d6c171ba1d8d35f888a996d252e9af645a2cb18c3c10412260"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/ventilation-runner.txt": {
+    "bytes": 87,
+    "sha256": "e47d6aca710e818d1b460f6d6adfbce6fa794b52334d871d8107f0c17613c1c3"
+  },
+  "docs/devlog/evidence/2026-11-09-role1-remaining/verification-summary.json": {
+    "bytes": 1403,
+    "sha256": "76648cafc8e0d2d977a1f8f359b0ab9d2a9279b8e21b4ee091fe053425d76e24"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/TEST-com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest.xml": {
+    "bytes": 1210,
+    "sha256": "6e8959c99ba3ff485e3fe220d49faad934b3687af962d91583b38cab3a9426cc"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/TEST-com.sleepissue.awakedrive.signal.PeriodicSignalHubTest.xml": {
+    "bytes": 3874,
+    "sha256": "cd25a4a8751f1e2c63b413b2575ee58df2d36f50053c4cfd29f40e88ca23da48"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/before-2.json": {
+    "bytes": 43685,
+    "sha256": "dadd39ab265c005288b567dad477b7d185ad26fbb63bbf7d661cc3830ec7870c"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/before-3.json": {
+    "bytes": 43687,
+    "sha256": "88578ad91ff84eadbc6022dbac155b12bf3a3749a9a19e40a047188f108d5910"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-active-state.json": {
+    "bytes": 1631,
+    "sha256": "528ecbea16cd6e85b841f366825d73dbcd061cb4f604edceb71a570d01b9f2bd"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-final-analysis.json": {
+    "bytes": 10907,
+    "sha256": "08ad677bc15d2ba09cb76cd3bc51cb155ddeeef0a790327344637f829a7108e5"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-final-frames.csv": {
+    "bytes": 53005,
+    "sha256": "3cd108b512a84683c836c191d1fb484c5cb5fe2012094964fb709e35c17c3905"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-final-raw.json.gz": {
+    "bytes": 141904,
+    "sha256": "1e493fedbd80fa1b41bed096c32ff186b403d4640dfcd32aadb87f092f8cba79"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-restored-state.json": {
+    "bytes": 181,
+    "sha256": "7fdd28b529f3eec41e309ce5da34d5b7322f048b74f4cccf7b26e9df4e39e4a5"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/console-stimulus.json": {
+    "bytes": 17866,
+    "sha256": "ad3abf7f891a6699f1479f864bf5a7f4c773d9de748fb3e99d8a18b1118ebf19"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/environment-before.json": {
+    "bytes": 570,
+    "sha256": "79788b70b403409a6b163f4bc94f15fa8442951dd5769b66aff79795f19d3ee0"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/final-1.json": {
+    "bytes": 44176,
+    "sha256": "79f651b361dc101831ca450f088e5c237ecc96d206fbafcaf4d42f981bc9c8f9"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/final-2.json": {
+    "bytes": 44160,
+    "sha256": "184e271764438fe1d24f257d0e3775421ae5b4ab1b527a0cdb1a55a2dcfa0d1d"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/final-tests-build.txt": {
+    "bytes": 10113,
+    "sha256": "256b1292373605c3fc62535a3c1edfe8439f15b4d6b82c035883516a05cb315b"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-1-analysis.json": {
+    "bytes": 10072,
+    "sha256": "e3f659d59735d62ab0ff4973e05304f965b4bf232af33c6ff44c53e2eac2bb21"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-1-frames.csv": {
+    "bytes": 52989,
+    "sha256": "954ebb512e0693f71dadba708c16b6aa77a568c79dc00942165b069399b8c9dd"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-1-raw.json.gz": {
+    "bytes": 135478,
+    "sha256": "c79b05a774b6ccef14638cbe31ebe1467fc3bee15b7334ada2f57b934eb9bbff"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-2-analysis.json": {
+    "bytes": 8541,
+    "sha256": "0cf6d449528a2b37b76665015e0ce7843bf2b419396c313a10ce46a61120e4d5"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-2-frames.csv": {
+    "bytes": 53137,
+    "sha256": "8f02a3cb650dd624246af3d50c236b696011008bf01484313e05ca84e59ba47e"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/isolated-2-raw.json.gz": {
+    "bytes": 137666,
+    "sha256": "c2ba03f0b4e960fdeefb8d74089bd201a0abe7ee991488337ff3680d19a47123"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/measurements.json": {
+    "bytes": 9286,
+    "sha256": "e8db8abe3ca799b5d7623310ba6c99d5a962c9cc4165a7c026bf50d9a5d61970"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/preservation-final.json": {
+    "bytes": 1736,
+    "sha256": "57ad042c34ab37590dacc84787d09cd5230fe8570dbcc8a1b22d60d6f006f49e"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/publisher-experiment-apk.json": {
+    "bytes": 94,
+    "sha256": "ad5222592a174fa47326e4dfdbfaa7f2d6c9a78243da24b9a2ea69a7fda99e27"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/publisher-experiment-build.txt": {
+    "bytes": 2669,
+    "sha256": "73b065edce18063836f254ad295251a403f46bbe3bd48c13f1e4ba0542239e6e"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/shared-1-analysis.json": {
+    "bytes": 10221,
+    "sha256": "7225e5e4d61fe4b5ce77dd24e2bd03d1e850c6ec2c4adfc7c070d47b65a5791d"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/shared-1-frames.csv": {
+    "bytes": 52963,
+    "sha256": "ef57755fe4efa45045028d004312e30d3d0e002f46b8555ad5b2425e2582d47b"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/shared-1-raw.json.gz": {
+    "bytes": 138369,
+    "sha256": "1ae053deebff6b205ade1a989ff3fe0525accb86e04021a63911fc4272b70012"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/srs-tc.json": {
+    "bytes": 7816,
+    "sha256": "ae1c9c11cab3516731805844b10a6bd22c6e82f05572edf454b2c48f51ea18e4"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/test-results.json": {
+    "bytes": 390,
+    "sha256": "1da7708d89114c6f6b669720fccf188b1fe50bb177958efd1e4dcaed1c201c4f"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/timing-build.txt": {
+    "bytes": 2878,
+    "sha256": "eb0e4f745e90d2f104b7188c2f5ffff0084b1d5e5a3c887bbe7ff3bdf959d341"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/trace-before-2-analysis.json": {
+    "bytes": 13064,
+    "sha256": "2d466829df7f099098b80e42442eaa06dbb43f9b5dad71fa6132a9c531b84ef4"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/trace-before-2-frames.csv": {
+    "bytes": 103486,
+    "sha256": "1ce56cdaecd156620556ed6c5308ffa20a5bd417b291341b37067e4dac887f2c"
+  },
+  "docs/devlog/evidence/2026-11-09-sig-timing/trace-before-2-raw.json.gz": {
+    "bytes": 249317,
+    "sha256": "8114d8bcb4884d8a638eb62b986c7a64ed7930790a416c09b90558b9e2a6db13"
+  },
+  "docs/setup/ROLE1_COMPLETION_STATUS.md": {
+    "bytes": 19654,
+    "sha256": "8abe756c0b6ebb7713566a2807e9e2e60be69c953ec4f40cbf0a74ae0036d108"
+  },
+  "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1Plt013DeviceTest.kt": {
+    "bytes": 16762,
+    "sha256": "aa3f576fe2d962a65fdcc7f950ee9f4e1cadf7d0647fbbd65c0a3f8b49f4652c"
+  },
+  "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1RemainingDeviceTest.kt": {
+    "bytes": 17855,
+    "sha256": "45f2126a264f2ef2d911af6a177cba68baed0992a71977b923e4904dc079df58"
+  },
+  "src/android/app/src/debug/AndroidManifest.xml": {
+    "bytes": 2728,
+    "sha256": "25d1706b5def6ec3f214bccd989c8e448f6470e7caab7ceb4f6f4a278d303c29"
+  },
+  "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugHarnessActivity.kt": {
+    "bytes": 30106,
+    "sha256": "8cb5cecc4a1267a649a67995294cab7faed4936ba0d860e0b72a38d5a9cc4a83"
+  },
+  "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugHubTimingRecorder.kt": {
+    "bytes": 792,
+    "sha256": "5f44de4cd3cab942cab268853b65a415602e199300ad2b2bee2a1871fa69135f"
+  },
+  "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugIsolatedMonitorService.kt": {
+    "bytes": 2762,
+    "sha256": "0269ecb5d3cf3d79b10544de08e966411d5058afff7a1717ee0705ea852ffa64"
+  },
+  "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugSdkProbeActivity.kt": {
+    "bytes": 16855,
+    "sha256": "5ccd5b79df38a80867929221cd6c45fd599d2e055a844bcbe13128f327a5b7c5"
+  },
+  "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugServiceContinuityAudit.kt": {
+    "bytes": 3459,
+    "sha256": "3db419e3a7de06fd9b4bba56e3e0b337c16896c4d32b9829550d88395e09c9ba"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkPublicationAudit.kt": {
+    "bytes": 6002,
+    "sha256": "55fd4232b8cb24cec65353b204247a1d99421d9fc8ab1c92a931bbc1e89ee63c"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/service/PlaygroundMonitorInput.kt": {
+    "bytes": 2598,
+    "sha256": "077369cd6e5c8c3f69080de1ee520b5ba6d7c64729617adfc31d01cd9d9a3729"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/service/RealTripMonitorService.kt": {
+    "bytes": 13949,
+    "sha256": "f46e60970ea841670714b9d56b41abc1738dd08212de29a1970359afaef79325"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/HubTimingPoint.kt": {
+    "bytes": 783,
+    "sha256": "c90f4ffdbfe5682b220b0d287474b1f6ebd37b1264f0502b943f1c29f5757d49"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PeriodicSignalHub.kt": {
+    "bytes": 29954,
+    "sha256": "9d1eb05c572287ff2f87ae3758b482980df953417f6f1267f4482aa9d50f4e7d"
+  },
+  "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/VehicleSignalHub.kt": {
+    "bytes": 1712,
+    "sha256": "623d56c8b622c02c3b176116ab888836b8b193a65653d2949965aa42b36d00e4"
+  },
+  "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkPublicationAuditTest.kt": {
+    "bytes": 5249,
+    "sha256": "64cfc387148a34aae5bc1c3b87c523d8db0df4dfc5ed6589e63f10cd0955a968"
+  },
+  "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PeriodicSignalHubTest.kt": {
+    "bytes": 24772,
+    "sha256": "389e1ed942aa2e1642479a2a1efc61eb14047d40820c11162c8b231bee67a8bb"
+  }
+}

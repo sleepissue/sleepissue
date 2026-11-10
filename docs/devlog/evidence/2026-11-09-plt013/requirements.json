@@ -1,0 +1,73 @@
+{
+  "sourceSha256": "2ea8c6d0baf3040f146fbbab0d87883f12108354411ffaad1f8e6fb1e95e69da",
+  "rows": [
+    {
+      "sheet": "Sys Req Spec",
+      "row": "15",
+      "cells": {
+        "A15": "REQ_SIG_001",
+        "B15": "SW",
+        "C15": "Interface",
+        "D15": "REQ_PRD_002",
+        "E15": "VehicleSignalHub는 조향각을 구독해 10 Hz 신호 묶음(SignalFrame)에 담아 내보내야 한다.",
+        "F15": "프레임 간격 ≤ 110 ms, 60 s 동안 누락 0건 (시간은 주입된 Clock 기준 — 데모 재생 중에는 시나리오 시계)",
+        "G15": "Hz",
+        "H15": "Must",
+        "I15": "기획서 4-2, 10장",
+        "J15": "미세 수정(0.5~3°) 지표는 균일한 시계열이 필요",
+        "K15": "Test",
+        "L15": "app/signal/VehicleSignalHub.kt (예정)",
+        "M15": "Vehicle SteeringWheel.registerSteeringWheelAngle",
+        "N15": "1번 신호·상태",
+        "O15": "Draft",
+        "P15": "2026-11-02",
+        "Q15": "원천 갱신 주기는 에뮬레이터에서 실측(REQ_SIG_009)"
+      }
+    },
+    {
+      "sheet": "Sys Req Spec",
+      "row": "193",
+      "cells": {
+        "A193": "REQ_PLT_013",
+        "B193": "SYS",
+        "C193": "Lifecycle",
+        "D193": "REQ_PRD_010",
+        "E193": "앱은 화면이 뒤로 가도 신호 수집·판단을 계속하도록 감시 포그라운드 서비스로 동작해야 하며, 마이크는 앱 화면이 보인 뒤에만 이 서비스에 추가해야 한다(REQ_TRP_004).",
+        "F193": "내비 화면 전환 후 30 min 동안 SignalFrame 누락 0건, 서비스 유형·권한 선언 일치",
+        "G193": "min",
+        "H193": "Must",
+        "I193": "검토 L-1",
+        "J193": "내비 화면을 띄운 동안에도 판단해야 하며, Android 14는 서비스마다 유형·권한 선언을 요구",
+        "K193": "Test",
+        "L193": "빌드 설정 · 전 모듈 (예정)",
+        "M193": "Foreground Service",
+        "N193": "팀 공통",
+        "O193": "Draft",
+        "P193": "2026-11-02",
+        "Q193": "서비스 유형은 메일 답 후 확정(메일 문의 9번)"
+      }
+    },
+    {
+      "sheet": "Test Case",
+      "row": "193",
+      "cells": {
+        "A193": "TC_PLT_013",
+        "B193": "REQ_PLT_013",
+        "C193": "1",
+        "D193": "Y",
+        "E193": "Emu v2.1.0(API 34) 실행, Virtual Console 연결(adb forward tcp:8088 tcp:8088). 내비 화면 전환 가능",
+        "F193": "1) 앱 실행 후 내비게이션 화면으로 전환\n2) 30 min 동안 SignalFrame 누락 수 계산\n3) Manifest 서비스 유형·권한과 실제 선언 비교",
+        "G193": "내비 화면 전환 후 30 min 동안 SignalFrame 누락 0건, 서비스 유형·권한 선언 일치",
+        "H193": "",
+        "I193": "",
+        "J193": "",
+        "K193": "",
+        "L193": "",
+        "M193": "",
+        "N193": "",
+        "O193": "",
+        "P193": "ET — 에뮬레이터 v2.1.0 시험"
+      }
+    }
+  ]
+}

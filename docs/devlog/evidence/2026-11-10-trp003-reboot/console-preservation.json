@@ -1,0 +1,20 @@
+{
+  "consoleInputAndSettingsEqualIgnoringProvenance": true,
+  "fullStateEqual": false,
+  "preservedEmulatorActive": true,
+  "preservedInputActive": true,
+  "restoredGear": {
+    "value": "Park",
+    "source": "web",
+    "timestamp_ms": 1794285760545,
+    "source_timestamp": 0,
+    "source_location": ""
+  },
+  "restoredAmbient": {
+    "mode": "On",
+    "color": "#ffffff",
+    "brightness_pct": 70
+  },
+  "restoredHvacPower": false,
+  "publicBrowserSessionOnlyAfterBothBootAssertions": true
+}

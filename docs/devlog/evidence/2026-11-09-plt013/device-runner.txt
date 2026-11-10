@@ -1,0 +1,27 @@
+
+com.sleepissue.awakedrive.data.Role1Plt013DeviceTest:
+Error in navigationForegroundForThirtyRealMinutesAuditsProducerConsumerAndStorage(com.sleepissue.awakedrive.data.Role1Plt013DeviceTest):
+kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 15000 ms
+	at kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)
+	at kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)
+	at java.lang.Thread.run(Thread.java:1012)
+
+
+Time: 1,836.34
+There was 1 failure:
+1) navigationForegroundForThirtyRealMinutesAuditsProducerConsumerAndStorage(com.sleepissue.awakedrive.data.Role1Plt013DeviceTest)
+kotlinx.coroutines.TimeoutCancellationException: Timed out waiting for 15000 ms
+	at kotlinx.coroutines.TimeoutKt.TimeoutCancellationException(Timeout.kt:189)
+	at kotlinx.coroutines.TimeoutCoroutine.run(Timeout.kt:157)
+	at kotlinx.coroutines.EventLoopImplBase$DelayedRunnableTask.run(EventLoop.common.kt:505)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.DefaultExecutor.run(DefaultExecutor.kt:105)
+	at java.lang.Thread.run(Thread.java:1012)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

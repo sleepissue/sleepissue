@@ -1,0 +1,343 @@
+[
+  {
+    "field": "STEERING_DEG",
+    "fakeCheckRepresentsSdkMethod": "checkSteeringWheelAngleCapabilities",
+    "checkFalseCount": 1,
+    "getterCount": 0,
+    "subscribeCount": 0,
+    "value": null,
+    "quality": {
+      "availability": "UNSUPPORTED",
+      "observationSequence": 17,
+      "observedAtMs": null,
+      "observedTimeBasis": "UNKNOWN",
+      "receivedAtElapsedMs": 43230411,
+      "selectionReason": "NO_VALID_INPUT",
+      "source": "REAL",
+      "sourceRateHz": null,
+      "sourceRateInfo": {
+        "acceptedObservations": 0,
+        "belowMinimum": null,
+        "duplicateObservations": 0,
+        "hz": null,
+        "observationsInWindow": 0,
+        "reversedObservations": 0,
+        "status": "UNMEASURABLE",
+        "timeBasis": "UNKNOWN"
+      },
+      "stateConfirmedAtElapsedMs": null,
+      "stateLeaseUntilElapsedMs": null
+    },
+    "disableLogCount": 1,
+    "disableLogLines": [
+      "43230403ms · STATE · STEERING_DEG · UNSUPPORTED · 지원 DEBUG_FAKE capability=false · "
+    ],
+    "sdkReadings": [
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "STEERING_DEG",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_DRIVE",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      }
+    ],
+    "pidBefore": 31063,
+    "pidAfter": 31063,
+    "pidUnchanged": true,
+    "readableTrueControlNormalizations": [
+      "SEMANTIC_UNCONFIRMED"
+    ],
+    "readableTrueControlApiReadable": true,
+    "cleanupFalse": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 25,
+      "framesAfterWait": 25,
+      "calls": [
+        "check:false"
+      ]
+    },
+    "cleanupTrue": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 13,
+      "framesAfterWait": 13,
+      "calls": [
+        "check:true",
+        "query",
+        "subscribe",
+        "unsubscribe"
+      ]
+    }
+  },
+  {
+    "field": "SEATS",
+    "fakeCheckRepresentsSdkMethod": "checkSeatOccupancyCapabilities",
+    "checkFalseCount": 1,
+    "getterCount": 0,
+    "subscribeCount": 0,
+    "value": null,
+    "quality": {
+      "availability": "UNSUPPORTED",
+      "observationSequence": 22,
+      "observedAtMs": null,
+      "observedTimeBasis": "UNKNOWN",
+      "receivedAtElapsedMs": 43236214,
+      "selectionReason": "NO_VALID_INPUT",
+      "source": "REAL",
+      "sourceRateHz": null,
+      "sourceRateInfo": null,
+      "stateConfirmedAtElapsedMs": null,
+      "stateLeaseUntilElapsedMs": null
+    },
+    "disableLogCount": 1,
+    "disableLogLines": [
+      "43236207ms · STATE · SEATS · UNSUPPORTED · 지원 DEBUG_FAKE capability=false · "
+    ],
+    "sdkReadings": [
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "SEAT:ROW_1_LEFT",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      },
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "SEAT:ROW_1_RIGHT",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      },
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "SEAT:ROW_2_LEFT",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      },
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "SEAT:ROW_2_CENTER",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      },
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "SEAT:ROW_2_RIGHT",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      }
+    ],
+    "pidBefore": 31063,
+    "pidAfter": 31063,
+    "pidUnchanged": true,
+    "readableTrueControlNormalizations": [
+      "LOSSY_SDK_BOOLEAN"
+    ],
+    "readableTrueControlApiReadable": true,
+    "cleanupFalse": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 14,
+      "framesAfterWait": 14,
+      "calls": [
+        "check:false"
+      ]
+    },
+    "cleanupTrue": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 13,
+      "framesAfterWait": 13,
+      "calls": [
+        "check:true",
+        "query:ROW_1_LEFT",
+        "subscribe:ROW_1_LEFT",
+        "query:ROW_1_RIGHT",
+        "subscribe:ROW_1_RIGHT",
+        "query:ROW_2_LEFT",
+        "subscribe:ROW_2_LEFT",
+        "query:ROW_2_CENTER",
+        "subscribe:ROW_2_CENTER",
+        "query:ROW_2_RIGHT",
+        "subscribe:ROW_2_RIGHT",
+        "unsubscribe:ROW_2_RIGHT",
+        "unsubscribe:ROW_2_CENTER",
+        "unsubscribe:ROW_2_LEFT",
+        "unsubscribe:ROW_1_RIGHT",
+        "unsubscribe:ROW_1_LEFT"
+      ]
+    }
+  },
+  {
+    "field": "VENTILATION_LEVEL",
+    "fakeCheckRepresentsSdkMethod": "checkSeatVentilationCapabilities",
+    "checkFalseCount": 1,
+    "getterCount": 0,
+    "subscribeCount": 0,
+    "value": null,
+    "quality": {
+      "availability": "UNSUPPORTED",
+      "observationSequence": 17,
+      "observedAtMs": null,
+      "observedTimeBasis": "UNKNOWN",
+      "receivedAtElapsedMs": 43239548,
+      "selectionReason": "NO_VALID_INPUT",
+      "source": "REAL",
+      "sourceRateHz": null,
+      "sourceRateInfo": null,
+      "stateConfirmedAtElapsedMs": null,
+      "stateLeaseUntilElapsedMs": null
+    },
+    "disableLogCount": 1,
+    "disableLogLines": [
+      "43239547ms · STATE · VENTILATION_LEVEL · UNSUPPORTED · 지원 DEBUG_FAKE capability=false · "
+    ],
+    "sdkReadings": [
+      {
+        "apiReadable": false,
+        "availability": "UNSUPPORTED",
+        "callbacks": 0,
+        "confirmedMs": null,
+        "key": "VENTILATION_LEVEL",
+        "lastDelivery": null,
+        "maxValue": null,
+        "minValue": null,
+        "nativeMs": null,
+        "normalization": "UNASSESSED",
+        "note": "",
+        "observations": 0,
+        "permission": "pleos.car.permission.CAR_SEATS",
+        "permissionGranted": true,
+        "queries": 0,
+        "raw": "미수신",
+        "receivedMs": null,
+        "rejectedDeliveries": 0,
+        "support": "DEBUG_FAKE capability=false",
+        "value": null
+      }
+    ],
+    "pidBefore": 31063,
+    "pidAfter": 31063,
+    "pidUnchanged": true,
+    "readableTrueControlNormalizations": [
+      "NORMALIZED"
+    ],
+    "readableTrueControlApiReadable": true,
+    "cleanupFalse": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 14,
+      "framesAfterWait": 14,
+      "calls": [
+        "check:false"
+      ]
+    },
+    "cleanupTrue": {
+      "hubRunning": false,
+      "owner": null,
+      "framesAtStop": 14,
+      "framesAfterWait": 14,
+      "calls": [
+        "check:true",
+        "subscribe",
+        "query",
+        "query",
+        "unsubscribe"
+      ]
+    }
+  }
+]

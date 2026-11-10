@@ -30,6 +30,12 @@
 | TripStateStore / Room | `app/.../signal/`, `app/.../data/` | 완료(저장·복원 코어) | 외부 모듈 최신값·제품 복원 연결 대기 |
 | RealTripMonitorService | `app/.../service/` | 진행중(구현 완료) | 실제 STR/ignition·시작 거부 기기 조건과 다른 담당 연결은 남음 |
 
+2026-11-09 PLT013: 내비 뒤 **실제1,800.531초,18,005개 발행/서비스 소비·deadline 누락0**, 기어AVAILABLE 전구간, Room180성공/실패0·완료간격최대10.464초 확인. 최초 종료harness timeout과 알림monitor 실패를 보존하고 짧은 후속 알림중지/재진입복원은통과했다. 격리 알림 대상만최소수정, 관련Kotlin31개·집계기9개·빌드성공. SIG001/002미달은그대로다. 기존111개파일/모든DB·설정복구, HEAD68696cf·커밋없음. [조건·실패분리·직접순서](docs/devlog/2026-11-09-plt013.md).
+
+2026-11-09 남은 기기 검증: Perfetto에서 일부 OS Runnable 대기 확인, **SIG001 110ms·SIG002 전체200ms는 미달 유지**. 기어/방향지시등/브레이크/목표속도는 이번 표본200ms, 공식 통풍128/105ms 확인. 격리 서비스 실제20분32초로5분 소급 제외·재출발/15분0·24h누적 유지, 저장 성공 이벤트 최대10.857초, force-stop 복원 차2.3초와10종, 알림/차속 권한 거부·복구 확인. 자동743개 및 빌드 성공·명시적 측정·회귀 JUnit6종 최종 정상 종료(시한 판정 별도)(복원 반복 포함7회). 기존94개 파일/사용자DB 보존·HEAD68696cf·커밋 없음. [근거·남은 조건·버튼 순서](docs/devlog/2026-11-09-role1-remaining.md).
+
+2026-11-09 실제1배속 주기 후속: **SIG_001 엄격110ms 미해결**. 최종 반복 emit 최대130/128ms·초과25/7회, Console 실제 조향 입력 동반131ms·13회(모두60초 이상, 순번/deadline 누락0). 전용 타이머 실험은 개선되지 않아 제외하고 선택적 구간 계측·최소/0ms 감사만 추가했다. 자동 **743개(engine333+app410), 실패/오류/skip0**, assembleDebug·AndroidTest APK·release manifest 성공. 기존83개 파일/수동·REAL DB 보존, HEAD68696cf 유지·커밋 없음. [원인·전후 측정·버튼 순서](docs/devlog/2026-11-09-sig-timing.md). 아래741/492/490개와 기기시험은 각각 이전 근거다.
+
 2026-11-08 최신 기능 확인: [요구별 구현/기기 확인/미검증/환경 미지원/의미 보류/연결 대기 표](docs/setup/ROLE1_COMPLETION_STATUS.md), [실행 기록](docs/devlog/2026-11-08-role1-finish.md). 아래 날짜별 수치는 당시 기록이다. 기존480개와 Room 기기10개는 과거 근거이며 이번 재실행과 구분한다.
 
 - 실제 통풍·현재 실내온도의 공식 현재값 재확인·만료·오류/null을 보완했다. 최초 조회/기어 재조회도 관측에서 제외하고 AAOS·일반/의미 보류 래퍼의 거부 배송 재전달을 차단했다. 내비 보고는 조회/자발 알림 구분 불가를 명시하고 Hub에서도 새 센서 관측 순번을 만들지 않는다. heading은 잘못된 위치·오류·조회 공백을 이어 붙이지 않는다.
@@ -151,6 +157,14 @@
 2026-11-09 1번 남은 SIG 실제 입력 후속: [현황표](docs/setup/ROLE1_COMPLETION_STATUS.md)·[실행/5종 결과표·직접 버튼](docs/devlog/2026-11-09-role1-sig-input.md)을 갱신했다. 기존 미커밋 모드 gate 보완을 보존하고 실제 기본 내비에서 **NaviHelper→어댑터→Hub60초/50m/TBT50m, 시험 경로 취소 후 세 값null**을 확인했다. 이전 `activeObserved=false` 원본에도 `ROUTE_GUIDING/false`가 있었으므로 입력 조건 미충족 서술을 정정한다. 위치 공백/오류 후 이력 단절의 Hub 회귀1개를 추가했으며 **이번 전체 자동492개(engine153+app339)·assembleDebug·AndroidTest APK·release manifest 성공**, 활성 내비 결합 기기1개는 별도다. 기존490개·Room 경계3개·통풍/기어 결합1개는 이전 기록이며 Room/통풍 기기시험은 재실행하지 않았다. geo fix는 Android GPS→내비 앱 배송까지 확인됐으나 NaviHelper 고정 위치로 **이동 heading 미검증**. 현재온도19.1°C·50표본 유지/READ만 확인했고 공개 변경 입력은 미확보다. 실제 교차로 통과·자연 도착·1초 시한은 미시험, **엄격110ms 미달은 별도 성능 과제**다. DB 모든 논리 행·기존 진단81개 파일·다른 담당 소스와 기존 미커밋 작업 보존, main 읽기 전용 비교만 수행. 전환·병합·커밋·push·삭제/초기화/Wipe 없음. 4번에게 확인할 provider/POI/이동·현재온도 입력 질문을 기록했다.
 
 2026-11-09 develop-jdw 최신 main 병합: 기존 미커밋100개 파일을 **08da2b9**에 원본 그대로 선별 커밋한 뒤 `git fetch origin`, `git merge origin/main`으로 **main5195e25 → 병합c39bcca**, 텍스트 충돌0. [SHA·호환 수정·팀 연결 계약·직접 실행 순서](docs/devlog/2026-11-09-main-merge.md)를 기록했다. 모드 gate/상태 재조회/거부 배송/관측 구분의 핵심8개 파일은 선별 커밋과 바이트 동일하며 main의BELT 변경도 보존했다. 새 UI launcher 미등록·SDK 화면 vehicleKeys 미정의·팀 데모 시험의 미존재 로컬 fixture 경로를 최소 보완했다. **병합 전492개와 구분한 병합 후741개(engine333+app408), 실패/오류/skip0·assembleDebug·AndroidTest APK·release manifest 성공**. 새 UI는 기동하지만 실제 신호/판단/음성/휴식의 제품 조립은 대기다. 수동/REAL DB·원본 진단 보존, 기존 성능/입력/STR 한계 유지. push·PR 생성/merge는 하지 않는다.
+
+2026-11-09 1번 최종 점검: [검토·TC 경계·다음 작업](docs/devlog/2026-11-09-role1-final-review.md)·[31개 요구별 최종 분류](docs/setup/ROLE1_COMPLETION_STATUS.md#요구별-최종-상태)를 갱신했다. 기존 미커밋/진단을 보존하고 격리 알림ID·채널 분리, 계측 예외 잠금 해제, 계측OFF 숫자 포장 제거만 보완했다. **최종 전체745개(engine333+app412), 실패/오류/skip0·debug APK/AndroidTest APK/release manifest 성공**. 이전743개/실제30분 근거와 구분하며 이번 설치·기기/성능 재시험은0이다. SIG001110ms·SIG002전체200ms 미달 유지. 실제24h/2h 대기·OOM은 원문 JVM TC의 새 필수조건이 아니다. 실제OFF→ON은환경제한, 정확한BOOT10종TC는실행가능미검증이다. 다음작업은조향·착석·통풍 capability=false 기기모의1건으로 선정만 했고 아직 시작하지 않았다. 브랜치/HEAD 유지·stage/커밋/push/PR·데이터 조작 없음.
+
+2026-11-10 1번 최신 알림·SIG007: [정확한 runner·세 신호 결과·보존](docs/devlog/2026-11-10-role1-capability.md). debug/test APK를 -r -t 교체설치하고 알림ID4102/독립채널·사용자DB 없는 화면·자기서비스중지/SDK해제 기기1개(6.065초), 명시적 SDK 경계 capability=false→제품 어댑터→Hub 모의3개(12.702초)를 확인했다. 세 신호 검사각1·getter/구독0·null/UNSUPPORTED·필드로그1·같은PID31063·정리 완료. 착석 공통capability 로그5행을1행으로 최소수정하고 회귀1개 추가. **최종 전체746개(engine333+app413), 실패/오류/skip0·debug/test APK·release manifest/Kotlin 성공**, release fake참조0. 이전745/30분은 과거근거와 구분. 기존기기122파일/사용자DB·진단·권한·Console 원상유지, 같은브랜치/HEAD·미커밋 보존. 성능미달/의미보류/동적입력미확인 유지, 30분·TRP003·성능재시험·커밋/push/PR 없음.
+
+2026-11-10 1번 TRP003 실제 부팅: [10종 매핑·BOOT횟수·직접명령·보존](docs/devlog/2026-11-10-trp003-reboot.md). 최종 APK에서 실제adb reboot2회, BOOT_COUNT32→33→34·boot_id3개상이 확인. 제품 MonitorBootReceiver→제품서비스공통경로의격리대상에서 UI/runner전 요청/서비스/입력/수집시작각1·운행저장timer1·checkpoint10종/전체일치·새입력전UNKNOWN/공백제외. 실제알림중지뒤둘째BOOT 요청/서비스0·중지DB동일. instrumentation종료USER_REQUESTED는보이는확인화면으로새의사를받고제품보호로직유지. **최종자동746(333+413), 실패/오류/skip0·debug/test APK·release manifest/Kotlin 성공**, 실제부팅은최종APK검증. 기존기기134파일/사용자DB·진단·권한보존, Console입력/설정복구·출처/시각메타는변경분리. arm제거·서비스없음·같은브랜치/HEAD·미커밋유지, 커밋/push/PR없음. SIG001/002미달·STR환경·동적입력/의미/팀연결대기유지.
+
+2026-11-10 1번 선별 저장 검토: [커밋 범위·일치 대조·제외 원본](docs/devlog/2026-11-10-role1-publish.md). 검증 코드211개 해시·746개 시험 XML·실제 재부팅 APK SHA 동일을 확인해 재시험하지 않았다. 신호/미지원 처리 bb657c1(15개), 감시/부팅 격리 e9815b6(14개)와 문서/필요 근거를 선별 저장한다. 빈 동기화marker·단독trace PID는 로컬 보존/커밋 제외. 일반 develop-jdw push만 진행하고 main/PR은 조회만 한다. SIG001/002 미달·동적입력/의미/환경/다른 담당 연결 대기 유지, 1번 전체 완료 아님.
 
 ### 2번 — 졸음 엔진 (`feat/engine-*`)
 

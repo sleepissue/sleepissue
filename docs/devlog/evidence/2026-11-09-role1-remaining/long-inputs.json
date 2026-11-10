@@ -1,0 +1,97 @@
+{
+  "events": [
+    {
+      "phase": "WAIT_FIRST_D",
+      "hostMonotonic": 20956.587086083,
+      "response": {
+        "bridge_ready": true,
+        "input_mode": "http-g29",
+        "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+        "supported_gears": [
+          "Park",
+          "Reverse",
+          "Neutral",
+          "Drive"
+        ],
+        "actual": {
+          "value": "Drive",
+          "source": "web",
+          "timestamp_ms": 1794220450786,
+          "source_timestamp": 0,
+          "source_location": ""
+        }
+      }
+    },
+    {
+      "phase": "WAIT_FIRST_P",
+      "hostMonotonic": 20960.834046917,
+      "response": {
+        "bridge_ready": true,
+        "input_mode": "http-g29",
+        "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+        "supported_gears": [
+          "Park",
+          "Reverse",
+          "Neutral",
+          "Drive"
+        ],
+        "actual": {
+          "value": "Park",
+          "source": "web",
+          "timestamp_ms": 1794220455033,
+          "source_timestamp": 0,
+          "source_location": ""
+        }
+      }
+    },
+    {
+      "phase": "WAIT_SECOND_D",
+      "hostMonotonic": 21261.848778499,
+      "response": {
+        "bridge_ready": true,
+        "input_mode": "http-g29",
+        "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+        "supported_gears": [
+          "Park",
+          "Reverse",
+          "Neutral",
+          "Drive"
+        ],
+        "actual": {
+          "value": "Drive",
+          "source": "web",
+          "timestamp_ms": 1794220756037,
+          "source_timestamp": 0,
+          "source_location": ""
+        }
+      }
+    },
+    {
+      "phase": "WAIT_SECOND_P",
+      "hostMonotonic": 21266.166636935,
+      "response": {
+        "bridge_ready": true,
+        "input_mode": "http-g29",
+        "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+        "supported_gears": [
+          "Park",
+          "Reverse",
+          "Neutral",
+          "Drive"
+        ],
+        "actual": {
+          "value": "Park",
+          "source": "web",
+          "timestamp_ms": 1794220760356,
+          "source_timestamp": 0,
+          "source_location": ""
+        }
+      }
+    }
+  ],
+  "restored": true,
+  "last": {
+    "phase": "DONE",
+    "completed": true
+  }
+}

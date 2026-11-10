@@ -1,0 +1,61 @@
+"name"
+"__intrinsic_clock_snapshot"
+"clock_snapshot"
+
+"ts","dur","name","tid"
+14845991581846,383801,"JIT compiling java.util.concurrent.atomic.AtomicReferenceFieldUpdater kotlinx.coroutines.flow.StateFlowImpl.get_state$volatile$FU() (kind=Baseline)",5400
+14848095823079,555526,"JIT compiling java.util.concurrent.atomic.AtomicReferenceFieldUpdater kotlinx.coroutines.internal.LockFreeTaskQueue.get_cur$volatile$FU() (kind=Baseline)",5400
+14849269512195,91830158,"Background concurrent copying GC",5401
+14849356362516,10432,"Suspending mutator threads",5401
+14849356394583,4492,"Resuming mutator threads",5401
+14849391019314,114509,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.CancellableContinuationImpl.get_decisionAndIndex$volatile$FU() (kind=Baseline)",5400
+14850581337359,351372,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.scheduling.WorkQueue.getConsumerIndex$volatile$FU() (kind=Baseline)",5400
+14852501755805,201440,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.scheduling.CoroutineScheduler.get_isTerminated$volatile$FU() (kind=Baseline)",5400
+14853432087848,193647,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.scheduling.WorkQueue.getProducerIndex$volatile$FU() (kind=Baseline)",5400
+14854201725168,233712,"JIT compiling java.util.concurrent.atomic.AtomicReferenceArray kotlinx.coroutines.internal.LockFreeTaskQueueCore.getArray() (kind=Baseline)",5400
+14855038573911,23968166,"Background young concurrent copying GC",5401
+14855059688868,6859,"Suspending mutator threads",5401
+14855059707413,7658,"Resuming mutator threads",5401
+14855557828236,292539,"JIT compiling boolean androidx.concurrent.futures.AbstractResolvableFuture$SafeAtomicHelper$$ExternalSyntheticBackportWithForwarding0.m(java.util.concurrent.atomic.AtomicReferenceFieldUpdater, java.lang.Object, java.lang.Object, java.lang.Object) (kind=Baseline)",5400
+14856452191865,194283,"JIT compiling java.util.concurrent.atomic.AtomicLongFieldUpdater kotlinx.coroutines.scheduling.CoroutineScheduler.getParkedWorkersStack$volatile$FU() (kind=Baseline)",5400
+14859543827940,174352,"JIT compiling java.util.concurrent.atomic.AtomicReferenceFieldUpdater kotlinx.coroutines.CancellableContinuationImpl.get_parentHandle$volatile$FU() (kind=Baseline)",5400
+14860419792169,49423180,"Background concurrent copying GC",5401
+14860422774647,2065,"Lock contention on concurrent copying mark stack lock (owner tid: 5620)",5401
+14860463502431,9875,"Suspending mutator threads",5401
+14860463532803,4722,"Resuming mutator threads",5401
+14862483144977,193773,"JIT compiling java.util.concurrent.atomic.AtomicReferenceFieldUpdater kotlinx.coroutines.CancellableContinuationImpl.get_state$volatile$FU() (kind=Baseline)",5400
+14863703206701,210523,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.getWorkerCtl$volatile$FU() (kind=Baseline)",5400
+14866257928830,12197748,"Background young concurrent copying GC",5401
+14866267810293,4900,"Suspending mutator threads",5401
+14866267827588,2749,"Resuming mutator threads",5401
+14872014397441,71285380,"Background concurrent copying GC",5401
+14872081135011,5580,"Suspending mutator threads",5401
+14872081154373,2743,"Resuming mutator threads",5401
+14874591285338,127672,"JIT compiling java.util.concurrent.atomic.AtomicIntegerFieldUpdater kotlinx.coroutines.internal.ThreadSafeHeap.get_size$volatile$FU() (kind=Baseline)",5400
+14878801338192,204919,"JIT compiling java.util.concurrent.atomic.AtomicLongFieldUpdater kotlinx.coroutines.scheduling.CoroutineScheduler.access$getControlState$volatile$FU() (kind=Baseline)",5400
+14878911458591,16794357,"Background young concurrent copying GC",5401
+14878924261653,11463,"Suspending mutator threads",5401
+14878924286907,7883,"Resuming mutator threads",5401
+14884787141445,50450532,"Background concurrent copying GC",5401
+14884833678011,5742,"Suspending mutator threads",5401
+14884833699437,3791,"Resuming mutator threads",5401
+14887491938881,179065,"JIT compiling java.util.concurrent.atomic.AtomicReferenceFieldUpdater kotlinx.coroutines.internal.LockFreeLinkedListNode.get_next$volatile$FU() (kind=Baseline)",5400
+14891542471987,11855468,"Background young concurrent copying GC",5401
+14891551282212,16843,"Suspending mutator threads",5401
+14891551315863,12517,"Resuming mutator threads",5401
+14892782991366,168189,"JIT compiling java.util.concurrent.atomic.AtomicLongFieldUpdater kotlinx.coroutines.scheduling.CoroutineScheduler.getControlState$volatile$FU() (kind=Baseline)",5400
+14892989548620,290911,"JIT compiling java.lang.Object java.util.concurrent.atomic.AtomicReferenceFieldUpdater$AtomicReferenceFieldUpdaterImpl.get(java.lang.Object) (kind=Baseline)",5400
+14894143646575,39930205,"Background young concurrent copying GC",5401
+14894173940050,71457,"Suspending mutator threads",5401
+14894174037301,10872,"Resuming mutator threads",5401
+14894818829233,41667633,"Background concurrent copying GC",5401
+14894822605698,4148,"Lock contention on concurrent copying mark stack lock (owner tid: 5617)",5401
+14894858230182,10102,"Suspending mutator threads",5401
+14894858254590,7341,"Resuming mutator threads",5401
+14895363861371,29244629,"Background young concurrent copying GC",5401
+14895391839884,19591,"Suspending mutator threads",5401
+14895391881148,19169,"Resuming mutator threads",5401
+14895393430748,58502037,"Background concurrent copying GC",5401
+14895397182380,3338,"Lock contention on concurrent copying mark stack lock (owner tid: 5617)",5401
+14895445624097,9676,"Suspending mutator threads",5401
+14895445651071,2728,"Resuming mutator threads",5401

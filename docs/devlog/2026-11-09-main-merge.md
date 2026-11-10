@@ -10,7 +10,7 @@ AGENTS.md를 먼저 읽고 시작했다. 범위는 기존 신호·운행·저장
 | 기존 작업 선별 커밋 | `08da2b9c94e1e63c45fe74c240aa07f76b2dee36` — 상태 신호 재확인·거부 배송 차단·조회/관측 구분·내비 gate·heading 이력·emit 감사와 코드/기기 회귀·문서·증거100개 파일 |
 | fetch한 main | `5195e258470de85a9fe4337a5abb439199e3f013` — UI·엔진·음성·쉼터·데모 시험 반영 |
 | 병합 커밋 | `c39bcca44060b88f50d348c7f1b6663a151c717d` — 첫 부모08da2b9, 둘째 부모5195e25, `git merge origin/main`의 ort 자동 병합. 텍스트 충돌0 |
-| 후속 호환 수정·검증 커밋 | 이 문서를 포함하는 후속 커밋. 최종 SHA는 `git log -1 --format=%H` 또는 작업 결과 보고 참조 |
+| 후속 호환 수정·검증 커밋 | `68696cf158f5cc94ea3b257b87cc2b01bba4a122` — 호환 수정·기기 회귀·병합 기록 |
 
 시작 미커밋100개 파일의 원본·해시·diff는 `/tmp/awakedrive-main-merge-tj5ysh9o/`에 별도 보관했다. 08da2b9의100개 파일이 시작 원본과 바이트 단위로 모두 같음을 확인했다. 실제 DB·APK·SDK 바이너리·local.properties·환경 파일·키·임시 산출물은 커밋하지 않았다. 문서 evidence의 공개 시험 원시 이벤트·runner 로그·스크린샷은 의도한 검증 기록으로 포함했다. 기존 raw runner3개의 EOF 공백 경고는 원본 보존을 위해 고치지 않았다. stash·reset --hard·커밋 재작성·강제 push·브랜치 전환은 사용하지 않았다.
 
@@ -104,4 +104,4 @@ adb shell am instrument --user 10 -w \
 
 [최종 보존 대조](evidence/2026-11-09-main-merge/preservation-final.json): 수동/REAL 두 DB의 모든 논리 행 해시가 전후 같고 integrity=ok, 기존 운전구간1개/18개 보존. 기존 DB·shared_prefs·cache **81개 파일 모두 바이트 동일**이다. 시험 출력은 cache/role1-main-merge-smoke.json·sdk-signal-main-merge-smoke.json의 새 이름만 사용했다. DB나 기존 진단을 백업본으로 덮지 않았다. 감시 requested=false·실행 서비스 없음·최종 SDK owner=null이며 마지막 화면은 새 AwakeDrive 홈이다. 앱 삭제·데이터 초기화·AVD Wipe는 없었다.
 
-[병합 출처](evidence/2026-11-09-main-merge/merge-provenance.json), [핵심8개 원본 보존](evidence/2026-11-09-main-merge/critical-source-retention.json), [manifest 결과](evidence/2026-11-09-main-merge/manifests.json), [기동 확인](evidence/2026-11-09-main-merge/entrypoints.json), [main 대비 변경](evidence/2026-11-09-main-merge/changes-vs-main.txt)을 남긴다. 최종 작업 트리는 후속 호환 수정·기록 커밋 후 clean으로 마무리한다.
+[병합 출처](evidence/2026-11-09-main-merge/merge-provenance.json), [핵심8개 원본 보존](evidence/2026-11-09-main-merge/critical-source-retention.json), [manifest 결과](evidence/2026-11-09-main-merge/manifests.json), [기동 확인](evidence/2026-11-09-main-merge/entrypoints.json), [main 대비 변경](evidence/2026-11-09-main-merge/changes-vs-main.txt)을 남긴다. 당시 후속 호환 수정·기록 커밋68696cf 후 작업 트리는 clean이었다. 이후 주기/남은 기기 검증은 같은 HEAD의 미커밋 변경으로 이어가며, 해당 변경을 커밋하지 않는다.

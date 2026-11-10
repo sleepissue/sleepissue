@@ -1,0 +1,2 @@
+# 진단 원시 CSV의 CRLF와 SHA를 보존한다. 앱 소스의 줄끝 규칙에는 영향을 주지 않는다.
+*-frames.csv -text whitespace=cr-at-eol
