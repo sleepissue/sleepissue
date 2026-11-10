@@ -1,0 +1,73 @@
+{
+  "releaseComponents": [
+    {
+      "type": "activity",
+      "name": "com.sleepissue.awakedrive.ui.DrivingPreviewActivity",
+      "exported": "true",
+      "label": "AwakeDrive"
+    },
+    {
+      "type": "activity",
+      "name": "com.sleepissue.awakedrive.service.RealTripMonitorActivity",
+      "exported": "false",
+      "theme": "@style/Theme.SleepIssue"
+    },
+    {
+      "type": "service",
+      "name": "com.sleepissue.awakedrive.service.RealTripMonitorService",
+      "exported": "false",
+      "foregroundServiceType": "specialUse"
+    },
+    {
+      "type": "receiver",
+      "name": "com.sleepissue.awakedrive.service.MonitorBootReceiver",
+      "exported": "false"
+    },
+    {
+      "type": "service",
+      "name": "androidx.room.MultiInstanceInvalidationService",
+      "directBootAware": "true",
+      "exported": "false"
+    },
+    {
+      "type": "provider",
+      "name": "androidx.startup.InitializationProvider",
+      "authorities": "com.sleepissue.awakedrive.androidx-startup",
+      "exported": "false"
+    },
+    {
+      "type": "receiver",
+      "name": "androidx.profileinstaller.ProfileInstallReceiver",
+      "directBootAware": "false",
+      "enabled": "true",
+      "exported": "true",
+      "permission": "android.permission.DUMP"
+    }
+  ],
+  "releaseOwnKotlinClassCount": 661,
+  "debugFixtureReferencesInReleaseClasses": [],
+  "releasePermissions": [
+    "pleos.car.permission.CAR_DRIVE",
+    "pleos.car.permission.CAR_LIGHTS",
+    "pleos.car.permission.CAR_SEATS",
+    "pleos.car.permission.CAR_CLIMATE",
+    "pleos.car.permission.NAVI_ROUTE",
+    "pleos.car.permission.NAVI_ROUTE_SEARCH",
+    "pleos.car.permission.NAVI_CUSTOM_MAP",
+    "pleos.car.permission.CONTROL_CAR_SEATS",
+    "android.car.permission.CAR_SPEED",
+    "android.car.permission.CAR_POWERTRAIN",
+    "android.permission.FOREGROUND_SERVICE",
+    "android.permission.FOREGROUND_SERVICE_SPECIAL_USE",
+    "android.permission.POST_NOTIFICATIONS",
+    "android.permission.RECEIVE_BOOT_COMPLETED",
+    "android.permission.RECORD_AUDIO",
+    "pleos.car.permission.TTS_SERVICE",
+    "pleos.car.permission.STT_SERVICE",
+    "android.permission.INTERNET",
+    "ai.pleos.playground.service.vehicle.VEHICLE_BINDING",
+    "com.sleepissue.awakedrive.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+  ],
+  "fixtureSource": "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugCapabilityReadFeatures.kt",
+  "runnerSource": "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1CapabilityDeviceTest.kt"
+}

@@ -6,6 +6,8 @@
 
 2026-11-05 추가한 [DemoClock·JSON 재생](ROLE1_DEMO_PLAYER.md)은 이 Hub를 그대로 사용한다. Player 종료/시간 초기화 때의 Hub 중지·새 세션 계약과 가짜 REAL 대비 실제 SDK 동시 수신의 검증 범위는 해당 문서에서 구분한다.
 
+2026-11-08: SDK의 여섯 상태는 `confirmationFields`로 재조회 확인을 전달한다. NaviHelper는 조회 응답과 자발 알림을 구분하지 못하므로 `NaviSignalSource.stateReportsOnly=true`로 전달하며 Hub는 값·품질만 갱신하고 센서 관측 순번을 만들지 않는다. 기존 원천의 기본값은 false다. SDK 원천 Hz는 UNKNOWN이다. `emissionObserver`는 실제 버스 emit 직전 elapsed 시각을 별도로 감사하며 기존 프레임/원천 시각을 덮지 않는다. [최신 판정](ROLE1_COMPLETION_STATUS.md).
+
 ## 생성 경로와 책임
 
 | 경로 | 용도·동작 |
@@ -33,6 +35,8 @@
 ## 입력·최신성·선택
 
 `VehicleSignalInput`의 기본은 **완전 관측**이다. 누락/null은 기존 값을 지운다. 부분 갱신은 `updatedFields=setOf(...)`를 명시한다. 집합에 없는 필드만 유지하고, 집합 안의 null은 지운다. 내비·전원은 완전 관측 계약을 유지한다.
+
+2026-11-08 실제 SDK의 방향지시등·브레이크·크루즈 상태/목표 속도 재조회에는 `confirmationFields`를 명시한다(기본 빈 집합). 확인 전용 필드도 캐시/최종 품질·확인 lease와 값 변경·명시 null을 반영하지만, `rawVehicleObservations`의 센서 관측·`vehicleCallbacks`·관측 순번에는 추가하지 않는다. 그 외 관측은 기존 통로로 전달한다. `updatedFields`의 부분 유지/명시 null 의미는 변하지 않으며, 재조회는 **새 센서 콜백이나 조작 근거가 아니다**. 같은 값의 재확인에서는 원천/실수신 시각도 유지한다. 기어의 기존 확인 경로·DEMO Player 입력 기본값은 유지한다. [실제 SDK 정책](ROLE1_PLAYGROUND_SDK.md#방향지시등브레이크크루즈-현재값-확인-2026-11-08)과 [실제/자동 시험 구분](../devlog/2026-11-08-state-signals.md)을 참고한다.
 
 ```kotlin
 VehicleSignalInput(
@@ -135,3 +139,5 @@ hub.start(ownerScope)
 ## 2026-11-06 후속 — 완전 관측 인계와 발행 스케줄
 
 JSON의 차량·내비·전원을 한 번에 인계하는 완전 관측 경로, Player의 원본 준비, 짧은 묶음 양보·명령 기아 방지를 검증했다. 기본 실행 통로는 `DEFAULT_LANE`이며 시간축·최신성·REAL 우선·DEMO 좌표 예외·원천 Hz 계약은 유지한다. 이전350개 시험 기록에 이어 현재 **engine149개+app227개=376개·assembleDebug 통과**를 확인했지만, **실제 예상외null0 목표는 미달**이다. 같은 AVD의 전후 측정·발행 누락과 원본 감사의 구분·미해결 항목은 [후속 개발 기록](../devlog/2026-11-06-demo-transport.md)에 정리했다.
+
+최초 QUERY도 `confirmationFields`로 표시한다. 값이 바뀐 초기 조회/재조회는 상태 캐시에 반영하지만 콜백 계수·raw 센서 관측·관측 순번·조향 원천 Hz를 늘리지 않는다. actual callback은 별개다. AAOS 기어도 이 계약을 따른다.

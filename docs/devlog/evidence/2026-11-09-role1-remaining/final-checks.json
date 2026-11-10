@@ -1,0 +1,15 @@
+{
+  "checkedFiles": 99,
+  "secretMatches": [],
+  "forbiddenArtifacts": [],
+  "brokenLocalLinks": [],
+  "diffCheck": "PASS",
+  "permissionsRestored": {
+    "android.permission.POST_NOTIFICATIONS": true,
+    "android.car.permission.CAR_SPEED": true
+  },
+  "adbForwardList": "",
+  "sdkStoppedUi": true,
+  "branch": "develop-jdw",
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122"
+}

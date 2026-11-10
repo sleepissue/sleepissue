@@ -1,0 +1,212 @@
+[
+  {
+    "seq": 2,
+    "gapMs": 128,
+    "dueMs": 14818688,
+    "resumeMs": 14818727,
+    "resumeTid": 5675,
+    "emitMs": 14818729,
+    "windowStateMs": {},
+    "stateSpans": [],
+    "traceCoverage": false
+  },
+  {
+    "seq": 5,
+    "gapMs": 130,
+    "dueMs": 14818988,
+    "resumeMs": 14818999,
+    "resumeTid": 5622,
+    "emitMs": 14819020,
+    "windowStateMs": {},
+    "stateSpans": [],
+    "traceCoverage": false
+  },
+  {
+    "seq": 7,
+    "gapMs": 121,
+    "dueMs": 14819188,
+    "resumeMs": 14819190,
+    "resumeTid": 5617,
+    "emitMs": 14819212,
+    "windowStateMs": {},
+    "stateSpans": [],
+    "traceCoverage": false
+  },
+  {
+    "seq": 218,
+    "gapMs": 112,
+    "dueMs": 14840288,
+    "resumeMs": 14840299,
+    "resumeTid": 5675,
+    "emitMs": 14840302,
+    "windowStateMs": {},
+    "stateSpans": [],
+    "traceCoverage": false
+  },
+  {
+    "seq": 231,
+    "gapMs": 120,
+    "dueMs": 14841588,
+    "resumeMs": 14841610,
+    "resumeTid": 5622,
+    "emitMs": 14841611,
+    "windowStateMs": {},
+    "stateSpans": [],
+    "traceCoverage": false
+  },
+  {
+    "seq": 305,
+    "gapMs": 114,
+    "dueMs": 14848988,
+    "resumeMs": 14848999,
+    "resumeTid": 5617,
+    "emitMs": 14849004,
+    "windowStateMs": {
+      "S": 1.074237,
+      "R": 10.738544,
+      "Running": 0.169311
+    },
+    "stateSpans": [
+      {
+        "ts": 14848901656188,
+        "dur": 87418049,
+        "state": "S"
+      },
+      {
+        "ts": 14848989074237,
+        "dur": 10738544,
+        "state": "R"
+      },
+      {
+        "ts": 14848999812781,
+        "dur": 888753,
+        "state": "Running"
+      }
+    ],
+    "traceCoverage": true
+  },
+  {
+    "seq": 326,
+    "gapMs": 121,
+    "dueMs": 14851088,
+    "resumeMs": 14851109,
+    "resumeTid": 5618,
+    "emitMs": 14851112,
+    "windowStateMs": {
+      "S": 20.01579,
+      "R": 1.602133,
+      "Running": 0.109941
+    },
+    "stateSpans": [
+      {
+        "ts": 14850591122822,
+        "dur": 516892968,
+        "state": "S"
+      },
+      {
+        "ts": 14851108015790,
+        "dur": 1602133,
+        "state": "R"
+      },
+      {
+        "ts": 14851109617923,
+        "dur": 338426,
+        "state": "Running"
+      }
+    ],
+    "traceCoverage": true
+  },
+  {
+    "seq": 389,
+    "gapMs": 111,
+    "dueMs": 14857388,
+    "resumeMs": 14857399,
+    "resumeTid": 5617,
+    "emitMs": 14857401,
+    "windowStateMs": {
+      "S": 0.904484,
+      "R": 10.914705,
+      "Running": 0.078884
+    },
+    "stateSpans": [
+      {
+        "ts": 14857302762642,
+        "dur": 86141842,
+        "state": "S"
+      },
+      {
+        "ts": 14857388904484,
+        "dur": 10914705,
+        "state": "R"
+      },
+      {
+        "ts": 14857399819189,
+        "dur": 2143883,
+        "state": "Running"
+      }
+    ],
+    "traceCoverage": true
+  },
+  {
+    "seq": 535,
+    "gapMs": 120,
+    "dueMs": 14871988,
+    "resumeMs": 14872010,
+    "resumeTid": 5622,
+    "emitMs": 14872011,
+    "windowStateMs": {
+      "S": 0.717842,
+      "R": 21.914314,
+      "Running": 0.089734
+    },
+    "stateSpans": [
+      {
+        "ts": 14871903956115,
+        "dur": 84761727,
+        "state": "S"
+      },
+      {
+        "ts": 14871988717842,
+        "dur": 21914314,
+        "state": "R"
+      },
+      {
+        "ts": 14872010632156,
+        "dur": 1395256,
+        "state": "Running"
+      }
+    ],
+    "traceCoverage": true
+  },
+  {
+    "seq": 617,
+    "gapMs": 113,
+    "dueMs": 14880188,
+    "resumeMs": 14880202,
+    "resumeTid": 5673,
+    "emitMs": 14880203,
+    "windowStateMs": {
+      "S": 8.072619,
+      "R": 6.071536,
+      "Running": 0.109629
+    },
+    "stateSpans": [
+      {
+        "ts": 14880169736535,
+        "dur": 26336084,
+        "state": "S"
+      },
+      {
+        "ts": 14880196072619,
+        "dur": 6071536,
+        "state": "R"
+      },
+      {
+        "ts": 14880202144155,
+        "dur": 1218623,
+        "state": "Running"
+      }
+    ],
+    "traceCoverage": true
+  }
+]

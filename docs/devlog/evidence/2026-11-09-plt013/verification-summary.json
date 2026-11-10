@@ -1,0 +1,26 @@
+{
+  "durationMs": 1800531,
+  "sequenceRange": [
+    137,
+    18141
+  ],
+  "producerAndConsumerCount": 18005,
+  "deadlinesSkipped": 0,
+  "transportCriterionMet": true,
+  "firstRunner": "FAILED after window: waited for stopping=false after unbound service was destroyed",
+  "stoppedAtMs": 27215502,
+  "followupNotification": "PASS (5.679s)",
+  "followupReadOnlyRestore": "PASS (1.274s)",
+  "noRepeatedThirtyMinuteWindow": true,
+  "measuredApkSha256": "7275e56c2b12f585cb220604c404741b5ec6a4d6b758ac997c7e8f54a56d6708",
+  "finalApkSha256": "b6652ca3dc771725b17484cda6c0523df9674f2bae7221e23aceaff8bfd07a1a",
+  "priorFullTestsHistorical": 743,
+  "targetedKotlinTestsThisTime": 31,
+  "analysisSyntheticTestsThisTime": 9,
+  "finalOriginalFilesEqual": true,
+  "restoredIsolatedDatabaseAndPrefsOnly": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "finalTestApkSha256": "964f07bcda3e50f261165f4f6f55dd5bee0896f78e9b29191d474fac7edc6a62"
+}

@@ -1,0 +1,33 @@
+Tasks: 358 total,   2 running, 356 sleeping,   0 stopped,   0 zombie
+  Mem:  4016100K total,  3608576K used,   407524K free,   101628K buffers
+ Swap:  3012068K total,   678144K used,  2333924K free,  1427372K cached
+400%cpu 107%user   0%nice 237%sys  48%idle   0%iow   4%irq   4%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 2581 u10_a141     20   0  62G 427M 111M S  181  10.8 553:33.46 ai.umos.drivingview
+ 3211 u10_a126     10 -10  14G 361M 175M R  103   9.2  50:39.18 ai.umos.maps.android.navigation.app
+  485 system       -3 -10  11G 3.8M 2.8M S 29.6   0.0  63:55.39 android.hardware.graphics.composer3-service.ranchu
+  554 system       -3  -8  11G  26M 8.5M S  7.4   0.6  13:16.89 surfaceflinger
+13842 shell        20   0  10G 5.1M 4.2M R  3.7   0.1   0:00.04 top -b -n 2 -d 1 -m 10
+ 2103 u10_a142     20   0  14G 175M  91M S  3.7   4.4   9:22.61 ai.umos.ambientai
+ 1026 u0_a120      20   0  14G 155M 102M S  3.7   3.9   2:53.06 com.android.systemui
+  793 system       18  -2  15G 243M 156M S  3.7   6.2   1:52.32 system_server
+  420 audioserver  20   0  10G 5.2M 4.3M S  3.7   0.1   1:40.08 android.hardware.audio.service-caremu
+ 8553 root         20   0    0    0    0 I  0.0   0.0   0:00.01 [kworker/1:2-virtio_vsock]
+
+
+
+Tasks: 358 total,   1 running, 357 sleeping,   0 stopped,   0 zombie
+  Mem:  4016100K total,  3608828K used,   407272K free,   101628K buffers
+ Swap:  3012068K total,   678144K used,  2333924K free,  1427368K cached
+400%cpu 100%user   0%nice 221%sys  70%idle   1%iow   5%irq   0%sirq   3%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 2581 u10_a141     20   0  62G 427M 111M S  159  10.8 553:33.95 ai.umos.drivingview
+ 3211 u10_a126     10 -10  14G 362M 175M S 98.0   9.2  50:39.46 ai.umos.maps.android.navigation.app
+  485 system       -3 -10  11G 3.8M 2.8M S 45.0   0.0  63:55.47 android.hardware.graphics.composer3-service.ranchu
+  554 system       -3  -8  11G  26M 8.5M S  7.0   0.6  13:16.91 surfaceflinger
+13842 shell        20   0  10G 5.3M 4.2M R  3.0   0.1   0:00.05 top -b -n 2 -d 1 -m 10
+ 2103 u10_a142     20   0  14G 175M  91M S  3.0   4.4   9:22.62 ai.umos.ambientai
+28385 root         20   0    0    0    0 I  1.0   0.0   0:00.34 [kworker/3:2-events]
+ 5347 u10_a140     20   0  13G  99M  76M S  1.0   2.5   0:31.98 ai.umos.notification
+ 3673 system       20   0  10G 8.2M 3.3M S  1.0   0.2   1:13.46 ai.pleos.hardware.placesense-sdv-service
+ 2824 vehicle_network 20 0 10G 6.8M 2.6M S  1.0   0.1   0:07.16 ai.pleos.hardware.profile.exe

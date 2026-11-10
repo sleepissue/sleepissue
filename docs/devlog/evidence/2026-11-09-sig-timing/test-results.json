@@ -1,0 +1,19 @@
+{
+  "engine": {
+    "tests": 333,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 410,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "total": 743,
+  "previousHistoricalTotal": 741,
+  "newRegressions": 2,
+  "build": "BUILD SUCCESSFUL, 81 tasks executed",
+  "finalApkSha256": "f4cb72bfe0c6385b6eb616a8f5f36cfdf03a5787ab8d911ad7b774e5275eb37c"
+}

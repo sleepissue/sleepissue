@@ -1,0 +1,9 @@
+{
+  "phase": "low2",
+  "runId": "sig016_host_low2_20261110",
+  "hostBeginNs": 103664017212335,
+  "hostEndNs": 103683424608339,
+  "wallBeginUtc": "2026-11-10T09:32:38.107845+00:00",
+  "wallEndUtc": "2026-11-10T09:32:57.615301+00:00",
+  "runnerExitCode": 0
+}

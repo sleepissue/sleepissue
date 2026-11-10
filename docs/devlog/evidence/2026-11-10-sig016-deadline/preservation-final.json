@@ -1,0 +1,16 @@
+{
+  "existingDeviceFileCount": 140,
+  "deviceChanged": [],
+  "newDeviceFiles": [
+    "cache/role1-sig016-sig016_20261110a-stage.txt",
+    "cache/role1-sig016-sig016_20261110a.json",
+    "cache/role1-sig016-sig016_20261110b-stage.txt",
+    "cache/role1-sig016-sig016_20261110b.json",
+    "cache/role1-sig016-sig016_20261110c_preflight-stage.txt",
+    "cache/role1-sig016-sig016_20261110c_preflight.json",
+    "cache/role1-sig016-sig016_20261110d_guard-stage.txt",
+    "cache/role1-sig016-sig016_20261110d_guard.json",
+    "cache/role1-sig016-sig016_20261110e_guard-stage.txt",
+    "cache/role1-sig016-sig016_20261110e_guard.json"
+  ]
+}

@@ -1,0 +1,48 @@
+[31mNot meant for machine consumption. Use --query-raw for scripts.[0m
+
+Service: Perfetto v34.0 (N/A)
+Tracing sessions: 0 (started: 0)
+
+
+PRODUCER PROCESSES CONNECTED:
+
+ID         PID        UID        NAME                             SDK
+==         ===        ===        ====                             ===
+1          624        9999       traced                           
+2          623        9999       perfetto.traced_probes           Perfetto v34.0 (N/A)
+3          550        1072       /system/bin/gpuservice           Perfetto v34.0 (N/A)
+4          554        1000       /system/bin/surfaceflinger       Perfetto v34.0 (N/A)
+
+
+DATA SOURCES REGISTERED:
+
+NAME                                     PRODUCER                     DETAILS
+===                                      ========                     ========
+android.game_interventions               perfetto.traced_probes (2)               
+android.gpu.memory                       /system/bin/gpuservice (3)               
+android.heapprofd                        traced (1)                               
+android.java_hprof                       traced (1)                               
+android.java_hprof.oom                   traced (1)                               
+android.log                              perfetto.traced_probes (2)               
+android.packages_list                    perfetto.traced_probes (2)               
+android.polled_state                     perfetto.traced_probes (2)               
+android.power                            perfetto.traced_probes (2)               
+android.statsd                           perfetto.traced_probes (2)               
+android.surfaceflinger.frame             /system/bin/surfaceflinger (4)           
+android.surfaceflinger.frametimeline     /system/bin/surfaceflinger (4)           
+android.system_property                  perfetto.traced_probes (2)               
+linux.ftrace                             perfetto.traced_probes (2)               gfx,input,view,webview,wm,am,sm,audio,video,camera,hal,res,dalvik,rs,bionic,power,pm,ss,database,network,adb,vibrator,aidl,nnapi,rro,pdx,sched,irq,freq,idle,disk,sync,memreclaim,binder_driver,binder_lock,memory,thermal,gfx,ion,
+linux.inode_file_map                     perfetto.traced_probes (2)               
+linux.perf                               traced (1)                               
+linux.process_stats                      perfetto.traced_probes (2)               
+linux.sys_stats                          perfetto.traced_probes (2)               
+linux.sysfs_power                        perfetto.traced_probes (2)               
+linux.system_info                        perfetto.traced_probes (2)               
+perfetto.metatrace                       traced (1)                               
+perfetto.metatrace                       perfetto.traced_probes (2)               
+
+
+TRACING SESSIONS:
+
+ID      UID     STATE      BUF (#) KB   DUR (s)   #DS  STARTED  NAME
+===     ===     =====      ==========   =======   ===  =======  ====

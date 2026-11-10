@@ -1,0 +1,31 @@
+{
+  "sourceSha256": "2ea8c6d0baf3040f146fbbab0d87883f12108354411ffaad1f8e6fb1e95e69da",
+  "sheet4row21": [
+    "REQ_SIG_007",
+    "SW",
+    "Diagnostics",
+    "REQ_PRD_002",
+    "VehicleSignalHub는 미지원(checkXXXCapabilities)·구독 실패·권한 거부 신호를 null로 표기하고 해당 지표·기능을 끄되 앱이 종료되지 않아야 한다.",
+    "미지원 모의 시 해당 필드 null, 비활성화 로그 1행, 크래시 0건",
+    "건",
+    "Must",
+    "기획서 9장, CLAUDE.md 4장",
+    "null은 '지금 못 받음'이며 엔진은 게이트 불통과로 처리",
+    "Test",
+    "app/signal/VehicleSignalHub.kt (예정)",
+    "Vehicle checkXXXCapabilities",
+    "1번 신호·상태",
+    "Draft",
+    "2026-11-02"
+  ],
+  "sheet5row21": [
+    "TC_SIG_007",
+    "REQ_SIG_007",
+    "1",
+    "Y",
+    "앱 + 가짜 SDK 래퍼(capability=false)를 넣은 에뮬레이터 빌드",
+    "1) 조향·착석·통풍 각각 capability=false 주입\n2) 프레임 해당 필드 null, 앱 프로세스 유지, 로그 1행 확인",
+    "미지원 모의 시 해당 필드 null, 비활성화 로그 1행, 크래시 0건",
+    "ET — 에뮬레이터 v2.1.0 시험"
+  ]
+}

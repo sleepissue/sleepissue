@@ -1,0 +1,19 @@
+[
+  "adb",
+  "shell",
+  "am",
+  "instrument",
+  "--user",
+  "10",
+  "-w",
+  "-e",
+  "class",
+  "com.sleepissue.awakedrive.data.Role1Plt013DeviceTest#isolatedNotificationOpensSafeScreenAndStopsItsOwnService",
+  "-e",
+  "role1Plt013Notification",
+  "true",
+  "-e",
+  "plt013RunId",
+  "final-notification-1794248404",
+  "com.sleepissue.awakedrive.test/androidx.test.runner.AndroidJUnitRunner"
+]

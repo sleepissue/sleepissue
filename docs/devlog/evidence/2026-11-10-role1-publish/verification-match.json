@@ -1,0 +1,25 @@
+{
+  "sourceHashFiles": 211,
+  "changedSources": [],
+  "newUnverifiedKotlinFiles": [],
+  "counts": {
+    "engine": {
+      "tests": 333,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 413,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "total": 746,
+  "localBuiltAndDeviceTestedApkHashesMatch": {
+    "debug": "0ec263c098accba2607a4f605b725149b1f1f58bff75f4226ddee17adfff4c52",
+    "test": "c5b01b5150814fb8c414eb50d15f656a2cbec81ca1dd88abe6ce31a379684343"
+  },
+  "repeatedTests": false
+}

@@ -1,0 +1,10 @@
+{
+  "controls": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0,
+    "emulator_active": false
+  },
+  "hvacDdsMode": "subscribe_hvac_base"
+}

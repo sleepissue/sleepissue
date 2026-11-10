@@ -1,0 +1,747 @@
+{
+  "a": {
+    "run": "a",
+    "completed": true,
+    "clockQuantizationAllowanceMs": 2,
+    "rows": [
+      {
+        "attempt": 1,
+        "requestBracketMs": [
+          9715896,
+          9717084
+        ],
+        "startUiBracketMs": [
+          9719025,
+          9719070
+        ],
+        "startUiActionAccepted": false,
+        "sdkReceiptMs": 9725391,
+        "rawDestinationCallbackMs": 9725402,
+        "rawGuidingCallbackMs": 9724132,
+        "adapterCollectedMs": 9725397,
+        "hubReflectionBracketMs": [
+          9725457,
+          9725461
+        ],
+        "consumerReceivedMs": 9725461,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          8307,
+          9495
+        ],
+        "requestToHubMs": [
+          8373,
+          9565
+        ],
+        "requestToConsumerMs": [
+          8377,
+          9565
+        ],
+        "sdkToAdapterMs": 6,
+        "sdkToHubMs": [
+          66,
+          70
+        ],
+        "sdkToConsumerMs": 70,
+        "cancel": {
+          "requestBracketMs": [
+            9725476,
+            9725476
+          ],
+          "sdkCallbackDelayMs": [
+            129,
+            129
+          ],
+          "adapterDelayMs": [
+            166,
+            166
+          ],
+          "hubDelayMs": [
+            183,
+            195
+          ],
+          "consumerDelayMs": [
+            994,
+            994
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 2,
+        "requestBracketMs": [
+          9727995,
+          9727995
+        ],
+        "startUiBracketMs": [
+          9728419,
+          9728440
+        ],
+        "startUiActionAccepted": false,
+        "sdkReceiptMs": 9734457,
+        "rawDestinationCallbackMs": 9734455,
+        "rawGuidingCallbackMs": 9733448,
+        "adapterCollectedMs": 9734472,
+        "hubReflectionBracketMs": [
+          9734557,
+          9734563
+        ],
+        "consumerReceivedMs": 9735462,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          6462,
+          6462
+        ],
+        "requestToHubMs": [
+          6562,
+          6568
+        ],
+        "requestToConsumerMs": [
+          7467,
+          7467
+        ],
+        "sdkToAdapterMs": 15,
+        "sdkToHubMs": [
+          100,
+          106
+        ],
+        "sdkToConsumerMs": 1005,
+        "cancel": {
+          "requestBracketMs": [
+            9735475,
+            9735476
+          ],
+          "sdkCallbackDelayMs": [
+            146,
+            147
+          ],
+          "adapterDelayMs": [
+            161,
+            162
+          ],
+          "hubDelayMs": [
+            181,
+            183
+          ],
+          "consumerDelayMs": [
+            982,
+            983
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 3,
+        "requestBracketMs": [
+          9738071,
+          9738072
+        ],
+        "startUiBracketMs": [
+          9738484,
+          9738524
+        ],
+        "startUiActionAccepted": false,
+        "sdkReceiptMs": 9744498,
+        "rawDestinationCallbackMs": 9744491,
+        "rawGuidingCallbackMs": 9743484,
+        "adapterCollectedMs": 9744499,
+        "hubReflectionBracketMs": [
+          9744556,
+          9744557
+        ],
+        "consumerReceivedMs": 9745461,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          6426,
+          6427
+        ],
+        "requestToHubMs": [
+          6484,
+          6486
+        ],
+        "requestToConsumerMs": [
+          7389,
+          7390
+        ],
+        "sdkToAdapterMs": 1,
+        "sdkToHubMs": [
+          58,
+          59
+        ],
+        "sdkToConsumerMs": 963,
+        "cancel": {
+          "requestBracketMs": [
+            9745477,
+            9745483
+          ],
+          "sdkCallbackDelayMs": [
+            148,
+            154
+          ],
+          "adapterDelayMs": [
+            143,
+            149
+          ],
+          "hubDelayMs": [
+            174,
+            181
+          ],
+          "consumerDelayMs": [
+            991,
+            997
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 4,
+        "requestBracketMs": [
+          9748254,
+          9748255
+        ],
+        "startUiBracketMs": [
+          9748730,
+          9748772
+        ],
+        "startUiActionAccepted": false,
+        "sdkReceiptMs": 9754738,
+        "rawDestinationCallbackMs": 9754739,
+        "rawGuidingCallbackMs": 9753734,
+        "adapterCollectedMs": 9754739,
+        "hubReflectionBracketMs": [
+          9754757,
+          9754758
+        ],
+        "consumerReceivedMs": 9755464,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          6483,
+          6484
+        ],
+        "requestToHubMs": [
+          6502,
+          6504
+        ],
+        "requestToConsumerMs": [
+          7209,
+          7210
+        ],
+        "sdkToAdapterMs": 1,
+        "sdkToHubMs": [
+          19,
+          20
+        ],
+        "sdkToConsumerMs": 726,
+        "cancel": {
+          "requestBracketMs": [
+            9755486,
+            9755487
+          ],
+          "sdkCallbackDelayMs": [
+            117,
+            118
+          ],
+          "adapterDelayMs": [
+            138,
+            139
+          ],
+          "hubDelayMs": [
+            176,
+            179
+          ],
+          "consumerDelayMs": [
+            976,
+            977
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 5,
+        "requestBracketMs": [
+          9758388,
+          9758389
+        ],
+        "startUiBracketMs": [
+          9759046,
+          9759049
+        ],
+        "startUiActionAccepted": false,
+        "sdkReceiptMs": 9764770,
+        "rawDestinationCallbackMs": 9764770,
+        "rawGuidingCallbackMs": 9763856,
+        "adapterCollectedMs": 9764771,
+        "hubReflectionBracketMs": [
+          9764856,
+          9764857
+        ],
+        "consumerReceivedMs": 9765458,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          6381,
+          6382
+        ],
+        "requestToHubMs": [
+          6467,
+          6469
+        ],
+        "requestToConsumerMs": [
+          7069,
+          7070
+        ],
+        "sdkToAdapterMs": 1,
+        "sdkToHubMs": [
+          86,
+          87
+        ],
+        "sdkToConsumerMs": 688,
+        "cancel": {
+          "requestBracketMs": [
+            9765468,
+            9765468
+          ],
+          "sdkCallbackDelayMs": [
+            120,
+            120
+          ],
+          "adapterDelayMs": [
+            135,
+            135
+          ],
+          "hubDelayMs": [
+            188,
+            190
+          ],
+          "consumerDelayMs": [
+            990,
+            990
+          ],
+          "nullReached": true
+        }
+      }
+    ],
+    "leaseReleased": true,
+    "ownerAfterRelease": null,
+    "hubAfterClose": null
+  },
+  "b": {
+    "run": "b",
+    "completed": true,
+    "clockQuantizationAllowanceMs": 2,
+    "rows": [
+      {
+        "attempt": 1,
+        "requestBracketMs": [
+          9859270,
+          9860692
+        ],
+        "startUiBracketMs": [
+          9861429,
+          9861495
+        ],
+        "startUiActionAccepted": true,
+        "sdkReceiptMs": 9863131,
+        "rawDestinationCallbackMs": 9863132,
+        "rawGuidingCallbackMs": 9862228,
+        "adapterCollectedMs": 9863142,
+        "hubReflectionBracketMs": [
+          9863214,
+          9863223
+        ],
+        "consumerReceivedMs": 9863820,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          2439,
+          3861
+        ],
+        "requestToHubMs": [
+          2522,
+          3953
+        ],
+        "requestToConsumerMs": [
+          3128,
+          4550
+        ],
+        "sdkToAdapterMs": 11,
+        "sdkToHubMs": [
+          83,
+          92
+        ],
+        "sdkToConsumerMs": 689,
+        "uiToSdkMs": [
+          1636,
+          1702
+        ],
+        "uiToHubMs": [
+          1719,
+          1794
+        ],
+        "uiToConsumerMs": [
+          2325,
+          2391
+        ],
+        "wholeOneSecond": "FAIL",
+        "cancel": {
+          "requestBracketMs": [
+            9863831,
+            9863832
+          ],
+          "sdkCallbackDelayMs": [
+            150,
+            151
+          ],
+          "adapterDelayMs": [
+            150,
+            151
+          ],
+          "hubDelayMs": [
+            202,
+            204
+          ],
+          "consumerDelayMs": [
+            1002,
+            1003
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 2,
+        "requestBracketMs": [
+          9866270,
+          9866271
+        ],
+        "startUiBracketMs": [
+          9866792,
+          9866842
+        ],
+        "startUiActionAccepted": true,
+        "sdkReceiptMs": 9868241,
+        "rawDestinationCallbackMs": 9868244,
+        "rawGuidingCallbackMs": 9866973,
+        "adapterCollectedMs": 9868242,
+        "hubReflectionBracketMs": [
+          9868314,
+          9868317
+        ],
+        "consumerReceivedMs": 9868824,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          1970,
+          1971
+        ],
+        "requestToHubMs": [
+          2043,
+          2047
+        ],
+        "requestToConsumerMs": [
+          2553,
+          2554
+        ],
+        "sdkToAdapterMs": 1,
+        "sdkToHubMs": [
+          73,
+          76
+        ],
+        "sdkToConsumerMs": 583,
+        "uiToSdkMs": [
+          1399,
+          1449
+        ],
+        "uiToHubMs": [
+          1472,
+          1525
+        ],
+        "uiToConsumerMs": [
+          1982,
+          2032
+        ],
+        "wholeOneSecond": "FAIL",
+        "cancel": {
+          "requestBracketMs": [
+            9868845,
+            9868845
+          ],
+          "sdkCallbackDelayMs": [
+            130,
+            130
+          ],
+          "adapterDelayMs": [
+            140,
+            140
+          ],
+          "hubDelayMs": [
+            169,
+            171
+          ],
+          "consumerDelayMs": [
+            971,
+            971
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 3,
+        "requestBracketMs": [
+          9871462,
+          9871463
+        ],
+        "startUiBracketMs": [
+          9872091,
+          9872125
+        ],
+        "startUiActionAccepted": true,
+        "sdkReceiptMs": 9873265,
+        "rawDestinationCallbackMs": 9873265,
+        "rawGuidingCallbackMs": 9872260,
+        "adapterCollectedMs": 9873273,
+        "hubReflectionBracketMs": [
+          9873314,
+          9873315
+        ],
+        "consumerReceivedMs": 9873816,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          1802,
+          1803
+        ],
+        "requestToHubMs": [
+          1851,
+          1853
+        ],
+        "requestToConsumerMs": [
+          2353,
+          2354
+        ],
+        "sdkToAdapterMs": 8,
+        "sdkToHubMs": [
+          49,
+          50
+        ],
+        "sdkToConsumerMs": 551,
+        "uiToSdkMs": [
+          1140,
+          1174
+        ],
+        "uiToHubMs": [
+          1189,
+          1224
+        ],
+        "uiToConsumerMs": [
+          1691,
+          1725
+        ],
+        "wholeOneSecond": "FAIL",
+        "cancel": {
+          "requestBracketMs": [
+            9873833,
+            9873834
+          ],
+          "sdkCallbackDelayMs": [
+            129,
+            130
+          ],
+          "adapterDelayMs": [
+            125,
+            126
+          ],
+          "hubDelayMs": [
+            180,
+            182
+          ],
+          "consumerDelayMs": [
+            983,
+            984
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 4,
+        "requestBracketMs": [
+          9876592,
+          9876592
+        ],
+        "startUiBracketMs": [
+          9877106,
+          9877142
+        ],
+        "startUiActionAccepted": true,
+        "sdkReceiptMs": 9878305,
+        "rawDestinationCallbackMs": 9878314,
+        "rawGuidingCallbackMs": 9877321,
+        "adapterCollectedMs": 9878313,
+        "hubReflectionBracketMs": [
+          9878318,
+          9878322
+        ],
+        "consumerReceivedMs": 9878817,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          1713,
+          1713
+        ],
+        "requestToHubMs": [
+          1726,
+          1730
+        ],
+        "requestToConsumerMs": [
+          2225,
+          2225
+        ],
+        "sdkToAdapterMs": 8,
+        "sdkToHubMs": [
+          13,
+          17
+        ],
+        "sdkToConsumerMs": 512,
+        "uiToSdkMs": [
+          1163,
+          1199
+        ],
+        "uiToHubMs": [
+          1176,
+          1216
+        ],
+        "uiToConsumerMs": [
+          1675,
+          1711
+        ],
+        "wholeOneSecond": "FAIL",
+        "cancel": {
+          "requestBracketMs": [
+            9878827,
+            9878828
+          ],
+          "sdkCallbackDelayMs": [
+            140,
+            141
+          ],
+          "adapterDelayMs": [
+            139,
+            140
+          ],
+          "hubDelayMs": [
+            199,
+            206
+          ],
+          "consumerDelayMs": [
+            987,
+            988
+          ],
+          "nullReached": true
+        }
+      },
+      {
+        "attempt": 5,
+        "requestBracketMs": [
+          9881839,
+          9881840
+        ],
+        "startUiBracketMs": [
+          9882313,
+          9882346
+        ],
+        "startUiActionAccepted": true,
+        "sdkReceiptMs": 9884314,
+        "rawDestinationCallbackMs": 9884303,
+        "rawGuidingCallbackMs": 9882455,
+        "adapterCollectedMs": 9884315,
+        "hubReflectionBracketMs": [
+          9884413,
+          9884414
+        ],
+        "consumerReceivedMs": 9884817,
+        "sensorObservations": [
+          0,
+          0
+        ],
+        "requestToSdkMs": [
+          2474,
+          2475
+        ],
+        "requestToHubMs": [
+          2573,
+          2575
+        ],
+        "requestToConsumerMs": [
+          2977,
+          2978
+        ],
+        "sdkToAdapterMs": 1,
+        "sdkToHubMs": [
+          99,
+          100
+        ],
+        "sdkToConsumerMs": 503,
+        "uiToSdkMs": [
+          1968,
+          2001
+        ],
+        "uiToHubMs": [
+          2067,
+          2101
+        ],
+        "uiToConsumerMs": [
+          2471,
+          2504
+        ],
+        "wholeOneSecond": "FAIL",
+        "cancel": {
+          "requestBracketMs": [
+            9884838,
+            9884838
+          ],
+          "sdkCallbackDelayMs": [
+            143,
+            143
+          ],
+          "adapterDelayMs": [
+            146,
+            146
+          ],
+          "hubDelayMs": [
+            177,
+            178
+          ],
+          "consumerDelayMs": [
+            978,
+            978
+          ],
+          "nullReached": true
+        }
+      }
+    ],
+    "leaseReleased": true,
+    "ownerAfterRelease": null,
+    "hubAfterClose": null
+  }
+}

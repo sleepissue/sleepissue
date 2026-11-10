@@ -1,0 +1,33 @@
+{
+  "databases": {
+    "awakedrive_debug_trip.db": {
+      "integrity": "ok",
+      "rows": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "logicalSha256": "4ab63693107d871c268d6c22accb2166ed7a7956a7e59c8e00247efafed06987"
+    },
+    "awakedrive_sdk_trip.db": {
+      "integrity": "ok",
+      "rows": {
+        "android_metadata": 1,
+        "drive_segment": 18,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "logicalSha256": "85bcb5c9876ba3f26198a6ff0f7c06307a8638f904d982381927703377a98f2f"
+    }
+  },
+  "databaseLogicalRowsUnchanged": true,
+  "existingFiles": 81,
+  "restoredOriginalCacheFiles": [
+    "cache/role1-sig-input-live.json"
+  ],
+  "changedOriginalFilesAfterRestore": [],
+  "monitorPreferencesUnchanged": true,
+  "requested": false,
+  "method": "read-only DB copies; only overwritten test cache files restored byte-for-byte; no DB replacement"
+}

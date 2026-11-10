@@ -1,0 +1,10 @@
+{
+  "existingDeviceFileCount": 150,
+  "deviceChanged": [],
+  "newDeviceFiles": [
+    "cache/role1-sig016-sig016_boundaries_20261110a-stage.txt",
+    "cache/role1-sig016-sig016_boundaries_20261110a.json"
+  ],
+  "permissionsIdentical": true,
+  "forwardsIdentical": true
+}

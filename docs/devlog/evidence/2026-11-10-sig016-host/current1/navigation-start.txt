@@ -1,0 +1,8 @@
+Starting: Intent { cmp=ai.umos.maps.android.navigation.app/.MainActivity }
+Warning: Activity not started, its current task has been brought to the front
+Status: ok
+LaunchState: HOT
+Activity: ai.umos.maps.android.navigation.app/.MainActivity
+TotalTime: 129
+WaitTime: 132
+Complete

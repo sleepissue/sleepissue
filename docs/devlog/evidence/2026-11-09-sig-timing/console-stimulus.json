@@ -1,0 +1,1028 @@
+{
+  "original": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0
+  },
+  "mode": "subscribe_hvac_base",
+  "events": [
+    {
+      "monotonic": 11947.211206569,
+      "steering": 0
+    },
+    {
+      "monotonic": 11947.714185817,
+      "steering": 10
+    },
+    {
+      "monotonic": 11948.221655705,
+      "steering": 0
+    },
+    {
+      "monotonic": 11948.724542867,
+      "steering": -10
+    },
+    {
+      "monotonic": 11949.22949518,
+      "steering": 0
+    },
+    {
+      "monotonic": 11949.734935405,
+      "steering": 10
+    },
+    {
+      "monotonic": 11950.239587987,
+      "steering": 0
+    },
+    {
+      "monotonic": 11950.744131943,
+      "steering": -10
+    },
+    {
+      "monotonic": 11951.253789573,
+      "steering": 0
+    },
+    {
+      "monotonic": 11951.756813705,
+      "steering": 10
+    },
+    {
+      "monotonic": 11952.264183421,
+      "steering": 0
+    },
+    {
+      "monotonic": 11952.774307358,
+      "steering": -10
+    },
+    {
+      "monotonic": 11953.28269535,
+      "steering": 0
+    },
+    {
+      "monotonic": 11953.785820651,
+      "steering": 10
+    },
+    {
+      "monotonic": 11954.291144604,
+      "steering": 0
+    },
+    {
+      "monotonic": 11954.795672474,
+      "steering": -10
+    },
+    {
+      "monotonic": 11955.30219343,
+      "steering": 0
+    },
+    {
+      "monotonic": 11955.80575518,
+      "steering": 10
+    },
+    {
+      "monotonic": 11956.314346713,
+      "steering": 0
+    },
+    {
+      "monotonic": 11956.817509479,
+      "steering": -10
+    },
+    {
+      "monotonic": 11957.324603388,
+      "steering": 0
+    },
+    {
+      "monotonic": 11957.827500079,
+      "steering": 10
+    },
+    {
+      "monotonic": 11958.331555766,
+      "steering": 0
+    },
+    {
+      "monotonic": 11958.8341414,
+      "steering": -10
+    },
+    {
+      "monotonic": 11959.34006105,
+      "steering": 0
+    },
+    {
+      "monotonic": 11959.843258967,
+      "steering": 10
+    },
+    {
+      "monotonic": 11960.350406836,
+      "steering": 0
+    },
+    {
+      "monotonic": 11960.853225473,
+      "steering": -10
+    },
+    {
+      "monotonic": 11961.3571195,
+      "steering": 0
+    },
+    {
+      "monotonic": 11961.866059646,
+      "steering": 10
+    },
+    {
+      "monotonic": 11962.373733802,
+      "steering": 0
+    },
+    {
+      "monotonic": 11962.878426021,
+      "steering": -10
+    },
+    {
+      "monotonic": 11963.382572062,
+      "steering": 0
+    },
+    {
+      "monotonic": 11963.885314968,
+      "steering": 10
+    },
+    {
+      "monotonic": 11964.396478492,
+      "steering": 0
+    },
+    {
+      "monotonic": 11964.899208188,
+      "steering": -10
+    },
+    {
+      "monotonic": 11965.404206793,
+      "steering": 0
+    },
+    {
+      "monotonic": 11965.909811034,
+      "steering": 10
+    },
+    {
+      "monotonic": 11966.416111415,
+      "steering": 0
+    },
+    {
+      "monotonic": 11966.919484328,
+      "steering": -10
+    },
+    {
+      "monotonic": 11967.424813408,
+      "steering": 0
+    },
+    {
+      "monotonic": 11967.927535356,
+      "steering": 10
+    },
+    {
+      "monotonic": 11968.432790907,
+      "steering": 0
+    },
+    {
+      "monotonic": 11968.936833464,
+      "steering": -10
+    },
+    {
+      "monotonic": 11969.442830227,
+      "steering": 0
+    },
+    {
+      "monotonic": 11969.947205599,
+      "steering": 10
+    },
+    {
+      "monotonic": 11970.452962928,
+      "steering": 0
+    },
+    {
+      "monotonic": 11970.955943806,
+      "steering": -10
+    },
+    {
+      "monotonic": 11971.460408027,
+      "steering": 0
+    },
+    {
+      "monotonic": 11971.962896238,
+      "steering": 10
+    },
+    {
+      "monotonic": 11972.467548258,
+      "steering": 0
+    },
+    {
+      "monotonic": 11972.971495208,
+      "steering": -10
+    },
+    {
+      "monotonic": 11973.478808764,
+      "steering": 0
+    },
+    {
+      "monotonic": 11973.983744823,
+      "steering": 10
+    },
+    {
+      "monotonic": 11974.488224757,
+      "steering": 0
+    },
+    {
+      "monotonic": 11974.993256258,
+      "steering": -10
+    },
+    {
+      "monotonic": 11975.501050779,
+      "steering": 0
+    },
+    {
+      "monotonic": 11976.005099847,
+      "steering": 10
+    },
+    {
+      "monotonic": 11976.511291003,
+      "steering": 0
+    },
+    {
+      "monotonic": 11977.015291029,
+      "steering": -10
+    },
+    {
+      "monotonic": 11977.520023717,
+      "steering": 0
+    },
+    {
+      "monotonic": 11978.023117829,
+      "steering": 10
+    },
+    {
+      "monotonic": 11978.530979962,
+      "steering": 0
+    },
+    {
+      "monotonic": 11979.03540643,
+      "steering": -10
+    },
+    {
+      "monotonic": 11979.541405695,
+      "steering": 0
+    },
+    {
+      "monotonic": 11980.044907467,
+      "steering": 10
+    },
+    {
+      "monotonic": 11980.549504109,
+      "steering": 0
+    },
+    {
+      "monotonic": 11981.05245385,
+      "steering": -10
+    },
+    {
+      "monotonic": 11981.557785309,
+      "steering": 0
+    },
+    {
+      "monotonic": 11982.071957822,
+      "steering": 10
+    },
+    {
+      "monotonic": 11982.578842248,
+      "steering": 0
+    },
+    {
+      "monotonic": 11983.08176049,
+      "steering": -10
+    },
+    {
+      "monotonic": 11983.58683865,
+      "steering": 0
+    },
+    {
+      "monotonic": 11984.089480126,
+      "steering": 10
+    },
+    {
+      "monotonic": 11984.593249428,
+      "steering": 0
+    },
+    {
+      "monotonic": 11985.111086902,
+      "steering": -10
+    },
+    {
+      "monotonic": 11985.61760857,
+      "steering": 0
+    },
+    {
+      "monotonic": 11986.122118249,
+      "steering": 10
+    },
+    {
+      "monotonic": 11986.626759702,
+      "steering": 0
+    },
+    {
+      "monotonic": 11987.130485302,
+      "steering": -10
+    },
+    {
+      "monotonic": 11987.635207196,
+      "steering": 0
+    },
+    {
+      "monotonic": 11988.138247936,
+      "steering": 10
+    },
+    {
+      "monotonic": 11988.649458983,
+      "steering": 0
+    },
+    {
+      "monotonic": 11989.153386881,
+      "steering": -10
+    },
+    {
+      "monotonic": 11989.659698763,
+      "steering": 0
+    },
+    {
+      "monotonic": 11990.163165333,
+      "steering": 10
+    },
+    {
+      "monotonic": 11990.6677261,
+      "steering": 0
+    },
+    {
+      "monotonic": 11991.171908049,
+      "steering": -10
+    },
+    {
+      "monotonic": 11991.677298841,
+      "steering": 0
+    },
+    {
+      "monotonic": 11992.180251065,
+      "steering": 10
+    },
+    {
+      "monotonic": 11992.686238779,
+      "steering": 0
+    },
+    {
+      "monotonic": 11993.189187698,
+      "steering": -10
+    },
+    {
+      "monotonic": 11993.69364804,
+      "steering": 0
+    },
+    {
+      "monotonic": 11994.197070073,
+      "steering": 10
+    },
+    {
+      "monotonic": 11994.702837184,
+      "steering": 0
+    },
+    {
+      "monotonic": 11995.20644101,
+      "steering": -10
+    },
+    {
+      "monotonic": 11995.710649895,
+      "steering": 0
+    },
+    {
+      "monotonic": 11996.214549159,
+      "steering": 10
+    },
+    {
+      "monotonic": 11996.720222296,
+      "steering": 0
+    },
+    {
+      "monotonic": 11997.223211303,
+      "steering": -10
+    },
+    {
+      "monotonic": 11997.7289023,
+      "steering": 0
+    },
+    {
+      "monotonic": 11998.231288898,
+      "steering": 10
+    },
+    {
+      "monotonic": 11998.735641158,
+      "steering": 0
+    },
+    {
+      "monotonic": 11999.239596372,
+      "steering": -10
+    },
+    {
+      "monotonic": 11999.744282759,
+      "steering": 0
+    },
+    {
+      "monotonic": 12000.247218009,
+      "steering": 10
+    },
+    {
+      "monotonic": 12000.752019165,
+      "steering": 0
+    },
+    {
+      "monotonic": 12001.255032797,
+      "steering": -10
+    },
+    {
+      "monotonic": 12001.759358313,
+      "steering": 0
+    },
+    {
+      "monotonic": 12002.281809106,
+      "steering": 10
+    },
+    {
+      "monotonic": 12002.786712622,
+      "steering": 0
+    },
+    {
+      "monotonic": 12003.289569075,
+      "steering": -10
+    },
+    {
+      "monotonic": 12003.795133845,
+      "steering": 0
+    },
+    {
+      "monotonic": 12004.297746603,
+      "steering": 10
+    },
+    {
+      "monotonic": 12004.802439102,
+      "steering": 0
+    },
+    {
+      "monotonic": 12005.304933092,
+      "steering": -10
+    },
+    {
+      "monotonic": 12005.810972222,
+      "steering": 0
+    },
+    {
+      "monotonic": 12006.313498108,
+      "steering": 10
+    },
+    {
+      "monotonic": 12006.817491566,
+      "steering": 0
+    },
+    {
+      "monotonic": 12007.319735123,
+      "steering": -10
+    },
+    {
+      "monotonic": 12007.827080273,
+      "steering": 0
+    },
+    {
+      "monotonic": 12008.329518512,
+      "steering": 10
+    },
+    {
+      "monotonic": 12008.833013534,
+      "steering": 0
+    },
+    {
+      "monotonic": 12009.338079677,
+      "steering": -10
+    },
+    {
+      "monotonic": 12009.847774898,
+      "steering": 0
+    },
+    {
+      "monotonic": 12010.350842484,
+      "steering": 10
+    },
+    {
+      "monotonic": 12010.856396763,
+      "steering": 0
+    },
+    {
+      "monotonic": 12011.359375044,
+      "steering": -10
+    },
+    {
+      "monotonic": 12011.863334479,
+      "steering": 0
+    },
+    {
+      "monotonic": 12012.367276812,
+      "steering": 10
+    },
+    {
+      "monotonic": 12012.870984149,
+      "steering": 0
+    },
+    {
+      "monotonic": 12013.376421019,
+      "steering": -10
+    },
+    {
+      "monotonic": 12013.880419536,
+      "steering": 0
+    },
+    {
+      "monotonic": 12014.384348402,
+      "steering": 10
+    },
+    {
+      "monotonic": 12014.888976856,
+      "steering": 0
+    },
+    {
+      "monotonic": 12015.39166724,
+      "steering": -10
+    },
+    {
+      "monotonic": 12015.89632079,
+      "steering": 0
+    },
+    {
+      "monotonic": 12016.399014648,
+      "steering": 10
+    },
+    {
+      "monotonic": 12016.90403995,
+      "steering": 0
+    },
+    {
+      "monotonic": 12017.407499015,
+      "steering": -10
+    },
+    {
+      "monotonic": 12017.912638543,
+      "steering": 0
+    },
+    {
+      "monotonic": 12018.417451439,
+      "steering": 10
+    },
+    {
+      "monotonic": 12018.922313038,
+      "steering": 0
+    },
+    {
+      "monotonic": 12019.425407958,
+      "steering": -10
+    },
+    {
+      "monotonic": 12019.930074141,
+      "steering": 0
+    },
+    {
+      "monotonic": 12020.432700024,
+      "steering": 10
+    },
+    {
+      "monotonic": 12020.937402001,
+      "steering": 0
+    },
+    {
+      "monotonic": 12021.442225237,
+      "steering": -10
+    },
+    {
+      "monotonic": 12021.946638627,
+      "steering": 0
+    },
+    {
+      "monotonic": 12022.449666527,
+      "steering": 10
+    },
+    {
+      "monotonic": 12022.953729123,
+      "steering": 0
+    },
+    {
+      "monotonic": 12023.456521345,
+      "steering": -10
+    },
+    {
+      "monotonic": 12023.974182466,
+      "steering": 0
+    },
+    {
+      "monotonic": 12024.478393713,
+      "steering": 10
+    },
+    {
+      "monotonic": 12024.984217899,
+      "steering": 0
+    },
+    {
+      "monotonic": 12025.487274974,
+      "steering": -10
+    },
+    {
+      "monotonic": 12025.993215603,
+      "steering": 0
+    },
+    {
+      "monotonic": 12026.496132753,
+      "steering": 10
+    },
+    {
+      "monotonic": 12026.999802198,
+      "steering": 0
+    },
+    {
+      "monotonic": 12027.502893826,
+      "steering": -10
+    },
+    {
+      "monotonic": 12028.017173511,
+      "steering": 0
+    },
+    {
+      "monotonic": 12028.519875747,
+      "steering": 10
+    },
+    {
+      "monotonic": 12029.024394454,
+      "steering": 0
+    },
+    {
+      "monotonic": 12029.538744707,
+      "steering": -10
+    },
+    {
+      "monotonic": 12030.046018469,
+      "steering": 0
+    },
+    {
+      "monotonic": 12030.550614477,
+      "steering": 10
+    },
+    {
+      "monotonic": 12031.054330275,
+      "steering": 0
+    },
+    {
+      "monotonic": 12031.556723046,
+      "steering": -10
+    },
+    {
+      "monotonic": 12032.061088643,
+      "steering": 0
+    },
+    {
+      "monotonic": 12032.576777186,
+      "steering": 10
+    },
+    {
+      "monotonic": 12033.083034833,
+      "steering": 0
+    },
+    {
+      "monotonic": 12033.586209931,
+      "steering": -10
+    },
+    {
+      "monotonic": 12034.090370733,
+      "steering": 0
+    },
+    {
+      "monotonic": 12034.593171688,
+      "steering": 10
+    },
+    {
+      "monotonic": 12035.09782433,
+      "steering": 0
+    },
+    {
+      "monotonic": 12035.600277606,
+      "steering": -10
+    },
+    {
+      "monotonic": 12036.106143301,
+      "steering": 0
+    },
+    {
+      "monotonic": 12036.608633526,
+      "steering": 10
+    },
+    {
+      "monotonic": 12037.113798805,
+      "steering": 0
+    },
+    {
+      "monotonic": 12037.617916406,
+      "steering": -10
+    },
+    {
+      "monotonic": 12038.122105987,
+      "steering": 0
+    },
+    {
+      "monotonic": 12038.624577222,
+      "steering": 10
+    },
+    {
+      "monotonic": 12039.128571841,
+      "steering": 0
+    },
+    {
+      "monotonic": 12039.652309012,
+      "steering": -10
+    },
+    {
+      "monotonic": 12040.15606034,
+      "steering": 0
+    },
+    {
+      "monotonic": 12040.660447832,
+      "steering": 10
+    },
+    {
+      "monotonic": 12041.166561924,
+      "steering": 0
+    },
+    {
+      "monotonic": 12041.669121054,
+      "steering": -10
+    },
+    {
+      "monotonic": 12042.173483908,
+      "steering": 0
+    },
+    {
+      "monotonic": 12042.676595273,
+      "steering": 10
+    },
+    {
+      "monotonic": 12043.18318081,
+      "steering": 0
+    },
+    {
+      "monotonic": 12043.686272014,
+      "steering": -10
+    },
+    {
+      "monotonic": 12044.19294045,
+      "steering": 0
+    },
+    {
+      "monotonic": 12044.701197247,
+      "steering": 10
+    },
+    {
+      "monotonic": 12045.205916438,
+      "steering": 0
+    },
+    {
+      "monotonic": 12045.708331486,
+      "steering": -10
+    },
+    {
+      "monotonic": 12046.214021534,
+      "steering": 0
+    },
+    {
+      "monotonic": 12046.717055366,
+      "steering": 10
+    },
+    {
+      "monotonic": 12047.220655055,
+      "steering": 0
+    },
+    {
+      "monotonic": 12047.723011164,
+      "steering": -10
+    },
+    {
+      "monotonic": 12048.226951041,
+      "steering": 0
+    },
+    {
+      "monotonic": 12048.731101195,
+      "steering": 10
+    },
+    {
+      "monotonic": 12049.235636839,
+      "steering": 0
+    },
+    {
+      "monotonic": 12049.739038881,
+      "steering": -10
+    },
+    {
+      "monotonic": 12050.243080205,
+      "steering": 0
+    },
+    {
+      "monotonic": 12050.746673196,
+      "steering": 10
+    },
+    {
+      "monotonic": 12051.251683546,
+      "steering": 0
+    },
+    {
+      "monotonic": 12051.754191937,
+      "steering": -10
+    },
+    {
+      "monotonic": 12052.258662829,
+      "steering": 0
+    },
+    {
+      "monotonic": 12052.760894047,
+      "steering": 10
+    },
+    {
+      "monotonic": 12053.267249407,
+      "steering": 0
+    },
+    {
+      "monotonic": 12053.770089226,
+      "steering": -10
+    },
+    {
+      "monotonic": 12054.274170049,
+      "steering": 0
+    },
+    {
+      "monotonic": 12054.777755719,
+      "steering": 10
+    },
+    {
+      "monotonic": 12055.282793151,
+      "steering": 0
+    },
+    {
+      "monotonic": 12055.78783953,
+      "steering": -10
+    },
+    {
+      "monotonic": 12056.291456086,
+      "steering": 0
+    },
+    {
+      "monotonic": 12056.794737722,
+      "steering": 10
+    },
+    {
+      "monotonic": 12057.298410987,
+      "steering": 0
+    },
+    {
+      "monotonic": 12057.8019964,
+      "steering": -10
+    },
+    {
+      "monotonic": 12058.305694305,
+      "steering": 0
+    },
+    {
+      "monotonic": 12058.808535367,
+      "steering": 10
+    },
+    {
+      "monotonic": 12059.312331978,
+      "steering": 0
+    },
+    {
+      "monotonic": 12059.814580707,
+      "steering": -10
+    },
+    {
+      "monotonic": 12060.319721084,
+      "steering": 0
+    },
+    {
+      "monotonic": 12060.821868815,
+      "steering": 10
+    },
+    {
+      "monotonic": 12061.325846821,
+      "steering": 0
+    },
+    {
+      "monotonic": 12061.829090651,
+      "steering": -10
+    },
+    {
+      "monotonic": 12062.346366003,
+      "steering": 0
+    },
+    {
+      "monotonic": 12062.849088044,
+      "steering": 10
+    },
+    {
+      "monotonic": 12063.35509854,
+      "steering": 0
+    },
+    {
+      "monotonic": 12063.857885549,
+      "steering": -10
+    },
+    {
+      "monotonic": 12064.362881312,
+      "steering": 0
+    },
+    {
+      "monotonic": 12064.866289146,
+      "steering": 10
+    },
+    {
+      "monotonic": 12065.370256492,
+      "steering": 0
+    },
+    {
+      "monotonic": 12065.873042554,
+      "steering": -10
+    },
+    {
+      "monotonic": 12066.378493642,
+      "steering": 0
+    },
+    {
+      "monotonic": 12066.883412442,
+      "steering": 10
+    },
+    {
+      "monotonic": 12067.387290044,
+      "steering": 0
+    },
+    {
+      "monotonic": 12067.889611759,
+      "steering": -10
+    },
+    {
+      "monotonic": 12068.394666334,
+      "steering": 0
+    },
+    {
+      "monotonic": 12068.897352833,
+      "steering": 10
+    },
+    {
+      "monotonic": 12069.402309516,
+      "steering": 0
+    },
+    {
+      "monotonic": 12069.905060281,
+      "steering": -10
+    },
+    {
+      "monotonic": 12070.411291949,
+      "steering": 0
+    },
+    {
+      "monotonic": 12070.916201851,
+      "steering": 10
+    },
+    {
+      "monotonic": 12071.423038894,
+      "steering": 0
+    },
+    {
+      "monotonic": 12071.925659848,
+      "steering": -10
+    },
+    {
+      "monotonic": 12072.430542146,
+      "steering": 0
+    },
+    {
+      "monotonic": 12072.93295794,
+      "steering": 10
+    },
+    {
+      "monotonic": 12073.437948993,
+      "steering": 0
+    },
+    {
+      "monotonic": 12073.942125039,
+      "steering": -10
+    },
+    {
+      "monotonic": 12074.447777624,
+      "steering": 0
+    },
+    {
+      "monotonic": 12074.951781572,
+      "steering": 10
+    }
+  ],
+  "restored": true
+}

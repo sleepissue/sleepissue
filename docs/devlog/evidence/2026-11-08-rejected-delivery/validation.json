@@ -1,0 +1,20 @@
+{
+  "branch": "develop-jdw",
+  "head": "f5c6ad9e179383ddb2b5cff3aad9ac4230afabe2",
+  "previousUncommittedFilesPreserved": true,
+  "onlyPreviousFilesChangedInThisTask": [
+    "PROGRESS.md",
+    "docs/devlog/2026-11-08-state-signals.md",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkSignalStore.kt"
+  ],
+  "unitTests": 479,
+  "newTests": 6,
+  "beforeFixNewTestFailures": 4,
+  "afterFixNewTestFailures": 0,
+  "assembleDebugPassed": true,
+  "stagedFiles": 0,
+  "committedOrPushed": false,
+  "installedToDevice": false,
+  "roomRulesServiceHubAndOtherRoleCodeChangedInThisTask": false
+}

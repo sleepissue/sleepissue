@@ -1,0 +1,31 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 337,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "baselineHistoricalUnitTests": 480,
+  "historicalRoomDeviceTests": 10,
+  "newUnitTests": 10,
+  "currentRoomBoundaryDeviceTests": 3,
+  "currentVentilationHubDeviceTests": 1,
+  "naviFixture": "assumption not met: initiallyActive=false, activeObserved=false; not a navigation TC pass",
+  "assembleDebug": true,
+  "assembleDebugAndroidTest": true,
+  "processReleaseMainManifest": true,
+  "gradleExecutedTasks": 81,
+  "apkSha256": "2066fd3932d6086687db1ac351555087599544f9e85db31a4b97d808a9dd7174",
+  "intermediateBeforeGearAndInitialQueryFollowup": {
+    "tests": 487,
+    "log": "final-tests-build-v2.txt"
+  },
+  "finalLog": "final-sig-tests-build.txt",
+  "currentGearQueriesCheckedInSameDeviceTest": true
+}

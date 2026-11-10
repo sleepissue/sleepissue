@@ -1,0 +1,17 @@
+{
+  "bootCount": 34,
+  "eventCounts": {
+    "BOOT_RECEIVED": 1,
+    "REQUEST_SKIPPED": 1
+  },
+  "starts": 0,
+  "serviceCreates": 0,
+  "inputsCreated": 0,
+  "noRunningServices": true,
+  "requested": false,
+  "stoppedDatabaseSha256": "586ae608c00c283b01f9292091cd1af612d166cfa608942964408d3ae069e5bc",
+  "stoppedDatabaseUnchanged": true,
+  "inspectedBeforeAnyUiOrRunner": true,
+  "databaseSha256BeforeSecondReboot": "586ae608c00c283b01f9292091cd1af612d166cfa608942964408d3ae069e5bc",
+  "databaseSha256AfterSecondReboot": "586ae608c00c283b01f9292091cd1af612d166cfa608942964408d3ae069e5bc"
+}

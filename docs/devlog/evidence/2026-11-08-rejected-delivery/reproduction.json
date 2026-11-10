@@ -1,0 +1,31 @@
+{
+  "tests": 6,
+  "failures": 4,
+  "cases": [
+    {
+      "name": "errorAndPermissionLossAreStillEmittedAndInvalidatePendingCallbacks",
+      "failure": null
+    },
+    {
+      "name": "newerCallbackThenOlderCallbackDoesNotReplayTheStoredCallbackToHub",
+      "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+    },
+    {
+      "name": "reversedDeliveryOrderWithinTheSameMillisecondDoesNotReplayTheStoredCallback",
+      "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+    },
+    {
+      "name": "ignoredInitialQueryAfterCallbackUpdatesOnlyItsDiagnosticQueryCount",
+      "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+    },
+    {
+      "name": "realSubscriptionRequeryChangedValueAndNullRemainConfirmationsWhileCallbackNullIsAnObservation",
+      "failure": null
+    },
+    {
+      "name": "rejectedRequeryAfterLatestCallbackCannotEmitItsStoredCallbackAgain",
+      "failure": "java.lang.AssertionError: expected:<1> but was:<2>"
+    }
+  ],
+  "output": "거부 후 Hub callbacks=2 raw=2 emit=2 · 확인=100\n거부 후 Hub callbacks=2 raw=2 emit=2 · 확인=100\n최초 조회 무시 후 callbacks=2 raw=2\n과거 재조회 거부 후 callbacks=2 raw=2\n"
+}

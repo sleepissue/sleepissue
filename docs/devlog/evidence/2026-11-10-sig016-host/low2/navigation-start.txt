@@ -1,0 +1,8 @@
+Starting: Intent { cmp=ai.umos.maps.android.navigation.app/.MainActivity }
+Warning: Activity not started, intent has been delivered to currently running top-most instance.
+Status: ok
+LaunchState: UNKNOWN (0)
+Activity: ai.umos.maps.android.navigation.app/.MainActivity
+TotalTime: 0
+WaitTime: 2
+Complete

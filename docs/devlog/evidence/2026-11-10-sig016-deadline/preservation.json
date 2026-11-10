@@ -1,0 +1,13 @@
+{
+  "existingDeviceFileCount": 140,
+  "deviceChanged": [],
+  "newDeviceFiles": [
+    "cache/role1-sig016-sig016_20261110a-stage.txt",
+    "cache/role1-sig016-sig016_20261110a.json",
+    "cache/role1-sig016-sig016_20261110b-stage.txt",
+    "cache/role1-sig016-sig016_20261110b.json"
+  ],
+  "existingRepoFilesChanged": [],
+  "forwardsIdentical": true,
+  "permissionsIdentical": true
+}

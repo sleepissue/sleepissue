@@ -1,0 +1,15 @@
+{
+  "branch": "develop-jdw",
+  "headUnchanged": true,
+  "startingFiles": 33,
+  "unchangedStartingFiles": 32,
+  "changedStartingFiles": [
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkRetainedStateTest.kt"
+  ],
+  "backup": "/tmp/awakedrive-delivery-recheck-28ynenm2/preserved",
+  "deviceAccessed": false,
+  "appInstalledOrRemoved": false,
+  "dataReset": false,
+  "schemaRulesServiceOrOtherModulesChanged": false,
+  "previousEvidenceHashesUnchanged": true
+}

@@ -1,0 +1,74 @@
+{
+  "avdCmdline": "/home/a/Android/Sdk/emulator/qemu/linux-x86_64/qemu-system-x86_64 -avd Pleos_Connect_2_1_0 -no-snapshot-load -no-snapshot-save -no-boot-anim -gpu host -feature -Vulkan -memory 4096 -cores 4",
+  "avdStatus": [
+    "VmRSS:\t 4697216 kB",
+    "VmSwap:\t  354520 kB",
+    "Threads:\t304",
+    "Cpus_allowed_list:\t0-7"
+  ],
+  "accelerationFds": [
+    {
+      "fd": "23",
+      "target": "/dev/dri/card2"
+    },
+    {
+      "fd": "24",
+      "target": "/dev/dri/card2"
+    },
+    {
+      "fd": "25",
+      "target": "/dev/dri/card2"
+    },
+    {
+      "fd": "26",
+      "target": "/dev/dri/card2"
+    },
+    {
+      "fd": "36",
+      "target": "/dev/kvm"
+    },
+    {
+      "fd": "37",
+      "target": "anon_inode:kvm-vm"
+    },
+    {
+      "fd": "64",
+      "target": "anon_inode:kvm-vcpu:0"
+    },
+    {
+      "fd": "65",
+      "target": "anon_inode:kvm-vcpu:1"
+    },
+    {
+      "fd": "66",
+      "target": "anon_inode:kvm-vcpu:2"
+    },
+    {
+      "fd": "67",
+      "target": "anon_inode:kvm-vcpu:3"
+    }
+  ],
+  "gpuDriver": "/sys/bus/pci/drivers/i915",
+  "gpuPciVendor": "0x8086",
+  "gpuPciDevice": "0x9bc4",
+  "governor": "powersave",
+  "lscpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  8\nOn-line CPU(s) list:                     0-7\nVendor ID:                               GenuineIntel\nModel name:                              Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz\nCPU family:                              6\nModel:                                   165\nThread(s) per core:                      2\nCore(s) per socket:                      4\nSocket(s):                               1\nStepping:                                2\nCPU(s) scaling MHz:                      82%\nCPU max MHz:                             4500.0000\nCPU min MHz:                             800.0000\nBogoMIPS:                                4999.90\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp vnmi pku ospke md_clear flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               128 KiB (4 instances)\nL1i cache:                               128 KiB (4 instances)\nL2 cache:                                1 MiB (4 instances)\nL3 cache:                                8 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-7\nVulnerability Gather data sampling:      Vulnerable\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Mitigation; Aligned branch/return thunks\nVulnerability Itlb multihit:             KVM: Mitigation: Split huge pages\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Mitigation; Clear CPU buffers; SMT vulnerable\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop\nVulnerability Srbds:                     Mitigation; Microcode\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace\n",
+  "free": "               total        used        free      shared  buff/cache   available\nMem:     16596807680 11301707776  3889078272  3127943168  4881862656  5295099904\nSwap:     4294963200  3762073600   532889600\n",
+  "swap": "NAME      TYPE       SIZE       USED PRIO\n/swap.img file 4294963200 3762073600   -2\n",
+  "hostKernel": "6.17.0-35-generic\n",
+  "emulatorVersion": "Android emulator version 37.2.12.0 (build_id 16428233) (CL:N/A)\nCopyright (C) 2006-2024 The Android Open Source Project and many others.\nThis program is a derivative of the QEMU CPU emulator (www.qemu.org).\n\n  This software is licensed under the terms of the GNU General Public\n  License version 2, as published by the Free Software Foundation, and\n  may be copied, distributed, and modified under those terms.\n\n  This program is distributed in the hope that it will be useful,\n  but WITHOUT ANY WARRANTY; without even the implied warranty of\n  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n  GNU General Public License for more details.\n\n",
+  "guestFingerprint": "Pleos/crp_avd/crp_avd_x86_64:14/RELEASE.release_connect_v2.1.0/release_connect_v2.1.0:user/test-keys\n",
+  "guestCpuCount": "4\n",
+  "guestMemory": "MemTotal:        4016100 kB\nMemFree:          432952 kB\nMemAvailable:    1595500 kB\nBuffers:          101372 kB\nCached:          1424572 kB\nSwapCached:        17856 kB\nActive:          1709220 kB\nInactive:        1105940 kB\nActive(anon):     822016 kB\nInactive(anon):   487740 kB\nActive(file):     887204 kB\nInactive(file):   618200 kB\nUnevictable:        4040 kB\nMlocked:            4040 kB\nSwapTotal:       3012068 kB\nSwapFree:        2333412 kB\nDirty:                68 kB\nWriteback:             0 kB\nAnonPages:       1289176 kB\nMapped:           617140 kB\nShmem:             17484 kB\nKReclaimable:      77148 kB\nSlab:             221552 kB\nSReclaimable:      76924 kB\nSUnreclaim:       144628 kB\nKernelStack:       47168 kB\nPageTables:       109764 kB\nSecPageTables:         0 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:     5020116 kB\nCommitted_AS:   59868464 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:       74452 kB\nVmallocChunk:          0 kB\nPercpu:             4880 kB\nAnonHugePages:         0 kB\nShmemHugePages:        0 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nDirectMap4k:       61272 kB\nDirectMap2M:     4132864 kB\n",
+  "renderer": [
+    "GLES: Google (Intel), Android Emulator OpenGL ES Translator (Mesa Intel(R) UHD Graphics (CML GT2)), OpenGL ES 3.0 (4.6 (Core Profile) Mesa 25.2.8-0ubuntu0.24.04.2)"
+  ],
+  "ai.umos.maps.android.navigation.app": [
+    "versionCode=1 minSdk=31 targetSdk=35",
+    "versionName=3.3.2-rc5-hotfix.3"
+  ],
+  "ai.pleos.playground.service.navi": [
+    "versionCode=55 minSdk=31 targetSdk=34",
+    "versionName=3.0.4"
+  ]
+}

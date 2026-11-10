@@ -1,0 +1,21 @@
+{
+  "services": [
+    {
+      "name": "com.sleepissue.awakedrive.debug.DebugIsolatedMonitorService",
+      "exported": "false",
+      "foregroundServiceType": "specialUse"
+    },
+    {
+      "name": "com.sleepissue.awakedrive.service.RealTripMonitorService",
+      "exported": "false",
+      "foregroundServiceType": "specialUse"
+    }
+  ],
+  "foregroundPermissions": [
+    "android.permission.FOREGROUND_SERVICE",
+    "android.permission.FOREGROUND_SERVICE_SPECIAL_USE"
+  ],
+  "notificationPermission": true,
+  "measuredRuntimeType": "0x40000000 specialUse",
+  "debugFixtureInRelease": false
+}

@@ -1,0 +1,16 @@
+{
+  "branch": "develop-jdw",
+  "head": "b0cfc1eb687b5a134c5d778ca86436f11f9c40e5",
+  "tempSession": "/tmp/awakedrive-sig016-gg3gub0e",
+  "productSourceChanged": false,
+  "deviceRunA": "calibration: ACTION_CLICK false, automatic countdown, extra raw 1Hz queries, beforeUi list alias fixed later",
+  "deviceRunB": "final fixture: visible start button injected touch accepted5/5, product polling only",
+  "measurementDefinition": "Input bracket before/after public API or UI input injection; SDK product callback receipt via SdkReading.receivedMs; adapter source collection; Hub reflection bounded by NaviState.tMs and latestNavi collection; naviSamples consumer receive; elapsedRealtime ms, difference allowance +/-2ms",
+  "measuredBFixtureSha256": "f95701e7d3847b36fbb67fcc0219c3390d5212d975aade022b1546f85543e738",
+  "finalFixtureSha256": "bc319491b6e30dc4b4ec21aa3f7f677f7dacbf8f5a67e455eae5c33a7df4ac4c",
+  "afterBChanges": [
+    "preflight UI preview guard",
+    "explicit preflight-only option"
+  ],
+  "finalDeviceRuns": "C/D/E preflight only, all observed empty navigation map. Negative UI condition not established, no route requests."
+}

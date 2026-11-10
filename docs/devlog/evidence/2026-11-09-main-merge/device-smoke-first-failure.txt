@@ -1,0 +1,23 @@
+
+com.sleepissue.awakedrive.data.Role1MainMergeSmokeTest:
+Error in productEntryAndSdkProbePreserveOwnershipWithoutOpeningTripStorage(com.sleepissue.awakedrive.data.Role1MainMergeSmokeTest):
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.sleepissue.awakedrive.data.Role1MainMergeSmokeTest.productEntryAndSdkProbePreserveOwnershipWithoutOpeningTripStorage(Role1MainMergeSmokeTest.kt:60)
+
+
+Time: 7.691
+There was 1 failure:
+1) productEntryAndSdkProbePreserveOwnershipWithoutOpeningTripStorage(com.sleepissue.awakedrive.data.Role1MainMergeSmokeTest)
+java.lang.AssertionError
+	at org.junit.Assert.fail(Assert.java:87)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at org.junit.Assert.assertTrue(Assert.java:53)
+	at com.sleepissue.awakedrive.data.Role1MainMergeSmokeTest.productEntryAndSdkProbePreserveOwnershipWithoutOpeningTripStorage(Role1MainMergeSmokeTest.kt:60)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

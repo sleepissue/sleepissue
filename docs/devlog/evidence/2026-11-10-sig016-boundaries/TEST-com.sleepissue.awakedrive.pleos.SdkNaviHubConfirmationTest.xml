@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-10T08:39:23.993Z" hostname="a" time="0.022">
+  <properties/>
+  <testcase name="headingAtHubRestartsAfterLocationGapInvalidCoordinatesAndProviderError" classname="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" time="0.01"/>
+  <testcase name="onlyExplicitGuidanceModesOpenRouteValuesEvenWhenProviderBooleanDisagrees" classname="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" time="0.003"/>
+  <testcase name="sdkReportsCanChangeNavigationWithoutInventingSensorOrVehicleObservations" classname="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" time="0.009"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

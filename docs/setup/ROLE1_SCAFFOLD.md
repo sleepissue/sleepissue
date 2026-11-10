@@ -1,6 +1,6 @@
 # 1번 담당 A 기본 틀 연결 가이드
 
-A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연결할 수 있는 통로다. 이 문서의 예시는 최초 관측 전달 모드다. 이후 [운행 계산](ROLE1_TRIP_RULES.md)·[개입](ROLE1_INTERVENTION.md)·[Room](ROLE1_PERSISTENCE.md)과 [10Hz·품질·중재](ROLE1_SIGNAL_HUB.md)를 추가했다. 실제 SDK·졸음 판단·음성·휴식 자동 인증·경유지 실행·JSON 재생은 후속 범위다.
+A는 차량 입력을 공통 자료형으로 전달하고 다른 담당이 연결할 수 있는 통로다. 이 문서의 예시는 최초 관측 전달 모드다. 이후 [운행 계산](ROLE1_TRIP_RULES.md)·[개입](ROLE1_INTERVENTION.md)·[Room](ROLE1_PERSISTENCE.md)과 [10Hz·품질·중재](ROLE1_SIGNAL_HUB.md)를 추가했다. 현재 실제 SDK·REAL 운행·Room·감시/부팅은 [서비스 경로](ROLE1_MONITOR_SERVICE.md)에 구현돼 있다. JSON 재생의 기존 구현은 5번 인계 대상이다. 졸음 판단·음성·휴식 인증·경유지의 제품 연결은 각 담당의 범위이며 여기서는 통합하지 않는다.
 
 개발 대상은 Pleos Playground의 가상 차량이다. `Source.REAL`은 Playground SDK·Virtual Console 입력이며, `Source.DEMO`는 앱의 JSON 재생 입력이다. 물리 차량 연결이나 검증을 뜻하지 않는다.
 

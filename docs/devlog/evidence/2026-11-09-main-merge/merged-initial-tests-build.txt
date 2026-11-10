@@ -1,0 +1,71 @@
+Calculating task graph as configuration cache cannot be reused because file 'gradle/libs.versions.toml' has changed.
+
+> Configure project :app
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/build.gradle.kts:42:34: 'fun srcDir(srcDir: Any): Any' is deprecated. Use `directories` mutable set instead.
+
+> Task :engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :engine:processResources NO-SOURCE
+> Task :engine:processTestResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :app:javaPreCompileDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :engine:compileKotlin
+> Task :engine:compileJava NO-SOURCE
+> Task :engine:classes UP-TO-DATE
+> Task :engine:jar
+> Task :app:mergeDebugResources
+> Task :engine:compileTestKotlin
+> Task :engine:compileTestJava NO-SOURCE
+> Task :engine:testClasses UP-TO-DATE
+> Task :engine:test
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :app:generateDebugGlobalSynthetics
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+> Task :app:kspDebugKotlin
+
+> Task :app:compileDebugKotlin FAILED
+e: file:///home/a/StudioProjects/sleepissue/src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugSdkProbeActivity.kt:87:43 Unresolved reference 'vehicleKeys'.
+
+> Task :app:mergeExtDexDebug
+
+[Incubating] Problems report is available at: file:///home/a/StudioProjects/sleepissue/src/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.btapi.BuildToolsApiCompilationWork
+   > Kotlin compiler: UNRESOLVED_REFERENCE
+       Kotlin compiler error
+         Unresolved reference 'vehicleKeys'.
+         Location: /home/a/StudioProjects/sleepissue/src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugSdkProbeActivity.kt line 87
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 4m 19s
+29 actionable tasks: 29 executed
+Configuration cache entry stored.

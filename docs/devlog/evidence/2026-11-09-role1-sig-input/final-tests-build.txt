@@ -1,0 +1,139 @@
+Reusing configuration cache.
+> Task :engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :engine:processResources NO-SOURCE
+> Task :engine:processTestResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :app:javaPreCompileDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:mergeDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :engine:compileKotlin
+> Task :engine:compileJava NO-SOURCE
+> Task :engine:classes UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:compressDebugAssets
+> Task :engine:jar
+> Task :app:generateDebugGlobalSynthetics
+> Task :engine:compileTestKotlin
+> Task :engine:compileTestJava NO-SOURCE
+> Task :engine:testClasses UP-TO-DATE
+> Task :engine:test
+> Task :app:checkDebugDuplicateClasses
+> Task :app:desugarDebugFileDependencies
+> Task :app:mergeExtDexDebug
+> Task :app:mergeLibDexDebug
+> Task :app:mergeDebugJniLibFolders
+> Task :app:mergeDebugNativeLibs
+
+> Task :app:stripDebugDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libjnidispatch.so, libuacore.so. Run with --info option to learn more.
+
+> Task :app:validateSigningDebug
+> Task :app:writeDebugAppMetadata
+> Task :app:writeDebugSigningConfigVersions
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResources
+> Task :app:packageDebugAndroidTestResources
+> Task :app:processDebugAndroidTestNavigationResources
+> Task :app:parseDebugAndroidTestLocalResources
+> Task :app:generateDebugAndroidTestRFile
+> Task :app:javaPreCompileDebugAndroidTest
+> Task :app:generateDebugAndroidTestAssets UP-TO-DATE
+> Task :app:mergeDebugAndroidTestAssets
+> Task :app:compressDebugAndroidTestAssets
+> Task :app:generateDebugAndroidTestGlobalSynthetics
+> Task :app:checkDebugAndroidTestDuplicateClasses
+> Task :app:desugarDebugAndroidTestFileDependencies
+> Task :app:mergeExtDexDebugAndroidTest
+> Task :app:mergeLibDexDebugAndroidTest
+> Task :app:checkDebugAndroidTestAarMetadata
+> Task :app:mapDebugAndroidTestSourceSetPaths
+> Task :app:compileDebugAndroidTestNavigationResources
+> Task :app:mergeDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestManifest
+> Task :app:processDebugAndroidTestManifest
+> Task :app:processDebugAndroidTestResources
+> Task :app:mergeDebugAndroidTestJniLibFolders
+> Task :app:mergeDebugAndroidTestNativeLibs NO-SOURCE
+> Task :app:stripDebugAndroidTestDebugSymbols NO-SOURCE
+> Task :app:validateSigningDebugAndroidTest
+> Task :app:writeDebugAndroidTestSigningConfigVersions
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:extractDeepLinksRelease
+> Task :app:processReleaseMainManifest
+> Task :app:kspDebugKotlin
+
+> Task :app:compileDebugKotlin
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:317:57 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:318:68 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:363:57 'fun unregisterCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:364:46 'fun registerCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int, p2: Float): Boolean' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:399:49 Redundant call of conversion method.
+
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:kspDebugUnitTestKotlin
+> Task :app:mergeDebugJavaResource
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:76:74 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:77:31 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PlaygroundTripSessionTest.kt:170:48 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoPerformanceTest.kt:41:89 'val id: Long' is deprecated. Deprecated in Java.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoTransportPerformanceTest.kt:48:89 'val id: Long' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+> Task :app:dexBuilderDebug
+> Task :app:mergeProjectDexDebug
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect
+> Task :app:assembleDebug
+> Task :app:kspDebugAndroidTestKotlin
+
+> Task :app:compileDebugAndroidTestKotlin
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviInputProbeTest.kt:48:43 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'routeStateInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviInputProbeTest.kt:49:44 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'destinationInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviInputProbeTest.kt:50:36 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'tbtInfoList'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviInputProbeTest.kt:51:48 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'currentLocationInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviInputProbeTest.kt:52:41 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'routeStartInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1SdkInputProbeTest.kt:95:25 Unnecessary safe call on a non-null receiver of type 'Int'.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1SdkInputProbeTest.kt:119:43 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'routeStateInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1SdkInputProbeTest.kt:124:48 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'currentLocationInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1SdkInputProbeTest.kt:125:44 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'destinationInfo'. This may cause problems when calling this function with named arguments.
+w: file:///home/a/StudioProjects/sleepissue/src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1SdkInputProbeTest.kt:126:36 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'tbtInfoList'. This may cause problems when calling this function with named arguments.
+
+> Task :app:compileDebugAndroidTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugAndroidTestJavaRes
+> Task :app:mergeDebugAndroidTestJavaResource
+> Task :app:dexBuilderDebugAndroidTest
+> Task :app:mergeProjectDexDebugAndroidTest
+> Task :app:packageDebugAndroidTest
+> Task :app:createDebugAndroidTestApkListingFileRedirect
+> Task :app:assembleDebugAndroidTest
+> Task :app:testDebugUnitTest
+
+[Incubating] Problems report is available at: file:///home/a/StudioProjects/sleepissue/src/android/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 2m 3s
+81 actionable tasks: 81 executed
+Configuration cache entry reused.

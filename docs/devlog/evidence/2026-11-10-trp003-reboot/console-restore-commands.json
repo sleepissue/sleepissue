@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/vehicle/controls",
+    "params": {
+      "speed": 0,
+      "accelerator": 0,
+      "brake": 0,
+      "steering": 0
+    }
+  },
+  {
+    "path": "/vehicle/gear",
+    "params": {
+      "gear": "Park"
+    }
+  },
+  {
+    "path": "/vehicle/body",
+    "params": {
+      "ambient_color": "#ffffff",
+      "ambient_brightness_pct": 70
+    }
+  },
+  {
+    "path": "/vehicle/hvac",
+    "params": {
+      "power": 0
+    }
+  }
+]

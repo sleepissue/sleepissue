@@ -1,0 +1,79 @@
+[
+  {
+    "phase": "current1",
+    "timerElapsedMs": 17578655,
+    "dueAtMs": 17578056,
+    "lateMs": 599,
+    "relativeFirstUiBeforeMs": -496,
+    "alignmentAdbBracketMs": 95.656173,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 55.5823777911889
+  },
+  {
+    "phase": "current1",
+    "timerElapsedMs": 17579952,
+    "dueAtMs": 17579657,
+    "lateMs": 295,
+    "relativeFirstUiBeforeMs": 801,
+    "alignmentAdbBracketMs": 95.656173,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 55.5823777911889
+  },
+  {
+    "phase": "current2",
+    "timerElapsedMs": 17600207,
+    "dueAtMs": 17599868,
+    "lateMs": 339,
+    "relativeFirstUiBeforeMs": -679,
+    "alignmentAdbBracketMs": 127.09026,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 54.82142857142857
+  },
+  {
+    "phase": "current2",
+    "timerElapsedMs": 17601389,
+    "dueAtMs": 17601220,
+    "lateMs": 169,
+    "relativeFirstUiBeforeMs": 503,
+    "alignmentAdbBracketMs": 127.09026,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 54.82142857142857
+  },
+  {
+    "phase": "low1",
+    "timerElapsedMs": 17768001,
+    "dueAtMs": 17767670,
+    "lateMs": 331,
+    "relativeFirstUiBeforeMs": -1199,
+    "alignmentAdbBracketMs": 86.473817,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 52.8415961305925
+  },
+  {
+    "phase": "low1",
+    "timerElapsedMs": 17769260,
+    "dueAtMs": 17769017,
+    "lateMs": 243,
+    "relativeFirstUiBeforeMs": 60,
+    "alignmentAdbBracketMs": 86.473817,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 52.8415961305925
+  },
+  {
+    "phase": "low2",
+    "timerElapsedMs": 17789202,
+    "dueAtMs": 17788583,
+    "lateMs": 619,
+    "relativeFirstUiBeforeMs": 535,
+    "alignmentAdbBracketMs": 118.29943,
+    "guestUptimeResolutionMs": 10,
+    "causality": "resource bin is about2sec; cannot identify cause of subsecond delay",
+    "hostBinBusyPct": 54.73053892215569
+  }
+]

@@ -12,7 +12,7 @@
 
 ## 기어와 전원 정책
 
-[공식 GEAR_SELECTION](https://developer.android.com/reference/android/car/VehiclePropertyIds#GEAR_SELECTION)은 READ·GLOBAL·Integer·ON_CHANGE다. [공식 CarPropertyValue timestamp](https://developer.android.com/reference/android/car/hardware/CarPropertyValue#getTimestamp())는 elapsedRealtimeNanos와 같은 시간축의 원천 값 발생 시각이다. [Android 14 공식 CarPropertyManager 소스](https://android.googlesource.com/platform/packages/services/Car/+/refs/heads/android14-release/car-lib/src/android/car/hardware/property/CarPropertyManager.java)의 등록 계약상 ON_CHANGE에는 지정 rate가 적용되지 않는다. 주기 센서로 해석하지 않는다. 최초 `getProperty`와 변경 콜백을 받고, 기어만 별도로 현재 상태를 재조회한다.
+[공식 GEAR_SELECTION](https://developer.android.com/reference/android/car/VehiclePropertyIds#GEAR_SELECTION)은 READ·GLOBAL·Integer·ON_CHANGE다. [공식 CarPropertyValue timestamp](https://developer.android.com/reference/android/car/hardware/CarPropertyValue#getTimestamp())는 elapsedRealtimeNanos와 같은 시간축의 원천 값 발생 시각이다. [Android 14 공식 CarPropertyManager 소스](https://android.googlesource.com/platform/packages/services/Car/+/refs/heads/android14-release/car-lib/src/android/car/hardware/property/CarPropertyManager.java)의 등록 계약상 ON_CHANGE에는 지정 rate가 적용되지 않는다. 주기 센서로 해석하지 않는다. 최초 `getProperty`와 변경 콜백을 받고, 기어는 AAOS 현재 상태를 재조회한다. 방향지시등·브레이크·크루즈·실제 통풍·현재 실내온도도 공식 SDK 조회로 별도 확인한다([수집 계약](ROLE1_PLAYGROUND_SDK.md)).
 
 | 항목 | 의미와 정책 |
 | --- | --- |
@@ -26,7 +26,7 @@
 | 재연결 | 새 어댑터·Hub 입력 세대. 중복 ready 콜백은 무시하고 이전 세대 조회/콜백은 폐기 |
 | 전원 | 실제 전원 API·권한·의미 미확인으로 **미연결**. null/UNKNOWN·화면 종료·프로세스 종료를 OFF로 만들지 않음 |
 
-SDK의 조향 전륜각·착석 Boolean 의미 보류는 기존대로다. 통풍·크루즈 등 모든 ON_CHANGE 항목의 제품 유지 정책을 확정한 것은 아니며 이번에는 운행에 필요한 기어를 연결했다.
+SDK의 조향 전륜각·착석 Boolean 의미 보류는 기존대로다. 공식 현재값 조회가 있는 여섯 SDK 상태는 1초 재조회/3초 확인 lease를 사용한다. 기어 재조회와 마찬가지로 값이 달라져도 조회를 센서 관측·콜백·운전자 조작으로 세지 않는다. 제품 수치의 최종 승인을 뜻하지 않는다.
 
 ## 운행과 시간
 

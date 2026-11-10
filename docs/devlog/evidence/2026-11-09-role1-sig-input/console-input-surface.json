@@ -1,0 +1,116 @@
+{
+  "source": "http://127.0.0.1:8088/vehicle/catalog",
+  "featureCount": 63,
+  "temperatureFeatures": [
+    {
+      "id": "hvac-temperature-set",
+      "domain": "climate",
+      "domain_label": "Climate",
+      "label": "Target Temperature",
+      "description": "Publish zone target temperature",
+      "state_key": "hvac",
+      "state_path": "{area}.temp_c",
+      "unit": "°C",
+      "write_endpoint": "/vehicle/hvac",
+      "areas": [
+        {
+          "label": "Driver",
+          "value": "driver"
+        },
+        {
+          "label": "Passenger",
+          "value": "passenger"
+        }
+      ],
+      "control": {
+        "kind": "range",
+        "field_by_area": {
+          "driver": "driver_temp",
+          "passenger": "passenger_temp"
+        },
+        "min": 16,
+        "max": 30,
+        "step": 0.5
+      },
+      "car_property": {
+        "name": "HVAC_TEMPERATURE_SET",
+        "hex_id": "0x15600503",
+        "kind": "system"
+      }
+    },
+    {
+      "id": "hvac-seat-temperature",
+      "domain": "climate",
+      "domain_label": "Climate",
+      "label": "Seat Temperature",
+      "description": "Publish seat ventilation or heating level",
+      "state_key": "hvac",
+      "state_path": "{area}.seat_temp",
+      "write_endpoint": "/vehicle/hvac",
+      "areas": [
+        {
+          "label": "Driver",
+          "value": "driver"
+        },
+        {
+          "label": "Passenger",
+          "value": "passenger"
+        }
+      ],
+      "value_labels": {
+        "-3": "Ventilation 3",
+        "-2": "Ventilation 2",
+        "-1": "Ventilation 1",
+        "0": "Off",
+        "1": "Heating 1",
+        "2": "Heating 2",
+        "3": "Heating 3"
+      },
+      "control": {
+        "kind": "enum",
+        "field_by_area": {
+          "driver": "driver_seat",
+          "passenger": "passenger_seat"
+        },
+        "options": [
+          {
+            "label": "V3",
+            "value": -3
+          },
+          {
+            "label": "V2",
+            "value": -2
+          },
+          {
+            "label": "V1",
+            "value": -1
+          },
+          {
+            "label": "Off",
+            "value": 0
+          },
+          {
+            "label": "H1",
+            "value": 1
+          },
+          {
+            "label": "H2",
+            "value": 2
+          },
+          {
+            "label": "H3",
+            "value": 3
+          }
+        ]
+      },
+      "car_property": {
+        "name": "HVAC_SEAT_TEMPERATURE",
+        "hex_id": "0x1540050B",
+        "kind": "system"
+      }
+    }
+  ],
+  "currentTemperatureInputFound": false,
+  "locationInputFound": false,
+  "scope": "catalog and rendered public console; no private endpoints or property injection"
+}

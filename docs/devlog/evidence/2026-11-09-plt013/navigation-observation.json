@@ -1,0 +1,13 @@
+{
+  "markerRole": "existence-only gate; payload transfer failed; original zero-byte marker preserved",
+  "markerBytes": 0,
+  "windowStartMs": 25413939,
+  "beforeNavigationAtMs": 25400497,
+  "initialForegroundAssertionInHost": "driver asserted navigation MainActivity before pre-input screenshot/marker creation",
+  "screenSamplesInsideWindow": 116,
+  "allObservedNavigationTop": true,
+  "firstSampleAtMs": 25447850.0,
+  "lastSampleAtMs": 27203590.0,
+  "samplingLimitation": "first ongoing top sample is after marker recovery; screenshots/code gate cover initial transition; not continuous UI tracing",
+  "preInputImageSha256": "275c9ddfe046bf61aa17213c976160ec13899f2d06f69c677d665f6cddefca1a"
+}

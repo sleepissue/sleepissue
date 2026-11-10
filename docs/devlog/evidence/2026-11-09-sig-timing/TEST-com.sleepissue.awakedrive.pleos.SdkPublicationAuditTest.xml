@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-09T07:55:09.302Z" hostname="a" time="0.005">
+  <properties/>
+  <testcase name="shortAndZeroIntervalsAreVisibleSeparatelyFromMissingAndDuplicateSequences" classname="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" time="0.001"/>
+  <testcase name="publicationMetadataDefinesCadenceEvenWhenConsumerArrivalIsMuchLater" classname="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" time="0.003"/>
+  <testcase name="aNewSessionResetsAllCountersAndPreviouslyCapturedSnapshotStaysImmutable" classname="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" time="0.001"/>
+  <testcase name="reversedPublicationTimesAreFlaggedAndCustomLimitDoesNotChangeTheNamedTcCounter" classname="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" time="0.0"/>
+  <testcase name="lateSequencesRepairMissingCountWhileDuplicateAndOrderCountersRemainIndependent" classname="com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

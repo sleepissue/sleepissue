@@ -1,0 +1,19 @@
+[
+  "adb",
+  "shell",
+  "am",
+  "instrument",
+  "--user",
+  "10",
+  "-w",
+  "-e",
+  "class",
+  "com.sleepissue.awakedrive.data.Role1BootDeviceTest#prepareTenFieldsAndArmActualBoot",
+  "-e",
+  "role1Boot",
+  "prepare",
+  "-e",
+  "role1BootRunId",
+  "boot-visible-1794285062",
+  "com.sleepissue.awakedrive.test/androidx.test.runner.AndroidJUnitRunner"
+]

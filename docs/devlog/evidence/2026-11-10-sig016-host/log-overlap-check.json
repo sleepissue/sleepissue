@@ -1,0 +1,22 @@
+{
+  "current1": {
+    "indexOrScanEventsWithinExactHostWindow": [],
+    "buildStartEventsWithinExactHostWindow": [],
+    "hostWallTimesAreOnlyForOverlapCheck": true
+  },
+  "current2": {
+    "indexOrScanEventsWithinExactHostWindow": [],
+    "buildStartEventsWithinExactHostWindow": [],
+    "hostWallTimesAreOnlyForOverlapCheck": true
+  },
+  "low1": {
+    "indexOrScanEventsWithinExactHostWindow": [],
+    "buildStartEventsWithinExactHostWindow": [],
+    "hostWallTimesAreOnlyForOverlapCheck": true
+  },
+  "low2": {
+    "indexOrScanEventsWithinExactHostWindow": [],
+    "buildStartEventsWithinExactHostWindow": [],
+    "hostWallTimesAreOnlyForOverlapCheck": true
+  }
+}

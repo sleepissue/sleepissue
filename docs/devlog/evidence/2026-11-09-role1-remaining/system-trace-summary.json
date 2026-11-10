@@ -1,0 +1,36 @@
+{
+  "rawSystemTracePath": "/tmp/awakedrive-role1-final-3g11_j63/sched.pftrace",
+  "rawSystemTraceSha256": "2fcbcb03698e6c237a0e27034b31bd115b6f837ef376afad3f02ab579b0978c7",
+  "rawSystemTraceBytes": 67047771,
+  "traceProcessorVersion": "downloaded get.perfetto.dev 2026-11-09; adb Perfetto v34.0",
+  "traceBoundNs": [
+    14843000758818,
+    14901713409081
+  ],
+  "ringOverwroteEarlyData": true,
+  "analyzedLongGapCountWithCoverage": 5,
+  "fullAppWindowTraceCoverage": false,
+  "dataLossStatsGreaterThanZero": 0,
+  "nativeTidsRecorded": true,
+  "pairedNanoMinusElapsedNsBounds": [
+    240,
+    1177991
+  ],
+  "consumerReceiptDelayFromEmitBeforeMs": {
+    "count": 750,
+    "min": 0,
+    "max": 12
+  },
+  "clockSnapshotMonoMinusBootNs": [
+    109,
+    56
+  ],
+  "schedulerEvidence": {
+    "seq305WorkerRunnableMs": 10.738544,
+    "seq326DefaultExecutorPreemptedRunnableMs": 19.420473,
+    "seq326WorkerRunnableMs": 1.602133,
+    "seq535WorkerRunnableMs": 21.914314
+  },
+  "strict110msStatus": "UNRESOLVED",
+  "ttlClockCadenceChanged": false
+}

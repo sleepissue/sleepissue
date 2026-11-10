@@ -1,0 +1,10 @@
+{
+  "com.sleepissue.awakedrive": {
+    "installedSha256": "d996f17a4bf2557da0b40a1a47f10ec919ef98185e2da1518edde70f7bc2ff0d",
+    "localSha256": "d996f17a4bf2557da0b40a1a47f10ec919ef98185e2da1518edde70f7bc2ff0d"
+  },
+  "com.sleepissue.awakedrive.test": {
+    "installedSha256": "30e4fa1ac1f74ddd9b885f74627405261e1dc50b29986c9c9820b5f85dd8a722",
+    "localSha256": "30e4fa1ac1f74ddd9b885f74627405261e1dc50b29986c9c9820b5f85dd8a722"
+  }
+}

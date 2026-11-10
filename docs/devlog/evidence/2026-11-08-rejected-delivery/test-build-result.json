@@ -1,0 +1,22 @@
+{
+  "engine": {
+    "tests": 153,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 326,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "newRegression": {
+    "tests": 6,
+    "failures": 0,
+    "output": "거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100\n거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100\n최초 조회 무시 후 callbacks=1 raw=1\n과거 재조회 거부 후 callbacks=1 raw=1\n"
+  },
+  "apkSha256": "968d57484e74aab327fa04b51b728386d3550b45a3004a2438d0701602bce1a8",
+  "baselineUnitTests": 473,
+  "deviceTestsRerun": false
+}

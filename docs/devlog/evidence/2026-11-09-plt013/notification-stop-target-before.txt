@@ -1,0 +1,6 @@
+      allowlistDuration=2ddd40b:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService
+    #1: PendingIntentRecord{7f60dc9 com.sleepissue.awakedrive startService (allowlist: 2ddd40b:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}
+      uid=1010182 packageName=com.sleepissue.awakedrive featureId=null type=startService flags=0x4000000
+      requestCode=12 requestResolvedType=null
+      requestIntent=act=com.sleepissue.awakedrive.monitor.STOP cmp=com.sleepissue.awakedrive/.service.RealTripMonitorService
+      allowlistDuration=2ddd40b:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService

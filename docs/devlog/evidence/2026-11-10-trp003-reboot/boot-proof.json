@@ -1,0 +1,39 @@
+{
+  "actualAdbReboots": 2,
+  "bootCounts": [
+    32,
+    33,
+    34
+  ],
+  "bootIds": [
+    "5fe02899-62ba-463b-ab0a-6af56cfdb871",
+    "02b3dcd2-3db3-4181-9df5-50126fd762c9",
+    "788036c4-a644-47cf-bb31-fe4d0b5a0433"
+  ],
+  "allBootIdsDistinct": true,
+  "positiveFullWindowEvents": {
+    "BOOT_RECEIVED": 1,
+    "START_REQUEST": 1,
+    "START_ACCEPTED": 1,
+    "SERVICE_CREATE": 1,
+    "START_COMMAND": 2,
+    "RESTORED_BEFORE_INPUT": 1,
+    "INPUT_CREATED": 1,
+    "RUNTIME_STARTED": 1,
+    "FIRST_VALID_INPUT": 1,
+    "SERVICE_DESTROY": 1
+  },
+  "negativeBeforeUiEvents": {
+    "BOOT_RECEIVED": 1,
+    "REQUEST_SKIPPED": 1
+  },
+  "positivePid": 6403,
+  "negativePid": 5886,
+  "bootReceiverComponent": "com.sleepissue.awakedrive.service.MonitorBootReceiver",
+  "targetService": "com.sleepissue.awakedrive.debug.DebugBootMonitorService",
+  "serviceImplementation": "RealTripMonitorService.onStartCommand",
+  "noPostBootUiOrRunnerBeforeEvidence": true,
+  "noManualBootBroadcast": true,
+  "positiveServiceStopActionCount": 1,
+  "negativeFullWindowIncludesCleanupFinalCheck": true
+}

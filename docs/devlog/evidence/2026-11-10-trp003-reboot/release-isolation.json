@@ -1,0 +1,53 @@
+{
+  "releaseApplicationClass": "android.app.Application (default)",
+  "releaseComponents": [
+    {
+      "type": "activity",
+      "name": "com.sleepissue.awakedrive.ui.DrivingPreviewActivity",
+      "exported": "true",
+      "label": "AwakeDrive"
+    },
+    {
+      "type": "activity",
+      "name": "com.sleepissue.awakedrive.service.RealTripMonitorActivity",
+      "exported": "false",
+      "theme": "@style/Theme.SleepIssue"
+    },
+    {
+      "type": "service",
+      "name": "com.sleepissue.awakedrive.service.RealTripMonitorService",
+      "exported": "false",
+      "foregroundServiceType": "specialUse"
+    },
+    {
+      "type": "receiver",
+      "name": "com.sleepissue.awakedrive.service.MonitorBootReceiver",
+      "exported": "false"
+    },
+    {
+      "type": "service",
+      "name": "androidx.room.MultiInstanceInvalidationService",
+      "directBootAware": "true",
+      "exported": "false"
+    },
+    {
+      "type": "provider",
+      "name": "androidx.startup.InitializationProvider",
+      "authorities": "com.sleepissue.awakedrive.androidx-startup",
+      "exported": "false"
+    },
+    {
+      "type": "receiver",
+      "name": "androidx.profileinstaller.ProfileInstallReceiver",
+      "directBootAware": "false",
+      "enabled": "true",
+      "exported": "true",
+      "permission": "android.permission.DUMP"
+    }
+  ],
+  "releaseOwnKotlinClassCount": 663,
+  "debugBootReferencesInRelease": [],
+  "environmentInterfacePresent": true,
+  "defaultReceiverPresent": true,
+  "debugImplementationAndArmUiNotInRelease": true
+}
