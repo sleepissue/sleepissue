@@ -1,0 +1,21 @@
+{
+  "existingDeviceFileCount": 152,
+  "deviceChanged": [],
+  "newDeviceFiles": [
+    "cache/role1-sig016-sig016_host_current1_20261110-stage.txt",
+    "cache/role1-sig016-sig016_host_current1_20261110.json",
+    "cache/role1-sig016-sig016_host_current2_20261110-stage.txt",
+    "cache/role1-sig016-sig016_host_current2_20261110.json",
+    "cache/role1-sig016-sig016_host_low1_20261110-stage.txt",
+    "cache/role1-sig016-sig016_host_low1_20261110.json",
+    "cache/role1-sig016-sig016_host_low2_20261110-stage.txt",
+    "cache/role1-sig016-sig016_host_low2_20261110.json"
+  ],
+  "permissionsIdentical": true,
+  "forwardsIdentical": true,
+  "avdConfigIdentical": {
+    "config.ini": true,
+    "hardware-qemu.ini": true
+  },
+  "sourceChanges": []
+}

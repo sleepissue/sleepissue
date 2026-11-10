@@ -1,0 +1,7 @@
+Starting: Intent { cmp=com.sleepissue.awakedrive/.debug.DebugHarnessActivity (has extras) }
+Status: ok
+LaunchState: COLD
+Activity: com.sleepissue.awakedrive/.debug.DebugSdkProbeActivity
+TotalTime: 1134
+WaitTime: 1140
+Complete

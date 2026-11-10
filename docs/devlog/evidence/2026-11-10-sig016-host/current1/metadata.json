@@ -1,0 +1,9 @@
+{
+  "phase": "current1",
+  "runId": "sig016_host_current1_20261110",
+  "hostBeginNs": 103454454443967,
+  "hostEndNs": 103475810627877,
+  "wallBeginUtc": "2026-11-10T09:29:08.545070+00:00",
+  "wallEndUtc": "2026-11-10T09:29:29.990137+00:00",
+  "runnerExitCode": 0
+}

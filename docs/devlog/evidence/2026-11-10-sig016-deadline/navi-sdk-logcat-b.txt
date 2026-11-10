@@ -1,0 +1,120 @@
+  9857.475  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]getRouteStateInfo
+  9857.477  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]getDestinationInfo
+  9857.924  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9857.925  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9857.941  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9857.943  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9858.947  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9858.947  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9858.948  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9858.948  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9859.271  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]requestRoute
+  9859.950  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9859.956  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9859.956  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9859.956  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9862.113  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9862.118  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9862.120  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9862.120  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9863.134  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9863.137  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9863.140  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9863.140  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9863.831  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]cancelRoute
+  9864.140  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9864.141  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9864.141  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9864.141  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9865.143  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9865.143  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9865.143  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9865.143  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9866.167  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9866.167  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9866.167  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9866.168  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9866.270  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]requestRoute
+  9867.169  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9867.169  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9867.169  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9867.170  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9868.171  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9868.171  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9868.172  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9868.172  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9868.845  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]cancelRoute
+  9869.187  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9869.188  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9869.188  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9869.188  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9870.191  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9870.191  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9870.240  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9870.242  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9871.244  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9871.244  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9871.244  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9871.244  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9871.462  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]requestRoute
+  9872.246  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9872.246  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9872.247  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9872.247  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9873.250  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9873.251  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9873.252  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9873.254  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9873.834  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]cancelRoute
+  9874.260  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9874.261  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9874.261  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9874.261  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9875.267  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9875.268  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9875.269  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9875.270  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9876.271  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9876.271  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9876.271  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9876.271  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9876.592  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]requestRoute
+  9877.273  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9877.273  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9877.273  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9877.273  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9878.274  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9878.274  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9878.274  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9878.274  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9878.827  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]cancelRoute
+  9879.274  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9879.275  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9879.275  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9879.275  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9880.278  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9880.280  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9880.280  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9880.281  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9881.282  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9881.282  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9881.282  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9881.283  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9881.839  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]requestRoute
+  9882.285  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9882.285  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9882.285  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9882.285  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9883.285  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9883.286  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9883.286  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9883.287  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9884.290  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9884.291  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9884.293  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9884.293  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
+  9884.838  8328  8513 I [NaviHelper][SDK]NaviHelper: [Instr: androidx.test.runner.AndroidJUnitRunner]cancelRoute
+  9885.315  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getCurrentLocationInfo
+  9885.315  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getRouteStateInfo
+  9885.316  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getDestinationInfo
+  9885.318  8328  8328 I [NaviHelper][SDK]NaviHelper: [main]getTBTInfo
