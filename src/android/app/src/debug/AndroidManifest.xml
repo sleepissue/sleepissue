@@ -2,13 +2,27 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 1번 수집 기기시험의 공식 입력 fixture 전용. 제품 제어·release 권한이 아니다. -->
+    <!-- 1번 공식 입력 fixture에도 필요한 권한이다. main의 4번 제품 권한과 중복 선언된다. -->
     <uses-permission android:name="pleos.car.permission.NAVI_ROUTE_SEARCH" />
     <uses-permission android:name="pleos.car.permission.CONTROL_CAR_SEATS" />
 
     <application
+        android:name="com.sleepissue.awakedrive.debug.DebugBootApplication"
         android:label="AwakeDrive 개발 검증"
         tools:replace="android:label">
+        <activity android:name="com.sleepissue.awakedrive.debug.DebugBootArmActivity"
+            android:exported="true" android:theme="@style/Theme.AwakeDrive.DebugHarness" />
+        <!-- 명시적으로 arm한 경우만 제품 BOOT 처리/서비스 코드를 격리 저장소로 실행한다. -->
+        <service android:name="com.sleepissue.awakedrive.debug.DebugBootMonitorService"
+            android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="명시적으로 준비한 격리 저장소의 실제 부팅 복원 기기시험" />
+        </service>
+        <service android:name="com.sleepissue.awakedrive.debug.DebugIsolatedMonitorService"
+            android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="격리 DB를 사용하는 명시적 Playground 신호 수집 기기시험" />
+        </service>
         <activity android:name="com.sleepissue.awakedrive.debug.DebugSdkTripActivity"
             android:exported="false" android:theme="@style/Theme.AwakeDrive.DebugHarness" />
         <activity

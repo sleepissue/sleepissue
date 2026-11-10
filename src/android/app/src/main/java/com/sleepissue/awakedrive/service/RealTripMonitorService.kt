@@ -2,6 +2,7 @@ package com.sleepissue.awakedrive.service
 
 import android.app.*
 import android.content.Intent
+import android.content.Context
 import android.content.pm.ServiceInfo
 import android.os.*
 import com.google.gson.GsonBuilder
@@ -16,7 +17,14 @@ import java.io.FileDescriptor
 import java.io.PrintWriter
 
 /** 마이크·개입 없이 실제 Playground 신호와 운행 저장만 소유한다. */
-class RealTripMonitorService : Service() {
+open class RealTripMonitorService : Service() {
+    /** debug 기기시험은 저장 위치만 격리한다. SDK·시간축·서비스 수명은 같은 경로를 쓴다. */
+    protected open val persistenceContext: Context get() = this
+    protected open fun createMonitorInput() = PlaygroundMonitorInput(this, clock)
+    protected open fun createTripRepository(database: TripDatabase): TripRepository = RoomTripRepository(database.checkpointDao())
+    protected open fun monitoringScreenIntent() = Intent(this, RealTripMonitorActivity::class.java)
+    protected open val notificationChannelId: String get() = CHANNEL
+    protected open val notificationId: Int get() = NOTIFICATION_ID
     inner class LocalBinder : Binder() { val service get() = this@RealTripMonitorService }
     private val binder = LocalBinder()
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -48,11 +56,11 @@ class RealTripMonitorService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        preference = MonitorPreference(this)
+        preference = MonitorPreference(persistenceContext)
         preference.reconcileUserStop()
-        database = TripDatabase.open(this, RealTripPersistence.DATABASE_NAME)
-        runtime = RealTripMonitorRuntime(PlaygroundTripSession(RoomTripRepository(database.checkpointDao()), clock), scope, {
-            PlaygroundMonitorInput(this, clock).also { input = it }
+        database = TripDatabase.open(persistenceContext, RealTripPersistence.DATABASE_NAME)
+        runtime = RealTripMonitorRuntime(PlaygroundTripSession(createTripRepository(database), clock), scope, {
+            createMonitorInput().also { input = it }
         })
         initialization = scope.launch {
             // 이전 인스턴스 최종 저장/DB close가 끝난 뒤에만 같은 checkpoint를 복원한다.
@@ -111,15 +119,16 @@ class RealTripMonitorService : Service() {
         if (foreground) return
         val manager = getSystemService(NotificationManager::class.java)
         check(manager.areNotificationsEnabled()) { "알림을 허용한 뒤 화면에서 다시 시작하세요" }
-        manager.createNotificationChannel(NotificationChannel(CHANNEL, "실제 차량 신호 감시", NotificationManager.IMPORTANCE_LOW))
-        val screen = PendingIntent.getActivity(this, 11, Intent(this, RealTripMonitorActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
-        val stop = PendingIntent.getService(this, 12, Intent(this, RealTripMonitorService::class.java).setAction(ACTION_STOP), PendingIntent.FLAG_IMMUTABLE)
-        val notification = Notification.Builder(this, CHANNEL).setSmallIcon(android.R.drawable.ic_menu_compass)
+        manager.createNotificationChannel(NotificationChannel(notificationChannelId, "실제 차량 신호 감시", NotificationManager.IMPORTANCE_LOW))
+        val screen = PendingIntent.getActivity(this, 11, monitoringScreenIntent(), PendingIntent.FLAG_IMMUTABLE)
+        // 하위 격리 서비스도 자신의 인스턴스를 중지한다. 기본 서비스의 사용자 DB를 열지 않는다.
+        val stop = PendingIntent.getService(this, 12, Intent(this, javaClass).setAction(ACTION_STOP), PendingIntent.FLAG_IMMUTABLE)
+        val notification = Notification.Builder(this, notificationChannelId).setSmallIcon(android.R.drawable.ic_menu_compass)
             .setContentTitle("AwakeDrive 운행 감시 중").setContentText("Playground 신호·운행 저장 · 전원 UNKNOWN")
             .setContentIntent(screen).setOngoing(true).setCategory(Notification.CATEGORY_SERVICE)
             .addAction(Notification.Action.Builder(null, "감시 중지", stop).build()).build()
-        if (Build.VERSION.SDK_INT >= 34) startForeground(NOTIFICATION_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
-        else startForeground(NOTIFICATION_ID, notification)
+        if (Build.VERSION.SDK_INT >= 34) startForeground(notificationId, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        else startForeground(notificationId, notification)
         foreground = true
     }
 
@@ -159,8 +168,8 @@ class RealTripMonitorService : Service() {
         diagnosticJob = scope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    val file = File(cacheDir, "sdk-trip-probe.json")
-                    val temporary = File.createTempFile(".sdk-trip-", ".json", cacheDir)
+                    val file = File(persistenceContext.cacheDir, "sdk-trip-probe.json")
+                    val temporary = File.createTempFile(".sdk-trip-", ".json", persistenceContext.cacheDir)
                     try { temporary.writeText(GsonBuilder().serializeNulls().create().toJson(payload)); check(temporary.renameTo(file)) }
                     finally { temporary.delete() }
                 }
@@ -212,10 +221,10 @@ class RealTripMonitorService : Service() {
             "hub" to input?.hub?.diagnostics?.value,
             "audit" to snapshot)
         gearAuditExportJob = scope.launch(Dispatchers.IO) {
-            val file = File(cacheDir, "gear-collection-audit.json")
+            val file = File(persistenceContext.cacheDir, "gear-collection-audit.json")
             var temporary: File? = null
             try {
-                temporary = File.createTempFile(".gear-audit-", ".json", cacheDir)
+                temporary = File.createTempFile(".gear-audit-", ".json", persistenceContext.cacheDir)
                 temporary.writeText(GsonBuilder().create().toJson(payload))
                 check(temporary.renameTo(file))
             } catch (cancelled: CancellationException) { throw cancelled }
@@ -230,8 +239,8 @@ class RealTripMonitorService : Service() {
         const val ACTION_START = "com.sleepissue.awakedrive.monitor.START"
         const val ACTION_STOP = "com.sleepissue.awakedrive.monitor.STOP"
         const val ACTION_BOOT = "com.sleepissue.awakedrive.monitor.BOOT"
-        private const val CHANNEL = "real_trip_monitor"
-        private const val NOTIFICATION_ID = 4101
+        internal const val CHANNEL = "real_trip_monitor"
+        internal const val NOTIFICATION_ID = 4101
         private val instanceOwner = Mutex()
     }
 }
