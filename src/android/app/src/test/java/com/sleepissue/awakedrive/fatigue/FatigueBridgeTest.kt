@@ -1,6 +1,9 @@
 package com.sleepissue.awakedrive.fatigue
 
 import com.sleepissue.awakedrive.engine.model.AssistState
+import com.sleepissue.awakedrive.engine.model.CheckContext
+import com.sleepissue.awakedrive.engine.model.CheckOutcome
+import com.sleepissue.awakedrive.engine.model.CheckResult
 import com.sleepissue.awakedrive.engine.model.EvaluationStatus
 import com.sleepissue.awakedrive.engine.model.ExecutionRequest
 import com.sleepissue.awakedrive.engine.model.ExecutionResult
@@ -13,6 +16,7 @@ import com.sleepissue.awakedrive.engine.model.NaviState
 import com.sleepissue.awakedrive.engine.model.PatternState
 import com.sleepissue.awakedrive.engine.model.PatternType
 import com.sleepissue.awakedrive.engine.model.RequestId
+import com.sleepissue.awakedrive.engine.model.ResponseIntent
 import com.sleepissue.awakedrive.engine.model.SafetyEventType
 import com.sleepissue.awakedrive.engine.model.SignalField
 import com.sleepissue.awakedrive.engine.model.SignalFrame
@@ -80,6 +84,25 @@ class FatigueBridgeTest {
 
     private fun FatigueBridge.drive(from: Long, to: Long, cruise: Boolean = false, deg: (Long) -> Float): List<InterventionInput> =
         (from..to step 100L).flatMap { onFrame(frame(it, deg(it), cruise), navi, trip = null) }
+
+    /** 차분한 운전: ±1° 삼각파, 3초마다 방향 전환 → 미세 수정 분당 20회(기본 기준선과 같음) */
+    private fun calm(tMs: Long): Float {
+        val phase = (tMs % 6_000L) / 3_000.0
+        return (if (phase < 1.0) -1.0 + 2.0 * phase else 3.0 - 2.0 * phase).toFloat()
+    }
+
+    /** 딴짓: 2분 차분히 → 25초 운전대 멈춤 → 0.4초 만에 7° → 다시 차분히(7° 옆에서). 급조향은 [distractionJumpMs] */
+    private val distractionHoldMs = night + 120_000L
+    private val distractionJumpMs = distractionHoldMs + 25_000L
+    private fun distraction(t: Long): Float = when {
+        t < distractionHoldMs -> calm(t)
+        t < distractionJumpMs -> calm(distractionHoldMs)
+        else -> calm(distractionHoldMs) + 7f * minOf(t - distractionJumpMs + 100L, 400L) / 400f +
+            if (t >= distractionJumpMs + 3_000L) calm(t) - calm(distractionJumpMs + 3_000L) else 0f
+    }
+
+    private fun alertness(outcome: CheckOutcome, intent: ResponseIntent? = null, context: CheckContext = CheckContext.DRIVER_ALERTNESS) =
+        CheckResult(RequestId("check"), context, outcome, responseTimeMs = 800L, intent = intent)
 
     @Test
     fun mappingFollowsTheAgreedTable() {
@@ -212,6 +235,76 @@ class FatigueBridgeTest {
         assertEquals(InterventionInput.SensitiveModeChanged(true), manager.submitted.last().second)
         assertTrue(runner.snapshots.value.baseline.sensitive)
         assertFalse(runner.snapshots.value.assist.assistMode)
+    }
+
+    @Test
+    fun sleepyConditionAsksFirstCheckFifteenMinutesAfterDeparture() {
+        // '졸려요' → 민감 모드 → 출발(D단)부터 15분 뒤 첫 음성 확인을 1번에 한 번 요청 (REQ_BSL_006·007, 15 min ±5 s)
+        val bridge = FatigueBridge()
+        bridge.reportCondition(sleepy = true, tMs = night - 60_000L)
+        val inputs = bridge.drive(night, night + 16 * 60_000L, deg = ::awake)
+        assertEquals(night + 15 * 60_000L, bridge.firstCheckDueMs)
+        val due = inputs.filterIsInstance<InterventionInput.CheckDue>()
+        assertEquals(1, due.size)
+        assertTrue(due.single().tMs - (night + 15 * 60_000L) in 0L..5_000L)
+        assertEquals(Source.DEMO, due.single().source)
+        // 민감 모드가 아니면 보내지 않는다
+        val plain = FatigueBridge().drive(night, night + 16 * 60_000L, deg = ::awake)
+        assertTrue(plain.none { it is InterventionInput.CheckDue })
+    }
+
+    @Test
+    fun normalAnswerAfterSuddenSteerIsRecordedAsDistractionOnceSpikeIsConfirmed() {
+        // 딴짓 시나리오 (TC_PAT_004): 급조향 → (1번이 2단계 확인) → 15초 뒤 정상 대답 → 다음 1분 복귀로 튐형 → 딴짓 1건
+        val bridge = FatigueBridge()
+        val upToAnswer = bridge.drive(night, distractionJumpMs + 15_000L, deg = ::distraction)
+        assertEquals(listOf(SafetyEventType.RAPID_STEERING),
+            upToAnswer.filterIsInstance<InterventionInput.Safety>().map { it.value.type })
+        assertFalse("대답할 때는 그 1분이 아직 판정 전", bridge.onCheckResult(alertness(CheckOutcome.NORMAL)))
+        assertEquals(0, bridge.snapshot.pattern.distractionCount)
+        bridge.drive(distractionJumpMs + 15_100L, night + 260_000L, deg = ::distraction)
+        assertEquals(PatternType.SPIKE, bridge.snapshot.pattern.patternType)
+        assertEquals(1, bridge.snapshot.pattern.distractionCount)
+        assertEquals(distractionJumpMs + 15_000L, bridge.snapshot.pattern.lastDistractionMs)
+    }
+
+    @Test
+    fun restIntentSlowAnswerAndOtherQuestionsAreNotDistraction() {
+        // '쉴게'처럼 쉬겠다는 대답, 느린 대답, 경유지 동의 같은 다른 질문은 딴짓으로 세지 않는다
+        for (result in listOf(
+            alertness(CheckOutcome.NORMAL, intent = ResponseIntent.REST),
+            alertness(CheckOutcome.SLOW),
+            alertness(CheckOutcome.NORMAL, intent = ResponseIntent.YES, context = CheckContext.WAYPOINT_CONSENT),
+            alertness(CheckOutcome.ERROR),
+        )) {
+            val bridge = FatigueBridge()
+            bridge.drive(night, distractionJumpMs + 15_000L, deg = ::distraction)
+            assertFalse(bridge.onCheckResult(result))
+            bridge.drive(distractionJumpMs + 15_100L, night + 260_000L, deg = ::distraction)
+            assertEquals(result.toString(), PatternType.SPIKE, bridge.snapshot.pattern.patternType)
+            assertEquals(result.toString(), 0, bridge.snapshot.pattern.distractionCount)
+        }
+        // 프레임을 받기 전의 결과는 시각을 몰라 무시한다
+        assertFalse(FatigueBridge().onCheckResult(alertness(CheckOutcome.NORMAL)))
+    }
+
+    @Test
+    fun runnerSendsCheckDueAndForwardsCheckResults() = runBlocking {
+        val manager = RecordingInterventionManager()
+        val runner = FatigueAssessmentRunner(FatigueBridge())
+        runner.reportCondition(sleepy = true, tMs = night - 60_000L, manager = manager)
+        runner.run((night..night + 15 * 60_000L + 200L step 100L).map { frame(it, awake(it)) }.asFlow(),
+            navi = { navi }, trip = { null }, manager = manager)
+        val due = manager.submitted.filter { it.second is InterventionInput.CheckDue }
+        assertEquals(1, due.size)
+        assertTrue(due.single().first.value.startsWith("fatigue-check-due-"))
+
+        val distracted = FatigueAssessmentRunner(FatigueBridge())
+        val frames = { from: Long, to: Long -> (from..to step 100L).map { frame(it, distraction(it)) }.asFlow() }
+        distracted.run(frames(night, distractionJumpMs + 15_000L), navi = { navi }, trip = { null }, manager = manager)
+        distracted.onCheckResult(alertness(CheckOutcome.NORMAL))
+        distracted.run(frames(distractionJumpMs + 15_100L, night + 260_000L), navi = { navi }, trip = { null }, manager = manager)
+        assertEquals(1, distracted.snapshots.value.pattern.distractionCount)
     }
 
     /** 받은 입력만 적어 두는 1번 InterventionManager 대역 */

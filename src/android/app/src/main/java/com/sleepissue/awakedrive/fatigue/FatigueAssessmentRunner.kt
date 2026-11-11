@@ -1,5 +1,6 @@
 package com.sleepissue.awakedrive.fatigue
 
+import com.sleepissue.awakedrive.engine.model.CheckResult
 import com.sleepissue.awakedrive.engine.model.NaviState
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.SignalFrame
@@ -29,6 +30,8 @@ import kotlinx.coroutines.sync.withLock
  * val runner = FatigueAssessmentRunner(FatigueBridge(engineConfig))
  * scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) }
  * // 화면(5번)은 runner.snapshots, 예보(4번)는 snapshots의 baseline.departureFatigue를 본다
+ * // 사람에게 물어본 확인 결과도 넣는다(딴짓 기록). 4번 InterventionRouter면:
+ * scope.launch { router.checkResults.collect { runner.onCheckResult(it) } }
  * ```
  *
  * - 프레임은 들어온 순서대로 하나씩 처리한다(엔진은 한 스레드 전용). 출발 전 컨디션 같은 다른 입력도 같은 잠금을 거친다.
@@ -89,6 +92,18 @@ class FatigueAssessmentRunner(private val bridge: FatigueBridge) : DrivingAssess
         deliver(tMs, inputs, manager)
     }
 
+    /**
+     * 사람에게 물어본 주의 확인 결과를 엔진에 알린다 (REQ_PAT_004 딴짓 기록). 단계는 1번이 CheckCompleted로 따로 판단한다.
+     * 4번 InterventionRouter: `router.checkResults.collect { runner.onCheckResult(it) }`
+     * 3번 InterventionRequestRouter: 결과를 매니저에 CheckCompleted로 넣는 곳에서 같이 부른다
+     */
+    suspend fun onCheckResult(result: CheckResult) {
+        lock.withLock {
+            bridge.onCheckResult(result)
+            snapshotFlow.value = bridge.snapshot
+        }
+    }
+
     /** 휴식 인증 + 회복 확인 뒤 (REQ_RES_011) */
     suspend fun onRestCertified() {
         lock.withLock { bridge.onRestCertified() }
@@ -117,6 +132,7 @@ class FatigueAssessmentRunner(private val bridge: FatigueBridge) : DrivingAssess
             is InterventionInput.Safety -> "safety-${input.value.type.name.lowercase()}"
             is InterventionInput.SensitiveModeChanged -> "sensitive"
             is InterventionInput.VulnerableTimeChanged -> "vulnerable"
+            is InterventionInput.CheckDue -> "check-due"
             else -> "input"
         }
         return RequestId("fatigue-$kind-$tMs-${++sequence}")

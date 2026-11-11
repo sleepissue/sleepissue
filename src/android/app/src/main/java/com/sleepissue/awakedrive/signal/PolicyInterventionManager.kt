@@ -221,6 +221,11 @@ class PolicyInterventionManager(
                 bypass = input.value.type == SafetyEventType.REPEATED_RAPID_STEERING
                 forceCheck = !bypass
             }
+            is InterventionInput.CheckDue -> {
+                if (input.source != sessionSource) return@withLock unavailable(requestId)
+                require(input.tMs <= clock.scenarioTimeMs()) { "미래의 확인 요청은 처리할 수 없습니다." }
+                forceCheck = true
+            }
             is InterventionInput.RestAreaResolved -> if (!handleArea(input.value)) return@withLock unavailable(requestId)
             is InterventionInput.RestAreaDistance -> {
                 if (candidate?.id != input.candidateId) return@withLock unavailable(requestId)
