@@ -146,6 +146,16 @@ class FatigueBridgeTest {
     }
 
     @Test
+    fun demoRelativeTimeUsesScenarioStartForTimeOfDay() {
+        // DemoClock은 0부터 시작하는 상대 ms를 준다. 시작 시각을 넣지 않으면 0 ms를 1970-01-01 09:00으로 읽어
+        // 14:00 시나리오도 취약 시간대가 아니다. 시작 시각(14:00)을 넣으면 취약 시간대(14~17시)로 본다
+        val plain = FatigueBridge().drive(0L, 1_000L, deg = ::awake)
+        val demo = FatigueBridge().apply { epochOffsetMs = at(14, 0) }.drive(0L, 1_000L, deg = ::awake)
+        assertEquals(listOf(false), plain.filterIsInstance<InterventionInput.VulnerableTimeChanged>().map { it.enabled })
+        assertEquals(listOf(true), demo.filterIsInstance<InterventionInput.VulnerableTimeChanged>().map { it.enabled })
+    }
+
+    @Test
     fun sleepyConditionTurnsOnSensitiveModeOnce() {
         val bridge = FatigueBridge()
         assertEquals(listOf(InterventionInput.SensitiveModeChanged(true)), bridge.reportCondition(sleepy = true, tMs = night))

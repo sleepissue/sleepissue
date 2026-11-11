@@ -51,6 +51,14 @@ class FatigueAssessmentRunner(private val bridge: FatigueBridge) : DrivingAssess
     val snapshots: StateFlow<FatigueSnapshot> = snapshotFlow.asStateFlow()
 
     /**
+     * 데모 재생이면 시나리오 시작 시각(startEpochMs), 실제 주행이면 0. 취약 시간대 계산에만 쓴다 ([FatigueBridge.epochOffsetMs]).
+     * 데모를 시작할 때(`runner.run(...)` 전에) 넣는다: `runner.epochOffsetMs = scenario.startEpochMs`
+     */
+    var epochOffsetMs: Long
+        get() = bridge.epochOffsetMs
+        set(value) { bridge.epochOffsetMs = value }
+
+    /**
      * [frames]가 끝나거나 이 코루틴이 취소될 때까지 돈다.
      * @param navi 지금 내비 상태 (회전 지점 거리). 없으면 null → 게이트가 '5분 고속 유지' 규칙을 쓴다
      * @param trip 지금 운행 상태 (연속 운전·24시간 누적 운전)

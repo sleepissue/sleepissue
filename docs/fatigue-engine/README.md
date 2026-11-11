@@ -28,6 +28,7 @@
 ```kotlin
 // 1번 감시 서비스(앱 조립 코드)에 넣을 것: 엔진 → 단계 전환
 val runner = FatigueAssessmentRunner(FatigueBridge(engineConfig))
+runner.epochOffsetMs = scenario.startEpochMs   // 데모 재생일 때만. DemoClock이 0부터 주는 시각을 실제 날짜로 (실제 주행은 0)
 scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) }
 
 // 휴식 인증 + 회복 정상(RES_011): 1번 PolicyInterventionManager가 RestRecoveryResetRequest를 낸다.

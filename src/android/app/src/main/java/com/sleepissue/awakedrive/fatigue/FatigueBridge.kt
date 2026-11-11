@@ -53,7 +53,8 @@ data class FatigueSnapshot(
  *    - 30초 갱신 → `Assessment` (평활값, 패턴, 보조 주행, 조작 공백)
  *    - 민감 모드·취약 시간대가 바뀔 때만 → `SensitiveModeChanged`·`VulnerableTimeChanged`
  *
- * 시각: 프레임 tMs를 epoch ms로 보고 [zone]의 하루 중 분으로 바꾼다. 4번 ForecastEngine과 같은 해석이다.
+ * 시각: 프레임 tMs + [epochOffsetMs]를 epoch ms로 보고 [zone]의 하루 중 분으로 바꾼다. 4번 ForecastEngine과 같은 해석이다.
+ * 데모 재생 중에는 DemoClock이 시나리오 상대 ms(0부터)를 주므로 [epochOffsetMs]에 시나리오 시작 시각을 넣어야 한다.
  * 한 스레드(코루틴 하나)에서만 부른다. 엔진이 그렇게 만들어져 있다.
  *
  * ROS로 치면 엔진 노드의 토픽을 1번 노드가 구독하는 메시지 형식으로 바꿔 다시 발행하는 브리지 노드다.
@@ -67,6 +68,15 @@ class FatigueBridge(
 
     /** 설정의 연령대 (MSG-12). null이면 기본 취약 시간대만 쓴다 */
     var ageBand: AgeBand? = null
+
+    /**
+     * 프레임 시각을 실제 날짜 시각(epoch ms)으로 바꿀 때 더하는 값. 하루 중 시각(취약 시간대, REQ_FAT_015)에만 쓴다.
+     * - 실제 주행: Hub 시각이 이미 epoch 기준(AnchoredTripClock)이라 0
+     * - 데모 재생: DemoClock이 Hub에 시나리오 상대 ms(0부터)를 주므로 데모를 시작할 때 시나리오의 startEpochMs
+     * 0으로 두면 데모의 0 ms를 1970-01-01 09:00(KST)으로 읽어 14:00 시나리오도 취약 시간대가 아니게 된다.
+     */
+    @Volatile
+    var epochOffsetMs: Long = 0L
 
     /** 마지막으로 계산한 상태 (화면용) */
     var snapshot: FatigueSnapshot = snapshotOf(fatigue = null, vulnerable = null)
@@ -86,7 +96,7 @@ class FatigueBridge(
     /** 프레임 하나를 넣고 1번에 보낼 입력을 돌려준다. 보낼 것이 없으면 빈 목록. */
     fun onFrame(frame: SignalFrame, navi: NaviState?, trip: TripState?): List<InterventionInput> {
         val out = ArrayList<InterventionInput>()
-        val minute = minuteOfDay(frame.tMs)
+        val minute = minuteOfDay(frame.tMs + epochOffsetMs)
         engine.context = contextInputOf(trip, frame, minute, ageBand)
 
         val vulnerable = minute?.let { ContextWeight.isVulnerableTime(it, ageBand, contextConfig) }
