@@ -1,0 +1,10 @@
+        last location=Location[gps 37.413720,127.095680 hAcc=5.0 et=+2m3s398ms alt=0.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+        last location=Location[gps 37.413720,127.095680 hAcc=5.0 et=+2m3s398ms alt=0.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+        last location=Location[gps 37.413720,127.095680 hAcc=5.0 et=+2m3s398ms alt=0.0 vAcc=0.5 vel=0.0 sAcc=0.5 bear=0.0 bAcc=30.0 {Bundle[{satellites=0, maxCn0=0, meanCn0=0}]}]
+      1010126/ai.umos.maps.android.navigation.app: min/max interval = passive/passive, total/active/foreground duration = +1m35s414ms/+1m35s413ms/+1m35s413ms, locations = 3
+      1010126/ai.umos.maps.android.navigation.app: min/max interval = 10s/10s, total/active/foreground duration = +1m35s943ms/+1m35s941ms/+1m35s942ms, locations = 2
+      1010126/ai.umos.maps.android.navigation.app: min/max interval = 1s/1s, total/active/foreground duration = +10ms/+10ms/+10ms, locations = 0
+    11-09 13:53:03.727: gps provider +registration 1010126/ai.umos.maps.android.navigation.app/FE52E6FD -> Request[@+10s0ms HIGH_ACCURACY, minUpdateDistance=10.0, WorkSource{1010126 ai.umos.maps.android.navigation.app}]
+    11-09 13:54:34.885: gps provider delivered location[1] to 1010126/ai.umos.maps.android.navigation.app/FE52E6FD
+    11-09 13:54:34.886: passive provider delivered location[1] to 1010126/ai.umos.maps.android.navigation.app/D1B950C2
+    11-09 13:54:35.891: passive provider delivered location[1] to 1010126/ai.umos.maps.android.navigation.app/D1B950C2

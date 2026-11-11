@@ -1,0 +1,481 @@
+{
+  "name": "console-final",
+  "actualAudit": {
+    "duplicates": 0,
+    "firstPublishedAtElapsedMs": 6261955,
+    "frames": 753,
+    "gapsBelow90ms": 14,
+    "gapsOver110ms": 13,
+    "gapsOverLimit": 13,
+    "lastPublishedAtElapsedMs": 6337137,
+    "maxGapMs": 110,
+    "maxPublishedGapMs": 131,
+    "minPublishedGapMs": 70,
+    "missingSequences": 0,
+    "outOfOrder": 0,
+    "sessionId": 1,
+    "timeSpanMs": 75182,
+    "zeroIntervals": 0
+  },
+  "metadataAudit": {
+    "duplicates": 0,
+    "firstPublishedAtElapsedMs": 6261941,
+    "frames": 753,
+    "gapsBelow90ms": 9,
+    "gapsOver110ms": 11,
+    "gapsOverLimit": 11,
+    "lastPublishedAtElapsedMs": 6337136,
+    "maxGapMs": 110,
+    "maxPublishedGapMs": 129,
+    "minPublishedGapMs": 71,
+    "missingSequences": 0,
+    "outOfOrder": 0,
+    "sessionId": 1,
+    "timeSpanMs": 75195,
+    "zeroIntervals": 0
+  },
+  "skippedDeadlines": 0,
+  "pointsDropped": 0,
+  "framesTraced": 753,
+  "stageMaximumMs": {
+    "timerLateMs": 30,
+    "lockWaitMs": 5,
+    "prepareMs": 30,
+    "diagnosticsMs": 9,
+    "emitTailMs": 1,
+    "totalLateMs": 33
+  },
+  "longGaps": [
+    {
+      "sequence": 8,
+      "dueMs": 6262635,
+      "emittedMs": 6262668,
+      "resumedMs": 6262644,
+      "timerLateMs": 9,
+      "lockWaitMs": 0,
+      "prepareMs": 24,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 33,
+      "emitCompletedMs": 6262674,
+      "emitBracketNs": 5744881,
+      "prepareNs": 23664823,
+      "lockWaitNs": 67466,
+      "gapMs": 131,
+      "completedGapMs": 137,
+      "intervalLowerBoundMs": 131,
+      "intervalUpperBoundMs": 137,
+      "lateDeltaMs": 31,
+      "deltas": {
+        "timerLateMs": 8,
+        "lockWaitMs": 0,
+        "prepareMs": 23,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 16,
+      "dueMs": 6263435,
+      "emittedMs": 6263467,
+      "resumedMs": 6263437,
+      "timerLateMs": 2,
+      "lockWaitMs": 0,
+      "prepareMs": 30,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 32,
+      "emitCompletedMs": 6263467,
+      "emitBracketNs": 148292,
+      "prepareNs": 29768443,
+      "lockWaitNs": 52337,
+      "gapMs": 130,
+      "completedGapMs": 130,
+      "intervalLowerBoundMs": 130,
+      "intervalUpperBoundMs": 130,
+      "lateDeltaMs": 30,
+      "deltas": {
+        "timerLateMs": 2,
+        "lockWaitMs": 0,
+        "prepareMs": 29,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 63,
+      "dueMs": 6268135,
+      "emittedMs": 6268150,
+      "resumedMs": 6268148,
+      "timerLateMs": 13,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 1,
+      "emitTailMs": 0,
+      "totalLateMs": 15,
+      "emitCompletedMs": 6268150,
+      "emitBracketNs": 146286,
+      "prepareNs": 1471039,
+      "lockWaitNs": 63540,
+      "gapMs": 113,
+      "completedGapMs": 113,
+      "intervalLowerBoundMs": 113,
+      "intervalUpperBoundMs": 113,
+      "lateDeltaMs": 13,
+      "deltas": {
+        "timerLateMs": 13,
+        "lockWaitMs": 0,
+        "prepareMs": 1,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 100,
+      "dueMs": 6271835,
+      "emittedMs": 6271850,
+      "resumedMs": 6271848,
+      "timerLateMs": 13,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 1,
+      "emitTailMs": 0,
+      "totalLateMs": 15,
+      "emitCompletedMs": 6271850,
+      "emitBracketNs": 451458,
+      "prepareNs": 989289,
+      "lockWaitNs": 52741,
+      "gapMs": 113,
+      "completedGapMs": 112,
+      "intervalLowerBoundMs": 112,
+      "intervalUpperBoundMs": 113,
+      "lateDeltaMs": 13,
+      "deltas": {
+        "timerLateMs": 12,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 1,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 172,
+      "dueMs": 6279035,
+      "emittedMs": 6279049,
+      "resumedMs": 6279048,
+      "timerLateMs": 13,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 14,
+      "emitCompletedMs": 6279049,
+      "emitBracketNs": 105748,
+      "prepareNs": 669307,
+      "lockWaitNs": 33194,
+      "gapMs": 112,
+      "completedGapMs": 112,
+      "intervalLowerBoundMs": 112,
+      "intervalUpperBoundMs": 112,
+      "lateDeltaMs": 12,
+      "deltas": {
+        "timerLateMs": 12,
+        "lockWaitMs": 0,
+        "prepareMs": 1,
+        "diagnosticsMs": -1,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 352,
+      "dueMs": 6297035,
+      "emittedMs": 6297067,
+      "resumedMs": 6297065,
+      "timerLateMs": 30,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 1,
+      "emitTailMs": 0,
+      "totalLateMs": 32,
+      "emitCompletedMs": 6297067,
+      "emitBracketNs": 334497,
+      "prepareNs": 1170894,
+      "lockWaitNs": 39941,
+      "gapMs": 130,
+      "completedGapMs": 130,
+      "intervalLowerBoundMs": 130,
+      "intervalUpperBoundMs": 130,
+      "lateDeltaMs": 30,
+      "deltas": {
+        "timerLateMs": 30,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 376,
+      "dueMs": 6299435,
+      "emittedMs": 6299456,
+      "resumedMs": 6299454,
+      "timerLateMs": 19,
+      "lockWaitMs": 0,
+      "prepareMs": 2,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 21,
+      "emitCompletedMs": 6299457,
+      "emitBracketNs": 154557,
+      "prepareNs": 1618349,
+      "lockWaitNs": 57520,
+      "gapMs": 119,
+      "completedGapMs": 120,
+      "intervalLowerBoundMs": 119,
+      "intervalUpperBoundMs": 120,
+      "lateDeltaMs": 19,
+      "deltas": {
+        "timerLateMs": 19,
+        "lockWaitMs": 0,
+        "prepareMs": 1,
+        "diagnosticsMs": -1,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 390,
+      "dueMs": 6300835,
+      "emittedMs": 6300849,
+      "resumedMs": 6300848,
+      "timerLateMs": 13,
+      "lockWaitMs": 1,
+      "prepareMs": 0,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 14,
+      "emitCompletedMs": 6300850,
+      "emitBracketNs": 116415,
+      "prepareNs": 786623,
+      "lockWaitNs": 38247,
+      "gapMs": 111,
+      "completedGapMs": 110,
+      "intervalLowerBoundMs": 109,
+      "intervalUpperBoundMs": 112,
+      "lateDeltaMs": 11,
+      "deltas": {
+        "timerLateMs": 12,
+        "lockWaitMs": 1,
+        "prepareMs": -1,
+        "diagnosticsMs": -1,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 542,
+      "dueMs": 6316035,
+      "emittedMs": 6316050,
+      "resumedMs": 6316049,
+      "timerLateMs": 14,
+      "lockWaitMs": 0,
+      "prepareMs": 0,
+      "diagnosticsMs": 1,
+      "emitTailMs": 0,
+      "totalLateMs": 15,
+      "emitCompletedMs": 6316050,
+      "emitBracketNs": 353181,
+      "prepareNs": 670613,
+      "lockWaitNs": 31995,
+      "gapMs": 113,
+      "completedGapMs": 113,
+      "intervalLowerBoundMs": 113,
+      "intervalUpperBoundMs": 113,
+      "lateDeltaMs": 13,
+      "deltas": {
+        "timerLateMs": 13,
+        "lockWaitMs": 0,
+        "prepareMs": -1,
+        "diagnosticsMs": 1,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 576,
+      "dueMs": 6319435,
+      "emittedMs": 6319458,
+      "resumedMs": 6319457,
+      "timerLateMs": 22,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 23,
+      "emitCompletedMs": 6319458,
+      "emitBracketNs": 75462,
+      "prepareNs": 503325,
+      "lockWaitNs": 28090,
+      "gapMs": 121,
+      "completedGapMs": 121,
+      "intervalLowerBoundMs": 121,
+      "intervalUpperBoundMs": 121,
+      "lateDeltaMs": 21,
+      "deltas": {
+        "timerLateMs": 22,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 0,
+        "emitTailMs": -1
+      }
+    },
+    {
+      "sequence": 622,
+      "dueMs": 6324035,
+      "emittedMs": 6324047,
+      "resumedMs": 6324046,
+      "timerLateMs": 11,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 12,
+      "emitCompletedMs": 6324047,
+      "emitBracketNs": 168919,
+      "prepareNs": 709159,
+      "lockWaitNs": 29427,
+      "gapMs": 111,
+      "completedGapMs": 111,
+      "intervalLowerBoundMs": 111,
+      "intervalUpperBoundMs": 111,
+      "lateDeltaMs": 11,
+      "deltas": {
+        "timerLateMs": 11,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 669,
+      "dueMs": 6328735,
+      "emittedMs": 6328749,
+      "resumedMs": 6328748,
+      "timerLateMs": 13,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 0,
+      "emitTailMs": 0,
+      "totalLateMs": 14,
+      "emitCompletedMs": 6328749,
+      "emitBracketNs": 110222,
+      "prepareNs": 1212183,
+      "lockWaitNs": 47274,
+      "gapMs": 113,
+      "completedGapMs": 113,
+      "intervalLowerBoundMs": 113,
+      "intervalUpperBoundMs": 113,
+      "lateDeltaMs": 13,
+      "deltas": {
+        "timerLateMs": 13,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 0,
+        "emitTailMs": 0
+      }
+    },
+    {
+      "sequence": 703,
+      "dueMs": 6332135,
+      "emittedMs": 6332149,
+      "resumedMs": 6332147,
+      "timerLateMs": 12,
+      "lockWaitMs": 0,
+      "prepareMs": 1,
+      "diagnosticsMs": 1,
+      "emitTailMs": 0,
+      "totalLateMs": 14,
+      "emitCompletedMs": 6332149,
+      "emitBracketNs": 186245,
+      "prepareNs": 908830,
+      "lockWaitNs": 84578,
+      "gapMs": 113,
+      "completedGapMs": 113,
+      "intervalLowerBoundMs": 113,
+      "intervalUpperBoundMs": 113,
+      "lateDeltaMs": 13,
+      "deltas": {
+        "timerLateMs": 12,
+        "lockWaitMs": 0,
+        "prepareMs": 0,
+        "diagnosticsMs": 1,
+        "emitTailMs": 0
+      }
+    }
+  ],
+  "inputLockMaxNs": {
+    "vehicle": 13808303,
+    "navi": 2561731,
+    "power": 0
+  },
+  "completedEmitMaxGapMs": 137,
+  "maxEmitBracketNs": 11449750,
+  "guaranteedOver110ms": 12,
+  "possibleOver110ms": 15,
+  "shortGaps": [
+    {
+      "sequence": 9,
+      "gapMs": 80
+    },
+    {
+      "sequence": 17,
+      "gapMs": 74
+    },
+    {
+      "sequence": 64,
+      "gapMs": 89
+    },
+    {
+      "sequence": 101,
+      "gapMs": 89
+    },
+    {
+      "sequence": 173,
+      "gapMs": 88
+    },
+    {
+      "sequence": 353,
+      "gapMs": 70
+    },
+    {
+      "sequence": 377,
+      "gapMs": 80
+    },
+    {
+      "sequence": 391,
+      "gapMs": 87
+    },
+    {
+      "sequence": 431,
+      "gapMs": 88
+    },
+    {
+      "sequence": 458,
+      "gapMs": 89
+    },
+    {
+      "sequence": 543,
+      "gapMs": 86
+    },
+    {
+      "sequence": 566,
+      "gapMs": 88
+    },
+    {
+      "sequence": 577,
+      "gapMs": 78
+    },
+    {
+      "sequence": 670,
+      "gapMs": 89
+    }
+  ]
+}

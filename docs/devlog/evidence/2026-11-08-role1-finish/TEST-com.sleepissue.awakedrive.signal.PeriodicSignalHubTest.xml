@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2026-11-08T14:07:52.398Z" hostname="a" time="0.153">
+  <properties/>
+  <testcase name="mismatchedCoordinateObservationTimesCannotCreateAMixedPair" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="demoLocationIsAtomicAndIndependentOfRealVehicleAndRealNaviFields" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="automaticDriverUsesInjectedClockAndPublishesAtOneHundredMilliseconds" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.005"/>
+  <testcase name="sixtySecondsOfTenHzFramesDoNotInventMoreThanTwoHzSourceObservations" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.052"/>
+  <testcase name="partialUpdatesRetainOnlyUntouchedFieldsAndCompleteNullClearsPreviousValue" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="unsupportedPermissionDeniedAndErrorStayNullWhileRealZeroAndFalseSurvive" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="activeRawObservationSubscriberKeepsPartialFieldsAndDuplicateReceiptIdentity" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="realIsPreferredThenExpiryAndExplicitDisconnectFallBackToFreshDemo" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="acceleratedScenarioDoesNotMakeRealSensorWarmupOrHzAdvance" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.012"/>
+  <testcase name="realSubscriptionFailureSelectsDemoAndKeepsFailureQualityForDiagnostics" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="collectionCompletionAndGetterFailureRemainUnavailableWhileOtherChannelsContinue" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.002"/>
+  <testcase name="externalUnitsAreConvertedOnceAtTheAppBoundary" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.001"/>
+  <testcase name="actualEmissionTimeIsAuditedWithoutOverwritingFrameOrSensorTime" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="aBurstOfSourceCallbacksKeepsAllCountsAndPublishesDiagnosticsOnlyAtTheFrameBoundary" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.028"/>
+  <testcase name="slowConsumerDoesNotThrottleSourceOrPublisherAndOldSessionBufferCannotLeak" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.007"/>
+  <testcase name="youngReceiptDoesNotMakeAnOldScenarioObservationFresh" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="delayedTickRecordsSkippedDeadlinesWithoutFabricatingOldFramesAndReversalStopsPublishing" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="parentCancellationStopsAllSourcesAndClearsPublishedValues" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.004"/>
+  <testcase name="elapsedPublicationClockCanAdvanceWhileScenarioRemainsFrozen" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <testcase name="replayDoesNotRefreshSourceOrReceiptTimeAndDuplicateCallbacksDoNotExtendFreshness" classname="com.sleepissue.awakedrive.signal.PeriodicSignalHubTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

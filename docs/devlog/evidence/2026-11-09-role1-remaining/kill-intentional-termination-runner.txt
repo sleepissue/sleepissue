@@ -1,0 +1,3 @@
+
+com.sleepissue.awakedrive.data.Role1RemainingDeviceTest:INSTRUMENTATION_RESULT: shortMsg=Process crashed.
+INSTRUMENTATION_CODE: 0

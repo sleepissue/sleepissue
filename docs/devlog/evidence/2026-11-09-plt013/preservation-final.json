@@ -1,0 +1,84 @@
+{
+  "originalFileCount": 111,
+  "changedBeforeRestore": [
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml",
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db"
+  ],
+  "restoredOnlyIsolatedFiles": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "originalFilesByteIdentical": true,
+  "changedOriginalFiles": [],
+  "databaseBefore": {
+    "awakedrive_debug_trip.db": {
+      "sha256": "4ab63693107d871c268d6c22accb2166ed7a7956a7e59c8e00247efafed06987",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "awakedrive_sdk_trip.db": {
+      "sha256": "85bcb5c9876ba3f26198a6ff0f7c06307a8638f904d982381927703377a98f2f",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 18,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "role1-final-20261109-awakedrive_sdk_trip.db": {
+      "sha256": "b9174f663f12674b17795bd55fe1d924ea121b59c13eb6734de0d679a668eebf",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 3,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    }
+  },
+  "databaseFinal": {
+    "awakedrive_debug_trip.db": {
+      "sha256": "4ab63693107d871c268d6c22accb2166ed7a7956a7e59c8e00247efafed06987",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 1,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "awakedrive_sdk_trip.db": {
+      "sha256": "85bcb5c9876ba3f26198a6ff0f7c06307a8638f904d982381927703377a98f2f",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 18,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    },
+    "role1-final-20261109-awakedrive_sdk_trip.db": {
+      "sha256": "b9174f663f12674b17795bd55fe1d924ea121b59c13eb6734de0d679a668eebf",
+      "counts": {
+        "android_metadata": 1,
+        "drive_segment": 3,
+        "room_master_table": 1,
+        "trip_checkpoint": 1
+      },
+      "integrity": "ok"
+    }
+  },
+  "databasesEqual": true,
+  "installedApkSha256": "b6652ca3dc771725b17484cda6c0523df9674f2bae7221e23aceaff8bfd07a1a",
+  "localApkSha256": "b6652ca3dc771725b17484cda6c0523df9674f2bae7221e23aceaff8bfd07a1a",
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122",
+  "branch": "develop-jdw",
+  "serviceNone": true,
+  "newTrialDatabaseSnapshotKeptOutsideRepo": "/tmp/awakedrive-plt013-wjpojje9/device-after-test/databases"
+}

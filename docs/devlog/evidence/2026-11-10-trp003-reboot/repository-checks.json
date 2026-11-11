@@ -1,0 +1,24 @@
+{
+  "branch": "develop-jdw",
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122",
+  "startFileCount": 184,
+  "unchangedInitialFiles": 180,
+  "changedInitialFiles": [
+    "PROGRESS.md",
+    "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "src/android/app/src/debug/AndroidManifest.xml",
+    "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugIsolatedMonitorService.kt"
+  ],
+  "deletedInitialFiles": [],
+  "oldEvidenceFiles": 153,
+  "oldEvidenceAllByteIdentical": true,
+  "testedFinalKotlinAndManifestHashesUnchanged": true,
+  "checkedCurrentFiles": 236,
+  "forbiddenArtifacts": [],
+  "secretMatches": [],
+  "invalidJson": [],
+  "brokenNewLocalLinks": [],
+  "stagedFiles": [],
+  "gitDiffCheckPassed": true,
+  "offlineRawEvidenceValidatorPassed": true
+}

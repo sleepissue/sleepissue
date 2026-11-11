@@ -1,0 +1,20 @@
+{
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122",
+  "installedApkSha256": "0bdafbaa37878fdd99f8dc5e4fa3d7d540996c6c7f76b32199682fbc9e0d9653",
+  "localApkSha256": "0bdafbaa37878fdd99f8dc5e4fa3d7d540996c6c7f76b32199682fbc9e0d9653",
+  "avd": "Pleos_Connect_2_1_0",
+  "device": "emulator-5554",
+  "api": 34,
+  "buildType": "user",
+  "user": 10,
+  "source": "REAL SDK",
+  "probePolicy": {
+    "ttlMs": 3000,
+    "stateRequeryMs": 1000,
+    "stateLeaseMs": 3000,
+    "naviPollMs": 1000
+  },
+  "uiRefreshMs": 500,
+  "automaticCaptureMs": 1000,
+  "monitorRunning": false
+}

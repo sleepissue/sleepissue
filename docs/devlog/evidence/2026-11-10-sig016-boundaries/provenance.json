@@ -1,0 +1,17 @@
+{
+  "branch": "develop-jdw",
+  "head": "b0cfc1eb687b5a134c5d778ca86436f11f9c40e5",
+  "localSession": "/tmp/awakedrive-sig016-boundaries-uae3s4e7",
+  "inputSha256": {
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt": "32912cd65fd1626c2956817a83382cc71b5438d46bf14efe119a1de7c72a57cc",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkNaviTimingAudit.kt": "344ba7619893b9591ee45826f3c9071ee20eba644acc83356c5beb227b0638b7",
+    "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1LiveSdkSession.kt": "8b7a8a4fb9272f2aa524a8deb3abc1c27cee8fc58b253bd30ea05a28008af49a",
+    "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1NaviDeadlineProbeTest.kt": "bc82e4b81b2f635de40ba00cdeb8259d754668972918fe9b096e2941dd4f22df",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkNaviTimingAuditTest.kt": "3bc6b5323c8547b6b5ccd6af48ac36dcf00ba4172f0eb8765968316b96fa1ee9"
+  },
+  "officialCachedNaviHelperSourcesSha256": "915feb7246215e6999f4695ba6b51cf31e4c6a5d8a8c1b36f16a3ba353569201",
+  "officialSourceOrigin": "https://nexus-playground.pleos.ai/repository/maven-releases/ai/pleos/playground/NaviHelper/3.0.5/NaviHelper-3.0.5-sources.jar",
+  "unitTestExecution": "engine333 UP-TO-DATE results reused; app415 executed including two new telemetry safety tests",
+  "functionalChange": false,
+  "diagnosticChange": "optional OFF-by-default callback/call/timer boundary points only; existing delay/poll order/gate/value code unchanged"
+}

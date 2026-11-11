@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.demo.GeneratedScenariosTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-09T06:16:59.539Z" hostname="a" time="3.129">
+  <properties/>
+  <testcase name="allSixScenariosLoadSuccessfully" classname="com.sleepissue.awakedrive.demo.GeneratedScenariosTest" time="3.128"/>
+  <system-out><![CDATA[PASS: normal | 회전 거리=nullm | 실내 온도=null°C
+PASS: drowsy | 회전 거리=80000.0m | 실내 온도=23.5°C
+PASS: distraction | 회전 거리=nullm | 실내 온도=null°C
+PASS: talk | 회전 거리=nullm | 실내 온도=null°C
+PASS: assist | 회전 거리=nullm | 실내 온도=null°C
+PASS: departure | 회전 거리=nullm | 실내 온도=null°C
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

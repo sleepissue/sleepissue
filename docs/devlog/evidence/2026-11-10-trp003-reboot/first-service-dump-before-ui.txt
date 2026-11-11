@@ -1,0 +1,8 @@
+SERVICE com.sleepissue.awakedrive/.debug.DebugBootMonitorService ca8002b pid=6403 user=10
+  Client:
+    instance=944e0639-62ee-4fda-8c60-888c2eb9d5b5 pid=6403 command=com.sleepissue.awakedrive.monitor.BOOT flags=0 id=1
+    foreground=true requested=true stopping=false bootPending=false
+    running=true starts=1 timers=1 generation=1
+    sdkOwner=REAL 운행 감시 서비스 status=감시 중 · 화면과 독립 · SDK → Hub → 운행 → Room
+    trip=trp003-boot-visible-1794285062 state=PAUSED continuousMs=121351
+    persistence=TripPersistenceState(restore=RESTORED, operation=SAVED, failure=null, lastSavedScenarioMs=1794285231692, lastSavedWallMs=1794285231790, lastSavedElapsedMs=37984, timerBasis=ELAPSED_REALTIME, autoSaveEnabled=true, successfulSaves=1)

@@ -1,0 +1,474 @@
+[
+  {
+    "atMs": 25447850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25463160.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25478430.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25493740.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25509010.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25524280.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25539510.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25554850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25570190.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25585540.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25600850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25616100.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25631420.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25646690.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25661960.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25677230.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25692500.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25707740.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25722970.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25738170.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25753400.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25768680.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25784000.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25799290.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25814600.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25829870.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25845150.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25860380.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25875710.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25891020.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25906250.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25921520.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25936780.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25952070.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25967300.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25982580.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 25997830.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26013110.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26028410.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26043730.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26058970.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26074240.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26089520.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26104840.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26120110.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26135300.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26150520.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26165770.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26181020.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26196230.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26211500.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26226770.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26242000.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26257240.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26272550.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26287850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26303130.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26318380.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26333590.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26348830.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26364080.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26379310.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26394540.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26409790.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26425030.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26440320.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26455550.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26470790.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26486030.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26501290.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26516530.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26531800.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26547080.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26562320.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26577580.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26592830.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26608100.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26623390.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26638650.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26653850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26669150.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26684400.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26699650.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26714920.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26730200.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26745500.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26760750.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26776030.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26791390.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26806650.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26821990.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26837260.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26852540.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26867780.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26883060.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26898330.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26913580.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26928850.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26944090.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26959410.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26974660.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 26989940.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27005190.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27020450.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27035720.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27050970.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27066200.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27081450.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27096730.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27111990.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27127290.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27142570.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27157810.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27173060.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27188340.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27203590.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27218730.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  },
+  {
+    "atMs": 27234040.0,
+    "top": "topResumedActivity=ActivityRecord{16c4836 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000333}\ntopResumedActivity=ActivityRecord{ead452d u10 ai.umos.drivingview/.DrivingViewActivity t1000332}\ntopResumedActivity=ActivityRecord{8e68d09 u10 ai.umos.homescreen/.HomeActivity t1000330}"
+  }
+]

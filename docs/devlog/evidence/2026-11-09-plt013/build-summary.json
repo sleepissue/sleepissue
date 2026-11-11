@@ -1,0 +1,19 @@
+{
+  "runId": "plt30-20261109-132258",
+  "appSha256": "7275e56c2b12f585cb220604c404741b5ec6a4d6b758ac997c7e8f54a56d6708",
+  "testsSha256": "b3ece18dada38c6ee70ec6012ac03ac1e927bb0a0c6a23a016c2b49a2770b602",
+  "targetedTests": {
+    "com.sleepissue.awakedrive.service.RealTripMonitorRuntimeTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.sleepissue.awakedrive.signal.PeriodicSignalHubTest": {
+      "tests": 21,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  }
+}

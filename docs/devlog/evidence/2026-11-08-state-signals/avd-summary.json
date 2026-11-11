@@ -1,0 +1,1953 @@
+{
+  "device": "Pleos_Connect_2_1_0 / API34 / user10",
+  "kind": "REAL_SDK_HOST_CONSOLE_INPUT",
+  "captureInterval": "About 1 second; SDK debug automatic capture; not a complete 10Hz frame trace",
+  "phaseCount": 5,
+  "phases": [
+    {
+      "name": "off-ready",
+      "console": {
+        "turn": "Off",
+        "brakePercent": 0,
+        "mode": "ready",
+        "targetMps": 20
+      },
+      "sampleCount": 21,
+      "firstCaptureElapsedMs": 702587,
+      "lastCaptureElapsedMs": 723464,
+      "elapsedCapturedMs": 20877,
+      "session": 1,
+      "fields": {
+        "TURN_SIGNAL": {
+          "rawStates": [
+            "OFF"
+          ],
+          "finalValues": [
+            "OFF"
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 701531,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 27,
+              "raw": "OFF",
+              "receivedMs": 674300,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "OFF"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 108,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 674300,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 701531,
+              "stateLeaseUntilElapsedMs": 704531
+            },
+            "finalValue": "OFF"
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 722642,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 48,
+              "raw": "OFF",
+              "receivedMs": 674300,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "OFF"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 108,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 674300,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 722642,
+              "stateLeaseUntilElapsedMs": 725642
+            },
+            "finalValue": "OFF"
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1069
+        },
+        "BRAKE_ON": {
+          "rawStates": [
+            "false"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 701745,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 26,
+              "raw": "false",
+              "receivedMs": 674433,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 113,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 674433,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 701745,
+              "stateLeaseUntilElapsedMs": 704745
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 722877,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 47,
+              "raw": "false",
+              "receivedMs": 674433,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 113,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 674433,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 722877,
+              "stateLeaseUntilElapsedMs": 725877
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1018
+        },
+        "CRUISE_ACTIVE": {
+          "rawStates": [
+            "ENABLED"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 701741,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 26,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 701741,
+              "stateLeaseUntilElapsedMs": 704741
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 722872,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 47,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 722872,
+              "stateLeaseUntilElapsedMs": 725872
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1022
+        },
+        "CRUISE_TARGET_KPH": {
+          "rawStates": [
+            "20.0"
+          ],
+          "finalValues": [
+            72.0
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 701797,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 26,
+              "raw": "20.0",
+              "receivedMs": 700885,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 72.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 931,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 700885,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 701797,
+              "stateLeaseUntilElapsedMs": 704797
+            },
+            "finalValue": 72.0
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 722949,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 47,
+              "raw": "20.0",
+              "receivedMs": 700885,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 72.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 931,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 700885,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 722949,
+              "stateLeaseUntilElapsedMs": 725949
+            },
+            "finalValue": 72.0
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1069
+        }
+      },
+      "finalStateStableFromCaptureElapsedMs": 702587,
+      "finalStateStableCapturedMs": 20877,
+      "transitionSamplesBeforeStableTail": 0
+    },
+    {
+      "name": "left-longitudinal",
+      "console": {
+        "turn": "BlinkLeft",
+        "brakePercent": 50,
+        "mode": "longitudinal",
+        "targetMps": 25
+      },
+      "sampleCount": 21,
+      "firstCaptureElapsedMs": 724991,
+      "lastCaptureElapsedMs": 746502,
+      "elapsedCapturedMs": 21511,
+      "session": 1,
+      "fields": {
+        "TURN_SIGNAL": {
+          "rawStates": [
+            "LEFT"
+          ],
+          "finalValues": [
+            "LEFT"
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 723699,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "CALLBACK",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 49,
+              "raw": "LEFT",
+              "receivedMs": 723699,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "LEFT"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1646,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723699,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 723699,
+              "stateLeaseUntilElapsedMs": 726699
+            },
+            "finalValue": "LEFT"
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 745754,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 71,
+              "raw": "LEFT",
+              "receivedMs": 723699,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "LEFT"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1646,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723699,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 745754,
+              "stateLeaseUntilElapsedMs": 748754
+            },
+            "finalValue": "LEFT"
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1510
+        },
+        "BRAKE_ON": {
+          "rawStates": [
+            "true"
+          ],
+          "finalValues": [
+            true
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 723916,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 48,
+              "raw": "true",
+              "receivedMs": 723703,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": true
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1648,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723703,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 723916,
+              "stateLeaseUntilElapsedMs": 726916
+            },
+            "finalValue": true
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 746080,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "true",
+              "receivedMs": 723703,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": true
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1648,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723703,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746080,
+              "stateLeaseUntilElapsedMs": 749080
+            },
+            "finalValue": true
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1238
+        },
+        "CRUISE_ACTIVE": {
+          "rawStates": [
+            "ENABLED"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 723881,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 48,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 723881,
+              "stateLeaseUntilElapsedMs": 726881
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 746012,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746012,
+              "stateLeaseUntilElapsedMs": 749012
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1274
+        },
+        "CRUISE_TARGET_KPH": {
+          "rawStates": [
+            "25.0"
+          ],
+          "finalValues": [
+            90.0
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 723954,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 48,
+              "raw": "25.0",
+              "receivedMs": 723707,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 90.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1649,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723707,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 723954,
+              "stateLeaseUntilElapsedMs": 726954
+            },
+            "finalValue": 90.0
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 746083,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "25.0",
+              "receivedMs": 723707,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 90.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 1649,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 723707,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746083,
+              "stateLeaseUntilElapsedMs": 749083
+            },
+            "finalValue": 90.0
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1201
+        }
+      },
+      "finalStateStableFromCaptureElapsedMs": 724991,
+      "finalStateStableCapturedMs": 21511,
+      "transitionSamplesBeforeStableTail": 0
+    },
+    {
+      "name": "right-lateral",
+      "console": {
+        "turn": "BlinkRight",
+        "brakePercent": 0,
+        "mode": "lateral",
+        "targetMps": 13.8889
+      },
+      "sampleCount": 21,
+      "firstCaptureElapsedMs": 747968,
+      "lastCaptureElapsedMs": 769225,
+      "elapsedCapturedMs": 21257,
+      "session": 1,
+      "fields": {
+        "TURN_SIGNAL": {
+          "rawStates": [
+            "RIGHT"
+          ],
+          "finalValues": [
+            "RIGHT"
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 746772,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 72,
+              "raw": "RIGHT",
+              "receivedMs": 746631,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "RIGHT"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2312,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746631,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746772,
+              "stateLeaseUntilElapsedMs": 749772
+            },
+            "finalValue": "RIGHT"
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 769051,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 94,
+              "raw": "RIGHT",
+              "receivedMs": 746631,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "RIGHT"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2312,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746631,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 769051,
+              "stateLeaseUntilElapsedMs": 772051
+            },
+            "finalValue": "RIGHT"
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1196
+        },
+        "BRAKE_ON": {
+          "rawStates": [
+            "false"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 746634,
+              "key": "BRAKE_ON",
+              "lastDelivery": "CALLBACK",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "false",
+              "receivedMs": 746634,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2313,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746634,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746634,
+              "stateLeaseUntilElapsedMs": 749634
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 768254,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 92,
+              "raw": "false",
+              "receivedMs": 746634,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2313,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746634,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 768254,
+              "stateLeaseUntilElapsedMs": 771254
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1334
+        },
+        "CRUISE_ACTIVE": {
+          "rawStates": [
+            "ENABLED"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 746012,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746012,
+              "stateLeaseUntilElapsedMs": 749012
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 768233,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 92,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 768233,
+              "stateLeaseUntilElapsedMs": 771233
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1956
+        },
+        "CRUISE_TARGET_KPH": {
+          "rawStates": [
+            "13.8889"
+          ],
+          "finalValues": [
+            50.00004
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 746660,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "CALLBACK",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 70,
+              "raw": "13.8889",
+              "receivedMs": 746660,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 50.00004
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2314,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746660,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 746660,
+              "stateLeaseUntilElapsedMs": 749660
+            },
+            "finalValue": 50.00004
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 768242,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 92,
+              "raw": "13.8889",
+              "receivedMs": 746660,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 50.00004
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2314,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746660,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 768242,
+              "stateLeaseUntilElapsedMs": 771242
+            },
+            "finalValue": 50.00004
+          },
+          "callbackDelta": 0,
+          "queryDelta": 22,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1308
+        }
+      },
+      "finalStateStableFromCaptureElapsedMs": 747968,
+      "finalStateStableCapturedMs": 21257,
+      "transitionSamplesBeforeStableTail": 0
+    },
+    {
+      "name": "off-full",
+      "console": {
+        "turn": "Off",
+        "brakePercent": 50,
+        "mode": "full_autonomous",
+        "targetMps": 5.556
+      },
+      "sampleCount": 21,
+      "firstCaptureElapsedMs": 770357,
+      "lastCaptureElapsedMs": 791758,
+      "elapsedCapturedMs": 21401,
+      "session": 1,
+      "fields": {
+        "TURN_SIGNAL": {
+          "rawStates": [
+            "OFF",
+            "RIGHT"
+          ],
+          "finalValues": [
+            "RIGHT",
+            "OFF"
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 769051,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 94,
+              "raw": "RIGHT",
+              "receivedMs": 746631,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "RIGHT"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2312,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746631,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 769051,
+              "stateLeaseUntilElapsedMs": 772051
+            },
+            "finalValue": "RIGHT"
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 791155,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 116,
+              "raw": "OFF",
+              "receivedMs": 769795,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "OFF"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2954,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769795,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 791155,
+              "stateLeaseUntilElapsedMs": 794155
+            },
+            "finalValue": "OFF"
+          },
+          "callbackDelta": 1,
+          "queryDelta": 22,
+          "observationDelta": 1,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1306
+        },
+        "BRAKE_ON": {
+          "rawStates": [
+            "false",
+            "true"
+          ],
+          "finalValues": [
+            false,
+            true
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": 769265,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 93,
+              "raw": "false",
+              "receivedMs": 746634,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2313,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746634,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 769265,
+              "stateLeaseUntilElapsedMs": 772265
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 791378,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 115,
+              "raw": "true",
+              "receivedMs": 769796,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": true
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2955,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769796,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 791378,
+              "stateLeaseUntilElapsedMs": 794378
+            },
+            "finalValue": true
+          },
+          "callbackDelta": 1,
+          "queryDelta": 22,
+          "observationDelta": 1,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1092
+        },
+        "CRUISE_ACTIVE": {
+          "rawStates": [
+            "ACTIVATED",
+            "ENABLED"
+          ],
+          "finalValues": [
+            false,
+            true
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 2,
+              "confirmedMs": 769248,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 2,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 93,
+              "raw": "ENABLED",
+              "receivedMs": 675545,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 122,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 675545,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 769248,
+              "stateLeaseUntilElapsedMs": 772248
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 3,
+              "confirmedMs": 791388,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 3,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 115,
+              "raw": "ACTIVATED",
+              "receivedMs": 769799,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": true
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2956,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769799,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 791388,
+              "stateLeaseUntilElapsedMs": 794388
+            },
+            "finalValue": true
+          },
+          "callbackDelta": 1,
+          "queryDelta": 22,
+          "observationDelta": 1,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1109
+        },
+        "CRUISE_TARGET_KPH": {
+          "rawStates": [
+            "13.8889",
+            "5.556"
+          ],
+          "finalValues": [
+            50.00004,
+            20.0016
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 769249,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 93,
+              "raw": "13.8889",
+              "receivedMs": 746660,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 50.00004
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2314,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 746660,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 769249,
+              "stateLeaseUntilElapsedMs": 772249
+            },
+            "finalValue": 50.00004
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 6,
+              "confirmedMs": 791345,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 6,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 115,
+              "raw": "5.556",
+              "receivedMs": 769800,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 20.0016
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2957,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769800,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 791345,
+              "stateLeaseUntilElapsedMs": 794345
+            },
+            "finalValue": 20.0016
+          },
+          "callbackDelta": 1,
+          "queryDelta": 22,
+          "observationDelta": 1,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1108
+        }
+      },
+      "finalStateStableFromCaptureElapsedMs": 772374,
+      "finalStateStableCapturedMs": 19384,
+      "transitionSamplesBeforeStableTail": 1
+    },
+    {
+      "name": "off-not-ready",
+      "console": {
+        "turn": "Off",
+        "brakePercent": 0,
+        "mode": "not_ready",
+        "targetMps": 20
+      },
+      "sampleCount": 21,
+      "firstCaptureElapsedMs": 794052,
+      "lastCaptureElapsedMs": 814776,
+      "elapsedCapturedMs": 20724,
+      "session": 1,
+      "fields": {
+        "TURN_SIGNAL": {
+          "rawStates": [
+            "OFF"
+          ],
+          "finalValues": [
+            "OFF"
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 793168,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 118,
+              "raw": "OFF",
+              "receivedMs": 769795,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "OFF"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2954,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769795,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 793168,
+              "stateLeaseUntilElapsedMs": 796168
+            },
+            "finalValue": "OFF"
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 5,
+              "confirmedMs": 814299,
+              "key": "TURN_SIGNAL",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "OFF/LEFT/RIGHT · 현재값 재확인",
+              "observations": 5,
+              "permission": "pleos.car.permission.CAR_LIGHTS",
+              "permissionGranted": true,
+              "queries": 139,
+              "raw": "OFF",
+              "receivedMs": 769795,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": "OFF"
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 2954,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 769795,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 814299,
+              "stateLeaseUntilElapsedMs": 817299
+            },
+            "finalValue": "OFF"
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1055
+        },
+        "BRAKE_ON": {
+          "rawStates": [
+            "false"
+          ],
+          "finalValues": [
+            false
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 6,
+              "confirmedMs": 793393,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 6,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 117,
+              "raw": "false",
+              "receivedMs": 792582,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 3652,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 792582,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 793393,
+              "stateLeaseUntilElapsedMs": 796393
+            },
+            "finalValue": false
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 6,
+              "confirmedMs": 814528,
+              "key": "BRAKE_ON",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "Boolean? 그대로 · false는 유효한 해제 상태",
+              "observations": 6,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 138,
+              "raw": "false",
+              "receivedMs": 792582,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": false
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 3652,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 792582,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 814528,
+              "stateLeaseUntilElapsedMs": 817528
+            },
+            "finalValue": false
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1002
+        },
+        "CRUISE_ACTIVE": {
+          "rawStates": [
+            "null"
+          ],
+          "finalValues": [
+            null
+          ],
+          "sampledAvailabilityCounts": {
+            "UNAVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "UNAVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": null,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 117,
+              "raw": "null",
+              "receivedMs": 793396,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": null
+            },
+            "quality": {
+              "availability": "UNAVAILABLE",
+              "observationSequence": 3653,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 793396,
+              "selectionReason": "NO_VALID_INPUT",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": null,
+              "stateLeaseUntilElapsedMs": null
+            },
+            "finalValue": null
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "UNAVAILABLE",
+              "callbacks": 4,
+              "confirmedMs": null,
+              "key": "CRUISE_ACTIVE",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "ACTIVATED=true, ENABLED/SUSPENDED=false, 그 외 미확정 null",
+              "observations": 4,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 138,
+              "raw": "null",
+              "receivedMs": 814502,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": null
+            },
+            "quality": {
+              "availability": "UNAVAILABLE",
+              "observationSequence": 3653,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 814502,
+              "selectionReason": "NO_VALID_INPUT",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": null,
+              "stateLeaseUntilElapsedMs": null
+            },
+            "finalValue": null
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": null
+        },
+        "CRUISE_TARGET_KPH": {
+          "rawStates": [
+            "20.0"
+          ],
+          "finalValues": [
+            72.0
+          ],
+          "sampledAvailabilityCounts": {
+            "AVAILABLE": 21
+          },
+          "first": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 7,
+              "confirmedMs": 793354,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 7,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 117,
+              "raw": "20.0",
+              "receivedMs": 792588,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 72.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 3654,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 792588,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 793354,
+              "stateLeaseUntilElapsedMs": 796354
+            },
+            "finalValue": 72.0
+          },
+          "last": {
+            "reading": {
+              "apiReadable": true,
+              "availability": "AVAILABLE",
+              "callbacks": 7,
+              "confirmedMs": 814462,
+              "key": "CRUISE_TARGET_KPH",
+              "lastDelivery": "REQUERY",
+              "maxValue": null,
+              "minValue": null,
+              "nativeMs": null,
+              "normalization": "NORMALIZED",
+              "note": "m/s × 3.6 → km/h · 0도 유효",
+              "observations": 7,
+              "permission": "pleos.car.permission.CAR_DRIVE",
+              "permissionGranted": true,
+              "queries": 138,
+              "raw": "20.0",
+              "receivedMs": 792588,
+              "rejectedDeliveries": 0,
+              "support": "READ ",
+              "value": 72.0
+            },
+            "quality": {
+              "availability": "AVAILABLE",
+              "observationSequence": 3654,
+              "observedAtMs": null,
+              "observedTimeBasis": "UNKNOWN",
+              "receivedAtElapsedMs": 792588,
+              "selectionReason": "REAL_FRESH",
+              "source": "REAL",
+              "sourceRateHz": null,
+              "sourceRateInfo": null,
+              "stateConfirmedAtElapsedMs": 814462,
+              "stateLeaseUntilElapsedMs": 817462
+            },
+            "finalValue": 72.0
+          },
+          "callbackDelta": 0,
+          "queryDelta": 21,
+          "observationDelta": 0,
+          "nativeTimestampsAllUnknown": true,
+          "maxConfirmationAgeMs": 1031
+        }
+      },
+      "finalStateStableFromCaptureElapsedMs": 794052,
+      "finalStateStableCapturedMs": 20724,
+      "transitionSamplesBeforeStableTail": 0
+    }
+  ],
+  "subsecondStaleAbsenceProven": false,
+  "roomDeviceTestsRerun": false
+}

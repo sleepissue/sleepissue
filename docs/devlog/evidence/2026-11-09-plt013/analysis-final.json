@@ -1,0 +1,102 @@
+{
+  "windowStartMs": 25413939,
+  "windowEndMs": 27214470,
+  "durationMs": 1800531,
+  "procedureCompleted": null,
+  "producer": {
+    "count": 18005,
+    "uniqueCount": 18005,
+    "sequenceGaps": 0,
+    "duplicates": 0,
+    "outOfOrder": 0,
+    "sessions": 1
+  },
+  "consumerForWindowProducer": {
+    "count": 18005,
+    "uniqueCount": 18005,
+    "sequenceGaps": 0,
+    "duplicates": 0,
+    "outOfOrder": 0,
+    "sessions": 1
+  },
+  "missingConsumerKeys": [],
+  "deadlineSkipsDelta": 0,
+  "plannedGridDeadlines": 18005,
+  "producerCounterDelta": 18005,
+  "auditDropped": 0,
+  "emitBeforeIntervals": {
+    "intervals": 18004,
+    "minMs": 68,
+    "maxMs": 131,
+    "over110ms": 40,
+    "below90msDiagnostic": 40
+  },
+  "frameTMsIntervals": {
+    "intervals": 18004,
+    "minMs": 70,
+    "maxMs": 130,
+    "over110ms": 29,
+    "below90msDiagnostic": 30
+  },
+  "consumerReceiptIntervals": {
+    "intervals": 18004,
+    "minMs": 39,
+    "maxMs": 159,
+    "over110ms": 42,
+    "below90msDiagnostic": 47
+  },
+  "producerToConsumerDelayMs": {
+    "min": 0,
+    "max": 42
+  },
+  "gearFrameAvailabilityCounts": {
+    "AVAILABLE": 18005
+  },
+  "gearIntervalDurationMs": {
+    "AVAILABLE_P": 33197,
+    "AVAILABLE_D": 1767334
+  },
+  "sdkSnapshotCount": 1773,
+  "sdkSnapshotSpacing": {
+    "intervals": 1772,
+    "minMs": 1005,
+    "maxMs": 1065,
+    "over110ms": 1772,
+    "below90msDiagnostic": 0
+  },
+  "sdkErrorSnapshots": 0,
+  "sdkCollectionStates": {
+    "{'navi': 'COLLECTING', 'power': 'NOT_CONNECTED', 'vehicle': 'COLLECTING'}": 1773
+  },
+  "roomSuccessesInWindow": 180,
+  "roomFailuresInWindow": [],
+  "roomCompletionSpacingCoveringWindow": {
+    "intervals": 181,
+    "minMs": 2833,
+    "maxMs": 10464,
+    "over110ms": 181,
+    "below90msDiagnostic": 0
+  },
+  "roomMaxSaveCallDurationMs": 39,
+  "inputInstancesCreatedTotal": 1,
+  "serviceCreatesInsideWindow": 0,
+  "pidValues": [
+    29149
+  ],
+  "startCounts": [
+    1
+  ],
+  "monitorTimerCounts": [
+    1
+  ],
+  "notForegroundSnapshots": 0,
+  "notRunningSnapshots": 0,
+  "runtimeFailureSnapshots": 0,
+  "continuousDriveMsStart": 24391,
+  "continuousDriveMsEnd": 1824891,
+  "recent24hSecStart": 19,
+  "recent24hSecEnd": 1786,
+  "tripIdUnchanged": true,
+  "frameDeliveryAndDeadlineCriterionMet": true,
+  "sig001AndSig002PriorFailureStatusUnchanged": true
+}

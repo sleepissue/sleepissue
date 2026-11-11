@@ -1,0 +1,35 @@
+{
+  "branch": "develop-jdw",
+  "head": "b0cfc1eb687b5a134c5d778ca86436f11f9c40e5",
+  "sourceUnchanged": true,
+  "localSession": "/tmp/awakedrive-sig016-host-eaxd4wfy",
+  "avdConfigSha256": {
+    "config.ini": "54c699171b486dcc96b5f1cf5bf8e822666a8e88fb06b0341fd557d41a49f6c0",
+    "hardware-qemu.ini": "8310f30615c5c08e13d6c6a142a47d09564ad30c13f198e1a72f1815c630e3e7"
+  },
+  "imageMetadata": {
+    "system.img": {
+      "bytes": 18256756736,
+      "mtimeNs": 1793091553512799090
+    },
+    "vendor.img": {
+      "bytes": 195035136,
+      "mtimeNs": 1793091553824792476
+    },
+    "ramdisk.img": {
+      "bytes": 1567067,
+      "mtimeNs": 1793091243130897529
+    },
+    "systemImageContentHash": "not calculated; same running VM PID/boot-id/config verified; peer identity hash required outside timing window"
+  },
+  "sameBootIds": {
+    "current1": "788036c4-a644-47cf-bb31-fe4d0b5a0433",
+    "current2": "788036c4-a644-47cf-bb31-fe4d0b5a0433",
+    "low1": "788036c4-a644-47cf-bb31-fe4d0b5a0433",
+    "low2": "788036c4-a644-47cf-bb31-fe4d0b5a0433"
+  },
+  "previousBoundaryAnalyzerSha256": "063ea19d776bc999992ae85196fd716694758b1e864202c419b3be53edeec288",
+  "otherPcComparison": "NOT EXECUTED",
+  "experimentalLimit": "daemon cleanup increased host free memory; CPU load stayed similar, so CPU-low-load contrast not established",
+  "guestReadLimit": "/proc/pressure/cpu and memory denied; /proc/swaps denied; no privilege/settings changes"
+}

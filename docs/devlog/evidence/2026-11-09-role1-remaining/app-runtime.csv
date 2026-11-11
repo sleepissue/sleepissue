@@ -1,0 +1,29 @@
+"tid","name","upid","pid","name"
+5357,"ssue.awakedrive",172,5357,"[NULL]"
+5675,"DefaultDispatch",172,5357,"[NULL]"
+5617,"DefaultDispatch",172,5357,"[NULL]"
+5620,"DefaultDispatch",172,5357,"[NULL]"
+5618,"DefaultDispatch",172,5357,"[NULL]"
+5673,"DefaultDispatch",172,5357,"[NULL]"
+5622,"DefaultDispatch",172,5357,"[NULL]"
+5621,"DefaultDispatch",172,5357,"[NULL]"
+
+"ts","dur","name","tid"
+14849279491378,199342,"FullSuspendCheck",5357
+14855041788402,772016,"FullSuspendCheck",5357
+14855059692213,32019,"FullSuspendCheck",5357
+14872036038218,579853,"FullSuspendCheck",5357
+14873874537505,13340,"SuspendThreadByThreadId suspended DefaultDispatcher-worker-5 id=23",5357
+14878911812560,148854,"FullSuspendCheck",5357
+14878924267491,33942,"FullSuspendCheck",5357
+14878924304661,1616,"Lock contention on GC barrier lock (owner tid: 5401)",5357
+14891542864127,153591,"FullSuspendCheck",5357
+14891543013879,2039,"Lock contention on GC barrier lock (owner tid: 0)",5357
+14891551286327,50997,"FullSuspendCheck",5357
+14894173991869,3181992,"FullSuspendCheck",5617
+14894830838954,203725,"FullSuspendCheck",5617
+14894858234670,102385,"FullSuspendCheck",5617
+14895374028594,243967,"FullSuspendCheck",5617
+14872036020799,502942,"FullSuspendCheck",5622
+14873872932789,1686504,"FullSuspendCheck",5622
+14881313220612,4855,"SuspendThreadByPeer suspended DefaultDispatcher-worker-7 for peer=0x7de8bac298b8",5621

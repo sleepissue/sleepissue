@@ -1,0 +1,8 @@
+
+com.sleepissue.awakedrive.data.Role1CapabilityDeviceTest:...
+
+Time: 12.702
+
+OK (3 tests)
+
+

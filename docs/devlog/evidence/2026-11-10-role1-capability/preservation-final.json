@@ -1,0 +1,34 @@
+{
+  "originalFileCount": 122,
+  "changedBeforeRestore": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "restoredOnlyIsolatedFiles": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "originalFilesByteIdentical": true,
+  "changedOriginalFiles": [],
+  "userDatabaseFilesByteIdentical": true,
+  "permissionsEqual": true,
+  "consoleFullStateEqual": true,
+  "adbForwardsEqual": true,
+  "noRunningServices": true,
+  "installedDebugApkSha256": "a55cf3f6b77a88816d0c5a5d6accbcf5225f6dc956df101de0d08d0979d822c8",
+  "sdkScreenRestoredWithoutAutoConnect": true,
+  "newTrialFiles": [
+    "cache/role1-final-20261109-diagnostics/plt013-sig007-notify-1794248029/notification-result.json",
+    "cache/role1-final-20261109-diagnostics/plt013-sig007-notify-1794248029/gear-collection-audit.json",
+    "cache/role1-final-20261109-diagnostics/plt013-sig007-notify-1794248029/sdk-trip-probe.json",
+    "cache/role1-final-20261109-diagnostics/plt013-final-notification-1794248404/gear-collection-audit.json",
+    "cache/role1-final-20261109-diagnostics/plt013-final-notification-1794248404/notification-result.json",
+    "cache/role1-final-20261109-diagnostics/plt013-final-notification-1794248404/sdk-trip-probe.json",
+    "cache/role1-sig007-cap-1794248084/STEERING_DEG.json",
+    "cache/role1-sig007-cap-1794248084/SEATS.json",
+    "cache/role1-sig007-cap-1794248084/VENTILATION_LEVEL.json",
+    "cache/role1-sig007-final-capability-1794248412/STEERING_DEG.json",
+    "cache/role1-sig007-final-capability-1794248412/SEATS.json",
+    "cache/role1-sig007-final-capability-1794248412/VENTILATION_LEVEL.json"
+  ]
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-11-08T14:07:52.054Z" hostname="a" time="0.041">
+  <properties/>
+  <testcase name="errorAndPermissionLossAreStillEmittedAndInvalidatePendingCallbacks" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.012"/>
+  <testcase name="newerCallbackThenOlderCallbackDoesNotReplayTheStoredCallbackToHub" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.009"/>
+  <testcase name="reversedDeliveryOrderWithinTheSameMillisecondDoesNotReplayTheStoredCallback" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.002"/>
+  <testcase name="ignoredInitialQueryAfterCallbackUpdatesOnlyItsDiagnosticQueryCount" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.005"/>
+  <testcase name="realSubscriptionRequeryChangedValueAndNullRemainConfirmationsWhileCallbackNullIsAnObservation" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.008"/>
+  <testcase name="rejectedRequeryAfterLatestCallbackCannotEmitItsStoredCallbackAgain" classname="com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest" time="0.004"/>
+  <system-out><![CDATA[거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100
+거부 후 Hub callbacks=1 raw=1 emit=1 · 확인=100
+최초 조회 무시 후 callbacks=1 raw=1
+과거 재조회 거부 후 callbacks=1 raw=1
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

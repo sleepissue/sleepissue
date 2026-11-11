@@ -1,0 +1,1029 @@
+{
+  "clock": "elapsedRealtime/ms, differences +/-2ms, original UI brackets preserved",
+  "notARequestRtt": "callbacks have no request id; callback gap includes further calls",
+  "rows": [
+    {
+      "attempt": 1,
+      "requestBracketMs": [
+        17766957,
+        17767985
+      ],
+      "uiBracketMs": [
+        17769200,
+        17769244
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17769263,
+        "returnMs": 17769264,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17769263,
+        "returnMs": 17769264,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17769264,
+        "returnMs": 17769267,
+        "durationMs": 3,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17769017,
+        "elapsedMs": 17769260,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        -227,
+        -183
+      ],
+      "timerResumeLatenessMs": 243,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17770292,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_5"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1025,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17770292,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_5"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17769313,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17770292,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17770294,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17770332,
+        17770334
+      ],
+      "consumerReceivedMs": 17770536,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17770272,
+          "returnMs": 17770272,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1048,
+        1092
+      ],
+      "uiToHubMs": [
+        1088,
+        1134
+      ],
+      "uiToConsumerMs": [
+        1292,
+        1336
+      ],
+      "sdkToHubMs": [
+        40,
+        42
+      ],
+      "alreadyGuidingToHubMs": [
+        1019,
+        1021
+      ]
+    },
+    {
+      "attempt": 2,
+      "requestBracketMs": [
+        17773021,
+        17773022
+      ],
+      "uiBracketMs": [
+        17773458,
+        17773509
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17774300,
+        "elapsedMs": 17774300,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        791,
+        842
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 0,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17775329,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_7"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1028,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17775329,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_7"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17773654,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17775332,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17775333,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17775433,
+        17775435
+      ],
+      "consumerReceivedMs": 17775536,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17775322,
+          "returnMs": 17775322,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1820,
+        1871
+      ],
+      "uiToHubMs": [
+        1924,
+        1977
+      ],
+      "uiToConsumerMs": [
+        2027,
+        2078
+      ],
+      "sdkToHubMs": [
+        104,
+        106
+      ],
+      "alreadyGuidingToHubMs": [
+        1779,
+        1781
+      ]
+    },
+    {
+      "attempt": 3,
+      "requestBracketMs": [
+        17778173,
+        17778176
+      ],
+      "uiBracketMs": [
+        17778869,
+        17778908
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17779354,
+        "returnMs": 17779355,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17779354,
+        "returnMs": 17779355,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17779355,
+        "returnMs": 17779355,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17779354,
+        "elapsedMs": 17779354,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        446,
+        485
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17780382,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_4"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1027,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17780382,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_4"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17779137,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17780384,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17780395,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17780432,
+        17780433
+      ],
+      "consumerReceivedMs": 17780534,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17780356,
+          "returnMs": 17780356,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1474,
+        1513
+      ],
+      "uiToHubMs": [
+        1524,
+        1564
+      ],
+      "uiToConsumerMs": [
+        1626,
+        1665
+      ],
+      "sdkToHubMs": [
+        50,
+        51
+      ],
+      "alreadyGuidingToHubMs": [
+        1295,
+        1296
+      ]
+    }
+  ],
+  "allPublicSdkCalls": [
+    {
+      "operation": "location",
+      "beginMs": 17765667,
+      "returnMs": 17765667,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17765667,
+      "returnMs": 17765667,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17765667,
+      "returnMs": 17765667,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17765667,
+      "returnMs": 17765668,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17766669,
+      "returnMs": 17766670,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17766670,
+      "returnMs": 17766670,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17766670,
+      "returnMs": 17766670,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17766670,
+      "returnMs": 17766670,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17768002,
+      "returnMs": 17768016,
+      "durationMs": 14,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17768016,
+      "returnMs": 17768016,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17768017,
+      "returnMs": 17768017,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17768017,
+      "returnMs": 17768017,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17769263,
+      "returnMs": 17769264,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17769264,
+      "returnMs": 17769264,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17769264,
+      "returnMs": 17769267,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17769267,
+      "returnMs": 17769271,
+      "durationMs": 4,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17770271,
+      "returnMs": 17770272,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17770272,
+      "returnMs": 17770272,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17770272,
+      "returnMs": 17770272,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17770272,
+      "returnMs": 17770272,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17771275,
+      "returnMs": 17771277,
+      "durationMs": 2,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17771278,
+      "returnMs": 17771281,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17771281,
+      "returnMs": 17771281,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17771281,
+      "returnMs": 17771284,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17772288,
+      "returnMs": 17772288,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17772288,
+      "returnMs": 17772288,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17772288,
+      "returnMs": 17772288,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17772288,
+      "returnMs": 17772288,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17773290,
+      "returnMs": 17773291,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17773291,
+      "returnMs": 17773294,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17773294,
+      "returnMs": 17773296,
+      "durationMs": 2,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17773296,
+      "returnMs": 17773299,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17774301,
+      "returnMs": 17774301,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17774301,
+      "returnMs": 17774301,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17774301,
+      "returnMs": 17774301,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17774301,
+      "returnMs": 17774302,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17775318,
+      "returnMs": 17775319,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17775319,
+      "returnMs": 17775322,
+      "durationMs": 3,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17775322,
+      "returnMs": 17775322,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17775322,
+      "returnMs": 17775322,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17776325,
+      "returnMs": 17776326,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17776326,
+      "returnMs": 17776327,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17776327,
+      "returnMs": 17776327,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17776327,
+      "returnMs": 17776327,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17777328,
+      "returnMs": 17777328,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17777328,
+      "returnMs": 17777329,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17777329,
+      "returnMs": 17777338,
+      "durationMs": 9,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17777338,
+      "returnMs": 17777338,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17778340,
+      "returnMs": 17778353,
+      "durationMs": 13,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17778353,
+      "returnMs": 17778354,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17778354,
+      "returnMs": 17778354,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17778354,
+      "returnMs": 17778354,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17779354,
+      "returnMs": 17779355,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17779355,
+      "returnMs": 17779355,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17779355,
+      "returnMs": 17779355,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17779355,
+      "returnMs": 17779355,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17780355,
+      "returnMs": 17780356,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17780356,
+      "returnMs": 17780356,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17780356,
+      "returnMs": 17780356,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17780356,
+      "returnMs": 17780357,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "location",
+      "beginMs": 17781361,
+      "returnMs": 17781363,
+      "durationMs": 2,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "route",
+      "beginMs": 17781363,
+      "returnMs": 17781363,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "destination",
+      "beginMs": 17781363,
+      "returnMs": 17781364,
+      "durationMs": 1,
+      "endStage": "CALL_RETURN"
+    },
+    {
+      "operation": "tbt",
+      "beginMs": 17781364,
+      "returnMs": 17781364,
+      "durationMs": 0,
+      "endStage": "CALL_RETURN"
+    }
+  ],
+  "maxPublicSdkCallDurationMs": {
+    "location": 14,
+    "route": 3,
+    "destination": 9,
+    "tbt": 4
+  },
+  "allTimerResumptions": [
+    {
+      "dueAtMs": 17766668,
+      "elapsedMs": 17766668,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17767670,
+      "elapsedMs": 17768001,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17769017,
+      "elapsedMs": 17769260,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17770271,
+      "elapsedMs": 17770271,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17771272,
+      "elapsedMs": 17771272,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17772284,
+      "elapsedMs": 17772287,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17773288,
+      "elapsedMs": 17773289,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17774300,
+      "elapsedMs": 17774300,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17775302,
+      "elapsedMs": 17775318,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17776322,
+      "elapsedMs": 17776324,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17777327,
+      "elapsedMs": 17777327,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17778338,
+      "elapsedMs": 17778338,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17779354,
+      "elapsedMs": 17779354,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17780355,
+      "elapsedMs": 17780355,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    },
+    {
+      "dueAtMs": 17781357,
+      "elapsedMs": 17781357,
+      "meters": null,
+      "mode": null,
+      "operation": "poll",
+      "seconds": null,
+      "stage": "TIMER_RESUMED",
+      "threadName": "main"
+    }
+  ],
+  "completed": true,
+  "leaseReleased": true,
+  "ownerAfterRelease": null,
+  "hubAfterClose": null
+}

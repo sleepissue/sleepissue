@@ -1,0 +1,13 @@
+test_boundary_delivery_after_window_is_drained (__main__.AnalysisTest.test_boundary_delivery_after_window_is_drained) ... ok
+test_continuous_frame_path (__main__.AnalysisTest.test_continuous_frame_path) ... ok
+test_duplicate_consumer_is_not_normal_delivery (__main__.AnalysisTest.test_duplicate_consumer_is_not_normal_delivery) ... ok
+test_missing_last_consumer_is_counted (__main__.AnalysisTest.test_missing_last_consumer_is_counted) ... ok
+test_missing_published_sequence_is_not_hidden_by_counter (__main__.AnalysisTest.test_missing_published_sequence_is_not_hidden_by_counter) ... ok
+test_recorder_overflow_prevents_zero_loss_claim (__main__.AnalysisTest.test_recorder_overflow_prevents_zero_loss_claim) ... ok
+test_skipped_deadline_fails_even_when_sequences_are_continuous (__main__.AnalysisTest.test_skipped_deadline_fails_even_when_sequences_are_continuous) ... ok
+test_stale_quality_and_frame_delivery_are_separate (__main__.AnalysisTest.test_stale_quality_and_frame_delivery_are_separate) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.344s
+
+OK

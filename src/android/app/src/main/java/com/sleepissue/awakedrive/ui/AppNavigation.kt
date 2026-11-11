@@ -36,6 +36,8 @@ fun AppNavigation(
     session: DriveSessionUiState = DriveSessionUiState(),
     onAction: ((DriveUiAction) -> Unit)? = null,
     clock: Clock? = null,
+    onStartMonitoring: () -> Unit = {},
+    demoContent: (@Composable () -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val settingsStore = remember { DriverUiSettingsStore(context) }
@@ -79,6 +81,7 @@ fun AppNavigation(
             if (session.demoPlaying) Text("데모 재생 중", color = Color(0xFFFFD166), fontSize = 14.sp)
             else if (session.demoSession) Text("데모 검증 세션 · 정지", color = Color.LightGray, fontSize = 12.sp)
         }
+        if (session.message.isNotBlank()) Text(session.message, color = Color.LightGray, modifier = Modifier.padding(horizontal = 16.dp))
         if (feedback.isNotBlank()) Text(feedback, color = Color(0xFFFFD166), modifier = Modifier.padding(horizontal = 16.dp))
         Box(Modifier.weight(1f).fillMaxWidth()) {
             when (page) {
@@ -104,7 +107,7 @@ fun AppNavigation(
                 }
                 AppPage.SAFETY -> SetupSafetyScreen { page = AppPage.COMPLETE }
                 AppPage.COMPLETE -> SetupCompleteScreen(condition = condition ?: DrivingCondition.GOOD,
-                    forecast = effectiveForecast, onStartDriving = { setupCompleted = true; page = AppPage.DRIVING })
+                    forecast = effectiveForecast, onStartDriving = { onStartMonitoring(); setupCompleted = true; page = AppPage.DRIVING })
                 AppPage.DRIVING -> {
                     if (status == DrivingStatus.CHECK || status == DrivingStatus.REST) {
                         AlertScreen(status = status, nextRestArea = nextArea.description(),
@@ -123,14 +126,14 @@ fun AppNavigation(
                             drivingTime = (continuousDriveSec ?: session.trip.continuousDriveSec.takeIf { session.frame != null })
                                 ?.let { "%d시간 %02d분".format(it / 3600, (it % 3600) / 60) } ?: "측정 전",
                             sampleTimeMs = session.tMs, speedKph = session.frame?.speedKph,
-                            metrics = session.fatigue?.fatigue)
+                            metrics = session.fatigue?.fatigue, frame = session.frame)
                     }
                 }
                 AppPage.REST -> RestScreen(session, connected, { request(it) })
                 AppPage.REPORT -> ReportScreen(session.toReportUiState())
                 AppPage.SETTINGS -> SettingsScreen(settings, { settings = it; settingsStore.write(it) },
                     if (connected) ({ request(DriveUiAction.DeleteRecords) }) else null)
-                AppPage.DEBUG -> Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                AppPage.DEBUG -> if (demoContent != null) demoContent() else Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
                     Text("데모 시나리오", color = Color.White, fontSize = 25.sp)
                     Text("개발 검증 화면의 정상·딴짓·졸음·대화·보조 주행·출발 피로 선택과 1·10·60배 재생을 사용하세요.", color = Color.LightGray)
                     Text(session.message, color = Color.White)

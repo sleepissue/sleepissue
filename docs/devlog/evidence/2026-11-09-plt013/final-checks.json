@@ -1,0 +1,15 @@
+{
+  "checkedChangedOrNewRepoFiles": 144,
+  "finalOriginalFilesCheckedFromImmutableTar": 111,
+  "originalFilesStillByteIdentical": true,
+  "secretMatches": [],
+  "forbiddenArtifacts": [],
+  "invalidJson": [],
+  "brokenLocalLinks": [],
+  "permissionsEqual": true,
+  "noRunningService": true,
+  "adbForwardList": "",
+  "stagedFiles": [],
+  "branch": "develop-jdw",
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122"
+}

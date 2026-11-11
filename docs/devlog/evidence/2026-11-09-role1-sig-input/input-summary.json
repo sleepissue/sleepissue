@@ -1,0 +1,219 @@
+{
+  "environment": {
+    "avd": "Pleos_Connect_2_1_0",
+    "device": "emulator-5554",
+    "androidUser": 10,
+    "physicalVehicleTest": false,
+    "effectiveNavigationApp": "ai.umos.maps.android.navigation.app",
+    "appVersion": "3.3.2-rc5-hotfix.3",
+    "naviService": "ai.pleos.playground.service.navi/.NaviService",
+    "naviServiceVersion": "3.0.4",
+    "readPermission": 0,
+    "searchPermission": 0,
+    "navigationCustomMapDeclared": false
+  },
+  "request": {
+    "returnedAtElapsedMs": 88475,
+    "returnType": "Unit, not route success",
+    "requestedLatitude": 37.48544722,
+    "requestedLongitude": 127.03636666,
+    "source": "official NaviTestData 76ed592487a1eab7ba102b9d4b321705426886fe"
+  },
+  "route": {
+    "initial": {
+      "isRouting": false,
+      "naviMode": "SAFE_GUIDING",
+      "remainDestinationChargingInt": 0,
+      "remainWaypointChargingInt": [
+        0,
+        0
+      ],
+      "routeOption": "RECOMMENDED",
+      "termsAgreement": true,
+      "trafficStatus": {
+        "congestionItemList": [],
+        "summary": {
+          "totalCongestionAvrSpeed": 0.0,
+          "totalCongestionDist": 0.0,
+          "totalCongestionTime": 60
+        },
+        "trafficEventList": []
+      }
+    },
+    "firstGuidingElapsedMs": 94086,
+    "guiding": {
+      "isRouting": false,
+      "naviMode": "ROUTE_GUIDING",
+      "remainDestinationChargingInt": 77391,
+      "remainWaypointChargingInt": [
+        0,
+        0
+      ],
+      "routeOption": "RECOMMENDED",
+      "termsAgreement": true,
+      "trafficStatus": {
+        "congestionItemList": [],
+        "summary": {
+          "totalCongestionAvrSpeed": 0.0,
+          "totalCongestionDist": 0.0,
+          "totalCongestionTime": 60
+        },
+        "trafficEventList": []
+      }
+    },
+    "destination": {
+      "address": "수정구 시흥동",
+      "displayLatitude": null,
+      "displayLongitude": null,
+      "latitude": 37.41289678,
+      "longitude": 127.09383464,
+      "name": "42dot",
+      "poiId": "36khp37hh8gqcm5nqhe5",
+      "poiProvider": "",
+      "poiSubId": null,
+      "remainDistance": 50,
+      "remainTime": 60,
+      "tollFare": 0
+    },
+    "tbt": [
+      {
+        "description": "도착",
+        "distance": 50.0,
+        "type": "TURN_ARRIVE"
+      }
+    ],
+    "hubActive": {
+      "distToNextTurnM": 50.0,
+      "headingDeg": null,
+      "lat": 37.4127212,
+      "lon": 127.094681,
+      "remainDistM": 50.0,
+      "remainTimeSec": 60,
+      "tMs": 95319
+    },
+    "afterCancel": {
+      "isRouting": false,
+      "naviMode": "SAFE_GUIDING",
+      "remainDestinationChargingInt": 0,
+      "remainWaypointChargingInt": [
+        0,
+        0
+      ],
+      "routeOption": "RECOMMENDED",
+      "termsAgreement": true,
+      "trafficStatus": {
+        "congestionItemList": [],
+        "summary": {
+          "totalCongestionAvrSpeed": 0.0,
+          "totalCongestionDist": 0.0,
+          "totalCongestionTime": 60
+        },
+        "trafficEventList": []
+      }
+    },
+    "hubAfterCancel": {
+      "distToNextTurnM": null,
+      "headingDeg": null,
+      "lat": 37.4127212,
+      "lon": 127.094681,
+      "remainDistM": null,
+      "remainTimeSec": null,
+      "tMs": 145620
+    },
+    "completed": true,
+    "eventsByKind": {
+      "destination": 85,
+      "location": 86,
+      "tbt": 89,
+      "route": 88,
+      "routeStarted": 1,
+      "cancelled": 1
+    }
+  },
+  "priorEvidenceCorrection": {
+    "source": "2026-11-08-role1-finish/role1-navi-input.json",
+    "originalActiveObserved": false,
+    "guidingReportsWithFalseBoolean": 15,
+    "originalFileUnchanged": true
+  },
+  "heading": {
+    "sdkLocations": [
+      [
+        37.4127212,
+        127.094681
+      ]
+    ],
+    "hubHeadingValues": [
+      null
+    ],
+    "movingNaviProviderInputVerified": false,
+    "boundary": "Android GPS receives geo fix and delivers locations to navigation app; NaviHelper reports fixed location. Provider internal reason not established."
+  },
+  "cabin": {
+    "before": {
+      "apiReadable": true,
+      "availability": "AVAILABLE",
+      "callbacks": 1,
+      "confirmedMs": 94987,
+      "key": "CABIN_TEMP_C",
+      "lastDelivery": "REQUERY",
+      "maxValue": null,
+      "minValue": null,
+      "nativeMs": null,
+      "normalization": "NORMALIZED",
+      "note": "현재 실내온도 °C (설정온도 아님)",
+      "observations": 1,
+      "permission": "pleos.car.permission.CAR_CLIMATE",
+      "permissionGranted": true,
+      "queries": 1,
+      "raw": "19.1",
+      "receivedMs": 93973,
+      "rejectedDeliveries": 0,
+      "support": "READ ROW_1_LEFT",
+      "value": 19.1
+    },
+    "after": {
+      "apiReadable": true,
+      "availability": "AVAILABLE",
+      "callbacks": 1,
+      "confirmedMs": 144545,
+      "key": "CABIN_TEMP_C",
+      "lastDelivery": "REQUERY",
+      "maxValue": null,
+      "minValue": null,
+      "nativeMs": null,
+      "normalization": "NORMALIZED",
+      "note": "현재 실내온도 °C (설정온도 아님)",
+      "observations": 1,
+      "permission": "pleos.car.permission.CAR_CLIMATE",
+      "permissionGranted": true,
+      "queries": 50,
+      "raw": "19.1",
+      "receivedMs": 93973,
+      "rejectedDeliveries": 0,
+      "support": "READ ROW_1_LEFT",
+      "value": 19.1
+    },
+    "samples": 50,
+    "firstSampleElapsedMs": 95333,
+    "lastSampleElapsedMs": 144392,
+    "valuesC": [
+      19.1
+    ],
+    "currentTemperatureChangeVerified": false
+  },
+  "readonlyComparison": {
+    "githubMain": "f4b01fcad0856041bd2798a928700402b06fb418",
+    "pleosNaviBridgeBlob": "90d6a63dbd46351afebba5e8d9db8e93b5f613d3",
+    "productIntegration": false
+  },
+  "sourcesSha256": {
+    "navi-data-sources.jar": "4da974b6b0050662c4b346d3fca96073c8c1f241ce10c7d667cfef64cbceedaf",
+    "Vehicle-sources.jar": "62b5dd2c4c0523fd13c2e64040cd775bc89a14ce54f35a37560d0eb4eb3fab40",
+    "NaviHelper-sources.jar": "915feb7246215e6999f4695ba6b51cf31e4c6a5d8a8c1b36f16a3ba353569201"
+  },
+  "installedApkBefore": {
+    "installed": "37a1b1e5f27f48c4505b1e7bbbcbd857ba4ddb950db4c4a7223b5c77518e1582",
+    "local": "37a1b1e5f27f48c4505b1e7bbbcbd857ba4ddb950db4c4a7223b5c77518e1582"
+  }
+}

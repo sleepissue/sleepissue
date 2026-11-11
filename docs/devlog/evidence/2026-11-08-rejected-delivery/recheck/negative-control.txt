@@ -1,0 +1,83 @@
+Starting a Gradle Daemon, 1 busy and 1 incompatible and 1 stopped Daemons could not be reused, use --status for details
+Calculating task graph as no cached configuration is available for tasks: :app:testDebugUnitTest --tests com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest
+> Task :engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :engine:processResources NO-SOURCE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugResources
+> Task :app:packageDebugResources
+> Task :app:processDebugNavigationResources
+> Task :app:parseDebugLocalResources
+> Task :app:generateDebugRFile
+> Task :app:javaPreCompileDebug
+> Task :app:checkDebugAarMetadata
+> Task :app:mapDebugSourceSetPaths
+> Task :app:compileDebugNavigationResources
+> Task :app:mergeDebugResources
+> Task :app:createDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksDebug
+> Task :app:processDebugMainManifest
+> Task :app:processDebugManifest
+> Task :app:processDebugManifestForPackage
+> Task :app:processDebugResources
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest
+> Task :engine:compileKotlin
+> Task :engine:compileJava NO-SOURCE
+> Task :engine:classes UP-TO-DATE
+> Task :engine:jar
+> Task :app:kspDebugKotlin
+> Task :app:compileDebugKotlin
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:305:57 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:306:68 'val status: Int' is deprecated. Deprecated in Java.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:351:57 'fun unregisterCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt:352:46 'fun registerCallback(p0: CarPropertyManager.CarPropertyEventCallback!, p1: Int, p2: Float): Boolean' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugJavaWithJavac NO-SOURCE
+> Task :app:processDebugJavaRes
+> Task :app:bundleDebugClassesToRuntimeJar
+> Task :app:bundleDebugClassesToCompileJar
+> Task :app:kspDebugUnitTestKotlin
+
+> Task :app:compileDebugUnitTestKotlin
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:76:74 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkSignalStoreTest.kt:77:31 Unnecessary non-null assertion (!!) on a non-null receiver of type 'SeatOccupancy'.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/test/java/com/sleepissue/awakedrive/signal/PlaygroundTripSessionTest.kt:170:48 This declaration needs opt-in. Its usage should be marked with '@kotlinx.coroutines.ExperimentalCoroutinesApi' or '@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)'
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoPerformanceTest.kt:41:89 'val id: Long' is deprecated. Deprecated in Java.
+w: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/src/testDebug/java/com/sleepissue/awakedrive/debug/DebugDemoTransportPerformanceTest.kt:48:89 'val id: Long' is deprecated. Deprecated in Java.
+
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes
+
+> Task :app:testDebugUnitTest
+
+SdkStateDeliveryHubTest > newerCallbackThenOlderCallbackDoesNotReplayTheStoredCallbackToHub FAILED
+    java.lang.AssertionError at SdkStateDeliveryHubTest.kt:82
+
+SdkStateDeliveryHubTest > reversedDeliveryOrderWithinTheSameMillisecondDoesNotReplayTheStoredCallback FAILED
+    java.lang.AssertionError at SdkStateDeliveryHubTest.kt:82
+
+SdkStateDeliveryHubTest > ignoredInitialQueryAfterCallbackUpdatesOnlyItsDiagnosticQueryCount FAILED
+    java.lang.AssertionError at SdkStateDeliveryHubTest.kt:97
+
+SdkStateDeliveryHubTest > rejectedRequeryAfterLatestCallbackCannotEmitItsStoredCallbackAgain FAILED
+    java.lang.AssertionError at SdkStateDeliveryHubTest.kt:86
+
+6 tests completed, 4 failed
+
+> Task :app:testDebugUnitTest FAILED
+
+[Incubating] Problems report is available at: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:testDebugUnitTest'.
+> There were failing tests. See the report at: file:///tmp/awakedrive-delivery-recheck-28ynenm2/android/app/build/reports/tests/testDebugUnitTest/index.html
+
+* Try:
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+
+BUILD FAILED in 1m 50s
+28 actionable tasks: 28 executed
+Configuration cache entry stored.

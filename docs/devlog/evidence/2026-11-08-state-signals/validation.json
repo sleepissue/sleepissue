@@ -1,0 +1,22 @@
+{
+  "branch": "develop-jdw",
+  "head": "f5c6ad9e179383ddb2b5cff3aad9ac4230afabe2",
+  "initiallyClean": true,
+  "unitTestsThisTask": 473,
+  "baselineUnitTests": 450,
+  "newUnitTests": 23,
+  "baselineRoomDeviceTests": 10,
+  "roomDeviceTestsRerun": false,
+  "actualAvdPhases": 5,
+  "capturesPerPhase": 21,
+  "completeTenHzTrace": false,
+  "minimumStableCaptureSpanMs": 19384,
+  "userDatabasesAllRowsUnchanged": true,
+  "originalDiagnosticsUnchanged": true,
+  "sdkStopped": true,
+  "monitorRequested": false,
+  "stagedFiles": 0,
+  "committedOrPushed": false,
+  "scopeCheckPassed": true,
+  "forbiddenArtifactsOrSecretsFound": false
+}

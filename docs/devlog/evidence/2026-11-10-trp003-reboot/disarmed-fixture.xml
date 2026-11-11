@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="run_id">boot-visible-1794285062</string>
+    <boolean name="armed" value="false" />
+    <boolean name="channel_existed" value="false" />
+</map>

@@ -16,6 +16,10 @@ data class SdkPublicationAuditSnapshot(
     val outOfOrder: Long = 0,
     val maxGapMs: Long = 110,
     val gapsOverLimit: Long = 0,
+    val minPublishedGapMs: Long? = null,
+    // [가정] 90ms 미만은 몰아 발행 조사 지표다. SRS의 하한 기준을 뜻하지 않는다.
+    val gapsBelow90ms: Long = 0,
+    val zeroIntervals: Long = 0,
 )
 
 /**
@@ -38,6 +42,9 @@ class SdkPublicationAudit(private val maxGapMs: Long = 110) {
     private var maxPublishedGapMs = 0L
     private var gapsOver110ms = 0L
     private var gapsOverLimit = 0L
+    private var minPublishedGapMs: Long? = null
+    private var gapsBelow90ms = 0L
+    private var zeroIntervals = 0L
     private var highestSequence = 0L
     private var missingSequences = 0L
     private var duplicates = 0L
@@ -53,7 +60,8 @@ class SdkPublicationAudit(private val maxGapMs: Long = 110) {
         frames++
         val latestTime = lastPublishedAtElapsedMs
         if (sequence < highestSequence || latestTime != null && publishedAtElapsedMs < latestTime) outOfOrder++
-        val duplicate = if (sequence > highestSequence) {
+        val advancesSequence = sequence > highestSequence
+        val duplicate = if (advancesSequence) {
             val missing = sequence - highestSequence - 1
             if (missing > 0) {
                 missingRanges[highestSequence + 1] = sequence - 1
@@ -66,8 +74,11 @@ class SdkPublicationAudit(private val maxGapMs: Long = 110) {
 
         firstPublishedAtElapsedMs = firstPublishedAtElapsedMs?.let { minOf(it, publishedAtElapsedMs) } ?: publishedAtElapsedMs
         if (latestTime == null) lastPublishedAtElapsedMs = publishedAtElapsedMs
-        else if (publishedAtElapsedMs > latestTime) {
+        else if (publishedAtElapsedMs > latestTime || publishedAtElapsedMs == latestTime && advancesSequence) {
             val gap = publishedAtElapsedMs - latestTime
+            minPublishedGapMs = minPublishedGapMs?.let { minOf(it, gap) } ?: gap
+            if (gap < 90) gapsBelow90ms++
+            if (gap == 0L) zeroIntervals++
             maxPublishedGapMs = maxOf(maxPublishedGapMs, gap)
             if (gap > 110) gapsOver110ms++
             if (gap > maxGapMs) gapsOverLimit++
@@ -89,6 +100,9 @@ class SdkPublicationAudit(private val maxGapMs: Long = 110) {
         outOfOrder = outOfOrder,
         maxGapMs = maxGapMs,
         gapsOverLimit = gapsOverLimit,
+        minPublishedGapMs = minPublishedGapMs,
+        gapsBelow90ms = gapsBelow90ms,
+        zeroIntervals = zeroIntervals,
     )
 
     private fun fillMissingSequence(sequence: Long): Boolean {
@@ -107,6 +121,7 @@ class SdkPublicationAudit(private val maxGapMs: Long = 110) {
         this.sessionId = sessionId
         frames = 0; firstPublishedAtElapsedMs = null; lastPublishedAtElapsedMs = null
         maxPublishedGapMs = 0; gapsOver110ms = 0; gapsOverLimit = 0
+        minPublishedGapMs = null; gapsBelow90ms = 0; zeroIntervals = 0
         highestSequence = 0; missingSequences = 0; duplicates = 0; outOfOrder = 0
         missingRanges.clear()
     }

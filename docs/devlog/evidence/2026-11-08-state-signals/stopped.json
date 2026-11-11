@@ -1,0 +1,13 @@
+{
+  "sdkProbeStopped": true,
+  "monitorServiceAbsent": true,
+  "uiText": [
+    "중지 · 세션 1 · 콜백/조회/연결 해제 · Hub 발행 중지",
+    "TURN_SIGNAL · 중지 · 최종 값 null / 캐시 폐기",
+    "BRAKE_ON · 중지 · 최종 값 null / 캐시 폐기",
+    "CRUISE_ACTIVE · 중지 · 최종 값 null / 캐시 폐기",
+    "CRUISE_TARGET_KPH · 중지 · 최종 값 null / 캐시 폐기"
+  ],
+  "requested": false,
+  "bootPending": false
+}

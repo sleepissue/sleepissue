@@ -9,6 +9,22 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SdkPublicationAuditTest {
+    @Test fun shortAndZeroIntervalsAreVisibleSeparatelyFromMissingAndDuplicateSequences() {
+        val audit = SdkPublicationAudit()
+        listOf(100L, 225L, 300L, 300L, 400L).forEachIndexed { index, at -> audit.record(1, index + 1L, at) }
+        val result = audit.snapshot()
+        assertEquals(125L, result.maxPublishedGapMs)
+        assertEquals(0L, result.minPublishedGapMs)
+        assertEquals(1L, result.gapsOver110ms)
+        assertEquals(2L, result.gapsBelow90ms)
+        assertEquals(1L, result.zeroIntervals)
+        assertEquals(0L, result.missingSequences)
+        assertEquals(0L, result.duplicates)
+        audit.record(2, 1, 500)
+        assertNull(audit.snapshot().minPublishedGapMs)
+        assertEquals(0L, audit.snapshot().gapsBelow90ms)
+    }
+
     @Test fun publicationMetadataDefinesCadenceEvenWhenConsumerArrivalIsMuchLater() = runTest {
         val audit = SdkPublicationAudit()
         val metadata = listOf(FramePublication(7, 1, 1_000), FramePublication(7, 2, 1_110), FramePublication(7, 3, 1_221))

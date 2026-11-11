@@ -1,0 +1,13 @@
+[
+  "adb",
+  "shell",
+  "am",
+  "start",
+  "--user",
+  "10",
+  "-n",
+  "com.sleepissue.awakedrive/.debug.DebugBootArmActivity",
+  "--es",
+  "role1BootRunId",
+  "boot-visible-1794285062"
+]

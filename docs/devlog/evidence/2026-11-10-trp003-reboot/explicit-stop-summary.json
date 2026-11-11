@@ -1,0 +1,163 @@
+{
+  "pid": 6403,
+  "lastCommand": "com.sleepissue.awakedrive.monitor.STOP flags=0 id=2",
+  "foreground": false,
+  "requested": false,
+  "bootPending": false,
+  "running": false,
+  "starts": 1,
+  "activeTimers": 0,
+  "sdkOwner": null,
+  "trip": {
+    "baselineRef": "baseline-boot-visible-1794285062",
+    "continuousDriveSec": 207,
+    "continuousDriveSecBeforeStop": null,
+    "driveState": "UNKNOWN",
+    "last24hDriveSec": 120,
+    "lastGear": "P",
+    "lastLocation": {
+      "lat": 37.423456,
+      "lon": 127.098765
+    },
+    "provisionalStopSec": 0,
+    "runStartMs": 1794284644525,
+    "stage": "CHECK",
+    "stopStartMs": null,
+    "tripId": "trp003-boot-visible-1794285062"
+  },
+  "precise": {
+    "continuousBeforeStopMs": null,
+    "continuousDriveMs": 207052,
+    "driveSegments": [
+      {
+        "endMs": 1794284764981,
+        "startMs": 1794284644525
+      }
+    ],
+    "lastObservation": {
+      "gear": null,
+      "power": null,
+      "tMs": 1794285318288
+    },
+    "offStartedAtMs": null,
+    "pendingNewTrip": false,
+    "restResetEmitted": false,
+    "stopStartedAtMs": null,
+    "trip": {
+      "baselineRef": "baseline-boot-visible-1794285062",
+      "continuousDriveSec": 207,
+      "continuousDriveSecBeforeStop": null,
+      "driveState": "UNKNOWN",
+      "last24hDriveSec": 120,
+      "lastGear": "P",
+      "lastLocation": {
+        "lat": 37.423456,
+        "lon": 127.098765
+      },
+      "provisionalStopSec": 0,
+      "runStartMs": 1794284644525,
+      "stage": "CHECK",
+      "stopStartMs": null,
+      "tripId": "trp003-boot-visible-1794285062"
+    }
+  },
+  "restoredSnapshot": {
+    "driveSegments": [
+      {
+        "endMs": 1794284764981,
+        "startMs": 1794284644525
+      }
+    ],
+    "ownerState": "REAL_TRIP_V1:AAFQAAA=",
+    "preciseState": {
+      "continuousBeforeStopMs": 120456,
+      "continuousDriveMs": 120456,
+      "driveSegments": [
+        {
+          "endMs": 1794284764981,
+          "startMs": 1794284644525
+        }
+      ],
+      "lastObservation": {
+        "gear": "P",
+        "power": null,
+        "tMs": 1794285065104
+      },
+      "offStartedAtMs": null,
+      "pendingNewTrip": false,
+      "restResetEmitted": false,
+      "stopStartedAtMs": 1794284764981,
+      "trip": {
+        "baselineRef": "baseline-boot-visible-1794285062",
+        "continuousDriveSec": 120,
+        "continuousDriveSecBeforeStop": 120,
+        "driveState": "PAUSED",
+        "last24hDriveSec": 120,
+        "lastGear": "P",
+        "lastLocation": {
+          "lat": 37.423456,
+          "lon": 127.098765
+        },
+        "provisionalStopSec": 0,
+        "runStartMs": 1794284644525,
+        "stage": "CHECK",
+        "stopStartMs": 1794284764981,
+        "tripId": "trp003-boot-visible-1794285062"
+      }
+    },
+    "rulePolicy": {
+      "shortStopAccumulation": "EXCLUDE",
+      "stopTime": "V03_RETROACTIVE"
+    },
+    "savedAtElapsedMs": 79880887,
+    "savedAtScenarioMs": 1794285065104,
+    "savedAtWallMs": 1794285065130,
+    "source": "REAL",
+    "state": {
+      "baselineRef": "baseline-boot-visible-1794285062",
+      "continuousDriveSec": 120,
+      "continuousDriveSecBeforeStop": 120,
+      "driveState": "PAUSED",
+      "last24hDriveSec": 120,
+      "lastGear": "P",
+      "lastLocation": {
+        "lat": 37.423456,
+        "lon": 127.098765
+      },
+      "provisionalStopSec": 0,
+      "runStartMs": 1794284644525,
+      "stage": "CHECK",
+      "stopStartMs": 1794284764981,
+      "tripId": "trp003-boot-visible-1794285062"
+    },
+    "timeBasis": "WALL_EPOCH"
+  },
+  "persistence": {
+    "autoSaveEnabled": true,
+    "failure": null,
+    "lastSavedElapsedMs": 124629,
+    "lastSavedScenarioMs": 1794285318288,
+    "lastSavedWallMs": 1794285318434,
+    "operation": "SAVED",
+    "restore": "RESTORED",
+    "successfulSaves": 10,
+    "timerBasis": "ELAPSED_REALTIME"
+  },
+  "events": [
+    "1794285231062 · 복원 전 id=trp003-boot-visible-1794285062 운행=PAUSED 연속=120456ms 정차=300123ms 최근24h=120s",
+    "1794285231070 · 복원 후 id=trp003-boot-visible-1794285062 운행=UNKNOWN 연속=120456ms 정차=0ms 최근24h=120s · 현재 기어/전원 미확정, 앱 종료 공백 제외",
+    "1794285231273 · SDK 입력 연결 세대 1 · REAL 전용 · 전원 API 미연결",
+    "1794285231789 · SDK 상태 전환 id=trp003-boot-visible-1794285062 운행=PAUSED 연속=120456ms 정차=0ms 최근24h=120s · gear=P · AVAILABLE",
+    "1794285231898 · 즉시 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=120456ms 정차=0ms 최근24h=120s",
+    "1794285242727 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=131453ms 정차=10997ms 최근24h=120s",
+    "1794285252804 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=141452ms 정차=20996ms 최근24h=120s",
+    "1794285262848 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=151551ms 정차=31095ms 최근24h=120s",
+    "1794285272881 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=161551ms 정차=41095ms 최근24h=120s",
+    "1794285282909 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=171653ms 정차=51197ms 최근24h=120s",
+    "1794285292957 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=181656ms 정차=61200ms 최근24h=120s",
+    "1794285303000 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=191652ms 정차=71196ms 최근24h=120s",
+    "1794285313059 · 실제 경과 10초 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=201752ms 정차=81296ms 최근24h=120s",
+    "1794285318434 · SDK 입력 중지 · 현재 UNKNOWN · 종료를 시동 OFF로 해석하지 않음",
+    "1794285318446 · 즉시 저장 성공 · id=trp003-boot-visible-1794285062 운행=PAUSED 연속=207052ms 정차=86596ms 최근24h=120s"
+  ]
+}

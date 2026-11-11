@@ -133,7 +133,9 @@ class DebugHarnessActivity : AppCompatActivity() {
             demoRedirect = true
             startActivity(Intent(this, DebugSdkProbeActivity::class.java)
                 .putExtra("sdkAutoConnect", intent.getBooleanExtra("sdkAutoConnect", false))
-                .putExtra("sdkCapture", intent.getBooleanExtra("sdkCapture", false)))
+                .putExtra("sdkCapture", intent.getBooleanExtra("sdkCapture", false))
+                .putExtra("sdkCaptureFile", intent.getStringExtra("sdkCaptureFile"))
+                .putExtra("sdkTiming", intent.getBooleanExtra("sdkTiming", false)))
             finish()
             return
         }

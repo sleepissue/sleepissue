@@ -33,6 +33,14 @@
         <uses-library android:name="android.car" android:required="false" />
         <activity android:name=".ui.LiveDriveActivity"
             android:exported="false" android:theme="@style/Theme.SleepIssue" />
+        <!-- 5번 UI 진입점. SDK 수집·운행 저장의 소유권은 기존 감시/검증 경로가 맡는다. -->
+        <activity android:name=".ui.DrivingPreviewActivity"
+            android:exported="true" android:label="AwakeDrive">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".service.RealTripMonitorActivity"
             android:exported="false" android:theme="@style/Theme.SleepIssue" />
         <!-- 공식 specialUse 계약의 기타 유효 사용례: 사용자가 시작한 차량 내부 SDK 감시. -->

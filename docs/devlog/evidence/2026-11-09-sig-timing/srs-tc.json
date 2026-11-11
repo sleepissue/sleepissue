@@ -1,0 +1,358 @@
+{
+  "source": "/home/a/Downloads/AwakeDrive_SRS_TC_v0.2.xlsx",
+  "sha256": "2ea8c6d0baf3040f146fbbab0d87883f12108354411ffaad1f8e6fb1e95e69da",
+  "rows": [
+    {
+      "sheet": "Sys Req Spec",
+      "row": "15",
+      "cells": [
+        {
+          "cell": "A15",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "B15",
+          "text": "SW"
+        },
+        {
+          "cell": "C15",
+          "text": "Interface"
+        },
+        {
+          "cell": "D15",
+          "text": "REQ_PRD_002"
+        },
+        {
+          "cell": "E15",
+          "text": "VehicleSignalHub는 조향각을 구독해 10 Hz 신호 묶음(SignalFrame)에 담아 내보내야 한다."
+        },
+        {
+          "cell": "F15",
+          "text": "프레임 간격 ≤ 110 ms, 60 s 동안 누락 0건 (시간은 주입된 Clock 기준 — 데모 재생 중에는 시나리오 시계)"
+        },
+        {
+          "cell": "G15",
+          "text": "Hz"
+        },
+        {
+          "cell": "H15",
+          "text": "Must"
+        },
+        {
+          "cell": "I15",
+          "text": "기획서 4-2, 10장"
+        },
+        {
+          "cell": "J15",
+          "text": "미세 수정(0.5~3°) 지표는 균일한 시계열이 필요"
+        },
+        {
+          "cell": "K15",
+          "text": "Test"
+        },
+        {
+          "cell": "L15",
+          "text": "app/signal/VehicleSignalHub.kt (예정)"
+        },
+        {
+          "cell": "M15",
+          "text": "Vehicle SteeringWheel.registerSteeringWheelAngle"
+        },
+        {
+          "cell": "N15",
+          "text": "1번 신호·상태"
+        },
+        {
+          "cell": "O15",
+          "text": "Draft"
+        },
+        {
+          "cell": "P15",
+          "text": "2026-11-02"
+        },
+        {
+          "cell": "Q15",
+          "text": "원천 갱신 주기는 에뮬레이터에서 실측(REQ_SIG_009)"
+        }
+      ]
+    },
+    {
+      "sheet": "Test Case",
+      "row": "15",
+      "cells": [
+        {
+          "cell": "A15",
+          "text": "TC_SIG_001"
+        },
+        {
+          "cell": "B15",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "C15",
+          "text": "1"
+        },
+        {
+          "cell": "D15",
+          "text": "Y"
+        },
+        {
+          "cell": "E15",
+          "text": "Emu v2.1.0(API 34) 실행, Virtual Console 연결(adb forward tcp:8088 tcp:8088). 앱 실행"
+        },
+        {
+          "cell": "F15",
+          "text": "1) Virtual Console 운전대를 ±10° 범위로 반복 조작(또는 데모 재생)\n2) Hub 출력 프레임 tMs(주입된 Clock 기준)를 60 s 동안 logcat에 기록\n3) 스크립트로 최대 간격·누락 수 계산"
+        },
+        {
+          "cell": "G15",
+          "text": "프레임 간격 ≤ 110 ms, 60 s 동안 누락 0건 (시간은 주입된 Clock 기준 — 데모 재생 중에는 시나리오 시계)"
+        },
+        {
+          "cell": "P15",
+          "text": "ET — 에뮬레이터 v2.1.0 시험"
+        }
+      ]
+    },
+    {
+      "sheet": "RTM",
+      "row": "19",
+      "cells": [
+        {
+          "cell": "A19",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "B19",
+          "text": "VehicleSignalHub는 조향각을 구독해 10 Hz 신호 묶음(SignalFrame)에 담아 내보내야 한다."
+        },
+        {
+          "cell": "C19",
+          "text": "Test"
+        },
+        {
+          "cell": "D19",
+          "text": "app/signal/VehicleSignalHub.kt (예정)"
+        },
+        {
+          "cell": "E19",
+          "text": "Vehicle SteeringWheel.registerSteeringWheelAngle"
+        },
+        {
+          "cell": "F19",
+          "text": "TC_SIG_001"
+        },
+        {
+          "cell": "G19",
+          "text": "Not Run"
+        },
+        {
+          "cell": "H19",
+          "text": "1"
+        },
+        {
+          "cell": "I19",
+          "text": "0"
+        },
+        {
+          "cell": "J19",
+          "text": "0"
+        },
+        {
+          "cell": "K19",
+          "text": "1"
+        }
+      ]
+    },
+    {
+      "sheet": "API Map",
+      "row": "3",
+      "cells": [
+        {
+          "cell": "A3",
+          "text": "1"
+        },
+        {
+          "cell": "B3",
+          "text": "Vehicle · SteeringWheel"
+        },
+        {
+          "cell": "C3",
+          "text": "조향각 읽기"
+        },
+        {
+          "cell": "D3",
+          "text": "getCurrentSteeringWheelAngle · registerSteeringWheelAngle"
+        },
+        {
+          "cell": "E3",
+          "text": "Pleos Vehicle"
+        },
+        {
+          "cell": "F3",
+          "text": "Subscribe"
+        },
+        {
+          "cell": "G3",
+          "text": "° → °"
+        },
+        {
+          "cell": "H3",
+          "text": "Ready to Use"
+        },
+        {
+          "cell": "I3",
+          "text": "READ_CAR_STEERING(후보)"
+        },
+        {
+          "cell": "J3",
+          "text": "ai.pleos.playground:Vehicle:2.3.2"
+        },
+        {
+          "cell": "K3",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "L3",
+          "text": "⚠ 갱신 주기·분해능·단위·범위 실측 필요(설명회 Q11)"
+        },
+        {
+          "cell": "M3",
+          "text": "큰 수정·급조향 위주 계산(REQ_SIG_009)"
+        }
+      ]
+    },
+    {
+      "sheet": "Data Interface",
+      "row": "5",
+      "cells": [
+        {
+          "cell": "A5",
+          "text": "MSG-01"
+        },
+        {
+          "cell": "B5",
+          "text": "SignalFrame"
+        },
+        {
+          "cell": "C5",
+          "text": "VehicleSignalHub"
+        },
+        {
+          "cell": "D5",
+          "text": "FAT, AST, CHK, INT"
+        },
+        {
+          "cell": "E5",
+          "text": "100"
+        },
+        {
+          "cell": "F5",
+          "text": "12"
+        },
+        {
+          "cell": "G5",
+          "text": "tMs"
+        },
+        {
+          "cell": "H5",
+          "text": "1"
+        },
+        {
+          "cell": "I5",
+          "text": "Long"
+        },
+        {
+          "cell": "J5",
+          "text": "N"
+        },
+        {
+          "cell": "L5",
+          "text": "Clock"
+        },
+        {
+          "cell": "M5",
+          "text": "ms"
+        },
+        {
+          "cell": "N5",
+          "text": "0"
+        },
+        {
+          "cell": "P5",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "Q5",
+          "text": "Clock 인터페이스로 주입"
+        }
+      ]
+    },
+    {
+      "sheet": "Data Interface",
+      "row": "6",
+      "cells": [
+        {
+          "cell": "A6",
+          "text": "MSG-01"
+        },
+        {
+          "cell": "B6",
+          "text": "SignalFrame"
+        },
+        {
+          "cell": "C6",
+          "text": "VehicleSignalHub"
+        },
+        {
+          "cell": "D6",
+          "text": "FAT, AST, CHK, INT"
+        },
+        {
+          "cell": "E6",
+          "text": "100"
+        },
+        {
+          "cell": "F6",
+          "text": "12"
+        },
+        {
+          "cell": "G6",
+          "text": "steeringDeg"
+        },
+        {
+          "cell": "H6",
+          "text": "2"
+        },
+        {
+          "cell": "I6",
+          "text": "Float"
+        },
+        {
+          "cell": "J6",
+          "text": "Y"
+        },
+        {
+          "cell": "K6",
+          "text": "null"
+        },
+        {
+          "cell": "L6",
+          "text": "Vehicle SteeringWheel"
+        },
+        {
+          "cell": "M6",
+          "text": "°"
+        },
+        {
+          "cell": "P6",
+          "text": "REQ_SIG_001"
+        },
+        {
+          "cell": "Q6",
+          "text": "범위·분해능은 실측 후 기입(설명회 Q11)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "driveSegments": [
+    {
+      "endMs": 1794284764981,
+      "startMs": 1794284644525
+    }
+  ],
+  "ownerState": "REAL_TRIP_V1:AAFQAAA\u003d",
+  "preciseState": {
+    "continuousBeforeStopMs": 120456,
+    "continuousDriveMs": 120456,
+    "driveSegments": [
+      {
+        "endMs": 1794284764981,
+        "startMs": 1794284644525
+      }
+    ],
+    "lastObservation": {
+      "gear": "P",
+      "power": null,
+      "tMs": 1794285065104
+    },
+    "offStartedAtMs": null,
+    "pendingNewTrip": false,
+    "restResetEmitted": false,
+    "stopStartedAtMs": 1794284764981,
+    "trip": {
+      "baselineRef": "baseline-boot-visible-1794285062",
+      "continuousDriveSec": 120,
+      "continuousDriveSecBeforeStop": 120,
+      "driveState": "PAUSED",
+      "last24hDriveSec": 120,
+      "lastGear": "P",
+      "lastLocation": {
+        "lat": 37.423456,
+        "lon": 127.098765
+      },
+      "provisionalStopSec": 0,
+      "runStartMs": 1794284644525,
+      "stage": "CHECK",
+      "stopStartMs": 1794284764981,
+      "tripId": "trp003-boot-visible-1794285062"
+    }
+  },
+  "rulePolicy": {
+    "shortStopAccumulation": "EXCLUDE",
+    "stopTime": "V03_RETROACTIVE"
+  },
+  "savedAtElapsedMs": 79880887,
+  "savedAtScenarioMs": 1794285065104,
+  "savedAtWallMs": 1794285065130,
+  "source": "REAL",
+  "state": {
+    "baselineRef": "baseline-boot-visible-1794285062",
+    "continuousDriveSec": 120,
+    "continuousDriveSecBeforeStop": 120,
+    "driveState": "PAUSED",
+    "last24hDriveSec": 120,
+    "lastGear": "P",
+    "lastLocation": {
+      "lat": 37.423456,
+      "lon": 127.098765
+    },
+    "provisionalStopSec": 0,
+    "runStartMs": 1794284644525,
+    "stage": "CHECK",
+    "stopStartMs": 1794284764981,
+    "tripId": "trp003-boot-visible-1794285062"
+  },
+  "timeBasis": "WALL_EPOCH"
+}

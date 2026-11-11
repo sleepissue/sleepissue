@@ -1,0 +1,610 @@
+{
+  "default": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 646244,
+      "frames": 780,
+      "gapsOver110ms": 15,
+      "gapsOverLimit": 15,
+      "lastPublishedAtElapsedMs": 724123,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 123,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77879
+    },
+    "emissionAudit": null,
+    "work": {
+      "HUB_TIMER_LATE": {
+        "calls": 780,
+        "totalNs": 1380000000,
+        "meanNs": 1769230,
+        "maxNs": 24000000,
+        "p95UpperUs": 16384,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_LOCK_WAIT": {
+        "calls": 2955,
+        "totalNs": 121967817,
+        "meanNs": 41275,
+        "maxNs": 22285242,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 780,
+        "totalNs": 1162222365,
+        "meanNs": 1490028,
+        "maxNs": 21357219,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1392,
+        "totalNs": 465917663,
+        "meanNs": 334710,
+        "maxNs": 40404505,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "VENTILATION_LEVEL": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/default-samples.json",
+    "rawSamplesSha256": "4f5ba599232d2a09f929e0ff25cff4d810a2e462ee6294d70079194f716741e9"
+  },
+  "isolated3": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 1014478,
+      "frames": 772,
+      "gapsOver110ms": 21,
+      "gapsOverLimit": 21,
+      "lastPublishedAtElapsedMs": 1091575,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 134,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77097
+    },
+    "emissionAudit": null,
+    "work": {
+      "HUB_TIMER_LATE": {
+        "calls": 772,
+        "totalNs": 1106000000,
+        "meanNs": 1432642,
+        "maxNs": 46000000,
+        "p95UpperUs": 8192,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_LOCK_WAIT": {
+        "calls": 2909,
+        "totalNs": 50657082,
+        "meanNs": 17413,
+        "maxNs": 962976,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 772,
+        "totalNs": 1194506338,
+        "meanNs": 1547288,
+        "maxNs": 37126485,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1362,
+        "totalNs": 437413343,
+        "meanNs": 321155,
+        "maxNs": 22024487,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "VENTILATION_LEVEL": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/isolated3-samples.json",
+    "rawSamplesSha256": "9575f97d3d305372ef15d6dbdb061bb3ecf0cf7804d14c7715b5d9853a958254"
+  },
+  "final": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 1850867,
+      "frames": 777,
+      "gapsOver110ms": 20,
+      "gapsOverLimit": 20,
+      "lastPublishedAtElapsedMs": 1928455,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 127,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77588
+    },
+    "emissionAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 1850872,
+      "frames": 777,
+      "gapsOver110ms": 21,
+      "gapsOverLimit": 21,
+      "lastPublishedAtElapsedMs": 1928456,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 126,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77584
+    },
+    "work": {
+      "HUB_TIMER_LATE": {
+        "calls": 777,
+        "totalNs": 1235000000,
+        "meanNs": 1589446,
+        "maxNs": 27000000,
+        "p95UpperUs": 16384,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_LOCK_WAIT": {
+        "calls": 2964,
+        "totalNs": 120412025,
+        "meanNs": 40624,
+        "maxNs": 13355836,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 777,
+        "totalNs": 1240569454,
+        "meanNs": 1596614,
+        "maxNs": 20537194,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1407,
+        "totalNs": 464989786,
+        "meanNs": 330483,
+        "maxNs": 19090461,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "VENTILATION_LEVEL": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/final-samples.json",
+    "rawSamplesSha256": "15253b73e3fb1c348db378b631558e42154b67863d4f5077d853ef9c7d52bae3"
+  },
+  "isolatedAdopted": false,
+  "observedFinalLocations": [
+    "(37.4127212, 127.094681, None)",
+    "(None, None, None)"
+  ],
+  "scoped": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 2733517,
+      "frames": 760,
+      "gapsOver110ms": 13,
+      "gapsOverLimit": 13,
+      "lastPublishedAtElapsedMs": 2809416,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 136,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 75899
+    },
+    "emissionAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 2733534,
+      "frames": 760,
+      "gapsOver110ms": 15,
+      "gapsOverLimit": 15,
+      "lastPublishedAtElapsedMs": 2809417,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 127,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 75883
+    },
+    "work": {
+      "HUB_LOCK_WAIT": {
+        "calls": 2891,
+        "totalNs": 132082939,
+        "meanNs": 45687,
+        "maxNs": 15488999,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 760,
+        "totalNs": 1206114268,
+        "meanNs": 1586992,
+        "maxNs": 27463433,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1368,
+        "totalNs": 412438758,
+        "meanNs": 301490,
+        "maxNs": 16458289,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "STEERING_DEG": {
+        "samples": 64,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "SPEED_KPH": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "GEAR": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "TURN_SIGNAL": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "BRAKE_ON": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_ACTIVE": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_TARGET_KPH": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "SEATS": {
+        "samples": 64,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "VENTILATION_LEVEL": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 64,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/scoped-samples.json",
+    "rawSamplesSha256": "43bfcfce23fd3ae49aa3853d2223cd68cb53c98d3c9766a41192ef94da361500"
+  },
+  "completed": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 3287985,
+      "frames": 774,
+      "gapsOver110ms": 17,
+      "gapsOverLimit": 17,
+      "lastPublishedAtElapsedMs": 3365285,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 137,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77300
+    },
+    "emissionAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 3287993,
+      "frames": 774,
+      "gapsOver110ms": 16,
+      "gapsOverLimit": 16,
+      "lastPublishedAtElapsedMs": 3365287,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 137,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77294
+    },
+    "work": {
+      "HUB_LOCK_WAIT": {
+        "calls": 2934,
+        "totalNs": 132898387,
+        "meanNs": 45295,
+        "maxNs": 19480242,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 774,
+        "totalNs": 1148231842,
+        "meanNs": 1483503,
+        "maxNs": 29867065,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1383,
+        "totalNs": 471904686,
+        "meanNs": 341218,
+        "maxNs": 23123982,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "STEERING_DEG": {
+        "samples": 65,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "SPEED_KPH": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "GEAR": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "TURN_SIGNAL": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "BRAKE_ON": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_ACTIVE": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_TARGET_KPH": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "SEATS": {
+        "samples": 65,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "VENTILATION_LEVEL": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 65,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/completed-samples.json",
+    "rawSamplesSha256": "4b311369123da1a5fb0f8d5d90d30bd0e64ef27abd84e60cb7016eacbd967dba"
+  },
+  "sig-final": {
+    "sampleCount": 74,
+    "publicationAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 4269083,
+      "frames": 772,
+      "gapsOver110ms": 11,
+      "gapsOverLimit": 11,
+      "lastPublishedAtElapsedMs": 4346163,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 137,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77080
+    },
+    "emissionAudit": {
+      "duplicates": 0,
+      "firstPublishedAtElapsedMs": 4269085,
+      "frames": 772,
+      "gapsOver110ms": 13,
+      "gapsOverLimit": 13,
+      "lastPublishedAtElapsedMs": 4346164,
+      "maxGapMs": 110,
+      "maxPublishedGapMs": 129,
+      "missingSequences": 0,
+      "outOfOrder": 0,
+      "sessionId": 1,
+      "timeSpanMs": 77079
+    },
+    "work": {
+      "HUB_LOCK_WAIT": {
+        "calls": 2904,
+        "totalNs": 137751984,
+        "meanNs": 47435,
+        "maxNs": 38510438,
+        "p95UpperUs": 64,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_PUBLISH": {
+        "calls": 772,
+        "totalNs": 1075048490,
+        "meanNs": 1392549,
+        "maxNs": 12835050,
+        "p95UpperUs": 4096,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      },
+      "HUB_RECEIVE": {
+        "calls": 1357,
+        "totalNs": 455120600,
+        "meanNs": 335387,
+        "maxNs": 41072360,
+        "p95UpperUs": 512,
+        "allocatedBytes": 0,
+        "allocationCalls": 0
+      }
+    },
+    "statesAfterWarmup": {
+      "STEERING_DEG": {
+        "samples": 66,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "SPEED_KPH": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "GEAR": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "TURN_SIGNAL": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "BRAKE_ON": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_ACTIVE": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CRUISE_TARGET_KPH": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "SEATS": {
+        "samples": 66,
+        "statuses": [
+          "UNSUPPORTED"
+        ]
+      },
+      "VENTILATION_LEVEL": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      },
+      "CABIN_TEMP_C": {
+        "samples": 66,
+        "statuses": [
+          "AVAILABLE"
+        ]
+      }
+    },
+    "rawSamplesPath": "/tmp/awakedrive-role1-finish-6gqbu4xt/sig-final-samples.json",
+    "rawSamplesSha256": "cd11d528c56ce4aafc846e5daa6078cd2940e19c7c2841f9caf868cd1d8d3474"
+  },
+  "finalSourceRun": "sig-final",
+  "scopeNote": "WorkProbe restored byte-for-byte; initial QUERY and REQUERY do not create sensor observations; all vehicle wrappers honor rejection"
+}

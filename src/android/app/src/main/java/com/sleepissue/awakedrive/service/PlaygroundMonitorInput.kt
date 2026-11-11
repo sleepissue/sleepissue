@@ -8,9 +8,13 @@ import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.pleos.*
 import com.sleepissue.awakedrive.signal.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.onEach
 
 /** 실제 SDK 소유권을 획득한 서비스만 어댑터와 Hub를 만든다. DEMO/수동 입력은 연결하지 않는다. */
-class PlaygroundMonitorInput(context: Context, clock: Clock) : RealTripMonitorInput {
+class PlaygroundMonitorInput(context: Context, clock: Clock,
+    emissionObserver: ((FramePublication, Long) -> Unit)? = null,
+    private val sampleObserver: ((SignalFrame) -> Unit)? = null,
+) : RealTripMonitorInput {
     private val lease = checkNotNull(PlaygroundSdkOwnership.acquire("REAL 운행 감시 서비스")) {
         "SDK 소유 중: ${PlaygroundSdkOwnership.currentOwner} · 해당 화면에서 먼저 중지하세요"
     }
@@ -24,8 +28,9 @@ class PlaygroundMonitorInput(context: Context, clock: Clock) : RealTripMonitorIn
         HubPolicy(SignalField.entries.associateWith { freshness }, NaviField.entries.associateWith { freshness }, freshness,
             SignalFallbackPolicy(false, 0, ObservationTimeBasis.ELAPSED_REALTIME),
             ObservationTimeBasis.ELAPSED_REALTIME, HubTickDriver.AUTOMATIC), config,
-        gearObserver = adapter.gearAudit::selected)
-    override val samples get() = hub.samples
+        gearObserver = adapter.gearAudit::selected, emissionObserver = emissionObserver)
+    // 선택적 debug 감사는 실제 서비스 collector가 받은 프레임을 본다. 별도 collector를 만들지 않는다.
+    override val samples get() = sampleObserver?.let { observer -> hub.samples.onEach { observer(it) } } ?: hub.samples
     override suspend fun start(scope: CoroutineScope) {
         hub.start(CoroutineScope(scope.coroutineContext + Dispatchers.Default))
         adapter.start()

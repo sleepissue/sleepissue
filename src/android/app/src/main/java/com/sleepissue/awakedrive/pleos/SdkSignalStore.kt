@@ -21,6 +21,7 @@ data class SdkReading(
     val rejectedDeliveries: Long = 0,
     val minValue: Int? = null, val maxValue: Int? = null,
     val confirmedMs: Long? = null, val observations: Long = 0,
+    val lastDelivery: SdkDelivery? = null,
 )
 
 /** TTL은 이 검증 세션의 명시적 가정이다. 제품 설정으로 사용하지 않는다. */
@@ -41,6 +42,7 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
     private val changes = ArrayDeque<String>()
     private val lastStateLog = mutableMapOf<String, SignalAvailability>()
     private val blocked = mutableSetOf<String>()
+    private val deliveryOrders = mutableMapOf<String, Long>()
     /** 구독/연결 오류는 이전 세션 배송으로 복구하지 않는다. 명시적 새 연결만 해제한다. */
     fun block(key: String, availability: SignalAvailability, note: String) {
         blocked += key
@@ -48,6 +50,7 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
     }
     fun beginCollection(key: String) {
         blocked -= key
+        deliveryOrders.remove(key)
         val old = data.getValue(key)
         data[key] = old.copy(value = null, receivedMs = null, nativeMs = null, confirmedMs = null,
             availability = if (old.permissionGranted) SignalAvailability.UNAVAILABLE else SignalAvailability.PERMISSION_DENIED)
@@ -56,11 +59,11 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
         changes.addLast(text)
         while (changes.size > 100) changes.removeFirst()
     }
-    private fun recordDisabledState(key: String) {
+    private fun recordDisabledState(key: String, logKey: String = key) {
         val r = data.getValue(key)
-        if (lastStateLog[key] == r.availability) return
-        lastStateLog[key] = r.availability
-        appendHistory("${clock.elapsedRealtimeMs()}ms · STATE · $key · ${r.availability} · 지원 ${r.support} · ${r.note}")
+        if (lastStateLog[logKey] == r.availability) return
+        lastStateLog[logKey] = r.availability
+        appendHistory("${clock.elapsedRealtimeMs()}ms · STATE · $logKey · ${r.availability} · 지원 ${r.support} · ${r.note}")
     }
     fun history(): List<String> = changes.toList()
     fun readings(): List<SdkReading> = data.values.toList()
@@ -69,15 +72,18 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             availability = if (granted) SignalAvailability.UNAVAILABLE else SignalAvailability.PERMISSION_DENIED)
         if (!granted) recordDisabledState(key)
     }
-    fun capability(key: String, readable: Boolean, description: String = "READ") {
+    fun capability(key: String, readable: Boolean, description: String = "READ", disabledLogKey: String = key) {
         val r = data.getValue(key)
+        if (readable && r.permissionGranted && key.startsWith("SEAT:")) lastStateLog.remove("SEATS")
         data[key] = r.copy(support = description, apiReadable = readable,
             value = r.value.takeIf { readable && r.permissionGranted }, availability = when {
             !r.permissionGranted -> SignalAvailability.PERMISSION_DENIED
             !readable -> SignalAvailability.UNSUPPORTED
             else -> if (r.apiReadable == false) SignalAvailability.UNAVAILABLE else r.availability
         })
-        recordDisabledState(key)
+        // 같은 SDK capability가 여러 좌석을 함께 끄면 필드 로그는 한 번만 남긴다.
+        // 좌석별 apiReadable/품질/원시 진단은 data에 각각 유지한다.
+        recordDisabledState(key, disabledLogKey)
     }
     fun failed(key: String, availability: SignalAvailability, note: String) {
         val old = data.getValue(key)
@@ -88,12 +94,12 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
         recordDisabledState(key)
     }
     /** SDK 2.3.2는 원시 좌석 상태를 ==1로 축약해 null/UNKNOWN도 false가 될 수 있다. */
-    fun receiveSeatSdkValue(key: String, raw: Boolean?, delivery: SdkDelivery, receivedMs: Long) {
-        receive(key, raw, null, delivery, note = "SDK 좌석 Boolean은 UNKNOWN/착석/빈 좌석을 복원할 수 없음 · 의미 확인 전 정규화 보류",
+    fun receiveSeatSdkValue(key: String, raw: Boolean?, delivery: SdkDelivery, receivedMs: Long): Boolean {
+        return receive(key, raw, null, delivery, note = "SDK 좌석 Boolean은 UNKNOWN/착석/빈 좌석을 복원할 수 없음 · 의미 확인 전 정규화 보류",
             availability = SignalAvailability.UNSUPPORTED, receivedMs = receivedMs, normalization = SdkNormalization.LOSSY_SDK_BOOLEAN)
     }
-    fun receiveSteeringSdkValue(raw: Float?, delivery: SdkDelivery, receivedMs: Long) {
-        receive("STEERING_DEG", raw, null, delivery,
+    fun receiveSteeringSdkValue(raw: Float?, delivery: SdkDelivery, receivedMs: Long): Boolean {
+        return receive("STEERING_DEG", raw, null, delivery,
             note = "SDK 계약은 전륜각 °/좌측 음수. Console 운전대각 표기와 충돌 · 조향비 추정 없이 운전대각 연결 보류",
             availability = SignalAvailability.UNSUPPORTED, receivedMs = receivedMs, normalization = SdkNormalization.SEMANTIC_UNCONFIRMED)
     }
@@ -102,41 +108,46 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
         data[key] = data.getValue(key).copy(minValue = min, maxValue = max)
     }
     fun receiveBoundedInt(key: String, raw: Int?, delivery: SdkDelivery, receivedMs: Long,
-        diagnosticOnly: Boolean = false) {
+        diagnosticOnly: Boolean = false): Boolean {
         val r = data.getValue(key)
         val valid = raw != null && r.minValue != null && r.maxValue != null && raw in r.minValue..r.maxValue
-        receive(key, raw, raw.takeIf { valid }, delivery, receivedMs = receivedMs,
+        return receive(key, raw, raw.takeIf { valid }, delivery, receivedMs = receivedMs,
             availability = if (raw != null && !valid) SignalAvailability.ERROR else null,
             note = "SDK 범위 ${r.minValue}..${r.maxValue}" + if (diagnosticOnly)
                 " · 좌석 온열/냉각 별도 속성. VENTILATION_LEVEL로 변환하지 않음" else " · 비음수 통풍 단계, 0=꺼짐",
             normalization = if (diagnosticOnly) SdkNormalization.DIAGNOSTIC_ONLY else SdkNormalization.NORMALIZED)
     }
+    /** true는 값/품질/확인 상태에 반영됨(null/오류 포함). false면 이전 상태를 재전달하지 않는다. */
     fun receive(key: String, raw: Any?, value: Any?, delivery: SdkDelivery,
         nativeMs: Long? = null, note: String = "", availability: SignalAvailability? = null,
         receivedMs: Long = clock.elapsedRealtimeMs(), normalization: SdkNormalization = SdkNormalization.NORMALIZED,
-        queryStartedMs: Long? = null) {
+        queryStartedMs: Long? = null, deliverySequence: Long? = null): Boolean {
         val old = data.getValue(key)
+        val retained = key == "GEAR" || key in sdkRetainedStateKeys
         // 같은/더 오래된 원천의 늦은 배송은 재조회가 확인한 시각을 되돌리지 않는다.
         // 더 새로운 원천 변경은 별개다. 늦게 전달된 실제 D→P 콜백까지 막지 않는다.
-        val olderConfirmation = key == "GEAR" && old.confirmedMs?.let { receivedMs < it } == true &&
+        val olderConfirmation = retained && old.confirmedMs?.let { receivedMs < it } == true &&
             (nativeMs == null || old.nativeMs?.let { nativeMs <= it } == true)
         // capability 조회나 늦은 콜백이 권한 거부를 AVAILABLE로 바꾸면 안 된다.
-        if (olderConfirmation || key in blocked || !old.permissionGranted || old.apiReadable == false || old.receivedMs?.let { receivedMs < it } == true ||
+        if (deliverySequence != null && deliveryOrders[key]?.let { deliverySequence <= it } == true ||
+            olderConfirmation || key in blocked || !old.permissionGranted || old.apiReadable == false || old.receivedMs?.let { receivedMs < it } == true ||
             key == "GEAR" && nativeMs != null && old.nativeMs?.let { nativeMs < it } == true ||
             delivery == SdkDelivery.REQUERY && queryStartedMs != null && old.receivedMs?.let { it > queryStartedMs } == true) {
             data[key] = old.copy(rejectedDeliveries = old.rejectedDeliveries + 1)
-            return
+            return false
         }
+        if (deliverySequence != null) deliveryOrders[key] = deliverySequence
         // 구독 콜백 뒤 늦게 돌아온 최초 조회는 더 최신인 콜백을 덮지 않는다.
         if (delivery == SdkDelivery.QUERY && old.callbacks > 0 && old.receivedMs != null) {
-            data[key] = old.copy(queries = old.queries + 1); return
+            data[key] = old.copy(queries = old.queries + 1); return false
         }
-        if (delivery == SdkDelivery.REQUERY && key == "GEAR" && value != null &&
+        if (delivery == SdkDelivery.REQUERY && retained && value != null &&
             (availability == null || availability == SignalAvailability.AVAILABLE) && old.value == value &&
+            (key == "GEAR" || old.raw == (raw?.toString() ?: "null")) &&
             old.nativeMs == nativeMs && old.availability == SignalAvailability.AVAILABLE) {
             // 조회 응답으로 현재 값을 확인했지만 원천 변경/실제 배송/센서 관측 순번은 유지한다.
-            data[key] = old.copy(confirmedMs = receivedMs, queries = old.queries + 1)
-            return
+            data[key] = old.copy(confirmedMs = receivedMs, queries = old.queries + 1, lastDelivery = delivery)
+            return true
         }
         val now = receivedMs
         if (delivery == SdkDelivery.CALLBACK) {
@@ -160,14 +171,15 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             availability = availability ?: if (value == null) SignalAvailability.UNAVAILABLE else SignalAvailability.AVAILABLE,
             callbacks = old.callbacks + if (delivery == SdkDelivery.CALLBACK) 1 else 0,
             queries = old.queries + if (delivery != SdkDelivery.CALLBACK) 1 else 0,
-            confirmedMs = receivedMs.takeIf { key == "GEAR" && value != null &&
+            confirmedMs = receivedMs.takeIf { retained && value != null &&
                 (availability == null || availability == SignalAvailability.AVAILABLE) },
-            observations = old.observations + if (delivery == SdkDelivery.REQUERY) 0 else 1)
+            observations = old.observations + if (delivery == SdkDelivery.CALLBACK) 1 else 0, lastDelivery = delivery)
         val updated = data.getValue(key)
         lastStateLog[key] = updated.availability
         if (old.raw != updated.raw || old.value != updated.value || old.availability != updated.availability) {
             appendHistory("${now}ms · REAL/$delivery · $key · ${updated.raw} → ${updated.value ?: "null"} · ${updated.availability} · 원천 시각 ${nativeMs ?: "미제공"}")
         }
+        return true
     }
     fun callbackHz(key: String): Float? = if (data[key]?.let {
         !it.permissionGranted || it.apiReadable == false || it.availability == SignalAvailability.ERROR ||
@@ -231,7 +243,9 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             seats = seats,
             ventilationLevel = if (field == SignalField.VENTILATION_LEVEL) r.value as? Int else null,
             cabinTempC = if (field == SignalField.CABIN_TEMP_C) r.value as? Float else null,
-            quality = mapOf(field to q), updatedFields = setOf(field))
+            quality = mapOf(field to q), updatedFields = setOf(field),
+            confirmationFields = if (r.lastDelivery == SdkDelivery.QUERY ||
+                r.lastDelivery == SdkDelivery.REQUERY) setOf(field) else emptySet())
     }
     fun naviState(): NaviState {
         fun v(f: NaviField) = data[f.name]?.value.takeIf { data[f.name]?.availability == SignalAvailability.AVAILABLE }
@@ -241,8 +255,11 @@ class SdkSignalStore(private val clock: Clock, val policy: SdkProbePolicy,
             NaviField.entries.associateWith { quality(it.name) })
     }
     /** SDK heading의 단위는 미확인이다. MSG-14에 따라 최근 1분 위치로 방위를 계산한다. */
+    fun clearLocationHistory() { fixes.clear() }
     fun locationHeading(lat: Double, lon: Double, receivedAtMs: Long = clock.elapsedRealtimeMs()): Float? {
         val now = receivedAtMs
+        // 조회 공백을 이동 근거로 이어 붙이지 않는다. 실제 수신 시각은 그대로 둔다.
+        if (fixes.lastOrNull()?.first?.let { now - it !in 0..policy.ttlMs } == true) fixes.clear()
         while (fixes.isNotEmpty() && fixes.first().first < now - config.headingWindowMs) fixes.removeFirst()
         val origin = fixes.firstOrNull()
         fixes.addLast(Triple(now, lat, lon))

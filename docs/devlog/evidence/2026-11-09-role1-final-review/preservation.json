@@ -1,0 +1,22 @@
+{
+  "branch": "develop-jdw",
+  "head": "68696cf158f5cc94ea3b257b87cc2b01bba4a122",
+  "startFileCount": 145,
+  "startBytes": 4264561,
+  "unchangedCount": 138,
+  "changedExistingFiles": [
+    "PROGRESS.md",
+    "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "src/android/app/src/androidTest/java/com/sleepissue/awakedrive/data/Role1Plt013DeviceTest.kt",
+    "src/android/app/src/debug/java/com/sleepissue/awakedrive/debug/DebugIsolatedMonitorService.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/RealTripMonitorService.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PeriodicSignalHub.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PeriodicSignalHubTest.kt"
+  ],
+  "deletedFiles": [],
+  "existingEvidenceFiles": 123,
+  "existingEvidenceAllByteIdentical": true,
+  "stagedFiles": [],
+  "deviceCommandsExecutedThisReview": false,
+  "finalizedLocalDate": "2026-11-10"
+}

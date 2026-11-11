@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-08T14:07:52.007Z" hostname="a" time="0.005">
+  <properties/>
+  <testcase name="sdkReportsCanChangeNavigationWithoutInventingSensorOrVehicleObservations" classname="com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

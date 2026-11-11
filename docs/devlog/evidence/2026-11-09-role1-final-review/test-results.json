@@ -1,0 +1,36 @@
+{
+  "engine": {
+    "tests": 333,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 412,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "total": 745,
+  "previousFullTotal": 743,
+  "newRegressions": 2,
+  "artifacts": {
+    "debugApk": {
+      "path": "src/android/app/build/outputs/apk/debug/app-debug.apk",
+      "bytes": 59217974,
+      "sha256": "2307ea5b69c7e21493bf12970f81eecdccaa756bb0c532cd14ef9cdf8e1cb092"
+    },
+    "androidTestApk": {
+      "path": "src/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "bytes": 1839293,
+      "sha256": "2693b020b348bf97d3b46051a022f4bfef0225cde0d2b99b48d35acc3582df8c"
+    },
+    "releaseManifest": {
+      "path": "src/android/app/build/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml",
+      "bytes": 9140,
+      "sha256": "b3f8c82fc23fcd4dad75ce60fe5c5ce7160b5e0765b96dda9d96a616f51a6632"
+    }
+  },
+  "deviceTestsExecutedThisReview": 0,
+  "installedThisReview": false
+}

@@ -1,0 +1,9 @@
+
+com.sleepissue.awakedrive.data.Role1SdkInputProbeTest:
+com.sleepissue.awakedrive.data.Role1SdkInputProbeTest:.
+
+Time: 25.792
+
+OK (2 tests)
+
+

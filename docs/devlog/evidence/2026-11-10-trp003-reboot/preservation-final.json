@@ -1,0 +1,41 @@
+{
+  "originalFileCount": 134,
+  "changedBeforeRestore": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "restoredOnlyIsolatedFiles": [
+    "databases/role1-final-20261109-awakedrive_sdk_trip.db",
+    "shared_prefs/role1-final-20261109-real_trip_monitor.xml"
+  ],
+  "originalFilesByteIdentical": true,
+  "changedOriginalFiles": [],
+  "userDatabaseFilesByteIdentical": true,
+  "permissionsEqual": true,
+  "consoleInputValuesEqual": true,
+  "consoleSettingsEqualIgnoringProvenance": true,
+  "consoleProvenanceAndReceiveTimesRestored": false,
+  "consoleFullStateEqual": false,
+  "consoleChangedTopLevelKeys": [
+    "gear",
+    "controls",
+    "body",
+    "hvac",
+    "driving_mode",
+    "odometer",
+    "ev_battery",
+    "hvac_air_cleaner",
+    "steering_wheel_heat",
+    "tire_pressure",
+    "availability",
+    "glove_box"
+  ],
+  "adbForwardsEqual": true,
+  "noRunningServices": true,
+  "fixtureDisarmedAndNewConfigRemoved": true,
+  "installedApkSha256": {
+    "debug": "0ec263c098accba2607a4f605b725149b1f1f58bff75f4226ddee17adfff4c52",
+    "test": "c5b01b5150814fb8c414eb50d15f656a2cbec81ca1dd88abe6ce31a379684343"
+  },
+  "sdkScreenRestoredWithoutAutoConnect": true
+}

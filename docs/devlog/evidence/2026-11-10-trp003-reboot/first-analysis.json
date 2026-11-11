@@ -1,0 +1,108 @@
+{
+  "bootCount": 33,
+  "eventCounts": {
+    "BOOT_RECEIVED": 1,
+    "START_REQUEST": 1,
+    "START_ACCEPTED": 1,
+    "SERVICE_CREATE": 1,
+    "START_COMMAND": 1,
+    "RESTORED_BEFORE_INPUT": 1,
+    "INPUT_CREATED": 1,
+    "RUNTIME_STARTED": 1,
+    "FIRST_VALID_INPUT": 1
+  },
+  "starts": 1,
+  "timers": 1,
+  "owner": "REAL 운행 감시 서비스",
+  "tenFields": [
+    {
+      "field": "tripId",
+      "saved": "trp003-boot-visible-1794285062",
+      "restored": "trp003-boot-visible-1794285062",
+      "equal": true
+    },
+    {
+      "field": "continuousDriveSec",
+      "saved": 120,
+      "restored": 120,
+      "equal": true
+    },
+    {
+      "field": "baselineRef",
+      "saved": "baseline-boot-visible-1794285062",
+      "restored": "baseline-boot-visible-1794285062",
+      "equal": true
+    },
+    {
+      "field": "stage",
+      "saved": "CHECK",
+      "restored": "CHECK",
+      "equal": true
+    },
+    {
+      "field": "lastLat",
+      "saved": 37.423456,
+      "restored": 37.423456,
+      "equal": true
+    },
+    {
+      "field": "lastLon",
+      "saved": 127.098765,
+      "restored": 127.098765,
+      "equal": true
+    },
+    {
+      "field": "lastGear",
+      "saved": "P",
+      "restored": "P",
+      "equal": true
+    },
+    {
+      "field": "runStartMs",
+      "saved": 1794284644525,
+      "restored": 1794284644525,
+      "equal": true
+    },
+    {
+      "field": "stopStartMs",
+      "saved": 1794284764981,
+      "restored": 1794284764981,
+      "equal": true
+    },
+    {
+      "field": "driveState",
+      "saved": "PAUSED",
+      "restored": "PAUSED",
+      "equal": true
+    }
+  ],
+  "wholeCheckpointEqual": true,
+  "restoredActiveUnknownBeforeInput": true,
+  "historicalLastGear": "P",
+  "currentObservationGear": null,
+  "currentObservationPower": null,
+  "continuousMsUnchangedBeforeInput": 120456,
+  "segmentsUnchangedBeforeInput": true,
+  "stopStartBeforeInput": null,
+  "offStartBeforeInput": null,
+  "newTripPending": false,
+  "restResetEmitted": false,
+  "savedElapsedMetadataMs": 79880887,
+  "postBootElapsedAtRestoreMs": 37268,
+  "noCrossBootElapsedSubtraction": true,
+  "firstValidGear": "P",
+  "firstValidQuality": {
+    "availability": "AVAILABLE",
+    "observationSequence": 16,
+    "observedAtMs": 4894,
+    "observedTimeBasis": "ELAPSED_REALTIME",
+    "receivedAtElapsedMs": 37848,
+    "selectionReason": "REAL_FRESH",
+    "source": "REAL",
+    "sourceRateHz": null,
+    "sourceRateInfo": null,
+    "stateConfirmedAtElapsedMs": 37848,
+    "stateLeaseUntilElapsedMs": 40848
+  },
+  "firstValidBeforeAcceptUnknown": true
+}

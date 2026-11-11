@@ -1,0 +1,2181 @@
+{
+  "resourceByRun": {
+    "current1": {
+      "phase": "current1",
+      "hostCpuBusyPct": {
+        "min": 50.0,
+        "median": 52.22081218274111,
+        "max": 55.5823777911889,
+        "count": 11
+      },
+      "hostWholeWindowCpu": {
+        "busyPct": 52.43843843843844,
+        "iowaitPct": 0.18618618618618618
+      },
+      "hostAvailableGiB": {
+        "min": 2.510498046875,
+        "median": 2.5759716033935547,
+        "max": 2.5899200439453125,
+        "count": 12
+      },
+      "hostSwapUsedGiB": {
+        "min": 3.5039100646972656,
+        "median": 3.503915786743164,
+        "max": 3.5039329528808594,
+        "count": 12
+      },
+      "swapInPages": 5,
+      "swapOutPages": 0,
+      "majorFaultDelta": 9,
+      "perProcessCpuPctOneCore100": {
+        "studio": {
+          "min": 8.91312516393125,
+          "median": 9.54095639889355,
+          "max": 11.234993659468131,
+          "count": 11
+        },
+        "avd": {
+          "min": 361.476742759434,
+          "median": 376.6450394521114,
+          "max": 400.59919423468614,
+          "count": 11
+        },
+        "gradle_daemon": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.4951736202184027,
+          "count": 11
+        },
+        "kotlin_daemon": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.0,
+          "count": 11
+        }
+      },
+      "guestCpuBusyPct": {
+        "min": 87.20930232558139,
+        "median": 89.0832328106152,
+        "max": 95.15738498789347,
+        "count": 5
+      },
+      "guestAvailableGiB": {
+        "min": 1.4420356750488281,
+        "median": 1.450967788696289,
+        "max": 1.5021705627441406,
+        "count": 6
+      },
+      "guestSwapUsedGiB": {
+        "min": 0.64697265625,
+        "median": 0.6483154296875,
+        "max": 0.649658203125,
+        "count": 6
+      },
+      "guestAdbDurationMs": {
+        "min": 74.023547,
+        "median": 89.554587,
+        "max": 120.357494,
+        "count": 6
+      },
+      "indexEvents": "",
+      "buildEvents": "",
+      "traceStatus": [
+        "Tracing sessions: 0 (started: 0)"
+      ]
+    },
+    "current2": {
+      "phase": "current2",
+      "hostCpuBusyPct": {
+        "min": 50.58461538461538,
+        "median": 52.76786175314801,
+        "max": 56.1347743165925,
+        "count": 10
+      },
+      "hostWholeWindowCpu": {
+        "busyPct": 52.94235121821329,
+        "iowaitPct": 0.1863932898415657
+      },
+      "hostAvailableGiB": {
+        "min": 2.5853004455566406,
+        "median": 2.5887069702148438,
+        "max": 2.5924110412597656,
+        "count": 11
+      },
+      "hostSwapUsedGiB": {
+        "min": 3.503772735595703,
+        "median": 3.50390625,
+        "max": 3.5039100646972656,
+        "count": 11
+      },
+      "swapInPages": 13,
+      "swapOutPages": 0,
+      "majorFaultDelta": 19,
+      "perProcessCpuPctOneCore100": {
+        "studio": {
+          "min": 8.92647955502257,
+          "median": 9.862073641145248,
+          "max": 61.530541046284576,
+          "count": 10
+        },
+        "avd": {
+          "min": 357.7703233417031,
+          "median": 371.5158521420915,
+          "max": 393.6167182478904,
+          "count": 10
+        },
+        "gradle_daemon": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 0.4754382979376636,
+          "count": 10
+        },
+        "kotlin_daemon": {
+          "min": 0.0,
+          "median": 0.0,
+          "max": 7.569552273997893,
+          "count": 10
+        }
+      },
+      "guestCpuBusyPct": {
+        "min": 86.58166363084396,
+        "median": 89.95260507400195,
+        "max": 94.38066465256797,
+        "count": 4
+      },
+      "guestAvailableGiB": {
+        "min": 1.4373245239257812,
+        "median": 1.4380226135253906,
+        "max": 1.4818840026855469,
+        "count": 5
+      },
+      "guestSwapUsedGiB": {
+        "min": 0.647216796875,
+        "median": 0.647705078125,
+        "max": 0.647705078125,
+        "count": 5
+      },
+      "guestAdbDurationMs": {
+        "min": 84.547277,
+        "median": 97.47044,
+        "max": 127.09026,
+        "count": 5
+      },
+      "indexEvents": "",
+      "buildEvents": "",
+      "traceStatus": [
+        "Tracing sessions: 0 (started: 0)"
+      ]
+    },
+    "low1": {
+      "phase": "low1",
+      "hostCpuBusyPct": {
+        "min": 50.36991368680641,
+        "median": 52.459136723443216,
+        "max": 58.343265792610254,
+        "count": 10
+      },
+      "hostWholeWindowCpu": {
+        "busyPct": 52.98482518884952,
+        "iowaitPct": 0.16043853198743233
+      },
+      "hostAvailableGiB": {
+        "min": 4.9234619140625,
+        "median": 4.926910400390625,
+        "max": 4.929840087890625,
+        "count": 11
+      },
+      "hostSwapUsedGiB": {
+        "min": 3.5036697387695312,
+        "median": 3.5036888122558594,
+        "max": 3.503704071044922,
+        "count": 11
+      },
+      "swapInPages": 14,
+      "swapOutPages": 0,
+      "majorFaultDelta": 6,
+      "perProcessCpuPctOneCore100": {
+        "studio": {
+          "min": 9.070140500180784,
+          "median": 9.682607795356809,
+          "max": 63.20377935998147,
+          "count": 10
+        },
+        "avd": {
+          "min": 364.1340803581912,
+          "median": 371.50612091954724,
+          "max": 399.9695830814258,
+          "count": 10
+        }
+      },
+      "guestCpuBusyPct": {
+        "min": 87.42405832320777,
+        "median": 88.6777095780433,
+        "max": 95.22081064730793,
+        "count": 4
+      },
+      "guestAvailableGiB": {
+        "min": 1.4514389038085938,
+        "median": 1.4638099670410156,
+        "max": 1.5197830200195312,
+        "count": 5
+      },
+      "guestSwapUsedGiB": {
+        "min": 0.64697265625,
+        "median": 0.647216796875,
+        "max": 0.647216796875,
+        "count": 5
+      },
+      "guestAdbDurationMs": {
+        "min": 82.014245,
+        "median": 86.473817,
+        "max": 115.579743,
+        "count": 5
+      },
+      "indexEvents": "",
+      "buildEvents": "",
+      "traceStatus": [
+        "Tracing sessions: 0 (started: 0)"
+      ]
+    },
+    "low2": {
+      "phase": "low2",
+      "hostCpuBusyPct": {
+        "min": 50.84959093769667,
+        "median": 52.79783393501805,
+        "max": 54.83870967741935,
+        "count": 10
+      },
+      "hostWholeWindowCpu": {
+        "busyPct": 52.72057372195539,
+        "iowaitPct": 0.16448450555957628
+      },
+      "hostAvailableGiB": {
+        "min": 4.901165008544922,
+        "median": 4.9203643798828125,
+        "max": 4.921314239501953,
+        "count": 11
+      },
+      "hostSwapUsedGiB": {
+        "min": 3.5036582946777344,
+        "median": 3.5036659240722656,
+        "max": 3.5036697387695312,
+        "count": 11
+      },
+      "swapInPages": 1,
+      "swapOutPages": 0,
+      "majorFaultDelta": 4,
+      "perProcessCpuPctOneCore100": {
+        "studio": {
+          "min": 8.847193360032378,
+          "median": 9.45163791248936,
+          "max": 10.69238244522084,
+          "count": 10
+        },
+        "avd": {
+          "min": 362.331732777244,
+          "median": 378.0888549884791,
+          "max": 397.94258143952345,
+          "count": 10
+        }
+      },
+      "guestCpuBusyPct": {
+        "min": 87.73413897280967,
+        "median": 89.41324688160131,
+        "max": 94.92447129909365,
+        "count": 4
+      },
+      "guestAvailableGiB": {
+        "min": 1.4557609558105469,
+        "median": 1.4596443176269531,
+        "max": 1.5582466125488281,
+        "count": 5
+      },
+      "guestSwapUsedGiB": {
+        "min": 0.64697265625,
+        "median": 0.64697265625,
+        "max": 0.64697265625,
+        "count": 5
+      },
+      "guestAdbDurationMs": {
+        "min": 92.419352,
+        "median": 118.29943,
+        "max": 132.612317,
+        "count": 5
+      },
+      "indexEvents": "",
+      "buildEvents": "",
+      "traceStatus": [
+        "Tracing sessions: 0 (started: 0)"
+      ]
+    }
+  },
+  "byEnvironment": {
+    "current": {
+      "attempts": 6,
+      "timerLatenessMs": {
+        "min": 0,
+        "median": 1,
+        "max": 599,
+        "count": 31
+      },
+      "timerLatenessOver100Ms": 4,
+      "firstDestinationCallDurationMs": {
+        "min": 0,
+        "median": 0.0,
+        "max": 1,
+        "count": 6
+      },
+      "firstReturnToDestinationCallbackGapMs": {
+        "min": 35,
+        "median": 1020.5,
+        "max": 1036,
+        "count": 6
+      },
+      "inputToNextDestinationCallEnvelopeMs": [
+        441,
+        1012
+      ],
+      "sdkToHubEnvelopeMs": [
+        24,
+        103
+      ],
+      "inputToHubEnvelopeMs": [
+        1051,
+        1896
+      ],
+      "inputToConsumerEnvelopeMs": [
+        1758,
+        2797
+      ],
+      "postUiTimerLatenessMs": {
+        "min": 0,
+        "median": 2.5,
+        "max": 295,
+        "count": 6
+      },
+      "allPublicSdkCallDurationMs": {
+        "location": {
+          "min": 0,
+          "median": 1,
+          "max": 14,
+          "count": 33
+        },
+        "route": {
+          "min": 0,
+          "median": 0,
+          "max": 15,
+          "count": 33
+        },
+        "destination": {
+          "min": 0,
+          "median": 0,
+          "max": 6,
+          "count": 33
+        },
+        "tbt": {
+          "min": 0,
+          "median": 0,
+          "max": 27,
+          "count": 33
+        }
+      }
+    },
+    "low": {
+      "attempts": 6,
+      "timerLatenessMs": {
+        "min": 0,
+        "median": 1.0,
+        "max": 619,
+        "count": 30
+      },
+      "timerLatenessOver100Ms": 3,
+      "firstDestinationCallDurationMs": {
+        "min": 0,
+        "median": 0.0,
+        "max": 3,
+        "count": 6
+      },
+      "firstReturnToDestinationCallbackGapMs": {
+        "min": 1025,
+        "median": 1033.0,
+        "max": 1047,
+        "count": 6
+      },
+      "inputToNextDestinationCallEnvelopeMs": [
+        20,
+        876
+      ],
+      "sdkToHubEnvelopeMs": [
+        33,
+        106
+      ],
+      "inputToHubEnvelopeMs": [
+        1088,
+        1991
+      ],
+      "inputToConsumerEnvelopeMs": [
+        1292,
+        2078
+      ],
+      "postUiTimerLatenessMs": {
+        "min": 0,
+        "median": 0.5,
+        "max": 619,
+        "count": 6
+      },
+      "allPublicSdkCallDurationMs": {
+        "location": {
+          "min": 0,
+          "median": 1.0,
+          "max": 14,
+          "count": 32
+        },
+        "route": {
+          "min": 0,
+          "median": 0.0,
+          "max": 10,
+          "count": 32
+        },
+        "destination": {
+          "min": 0,
+          "median": 0.0,
+          "max": 15,
+          "count": 32
+        },
+        "tbt": {
+          "min": 0,
+          "median": 0.0,
+          "max": 4,
+          "count": 32
+        }
+      }
+    }
+  },
+  "allAttempts": [
+    {
+      "attempt": 1,
+      "requestBracketMs": [
+        17577382,
+        17578624
+      ],
+      "uiBracketMs": [
+        17579151,
+        17579218
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17579953,
+        "returnMs": 17579955,
+        "durationMs": 2,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17579953,
+        "returnMs": 17579955,
+        "durationMs": 2,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17579955,
+        "returnMs": 17579955,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17579657,
+        "elapsedMs": 17579952,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        439,
+        506
+      ],
+      "timerResumeLatenessMs": 295,
+      "firstCallToDestinationPredecessorWorkMs": 2,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17580980,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_5"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1025,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17580980,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_5"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17579788,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_5"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17580981,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17580983,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17581044,
+        17581047
+      ],
+      "consumerReceivedMs": 17581948,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17580962,
+          "returnMs": 17580963,
+          "durationMs": 1,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1762,
+        1829
+      ],
+      "uiToHubMs": [
+        1826,
+        1896
+      ],
+      "uiToConsumerMs": [
+        2730,
+        2797
+      ],
+      "sdkToHubMs": [
+        64,
+        67
+      ],
+      "alreadyGuidingToHubMs": [
+        1256,
+        1259
+      ],
+      "inputToNextDestinationCallMs": [
+        737,
+        804
+      ],
+      "phase": "current1"
+    },
+    {
+      "attempt": 2,
+      "requestBracketMs": [
+        17584514,
+        17584515
+      ],
+      "uiBracketMs": [
+        17584967,
+        17584992
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17584977,
+        "returnMs": 17584977,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17585978,
+        "returnMs": 17585979,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17585979,
+        "returnMs": 17585979,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17585978,
+        "elapsedMs": 17585978,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        986,
+        1011
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17586014,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_3"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 35,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17586014,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_3"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17585146,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_4"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17586020,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17586023,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17586043,
+        17586044
+      ],
+      "consumerReceivedMs": 17586957,
+      "furtherDestinationCallsBeforeFirstCallback": [],
+      "inputOverlappingCalls": [
+        {
+          "operation": "location",
+          "beginMs": 17584977,
+          "returnMs": 17584977,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        },
+        {
+          "operation": "route",
+          "beginMs": 17584977,
+          "returnMs": 17584978,
+          "durationMs": 1,
+          "endStage": "CALL_RETURN"
+        },
+        {
+          "operation": "destination",
+          "beginMs": 17584978,
+          "returnMs": 17584978,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        },
+        {
+          "operation": "tbt",
+          "beginMs": 17584978,
+          "returnMs": 17584978,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "uiToSdkMs": [
+        1022,
+        1047
+      ],
+      "uiToHubMs": [
+        1051,
+        1077
+      ],
+      "uiToConsumerMs": [
+        1965,
+        1990
+      ],
+      "sdkToHubMs": [
+        29,
+        30
+      ],
+      "alreadyGuidingToHubMs": [
+        897,
+        898
+      ],
+      "inputToNextDestinationCallMs": [
+        987,
+        1012
+      ],
+      "phase": "current1"
+    },
+    {
+      "attempt": 3,
+      "requestBracketMs": [
+        17589579,
+        17589580
+      ],
+      "uiBracketMs": [
+        17590170,
+        17590214
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17590993,
+        "returnMs": 17590993,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17590993,
+        "returnMs": 17590993,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17590993,
+        "returnMs": 17590993,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17590993,
+        "elapsedMs": 17590993,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        779,
+        823
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 0,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17592014,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_8"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1021,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17592014,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_8"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17590383,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29094_7"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17592014,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17592015,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17592058,
+        17592060
+      ],
+      "consumerReceivedMs": 17592944,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17591996,
+          "returnMs": 17591996,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1800,
+        1844
+      ],
+      "uiToHubMs": [
+        1844,
+        1890
+      ],
+      "uiToConsumerMs": [
+        2730,
+        2774
+      ],
+      "sdkToHubMs": [
+        44,
+        46
+      ],
+      "alreadyGuidingToHubMs": [
+        1675,
+        1677
+      ],
+      "inputToNextDestinationCallMs": [
+        779,
+        823
+      ],
+      "phase": "current1"
+    },
+    {
+      "attempt": 1,
+      "requestBracketMs": [
+        17599131,
+        17600210
+      ],
+      "uiBracketMs": [
+        17600886,
+        17600950
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17601390,
+        "returnMs": 17601391,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17601390,
+        "returnMs": 17601391,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17601391,
+        "returnMs": 17601392,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17601220,
+        "elapsedMs": 17601389,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        270,
+        334
+      ],
+      "timerResumeLatenessMs": 169,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17602428,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_2"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1036,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17602428,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_2"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17601361,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_2"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17602432,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17602432,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17602528,
+        17602531
+      ],
+      "consumerReceivedMs": 17602708,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17602393,
+          "returnMs": 17602393,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1478,
+        1542
+      ],
+      "uiToHubMs": [
+        1578,
+        1645
+      ],
+      "uiToConsumerMs": [
+        1758,
+        1822
+      ],
+      "sdkToHubMs": [
+        100,
+        103
+      ],
+      "alreadyGuidingToHubMs": [
+        1167,
+        1170
+      ],
+      "inputToNextDestinationCallMs": [
+        441,
+        505
+      ],
+      "phase": "current2"
+    },
+    {
+      "attempt": 2,
+      "requestBracketMs": [
+        17605142,
+        17605142
+      ],
+      "uiBracketMs": [
+        17605745,
+        17605819
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17606410,
+        "returnMs": 17606411,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17606410,
+        "returnMs": 17606411,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17606411,
+        "returnMs": 17606411,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17606409,
+        "elapsedMs": 17606410,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        590,
+        664
+      ],
+      "timerResumeLatenessMs": 1,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17607422,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_5"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1011,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17607422,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_5"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17606010,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_B"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17607423,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17607425,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17607505,
+        17607506
+      ],
+      "consumerReceivedMs": 17607710,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17607412,
+          "returnMs": 17607412,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1603,
+        1677
+      ],
+      "uiToHubMs": [
+        1686,
+        1761
+      ],
+      "uiToConsumerMs": [
+        1891,
+        1965
+      ],
+      "sdkToHubMs": [
+        83,
+        84
+      ],
+      "alreadyGuidingToHubMs": [
+        1495,
+        1496
+      ],
+      "inputToNextDestinationCallMs": [
+        592,
+        666
+      ],
+      "phase": "current2"
+    },
+    {
+      "attempt": 3,
+      "requestBracketMs": [
+        17610319,
+        17610320
+      ],
+      "uiBracketMs": [
+        17610674,
+        17610742
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17611448,
+        "returnMs": 17611452,
+        "durationMs": 4,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17611448,
+        "returnMs": 17611452,
+        "durationMs": 4,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17611461,
+        "returnMs": 17611461,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17611444,
+        "elapsedMs": 17611448,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        702,
+        770
+      ],
+      "timerResumeLatenessMs": 4,
+      "firstCallToDestinationPredecessorWorkMs": 13,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17612481,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_4"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1020,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17612481,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_4"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17610860,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32602_1"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17612483,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17612488,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17612505,
+        17612515
+      ],
+      "consumerReceivedMs": 17612719,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17612463,
+          "returnMs": 17612463,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1739,
+        1807
+      ],
+      "uiToHubMs": [
+        1763,
+        1841
+      ],
+      "uiToConsumerMs": [
+        1977,
+        2045
+      ],
+      "sdkToHubMs": [
+        24,
+        34
+      ],
+      "alreadyGuidingToHubMs": [
+        1645,
+        1655
+      ],
+      "inputToNextDestinationCallMs": [
+        719,
+        787
+      ],
+      "phase": "current2"
+    },
+    {
+      "attempt": 1,
+      "requestBracketMs": [
+        17766957,
+        17767985
+      ],
+      "uiBracketMs": [
+        17769200,
+        17769244
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17769263,
+        "returnMs": 17769264,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17769263,
+        "returnMs": 17769264,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17769264,
+        "returnMs": 17769267,
+        "durationMs": 3,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17769017,
+        "elapsedMs": 17769260,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        -227,
+        -183
+      ],
+      "timerResumeLatenessMs": 243,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17770292,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_5"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1025,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17770292,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_5"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17769313,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17770292,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17770294,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17770332,
+        17770334
+      ],
+      "consumerReceivedMs": 17770536,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17770272,
+          "returnMs": 17770272,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1048,
+        1092
+      ],
+      "uiToHubMs": [
+        1088,
+        1134
+      ],
+      "uiToConsumerMs": [
+        1292,
+        1336
+      ],
+      "sdkToHubMs": [
+        40,
+        42
+      ],
+      "alreadyGuidingToHubMs": [
+        1019,
+        1021
+      ],
+      "inputToNextDestinationCallMs": [
+        20,
+        64
+      ],
+      "phase": "low1"
+    },
+    {
+      "attempt": 2,
+      "requestBracketMs": [
+        17773021,
+        17773022
+      ],
+      "uiBracketMs": [
+        17773458,
+        17773509
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17774301,
+        "returnMs": 17774301,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17774300,
+        "elapsedMs": 17774300,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        791,
+        842
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 0,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17775329,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_7"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1028,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17775329,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_7"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17773654,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17775332,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17775333,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17775433,
+        17775435
+      ],
+      "consumerReceivedMs": 17775536,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17775322,
+          "returnMs": 17775322,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1820,
+        1871
+      ],
+      "uiToHubMs": [
+        1924,
+        1977
+      ],
+      "uiToConsumerMs": [
+        2027,
+        2078
+      ],
+      "sdkToHubMs": [
+        104,
+        106
+      ],
+      "alreadyGuidingToHubMs": [
+        1779,
+        1781
+      ],
+      "inputToNextDestinationCallMs": [
+        792,
+        843
+      ],
+      "phase": "low1"
+    },
+    {
+      "attempt": 3,
+      "requestBracketMs": [
+        17778173,
+        17778176
+      ],
+      "uiBracketMs": [
+        17778869,
+        17778908
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17779354,
+        "returnMs": 17779355,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17779354,
+        "returnMs": 17779355,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17779355,
+        "returnMs": 17779355,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17779354,
+        "elapsedMs": 17779354,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        446,
+        485
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17780382,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_4"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1027,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17780382,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_4"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17779137,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:29107_3"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17780384,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17780395,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17780432,
+        17780433
+      ],
+      "consumerReceivedMs": 17780534,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17780356,
+          "returnMs": 17780356,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1474,
+        1513
+      ],
+      "uiToHubMs": [
+        1524,
+        1564
+      ],
+      "uiToConsumerMs": [
+        1626,
+        1665
+      ],
+      "sdkToHubMs": [
+        50,
+        51
+      ],
+      "alreadyGuidingToHubMs": [
+        1295,
+        1296
+      ],
+      "inputToNextDestinationCallMs": [
+        447,
+        486
+      ],
+      "phase": "low1"
+    },
+    {
+      "attempt": 1,
+      "requestBracketMs": [
+        17786831,
+        17787947
+      ],
+      "uiBracketMs": [
+        17788667,
+        17788725
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17789203,
+        "returnMs": 17789203,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17789203,
+        "returnMs": 17789203,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17789204,
+        "returnMs": 17789204,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17788583,
+        "elapsedMs": 17789202,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        -142,
+        -84
+      ],
+      "timerResumeLatenessMs": 619,
+      "firstCallToDestinationPredecessorWorkMs": 1,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17790251,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_9"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1047,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17790251,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_9"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17789313,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_5"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17790252,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17790253,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17790284,
+        17790287
+      ],
+      "consumerReceivedMs": 17790385,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17790208,
+          "returnMs": 17790208,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1526,
+        1584
+      ],
+      "uiToHubMs": [
+        1559,
+        1620
+      ],
+      "uiToConsumerMs": [
+        1660,
+        1718
+      ],
+      "sdkToHubMs": [
+        33,
+        36
+      ],
+      "alreadyGuidingToHubMs": [
+        971,
+        974
+      ],
+      "inputToNextDestinationCallMs": [
+        479,
+        537
+      ],
+      "phase": "low2"
+    },
+    {
+      "attempt": 2,
+      "requestBracketMs": [
+        17792945,
+        17792947
+      ],
+      "uiBracketMs": [
+        17793522,
+        17793542
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17794253,
+        "returnMs": 17794253,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17794253,
+        "returnMs": 17794253,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17794253,
+        "returnMs": 17794253,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17794252,
+        "elapsedMs": 17794253,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        710,
+        730
+      ],
+      "timerResumeLatenessMs": 1,
+      "firstCallToDestinationPredecessorWorkMs": 0,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17795291,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_A"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1038,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17795291,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_A"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17793677,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_9"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17795291,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17795291,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17795384,
+        17795386
+      ],
+      "consumerReceivedMs": 17795387,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17795254,
+          "returnMs": 17795255,
+          "durationMs": 1,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1749,
+        1769
+      ],
+      "uiToHubMs": [
+        1842,
+        1864
+      ],
+      "uiToConsumerMs": [
+        1845,
+        1865
+      ],
+      "sdkToHubMs": [
+        93,
+        95
+      ],
+      "alreadyGuidingToHubMs": [
+        1707,
+        1709
+      ],
+      "inputToNextDestinationCallMs": [
+        711,
+        731
+      ],
+      "phase": "low2"
+    },
+    {
+      "attempt": 3,
+      "requestBracketMs": [
+        17798028,
+        17798029
+      ],
+      "uiBracketMs": [
+        17798397,
+        17798458
+      ],
+      "uiActionAccepted": true,
+      "firstCallAfterUiStarted": {
+        "operation": "location",
+        "beginMs": 17799273,
+        "returnMs": 17799273,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstCallAfterUiCompleted": {
+        "operation": "location",
+        "beginMs": 17799273,
+        "returnMs": 17799273,
+        "durationMs": 0,
+        "endStage": "CALL_RETURN"
+      },
+      "firstDestinationCallAfterUiCompleted": {
+        "operation": "destination",
+        "beginMs": 17799273,
+        "returnMs": 17799274,
+        "durationMs": 1,
+        "endStage": "CALL_RETURN"
+      },
+      "timerForFirstPostUiCycle": {
+        "dueAtMs": 17799273,
+        "elapsedMs": 17799273,
+        "meters": null,
+        "mode": null,
+        "operation": "poll",
+        "seconds": null,
+        "stage": "TIMER_RESUMED",
+        "threadName": "main"
+      },
+      "timerPhaseRelativeToUiMs": [
+        815,
+        876
+      ],
+      "timerResumeLatenessMs": 0,
+      "firstCallToDestinationPredecessorWorkMs": 0,
+      "firstDestinationCallbackAfterFirstPostUiQuery": {
+        "dueAtMs": null,
+        "elapsedMs": 17800320,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_4"
+      },
+      "firstPostUiReturnToFirstCallbackGapMs": 1046,
+      "validDestinationCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17800320,
+        "meters": 50,
+        "mode": null,
+        "operation": "destination",
+        "seconds": 60,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_4"
+      },
+      "alreadyGuidingCallback": {
+        "dueAtMs": null,
+        "elapsedMs": 17798584,
+        "meters": null,
+        "mode": "ROUTE_GUIDING",
+        "operation": "route",
+        "seconds": null,
+        "stage": "CALLBACK",
+        "threadName": "binder:32329_1"
+      },
+      "adapterBoundaryPoints": [
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17800324,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_BEGIN",
+          "threadName": "main"
+        },
+        {
+          "dueAtMs": null,
+          "elapsedMs": 17800325,
+          "meters": 50,
+          "mode": null,
+          "operation": "destination",
+          "seconds": 60,
+          "stage": "ADAPTER_END",
+          "threadName": "main"
+        }
+      ],
+      "hubReflectionBracketMs": [
+        17800385,
+        17800388
+      ],
+      "consumerReceivedMs": 17800390,
+      "furtherDestinationCallsBeforeFirstCallback": [
+        {
+          "operation": "destination",
+          "beginMs": 17800275,
+          "returnMs": 17800275,
+          "durationMs": 0,
+          "endStage": "CALL_RETURN"
+        }
+      ],
+      "inputOverlappingCalls": [],
+      "uiToSdkMs": [
+        1862,
+        1923
+      ],
+      "uiToHubMs": [
+        1927,
+        1991
+      ],
+      "uiToConsumerMs": [
+        1932,
+        1993
+      ],
+      "sdkToHubMs": [
+        65,
+        68
+      ],
+      "alreadyGuidingToHubMs": [
+        1801,
+        1804
+      ],
+      "inputToNextDestinationCallMs": [
+        815,
+        876
+      ],
+      "phase": "low2"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-09T05:00:33.644Z" hostname="a" time="0.015">
+  <properties/>
+  <testcase name="activeRouteUnitsUpcomingTurnApproachPassAndCancelRemainExplicit" classname="com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest" time="0.012"/>
+  <testcase name="headingUsesMovingLocationReportsAndCannotBridgeInvalidOrExpiredLocations" classname="com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest" time="0.002"/>
+  <testcase name="expiredRouteAndErrorRequireNewRouteEvidenceRatherThanLateDestinationRecovery" classname="com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

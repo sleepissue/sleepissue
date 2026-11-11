@@ -1,0 +1,8 @@
+SERVICE com.sleepissue.awakedrive/.debug.DebugIsolatedMonitorService e5c6e64 pid=18485 user=10
+  Client:
+    instance=117f2550-db36-48a4-9208-9d5e4a5ea759 pid=18485 command=com.sleepissue.awakedrive.monitor.START flags=0 id=1
+    foreground=true requested=true stopping=false bootPending=false
+    running=true starts=1 timers=1 generation=1
+    sdkOwner=REAL 운행 감시 서비스 status=감시 중 · 화면과 독립 · SDK → Hub → 운행 → Room
+    trip=db1e0e61-979d-4978-81ec-c878bb1cf414 state=PAUSED continuousMs=143200
+    persistence=TripPersistenceState(restore=RESTORED, operation=SAVED, failure=null, lastSavedScenarioMs=1794220891796, lastSavedWallMs=1794220891812, lastSavedElapsedMs=15707568, timerBasis=ELAPSED_REALTIME, autoSaveEnabled=true, successfulSaves=49)

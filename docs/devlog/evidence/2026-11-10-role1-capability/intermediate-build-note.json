@@ -1,0 +1,13 @@
+{
+  "status": "intermediate_not_final",
+  "unitTests": {
+    "engine": 333,
+    "app": 413,
+    "failed": 1
+  },
+  "failure": "expected 2 shared-seat disable transitions but compiled class recorded 1",
+  "cause": "소스의 READ 복귀 후 로그 전이 보완이 debug 클래스 컴파일 직후에 기록됨. 소스를 고정한 뒤 전체 강제 재실행으로 최종746개 성공.",
+  "sourceMtimeLocal": "2026-11-10 03:16:55.297561544 +0900",
+  "previousDebugClassMtimeLocal": "2026-11-10 03:16:54.219232074 +0900",
+  "finalCodeInputs": "final-code-inputs.json"
+}

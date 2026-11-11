@@ -1,0 +1,28 @@
+{
+  "relatedUnitTests": [
+    {
+      "file": "src/android/app/build/test-results/testDebugUnitTest/TEST-com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest.xml",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "file": "src/android/app/build/test-results/testDebugUnitTest/TEST-com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest.xml",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "whole746": "previous evidence, not rerun",
+  "apk": {
+    "src/android/app/build/outputs/apk/debug/app-debug.apk": "0ec263c098accba2607a4f605b725149b1f1f58bff75f4226ddee17adfff4c52",
+    "src/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk": "7db227857a6abb92cd6ddaf1000cb77765bdc07c899a88d8e57221809ecc1470"
+  },
+  "releaseManifest": "src/android/app/build/intermediates/merged_manifests/release/processReleaseManifest/AndroidManifest.xml",
+  "fixtureInReleaseManifest": false,
+  "debugInReleaseManifest": false,
+  "measuredBTestApkSha256": "1e0a5d1bcff7a4f108356ccd6fb4c051006038d9202af3bdb7e4cf025b144c5a",
+  "finalCodeDeviceCoverage": "B measurement path unchanged; final APK C/D/E preflight-only executed, no route request. Guard-negative condition not established: observed map root each time."
+}

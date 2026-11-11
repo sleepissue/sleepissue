@@ -1,0 +1,3 @@
+topResumedActivity=ActivityRecord{7164ce3 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000371}
+topResumedActivity=ActivityRecord{61ef94f u10 ai.umos.drivingview/.DrivingViewActivity t1000370}
+topResumedActivity=ActivityRecord{9423f46 u10 ai.umos.homescreen/.HomeActivity t1000368}
