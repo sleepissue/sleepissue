@@ -89,3 +89,13 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
 }
+
+// 정식 시나리오 한 곳을 debug APK의 scenarios/에 묶는다. release에는 포함하지 않는다.
+val prepareDemoScenarios by tasks.registering(Sync::class) {
+    from(rootProject.file("../../data/scenarios")) { include("normal.json", "distraction.json", "drowsy.json", "talk.json", "assist.json", "departure.json") }
+    into(layout.buildDirectory.dir("generated/demoAssets/scenarios"))
+}
+android.sourceSets.getByName("debug").assets.srcDir(layout.buildDirectory.dir("generated/demoAssets").get().asFile)
+tasks.configureEach {
+    if (name == "mergeDebugAssets") dependsOn(prepareDemoScenarios)
+}

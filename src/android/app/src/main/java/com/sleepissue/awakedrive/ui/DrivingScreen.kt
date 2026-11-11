@@ -1,5 +1,8 @@
 package com.sleepissue.awakedrive.ui
 
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -84,7 +87,11 @@ fun DrivingScreen(
     drivingTime: String = "측정 전",
     restAreaState: RestAreaUiState = RestAreaUiState.NotSearched,
     drivingMode: String = "일반 주행",
-    fatigueUiState: FatigueUiState = FatigueUiState()
+    fatigueUiState: FatigueUiState = FatigueUiState(),
+    steeringDeg: Float? = null,
+    sampleTimeMs: Long? = null,
+    speedKph: Float? = null,
+    metrics: com.sleepissue.awakedrive.engine.model.FatigueState? = null
 ) {
     val measurementStatus = fatigueUiState.measurementStatus
 
@@ -224,7 +231,11 @@ fun DrivingScreen(
                             shape = RoundedCornerShape(50.dp)
                         ) {
                             Text(
-                                text = "◉  $drivingMode",
+                                text = "◉  " + when {
+                                    fatigueUiState.assistMode == true -> "보조 주행 · 조향 판정 제외"
+                                    fatigueUiState.departureFatigue == true -> "민감 모드"
+                                    else -> drivingMode
+                                },
                                 color = Color.White,
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Bold,
@@ -237,10 +248,50 @@ fun DrivingScreen(
                     }
 
                     // 하단: 실시간 그래프
+                    val liveRiskHistory = remember { mutableStateListOf<Float>() }
+                    val liveSteeringHistory = remember { mutableStateListOf<Float>() }
+                    val speedHistory = remember { mutableStateListOf<Float>() }
+                    val microHistory = remember { mutableStateListOf<Float>() }
+                    val largeHistory = remember { mutableStateListOf<Float>() }
+                    val suddenHistory = remember { mutableStateListOf<Float>() }
+                    LaunchedEffect(sampleTimeMs) {
+                        fun append(list: MutableList<Float>, value: Float?) {
+                            if (value == null) return
+                            list.add(value)
+                            if (list.size > 60) list.removeAt(0)
+                        }
+                        append(speedHistory, speedKph)
+                        append(microHistory, metrics?.takeIf { it.valid }?.microPerMin)
+                        append(largeHistory, metrics?.takeIf { it.valid }?.largePerMin)
+                        append(suddenHistory, metrics?.takeIf { it.valid }?.suddenCount5m?.toFloat())
+                    }
+
+                    LaunchedEffect(sampleTimeMs, steeringDeg) {
+                        steeringDeg?.let { angle ->
+                            liveSteeringHistory.add(angle.coerceIn(-30f, 30f))
+                            if (liveSteeringHistory.size > 60) {
+                                liveSteeringHistory.removeAt(0)
+                            }
+                        }
+                    }
+
+                    LaunchedEffect(sampleTimeMs, fatigueUiState.currentRisk) {
+                        fatigueUiState.currentRisk?.let { risk ->
+                            liveRiskHistory.add(risk.coerceIn(0f, 100f))
+                            if (liveRiskHistory.size > 60) {
+                                liveRiskHistory.removeAt(0)
+                            }
+                        }
+                    }
+
                     DrivingSignalGraph(
+                        riskHistory = liveRiskHistory,
+                        steeringHistory = liveSteeringHistory,
+                        speedHistory = speedHistory, microHistory = microHistory,
+                        largeHistory = largeHistory, suddenHistory = suddenHistory,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(177.dp)
+                            .height(260.dp)
                     )
                 }
 

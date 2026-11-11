@@ -15,6 +15,27 @@ import java.io.File
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class DebugDemoControllerTest {
+    @Test fun delayedDeliveryDoesNotExpireSignalsAgainstTheUndeliveredTargetTime() = runTest {
+        val real = FakeClock()
+        val demo = DebugDemoController(backgroundScope, real, automaticTicks = false, maxSamplesPerTick = 4)
+        demo.initialize(); demo.loadJson(scenarioJson()); demo.start()
+        // 60배 목표를 한 번에 1분 앞세우되, 한 tick에는 네 표본만 전달한다.
+        real.elapsedMs = 1_000
+        repeat(40) {
+            demo.tick()
+            val snapshot = demo.state.value
+            assertEquals(DemoPhase.PLAYING, snapshot.playback.phase)
+            snapshot.frame?.let { frame ->
+                assertEquals(40f, frame.speedKph!!, 0f)
+                assertEquals(8f, frame.steeringDeg!!, 0f)
+                assertFalse(snapshot.diagnostics.clockFailure)
+            }
+        }
+        val session = (demo.captureTrace().records().first()["sessionSummaries"] as List<*>).last() as Map<*, *>
+        assertEquals(0L, session["unexpectedNullPublishedFrames"])
+        demo.close()
+    }
+
     @Test fun bundledExampleTraversesAllThreeFactorsAndClosesItsHubAtEnd() = runTest {
         val real = FakeClock()
         val demo = DebugDemoController(backgroundScope, real, automaticTicks = false)

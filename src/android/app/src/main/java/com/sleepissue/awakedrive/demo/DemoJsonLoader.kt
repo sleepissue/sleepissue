@@ -111,7 +111,7 @@ class DemoJsonLoader {
 
     private fun sample(element: JsonElement, index: Int): DemoScenarioSample {
         val path = "$.samples[$index]"
-        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source", "distToNextTurnM", "cabinTempC")
+        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source", "distToNextTurnM", "cabinTempC", "ventilationLevel")
         val value = objectAt(element, path, fields)
         val tMs = seconds(required(value, "t", path), "$path.t", DemoLoadErrorCode.INVALID_TIME)
         source(value, path)
@@ -144,6 +144,11 @@ class DemoJsonLoader {
         val cabinTempC = value.get("cabinTempC")?.let {
             floatOrNull(it, "$path.cabinTempC")
         }
+        val ventilationLevel = value.get("ventilationLevel")?.takeUnless { it.isJsonNull }?.let {
+            val level = longAt(it, "$path.ventilationLevel", DemoLoadErrorCode.INVALID_SCHEMA)
+            if (level !in 0..Int.MAX_VALUE.toLong()) invalid("$path.ventilationLevel", "통풍 단계는 0 이상의 정수여야 합니다.")
+            level.toInt()
+        }
         val lat = doubleOrNull(value.get("lat"), "$path.lat", -90.0..90.0)
         val lon = doubleOrNull(value.get("lon"), "$path.lon", -180.0..180.0)
         if ((lat == null) != (lon == null)) invalid(path, "lat/lon은 유효한 한 쌍 또는 둘 다 null이어야 합니다.")
@@ -161,11 +166,12 @@ class DemoJsonLoader {
             SignalField.BRAKE_ON to (brake != null), SignalField.SEATS to (seats != null),
             SignalField.CRUISE_ACTIVE to (active != null), SignalField.CRUISE_TARGET_KPH to (target != null),
             SignalField.CABIN_TEMP_C to (cabinTempC != null),
+            SignalField.VENTILATION_LEVEL to (ventilationLevel != null),
         )
         val vehicle = VehicleSignalInput(
             tMs = tMs, source = Source.DEMO, steeringDeg = steering, speed = speed,
             gear = gear, turnSignal = turn, brakeOn = brake, seats = seats,
-            cruiseActive = active, cruiseTargetKph = target, cabinTempC = cabinTempC,
+            cruiseActive = active, cruiseTargetKph = target, cabinTempC = cabinTempC, ventilationLevel = ventilationLevel,
             quality = SignalField.entries.associateWith { quality(availableFields[it] == true) },
         )
         val navi = NaviState(

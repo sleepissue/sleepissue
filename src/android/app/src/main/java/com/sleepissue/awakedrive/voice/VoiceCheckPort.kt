@@ -113,6 +113,19 @@ class VoiceCheckPort(
         return execution(requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
     }
 
+    /** 동승자 보조 버튼은 진행 중인 각성 확인에만 답한다. 경유지 동의·회복 확인을 대신하지 않는다. */
+    suspend fun completeWithPassengerButton(rest: Boolean): ExecutionResult {
+        val request = synchronized(lock) {
+            activeRequest?.takeIf { it.context == CheckContext.DRIVER_ALERTNESS || it.context == CheckContext.PASSENGER_ALERTNESS }
+                ?.also { clearActive() }
+        } ?: return execution(RequestId("passenger-no-active-check"), ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
+        passengerCheckFlow.cancel()
+        coordinator.cancel()
+        mutableResults.emit(CheckResult(request.requestId, request.context, CheckOutcome.NORMAL,
+            intent = if (rest) ResponseIntent.REST else ResponseIntent.OK, channel = ResponseChannel.PASSENGER_BUTTON))
+        return execution(request.requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
+    }
+
     private fun startAlertness(request: CheckRequest) {
         passengerCheckFlow.start(
             context = occupancyProvider(),

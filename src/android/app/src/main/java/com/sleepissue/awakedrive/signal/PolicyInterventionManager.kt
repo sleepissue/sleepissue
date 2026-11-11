@@ -52,6 +52,7 @@ class PolicyInterventionManager(
     private var sensitive = false
     private var vulnerable = false
     private var ventilationConsent = false
+    private var frequentChecks = false
     private var alertnessContext = CheckContext.DRIVER_ALERTNESS
     private var restSession: String? = null
     private val seenRestSessions = mutableSetOf<String>()
@@ -198,6 +199,7 @@ class PolicyInterventionManager(
             is InterventionInput.SensitiveModeChanged -> sensitive = input.enabled
             is InterventionInput.VulnerableTimeChanged -> vulnerable = input.enabled
             is InterventionInput.VentilationConsentChanged -> ventilationConsent = input.enabled
+            is InterventionInput.CheckFrequencyChanged -> frequentChecks = input.frequent
             is InterventionInput.AlertnessTargetChanged -> {
                 require(input.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS)) {
                     "주의 확인 대상은 운전자 또는 동승자여야 합니다."
@@ -452,8 +454,8 @@ class PolicyInterventionManager(
             !it.payloadHandled && it.status !in cancelledStatuses
     }
     private fun assistedCheckDue(): Boolean {
-        val interval = if (sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
-            config.assistedRiskCheckIntervalMs else config.assistedCheckIntervalMs
+        val interval = com.sleepissue.awakedrive.engine.intervention.assistedCheckIntervalMs(config, frequentChecks,
+            sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
         return assessment.assistedDriving == true && assistedAnchor?.let { clock.scenarioTimeMs() - it >= interval } == true
     }
     private fun enqueue(request: ExecutionRequest) {

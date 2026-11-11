@@ -4,6 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,8 +23,16 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun AlertScreen(
     status: DrivingStatus,
-    nextRestArea: String = "12km",
-    modifier: Modifier = Modifier
+    nextRestArea: String = "검색 전",
+    modifier: Modifier = Modifier,
+    onPassengerCheck: () -> Unit = {},
+    onCancelRest: () -> Unit = {},
+    onPassengerOkay: () -> Unit = {},
+    actionsEnabled: Boolean = false,
+    passengerEnabled: Boolean = true,
+    ventilationText: String = "운전석 통풍 상태 미수신",
+    waypointMessage: String = "경유지 요청 없음",
+    demo: Boolean = false
 ) {
     val alertColor = when (status) {
         DrivingStatus.WAITING -> Color(0xFFADB0C8)
@@ -155,8 +166,54 @@ fun AlertScreen(
                     }
                 }
 
+                if (status == DrivingStatus.CHECK) {
+                    Button(
+                        onClick = onPassengerCheck,
+                        enabled = actionsEnabled && passengerEnabled,
+                        modifier = Modifier
+                            .fillMaxWidth(0.65f)
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF416BEB)
+                        )
+                    ) {
+                        Text(
+                            text = "동승자: 쉬어 가요",
+                            color = Color.White,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
+                if (status == DrivingStatus.CHECK) {
+                    OutlinedButton(onClick = onPassengerOkay, enabled = actionsEnabled && passengerEnabled) {
+                        Text("동승자: 괜찮아요", color = Color.White)
+                    }
+                    Text(ventilationText, color = Color(0xFFB8E9D8), fontSize = 15.sp)
+                }
+                if (status == DrivingStatus.REST) {
+                    Text(waypointMessage, color = Color.White, fontSize = 14.sp)
+                    OutlinedButton(
+                        onClick = onCancelRest,
+                        enabled = actionsEnabled,
+                        modifier = Modifier
+                            .fillMaxWidth(0.65f)
+                            .height(52.dp),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Text(
+                            text = "취소",
+                            color = Color.White,
+                            fontSize = 17.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+
                 Text(
-                    text = "AWAKEDRIVE · DEMO",
+                    text = if (demo) "데모 검증 · 실제 내비 실행 아님" else "AWAKEDRIVE",
                     color = Color(0xFF9EADD5),
                     fontSize = 12.sp,
                     letterSpacing = 2.sp

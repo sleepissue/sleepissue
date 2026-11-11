@@ -206,7 +206,7 @@ private fun DebugTraceRow.asMap(): Map<String, Any?> {
     return linkedMapOf("type" to "sample", "classification" to classification,
         "capturedElapsedMs" to capturedElapsedMs, "scenarioNowMs" to currentScenarioMs,
         "playbackScenarioMs" to p.scenarioTimeMs, "playbackRealElapsedMs" to p.realElapsedMs,
-        "timeAxisMode" to "WALL_TARGET",
+        "timeAxisMode" to "SOURCE_HANDOFF_CAPPED",
         "targetScenarioMs" to p.scenarioTimeMs,
         "handoffCompletedScenarioMs" to p.lastOriginalSampleMs,
         "replayStartedAtElapsedMs" to s.replayStartedAtElapsedMs,

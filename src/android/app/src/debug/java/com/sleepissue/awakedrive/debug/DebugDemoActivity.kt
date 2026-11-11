@@ -1,5 +1,17 @@
 package com.sleepissue.awakedrive.debug
 
+import android.Manifest
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import com.sleepissue.awakedrive.ui.DriveUiAction
+import com.sleepissue.awakedrive.ui.DriverUiSettingsStore
+import com.sleepissue.awakedrive.voice.*
+import com.sleepissue.awakedrive.engine.check.CheckPolicy
+import com.sleepissue.awakedrive.engine.check.QuestionType
+import com.sleepissue.awakedrive.engine.check.CheckVerdict
+import com.sleepissue.awakedrive.engine.config.EngineConfig
+import com.sleepissue.awakedrive.engine.rest.NapState
+import com.sleepissue.awakedrive.engine.voice.SpeechIntentParser
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -25,6 +37,15 @@ import java.io.File
 
 /** debug에서만 열리는 JSON·배속 검증 화면이다. 실제 마이크·TTS·SDK는 실행하지 않는다. */
 class DebugDemoActivity : AppCompatActivity() {
+    private var requestedDemoSpeed: Int? = null
+    private var intentScenarioConsumed = false
+    private var recoveryInFlight = false
+    private var recognizer: PleosSpeechRecognizer? = null
+    private var recoveryTone: SignalTonePlayer? = null
+    private var recoveryCoordinator: VoiceCheckCoordinator? = null
+    private var napAlarm: com.sleepissue.awakedrive.session.ToneNapAlarm? = null
+    private var wasAlarming = false
+
     private val probe by lazy {
         if (intent.getStringExtra("demoDetailedTiming") == "off") WorkProbe.NONE else WorkProbe(System::nanoTime)
     }
@@ -60,6 +81,7 @@ class DebugDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedDemoSpeed = intent.getIntExtra("demoSpeed", 0).takeIf { it in setOf(1, 10, 60) }
         traceStatusText = savedInstanceState?.getString("traceStatus") ?: traceStatusText
         val root = column().apply { setBackgroundColor(Color.rgb(16, 25, 35)) }
         ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
@@ -71,11 +93,27 @@ class DebugDemoActivity : AppCompatActivity() {
         root.addView(label("독립 메모리 세션 · 기존 운행/Room·Hub·SDK 화면 보존 · 가짜 질문/REAL은 실제 음성/SDK가 아님", 12f))
         root.addView(row(
             "검증 예제 로드" to { loadValidationExample() },
+            "졸음 시나리오 로드" to { loadValidationExample("scenarios/drowsy.json") },
+            "AwakeDrive UI 보기" to { showAwakeDriveUi() },
             "시작" to { startReplay() },
             "일시정지" to { act { pause() } },
             "재개" to { act { resume() } },
             "중지" to { act { stop() } },
             "초기화" to { act { reset() } },
+        ))
+        root.addView(row(
+            "정상" to { loadValidationExample("scenarios/normal.json") },
+            "딴짓" to { loadValidationExample("scenarios/distraction.json") },
+            "졸음" to { loadValidationExample("scenarios/drowsy.json") },
+            "대화" to { loadValidationExample("scenarios/talk.json") },
+            "보조 주행" to { loadValidationExample("scenarios/assist.json") },
+            "출발 피로" to { loadValidationExample("scenarios/departure.json") },
+        ))
+        root.addView(row(
+            "파일 배속" to { requestedDemoSpeed = null; message.text = "다음 로드부터 파일 배속을 사용합니다" },
+            "1배로 로드" to { requestedDemoSpeed = 1; message.text = "다음 로드부터 1배 · 검증용 배속 변경" },
+            "10배로 로드" to { requestedDemoSpeed = 10; message.text = "다음 로드부터 10배 · 검증용 배속 변경" },
+            "60배로 로드" to { requestedDemoSpeed = 60; message.text = "다음 로드부터 60배 · 검증용 배속 변경" },
         ))
         root.addView(LinearLayout(this).apply {
             val comparisonAsset = intent.getStringExtra("demoScenarioAsset")?.takeIf {
@@ -164,7 +202,8 @@ class DebugDemoActivity : AppCompatActivity() {
         val workerScope = CoroutineScope(scope.coroutineContext + dispatcher)
         val transport = DemoTransportMode.entries.firstOrNull { it.name == intent.getStringExtra("demoTransport") }
             ?: DemoTransportMode.COMPLETE_OBSERVATION
-        val session = DebugDemoController(workerScope, realClock, probe = probe, transportMode = transport, workerBackend = backend.name)
+        val session = DebugDemoController(workerScope, realClock, probe = probe, transportMode = transport, workerBackend = backend.name,
+            restAreas = com.sleepissue.awakedrive.navi.RestAreaRepository(this).areas)
         sessionScope = scope
         controller = session
         scope.launch {
@@ -172,16 +211,48 @@ class DebugDemoActivity : AppCompatActivity() {
         }
         scope.launch {
             withContext(dispatcher) { session.initialize() }
+            val requested = intent.getStringExtra("demoScenarioName")?.takeIf {
+                it in setOf("normal", "distraction", "drowsy", "talk", "assist", "departure")
+            }
+            if (requested != null && !intentScenarioConsumed) {
+                intentScenarioConsumed = true
+                val json = withContext(Dispatchers.IO) { readScenarioJson("scenarios/$requested.json") }
+                withContext(dispatcher) {
+                    session.loadJson(json)
+                    if (intent.getBooleanExtra("demoAutoStart", false)) session.start()
+                }
+                if (intent.getBooleanExtra("demoShowUi", false)) showAwakeDriveUi()
+            }
             while (isActive && controller === session) {
                 val snapshot = session.state.value
                 latestSnapshot = snapshot
                 render(snapshot)
+                val ui = session.presentationState.value
+                val alarming = ui.nap is NapState.Alarming && snapshot.power?.state != PowerState.OFF
+                if (alarming != wasAlarming) {
+                    wasAlarming = alarming
+                    if (alarming) {
+                        val alarm = napAlarm ?: com.sleepissue.awakedrive.session.ToneNapAlarm(scope).also { napAlarm = it }
+                        alarm.start(EngineConfig().napAlarmRampMs, EngineConfig().napAlarmMaxMs)
+                    } else napAlarm?.stop()
+                }
+                if (recoveryInFlight && !ui.parked) {
+                    recoveryCoordinator?.cancel()
+                    recoveryInFlight = false
+                    withContext(dispatcher) { session.endRecoveryVoice(CheckOutcome.CANCELLED) }
+                }
                 delay(100)
             }
         }
     }
 
     override fun onStop() {
+        recoveryCoordinator?.cancel()
+        recognizer?.close(); recognizer = null
+        recoveryTone?.close(); recoveryTone = null
+        recoveryCoordinator = null
+        recoveryInFlight = false
+        napAlarm?.stop(); napAlarm = null; wasAlarming = false
         val session = controller
         val scope = sessionScope
         val closingWorker = executionWorker
@@ -214,12 +285,104 @@ class DebugDemoActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
     }
 
+
+    /**
+     * 디버그 통합 리허설 전용 화면.
+     * Activity를 전환하지 않으므로 기존 데모 세션을 유지한다.
+     */
+    private fun showAwakeDriveUi() {
+        val session = controller ?: run {
+            android.widget.Toast.makeText(
+                this,
+                "데모 세션이 아직 준비되지 않았습니다.",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
+
+        val dialog = androidx.activity.ComponentDialog(
+            this,
+            android.R.style.Theme_Material_Light_NoActionBar
+        )
+
+        val composeView =
+            androidx.compose.ui.platform.ComposeView(this).apply {
+                setContent {
+                    DebugFatigueNavigation(state = session.presentationState, onAction = { action ->
+                        sessionScope?.launch {
+                            withContext(workerDispatcher) { session.uiAction(action) }
+                            if (action == DriveUiAction.RequestRecovery) startRecoveryVoice(session)
+                        }
+                    })
+                }
+            }
+
+        dialog.setContentView(composeView)
+        dialog.show()
+
+        dialog.window?.setLayout(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT
+        )
+    }
+
+    private fun startRecoveryVoice(session: DebugDemoController) {
+        if (recoveryInFlight || !session.presentationState.value.parked) return
+        val settings = DriverUiSettingsStore(this).read()
+        if (!settings.microphoneConsent || ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            sessionScope?.launch(workerDispatcher) { session.endRecoveryVoice(CheckOutcome.UNAVAILABLE) }
+            Toast.makeText(this, "정차 중 설정에서 마이크 권한·사용 동의를 확인하세요", Toast.LENGTH_LONG).show()
+            return
+        }
+        val config = EngineConfig()
+        val voice = recognizer ?: PleosSpeechRecognizer(this).also { recognizer = it }
+        val tone = recoveryTone ?: SignalTonePlayer().also { recoveryTone = it }
+        val coordinator = recoveryCoordinator ?: VoiceCheckCoordinator(
+            CheckManager(AndroidElapsedClock(), CheckPolicy(config), SpeechIntentParser()), CheckPolicy(config), voice, tone
+        ).also { recoveryCoordinator = it }
+        recoveryInFlight = true
+        sessionScope?.launch {
+            withContext(workerDispatcher) { session.beginRecoveryVoice() }
+            Toast.makeText(this@DebugDemoActivity, "신호음 뒤 '네'라고 말해 주세요", Toast.LENGTH_LONG).show()
+            coordinator.start(config.defaultVoiceBaselineMs, QuestionType.DRIVER_CHECK,
+                onResult = { result, twoSlow ->
+                    val outcome = when (result.verdict) {
+                        CheckVerdict.NORMAL -> CheckOutcome.NORMAL
+                        CheckVerdict.SLOW -> CheckOutcome.SLOW
+                        CheckVerdict.NO_RESPONSE -> CheckOutcome.NO_RESPONSE
+                    }
+                    // 재확인은 coordinator가 담당한다. 느림 1회 때 1배 고정을 유지한다.
+                    if (outcome != CheckOutcome.SLOW || twoSlow) recoveryInFlight = false
+                    sessionScope?.launch(workerDispatcher) {
+                        if (recoveryInFlight) session.recoveryResult(outcome) else session.endRecoveryVoice(outcome)
+                    }
+                }, onSttFallbackRequired = {
+                    // STT 미지원이어도 PCM 대답 시간 측정이 가능하면 판정까지 기다린다.
+                    Toast.makeText(this@DebugDemoActivity, "대답 내용 인식 불가 · 발화 시작 시간으로 확인합니다", Toast.LENGTH_SHORT).show()
+                })
+        }
+    }
+
     private fun startReplay() {
         allocationSession = controller?.state?.value?.playback?.sessionId
         allocationStart = processAllocatedBytes()
         replayStageStart = probe.snapshot()
         replayCpuStartMs = android.os.Process.getElapsedCpuTime()
         act { start() }
+    }
+
+    private fun readScenarioJson(assetName: String): String {
+        val json = assets.open(assetName).bufferedReader(Charsets.UTF_8).use { it.readText() }
+        val speed = requestedDemoSpeed ?: return json
+        val root = com.google.gson.JsonParser.parseString(json).asJsonObject
+        val samples = root.getAsJsonArray("samples")
+        val duration = samples.last().asJsonObject.get("t").asBigDecimal.add(java.math.BigDecimal("0.1"))
+        val segments = com.google.gson.JsonArray()
+        segments.add(com.google.gson.JsonObject().apply {
+            addProperty("fromSec", 0); addProperty("toSec", duration); addProperty("factor", speed)
+        })
+        root.add("speedSegments", segments)
+        return root.toString()
     }
 
     private fun loadValidationExample(assetName: String = "demo_validation.json") {
@@ -229,11 +392,18 @@ class DebugDemoActivity : AppCompatActivity() {
         scope.launch {
             try {
                 val json = withContext(Dispatchers.IO) {
-                    assets.open(assetName).bufferedReader(Charsets.UTF_8).use { it.readText() }
+                    readScenarioJson(assetName)
                 }
                 withContext(dispatcher) { session.loadJson(json) }
+                android.util.Log.i(
+                    "AwakeDriveLoad",
+                    "로드 완료: ${session.state.value.playback.phase}, ${session.state.value.message}"
+                )
             } catch (cancelled: CancellationException) { throw cancelled }
-            catch (_: Exception) { message.text = "검증 예제 파일을 읽지 못했습니다." }
+            catch (e: Exception) {
+                message.text = "JSON 로딩 오류: ${e.javaClass.simpleName}: ${e.message}"
+                android.util.Log.e("AwakeDriveDemo", "JSON 로딩 실패", e)
+            }
         }
     }
 
@@ -290,6 +460,17 @@ class DebugDemoActivity : AppCompatActivity() {
                 (after - allocationStart!!).takeIf { it >= 0 } else null,
             "performanceStages" to probe.snapshot(),
             "performanceStagesAtReplayStart" to if (allocationSession == capture.sessionId) replayStageStart else emptyMap<String, Map<String, Number>>())
+        controller?.presentationState?.value?.takeIf { it.sessionId == capture.sessionId }?.let { ui ->
+            metadata["role5Ui"] = mapOf(
+                "stage" to ui.intervention?.stage?.name,
+                "warnings" to ui.warnings,
+                "restCertified" to ui.restCertified, "stampCount" to ui.stampCount,
+                "currentTripDriveSec" to ui.currentTripDriveSec,
+                "departureFatigue" to ui.fatigue?.baseline?.departureFatigue,
+                "assistMode" to ui.fatigue?.assist?.assistMode,
+                "recovery" to ui.recovery,
+            )
+        }
         if (terminal) runtimeMetadata[capture.sessionId] = metadata
         return metadata
     }

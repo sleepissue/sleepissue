@@ -46,6 +46,12 @@
 
         </activity>
 
+    
+        <!-- AwakeDrive 주행 UI 로컬 검증용 -->
+        <activity
+            android:name="com.sleepissue.awakedrive.ui.DrivingPreviewActivity"
+            android:exported="true" />
+
     </application>
 
 </manifest>

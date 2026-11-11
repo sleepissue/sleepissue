@@ -15,7 +15,8 @@ sealed interface RestAreaUiState {
 
     data class Found(
         val name: String,
-        val distance: String
+        val distance: String,
+        val hasToilet: Boolean? = null,
     ) : RestAreaUiState
 
     data object NotFound : RestAreaUiState
