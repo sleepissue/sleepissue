@@ -4,10 +4,11 @@ import com.sleepissue.awakedrive.engine.model.PatternType
 import com.sleepissue.awakedrive.engine.model.SteeringBaseline
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-/** 이상 분·추세형·튐형·안전 우회 시험. 기대값은 SRS v0.2 REQ_PAT_001~003·005 합격기준. */
+/** 이상 분·추세형·튐형·안전 우회·딴짓 기록 시험. 기대값은 SRS v0.2 REQ_PAT_001~005 합격기준. */
 class PatternClassifierTest {
 
     /** 비교 기준: 미세 20/분, 큰 4/분 */
@@ -203,5 +204,121 @@ class PatternClassifierTest {
         classifier.window(120_000L, micro = 20f, large = 0f)
         classifier.window(180_000L, micro = 20f, large = 0f)
         assertEquals(0, classifier.state.abnormalMinutes10m)
+    }
+
+    // ── 딴짓 기록 (REQ_PAT_004) ──
+
+    /** 1분 칸 정상 → 이상(미세 0.5배·큰 2배) → 정상: 튐형 */
+    private fun PatternClassifier.spike(): PatternClassifier = apply {
+        window(60_000L, micro = 20f, large = 4f)
+        window(120_000L, micro = 10f, large = 8f)
+        window(180_000L, micro = 20f, large = 4f)
+    }
+
+    @Test
+    fun normalCheckOnSpikeIsOneDistraction() {
+        // (정상, 튐형) → 딴짓 기록 1건 (TC_PAT_004). 느림·무응답은 딴짓이 아니다
+        val classifier = PatternClassifier().spike()
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+        assertTrue(classifier.onCheckResult(185_000L, normal = true))
+        assertEquals(1, classifier.state.distractionCount)
+        assertEquals(185_000L, classifier.state.lastDistractionMs)
+        assertFalse(classifier.onCheckResult(190_000L, normal = false))
+        assertEquals(1, classifier.state.distractionCount)
+        // 단계는 바꾸지 않는다: 패턴·이상 분은 그대로
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+        assertEquals(1, classifier.state.abnormalMinutes10m)
+    }
+
+    @Test
+    fun normalCheckRightAfterSuddenWaitsUntilSpikeIsConfirmed() {
+        // 급조향 바로 뒤의 확인: 그 1분 칸이 아직 판정 전이라 패턴이 '없음'. 정상 대답을 후보로 두고,
+        // 이상 분 → 다음 1분 복귀로 튐형이 확인되는 순간 기록한다. 기록 시각은 대답 시각
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 20f, large = 4f)
+        assertFalse(classifier.onCheckResult(70_000L, normal = true))
+        assertEquals(0, classifier.state.distractionCount)
+        classifier.window(120_000L, micro = 10f, large = 8f)
+        assertEquals(PatternType.AMBIGUOUS, classifier.state.patternType)
+        assertEquals("복귀를 보기 전에는 기다린다", 0, classifier.state.distractionCount)
+        classifier.window(180_000L, micro = 20f, large = 4f)
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+        assertEquals(1, classifier.state.distractionCount)
+        assertEquals(70_000L, classifier.state.lastDistractionMs)
+        // 이미 기록한 이상 분만으로 튐형인 동안 정상 대답이 또 와도 같은 일이라 새로 세지 않는다
+        assertFalse(classifier.onCheckResult(200_000L, normal = true))
+        assertEquals(1, classifier.state.distractionCount)
+        // 새 이상 분(다른 딴짓) 뒤의 정상 대답은 새 1건. 후보가 여러 번이면 마지막 대답 시각으로 기록
+        classifier.window(240_000L, micro = 10f, large = 8f)
+        classifier.onCheckResult(245_000L, normal = true)
+        classifier.window(300_000L, micro = 20f, large = 4f)
+        assertEquals(PatternType.SPIKE, classifier.state.patternType)
+        assertEquals(2, classifier.state.distractionCount)
+        assertEquals(245_000L, classifier.state.lastDistractionMs)
+    }
+
+    @Test
+    fun normalCheckFollowedByTrendIsNotDistraction() {
+        // (정상, 추세형) → 딴짓 아님, 2단계 유지·10분 뒤 재확인은 1번 규칙 (REQ_PAT_006)
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 10f, large = 8f)
+        assertFalse(classifier.onCheckResult(65_000L, normal = true))
+        var t = 120_000L
+        repeat(5) { classifier.window(t, micro = 10f, large = 8f); t += 60_000L }
+        assertEquals(PatternType.TREND, classifier.state.patternType)
+        assertEquals(0, classifier.state.distractionCount)
+        // 추세형인 채로 기다린 시간이 지나도 기록하지 않는다
+        repeat(4) { classifier.window(t, micro = 10f, large = 8f); t += 60_000L }
+        assertEquals(0, classifier.state.distractionCount)
+    }
+
+    @Test
+    fun pendingNormalCheckIsDroppedBySlowAnswerOrWhenNothingWasAbnormal() {
+        // 느림·무응답이 오면 후보를 지운다. 이상 분이 하나도 없이 기다린 시간이 지나면(정기 확인 등) 버린다
+        val slow = PatternClassifier()
+        slow.window(60_000L, micro = 20f, large = 4f)
+        slow.onCheckResult(70_000L, normal = true)
+        slow.onCheckResult(100_000L, normal = false)
+        slow.window(120_000L, micro = 10f, large = 8f)
+        slow.window(180_000L, micro = 20f, large = 4f)
+        assertEquals(PatternType.SPIKE, slow.state.patternType)
+        assertEquals(0, slow.state.distractionCount)
+
+        val calm = PatternClassifier()
+        var t = 60_000L
+        calm.window(t, micro = 20f, large = 4f)
+        calm.onCheckResult(t, normal = true)
+        repeat(4) { t += 60_000L; calm.window(t, micro = 20f, large = 4f) }
+        // 3분이 지난 뒤 생긴 튐형은 그 대답과 상관없다
+        t += 60_000L; calm.window(t, micro = 10f, large = 8f)
+        t += 60_000L; calm.window(t, micro = 20f, large = 4f)
+        assertEquals(PatternType.SPIKE, calm.state.patternType)
+        assertEquals(0, calm.state.distractionCount)
+    }
+
+    @Test
+    fun ambiguousUntilTheEndIsNotRecordedAsDistraction() {
+        // 정상 대답 뒤 3분이 지나도 애매(이상 분 4~5)면 딴짓이라고 단정하지 않는다 [해석, 기획서 4-1 원칙 3].
+        // 단계 판단(정상 대답 → 2단계에서 내려옴)은 1번 규칙이 따로 한다
+        val classifier = PatternClassifier()
+        classifier.window(60_000L, micro = 10f, large = 8f)
+        classifier.onCheckResult(70_000L, normal = true)
+        var t = 120_000L
+        repeat(3) { classifier.window(t, micro = 10f, large = 8f); t += 60_000L } // 이상 분 4개 → 애매
+        assertEquals(PatternType.AMBIGUOUS, classifier.state.patternType)
+        classifier.window(t, micro = 20f, large = 4f) // 300 s: 대답 뒤 3분 지남, 이상 분 4개 그대로 애매
+        assertEquals(PatternType.AMBIGUOUS, classifier.state.patternType)
+        assertEquals(0, classifier.state.distractionCount)
+        t += 60_000L; classifier.window(t, micro = 20f, large = 4f)
+        assertEquals(0, classifier.state.distractionCount)
+    }
+
+    @Test
+    fun resetClearsDistractionRecords() {
+        val classifier = PatternClassifier().spike()
+        classifier.onCheckResult(185_000L, normal = true)
+        classifier.reset()
+        assertEquals(0, classifier.state.distractionCount)
+        assertNull(classifier.state.lastDistractionMs)
     }
 }
