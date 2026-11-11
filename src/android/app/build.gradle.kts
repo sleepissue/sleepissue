@@ -90,12 +90,17 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
 }
 
-// 정식 시나리오 한 곳을 debug APK의 scenarios/에 묶는다. release에는 포함하지 않는다.
+// 정식 시나리오 한 곳을 제품·디버그 APK의 scenarios/에 함께 묶는다.
 val prepareDemoScenarios by tasks.registering(Sync::class) {
     from(rootProject.file("../../data/scenarios")) { include("normal.json", "distraction.json", "drowsy.json", "talk.json", "assist.json", "departure.json") }
     into(layout.buildDirectory.dir("generated/demoAssets/scenarios"))
 }
-android.sourceSets.getByName("debug").assets.srcDir(layout.buildDirectory.dir("generated/demoAssets").get().asFile)
+android.sourceSets.getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/demoAssets").get().asFile)
 tasks.configureEach {
-    if (name == "mergeDebugAssets") dependsOn(prepareDemoScenarios)
+    if (name == "mergeDebugAssets" || name == "mergeReleaseAssets" || name.contains("lint", ignoreCase = true)) {
+        dependsOn(prepareDemoScenarios)
+    }
 }
+
+// 45분짜리 10 Hz 리허설 원본과 파싱 객체를 함께 검증할 시험 메모리다.
+tasks.withType<Test>().configureEach { maxHeapSize = "2g" }

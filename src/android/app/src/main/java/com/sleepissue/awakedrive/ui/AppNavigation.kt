@@ -38,6 +38,7 @@ fun AppNavigation(
     clock: Clock? = null,
     onStartMonitoring: () -> Unit = {},
     demoContent: (@Composable () -> Unit)? = null,
+    onExitDemo: (() -> Unit)? = null,
 ) {
     val context = LocalContext.current
     val settingsStore = remember { DriverUiSettingsStore(context) }
@@ -62,7 +63,7 @@ fun AppNavigation(
     val nextArea = if (session.actionsConnected) session.nextRestArea else restAreaState
     val connected = session.actionsConnected && onAction != null
     fun request(action: DriveUiAction) {
-        if (connected) onAction?.invoke(action) else feedback = "실행 담당이 연결되지 않았습니다"
+        if (connected || action is DriveUiAction.Condition) onAction?.invoke(action) else feedback = "실행 담당이 연결되지 않았습니다"
     }
     LaunchedEffect(restricted) {
         if (restricted && page != AppPage.DRIVING) {
@@ -71,6 +72,9 @@ fun AppNavigation(
         }
     }
     LaunchedEffect(session.sessionId) { feedback = "" }
+    LaunchedEffect(session.restAreaName, session.parked, restricted) {
+        if (session.restAreaName != null && session.parked && !restricted) page = AppPage.REST
+    }
     LaunchedEffect(settings, session.sessionId) {
         if (connected) onAction?.invoke(DriveUiAction.Preferences(settings))
     }
@@ -78,6 +82,9 @@ fun AppNavigation(
         Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
             horizontalArrangement = Arrangement.SpaceBetween) {
             Text("진단 아님 · 차량 기본 경고를 대신하지 않습니다", color = Color(0xFFCED5EC), fontSize = 12.sp)
+            if (session.demoSession && onExitDemo != null) {
+                TextButton(onClick = onExitDemo) { Text("데모 종료", color = Color(0xFFFFD166)) }
+            }
             if (session.demoPlaying) Text("데모 재생 중", color = Color(0xFFFFD166), fontSize = 14.sp)
             else if (session.demoSession) Text("데모 검증 세션 · 정지", color = Color.LightGray, fontSize = 12.sp)
         }
@@ -105,7 +112,7 @@ fun AppNavigation(
                         ForecastRecalcTrigger.CONDITION_INPUT)
                     page = AppPage.SAFETY
                 }
-                AppPage.SAFETY -> SetupSafetyScreen { page = AppPage.COMPLETE }
+                AppPage.SAFETY -> SetupSafetyScreen { settings = settingsStore.read(); page = AppPage.COMPLETE }
                 AppPage.COMPLETE -> SetupCompleteScreen(condition = condition ?: DrivingCondition.GOOD,
                     forecast = effectiveForecast, onStartDriving = { onStartMonitoring(); setupCompleted = true; page = AppPage.DRIVING })
                 AppPage.DRIVING -> {
@@ -120,13 +127,15 @@ fun AppNavigation(
                     } else Column {
                         if (status == DrivingStatus.CAUTION) Text("1단계 · 졸음 주의 — 가까운 안전한 곳에서 쉬어 가세요",
                             color = Color(0xFFFFD166), modifier = Modifier.fillMaxWidth().background(Color(0xFF453C30)).padding(12.dp))
+                        key(session.demoSession, session.sessionId) {
                         DrivingScreen(status = status, fatigueUiState = fatigue,
                             steeringDeg = session.frame?.steeringDeg ?: steeringDeg,
                             restAreaState = nextArea,
                             drivingTime = (continuousDriveSec ?: session.trip.continuousDriveSec.takeIf { session.frame != null })
                                 ?.let { "%d시간 %02d분".format(it / 3600, (it % 3600) / 60) } ?: "측정 전",
                             sampleTimeMs = session.tMs, speedKph = session.frame?.speedKph,
-                            metrics = session.fatigue?.fatigue, frame = session.frame)
+                            metrics = session.fatigue?.fatigue, frame = session.frame, demo = session.demoSession)
+                        }
                     }
                 }
                 AppPage.REST -> RestScreen(session, connected, { request(it) })

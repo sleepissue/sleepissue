@@ -15,10 +15,14 @@ def steering(name, t):
     if name == "departure":
         return .5 * math.sin(2 * math.pi * .2 * t) + (7 if t % 6 < .2 else 0)
     if name == "assist":
-        if 900 <= t < 1210:
-            return 0.0  # 해제 1200초 뒤 10초 동안 조향 고정
-        if 1210 <= t < 1210.2:
+        if 10 <= t < 1220:
+            return 0.0  # 해제 1210초 뒤 10초 동안 조향 고정
+        if 1220 <= t < 1220.2:
             return 12.0
+    if name == "talk" and 960 <= t < 970:
+        return 0.0
+    if name == "talk" and 970 <= t < 970.2:
+        return 12.0
     if name == "distraction" and any(start <= t < start + 10 for start in (960, 1200, 1500)):
         return normal + (8 if t % 2 < .2 else 0)
     if name == "drowsy" and t >= 900:
@@ -42,7 +46,7 @@ def generate(name, factor):
         parked = t < 10 or 1800 <= t <= 2700
         drive_t = min(1800, max(0, t))
         distance = max(0, 1800 - drive_t) * 98 / 3.6
-        cruise = name == "assist" and 900 <= t < 1200
+        cruise = name == "assist" and 10 <= t < 1210
         samples.append({
             "t": t, "steeringDeg": 0.0 if parked else round(steering(name, t), 3),
             "speedKph": 0.0 if parked else 98.0, "gear": "P" if parked else "D",
@@ -50,13 +54,13 @@ def generate(name, factor):
             "seats": {"driver": True, "frontPassenger": name == "talk", "rearLeft": False,
                       "rearCenter": False, "rearRight": False},
             "cruise": {"active": cruise, "targetKph": 98.0 if cruise else None},
-            "distToNextTurnM": max(1000.0, round(80000 - 98 / 3.6 * drive_t, 1)),
-            "cabinTempC": 23.5, "ventilationLevel": 0,
+            "distToNextTurnM": 5000.0,
+            "cabinTempC": 23.5,
             "lat": round(lat - distance * math.cos(heading) / 111320, 8),
             "lon": round(lon - distance * math.sin(heading) / (111320 * math.cos(math.radians(lat))), 8),
             "power": "OFF" if 1810 <= t < 2690 else "RESUME" if 2690 <= t < 2690.1 else "ON",
         })
-    start = "2026-11-07T22:55:00+09:00" if name in ("drowsy", "departure") else "2026-11-07T14:00:00+09:00"
+    start = "2026-11-07T22:55:00+09:00" if name in ("drowsy", "departure") else "2026-11-07T10:00:00+09:00"
     return {"schemaVersion": 1, "id": name, "source": "DEMO",
             "startEpochMs": int(datetime.fromisoformat(start).timestamp() * 1000),
             "speedSegments": [{"fromSec": 0, "toSec": 1800, "factor": factor},

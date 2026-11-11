@@ -21,7 +21,7 @@ import org.junit.Test
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 class DebugDemoSchedulingTest {
-    @Test fun boundedBacklogTickPublishesAtDeliveredProgressWithoutAdvancingToTheTarget() = runTest {
+    @Test fun boundedBacklogTickPublishesOnceAndNeverFabricatesFramesAtTheSameClock() = runTest {
         val json = scenarioJson()
         for (mode in DemoTransportMode.entries) {
             val clock = CommandArrivalClock()
@@ -33,16 +33,15 @@ class DebugDemoSchedulingTest {
             demo.tick()
             val firstTick = demo.state.value
             assertEquals("$mode 표본 경계에서 반환", before + 4, firstTick.playback.deliveredSamples)
-            assertEquals("$mode 목표 시간은 보존", 600_000L, firstTick.playback.scenarioTimeMs)
-            assertEquals("$mode 전달 경계에서만 발행", firstTick.playback.lastOriginalSampleMs!! + 100, firstTick.frame!!.tMs)
+            assertEquals("$mode 현재 시각의 발행 기회", 600_000L, firstTick.frame!!.tMs)
             assertEquals("$mode 한 번의 현재 프레임", 1L, firstTick.diagnostics.emittedFrames)
-            assertEquals("$mode 미전달 목표는 deadline에 합산하지 않음", firstTick.frame.tMs / 100 - 1, firstTick.diagnostics.skippedDeadlines)
+            assertEquals("$mode 과거 deadline은 별도 계수", 5_999L, firstTick.diagnostics.skippedDeadlines)
             demo.tick()
             val secondTick = demo.state.value
             assertEquals(before + 8, secondTick.playback.deliveredSamples)
-            assertTrue("$mode 다음 원본을 전달한 만큼 발행 시각도 전진", secondTick.frame!!.tMs > firstTick.frame.tMs)
-            assertEquals(firstTick.diagnostics.emittedFrames + 1, secondTick.diagnostics.emittedFrames)
-            assertEquals(40f, secondTick.frame.speedKph!!, 0f)
+            assertEquals("$mode 고정된 시각에서 중복 발행 없음", firstTick.diagnostics.emittedFrames,
+                secondTick.diagnostics.emittedFrames)
+            assertEquals(firstTick.diagnostics.skippedDeadlines, secondTick.diagnostics.skippedDeadlines)
             demo.stop()
             assertPrefixAudit(checkNotNull(demo.state.value.deliveryAudit), secondTick.playback.deliveredSamples)
             demo.close()

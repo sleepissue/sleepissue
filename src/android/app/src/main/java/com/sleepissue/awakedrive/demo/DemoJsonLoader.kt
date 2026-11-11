@@ -53,10 +53,27 @@ class DemoJsonLoader {
     }
 
     fun parse(json: String): DemoLoadResult {
+        var streamedSamples: List<DemoScenarioSample>? = null
         val root = try {
             JsonReader(StringReader(json)).use { reader ->
                 reader.strictness = Strictness.STRICT
-                val value = readStrict(reader, 0)
+                // 큰 배열은 샘플 하나씩 검증해 JSON 트리 전체와 모델이 함께 남지 않게 한다.
+                val value = if (reader.peek() == JsonToken.BEGIN_OBJECT) JsonObject().apply {
+                    reader.beginObject()
+                    while (reader.hasNext()) {
+                        val name = reader.nextName()
+                        if (has(name)) throw Invalid(DemoLoadErrorCode.INVALID_JSON, reader.path, "중복된 키입니다.")
+                        if (name == "samples" && reader.peek() == JsonToken.BEGIN_ARRAY) {
+                            val samples = ArrayList<DemoScenarioSample>()
+                            reader.beginArray()
+                            while (reader.hasNext()) samples.add(sample(readStrict(reader, 2), samples.size))
+                            reader.endArray()
+                            streamedSamples = samples
+                            add(name, JsonArray())
+                        } else add(name, readStrict(reader, 1))
+                    }
+                    reader.endObject()
+                } else readStrict(reader, 0)
                 if (reader.peek() != JsonToken.END_DOCUMENT) {
                     throw Invalid(DemoLoadErrorCode.INVALID_JSON, "$", "JSON 뒤에 다른 값이 있습니다.")
                 }
@@ -72,13 +89,13 @@ class DemoJsonLoader {
             return failed(DemoLoadErrorCode.INVALID_JSON, "$", "JSON 문법이 올바르지 않습니다.")
         }
         return try {
-            DemoLoadResult.Loaded(validate(root))
+            DemoLoadResult.Loaded(validate(root, streamedSamples))
         } catch (error: Invalid) {
             DemoLoadResult.Failed(error.detail)
         }
     }
 
-    private fun validate(element: JsonElement): DemoScenario {
+    private fun validate(element: JsonElement, streamedSamples: List<DemoScenarioSample>? = null): DemoScenario {
         val root = objectAt(element, "$", setOf("schemaVersion", "id", "startEpochMs", "source", "speedSegments", "samples"))
         if (longAt(required(root, "schemaVersion", "$"), "$.schemaVersion") != 1L) {
             invalid("$.schemaVersion", "지원하는 스키마 버전은 1입니다.")
@@ -89,10 +106,10 @@ class DemoJsonLoader {
         val epoch = longAt(required(root, "startEpochMs", "$"), "$.startEpochMs", DemoLoadErrorCode.INVALID_TIME)
         if (epoch < 0) time("$.startEpochMs", "시작 epoch ms는 0 이상이어야 합니다.")
         val rawSamples = required(root, "samples", "$")
-        if (!rawSamples.isJsonArray || rawSamples.asJsonArray.size() < 2) {
+        if (!rawSamples.isJsonArray || (streamedSamples?.size ?: rawSamples.asJsonArray.size()) < 2) {
             invalid("$.samples", "샘플은 최소 2개여야 합니다.")
         }
-        val samples = rawSamples.asJsonArray.mapIndexed { index, raw -> sample(raw, index) }
+        val samples = streamedSamples ?: rawSamples.asJsonArray.mapIndexed { index, raw -> sample(raw, index) }
         if (samples.first().tMs != 0L) time("$.samples[0].t", "첫 샘플은 상대 시각 0초여야 합니다.")
         samples.zipWithNext().forEachIndexed { index, (before, after) ->
             val delta = after.tMs - before.tMs
@@ -111,7 +128,7 @@ class DemoJsonLoader {
 
     private fun sample(element: JsonElement, index: Int): DemoScenarioSample {
         val path = "$.samples[$index]"
-        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source", "distToNextTurnM", "cabinTempC", "ventilationLevel")
+        val fields = setOf("t", "steeringDeg", "speedKph", "gear", "turnSignal", "brake", "seats", "cruise", "lat", "lon", "power", "source", "distToNextTurnM", "cabinTempC")
         val value = objectAt(element, path, fields)
         val tMs = seconds(required(value, "t", path), "$path.t", DemoLoadErrorCode.INVALID_TIME)
         source(value, path)
@@ -144,11 +161,6 @@ class DemoJsonLoader {
         val cabinTempC = value.get("cabinTempC")?.let {
             floatOrNull(it, "$path.cabinTempC")
         }
-        val ventilationLevel = value.get("ventilationLevel")?.takeUnless { it.isJsonNull }?.let {
-            val level = longAt(it, "$path.ventilationLevel", DemoLoadErrorCode.INVALID_SCHEMA)
-            if (level !in 0..Int.MAX_VALUE.toLong()) invalid("$path.ventilationLevel", "통풍 단계는 0 이상의 정수여야 합니다.")
-            level.toInt()
-        }
         val lat = doubleOrNull(value.get("lat"), "$path.lat", -90.0..90.0)
         val lon = doubleOrNull(value.get("lon"), "$path.lon", -180.0..180.0)
         if ((lat == null) != (lon == null)) invalid(path, "lat/lon은 유효한 한 쌍 또는 둘 다 null이어야 합니다.")
@@ -166,12 +178,11 @@ class DemoJsonLoader {
             SignalField.BRAKE_ON to (brake != null), SignalField.SEATS to (seats != null),
             SignalField.CRUISE_ACTIVE to (active != null), SignalField.CRUISE_TARGET_KPH to (target != null),
             SignalField.CABIN_TEMP_C to (cabinTempC != null),
-            SignalField.VENTILATION_LEVEL to (ventilationLevel != null),
         )
         val vehicle = VehicleSignalInput(
             tMs = tMs, source = Source.DEMO, steeringDeg = steering, speed = speed,
             gear = gear, turnSignal = turn, brakeOn = brake, seats = seats,
-            cruiseActive = active, cruiseTargetKph = target, cabinTempC = cabinTempC, ventilationLevel = ventilationLevel,
+            cruiseActive = active, cruiseTargetKph = target, cabinTempC = cabinTempC,
             quality = SignalField.entries.associateWith { quality(availableFields[it] == true) },
         )
         val navi = NaviState(

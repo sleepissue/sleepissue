@@ -1,4 +1,4 @@
-package com.sleepissue.awakedrive.debug
+package com.sleepissue.awakedrive.demo
 
 import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.forecast.*
@@ -56,8 +56,8 @@ class DemoUiSession(
         if (fatigue.assist.assistMode) {
             if (assistedAnchorMs == null) assistedAnchorMs = frame.tMs
         } else assistedAnchorMs = null
-        val interval = assistedCheckIntervalMs(config, frequentChecks,
-            fatigue.baseline.departureFatigue || fatigue.baseline.reportedSleepy || fatigue.vulnerableTime == true)
+        val interval = if (frequentChecks || fatigue.baseline.departureFatigue || fatigue.baseline.reportedSleepy || fatigue.vulnerableTime == true)
+            config.assistedRiskCheckIntervalMs else config.assistedCheckIntervalMs
         val regularCheckDue = assistedAnchorMs?.let { frame.tMs - it >= interval } == true
         if (regularCheckDue) assistedAnchorMs = frame.tMs
         val checkEvent = outputs.filterIsInstance<com.sleepissue.awakedrive.signal.InterventionInput.Safety>().any {
@@ -67,6 +67,8 @@ class DemoUiSession(
             tMs = frame.tMs,
             evaluation = if (f?.valid == true) EvaluationStatus.EVALUATED else EvaluationStatus.UNAVAILABLE,
             score = f?.riskSmoothed,
+            vulnerableTime = fatigue.vulnerableTime == true,
+            continuousDriveSec = tracker.state.value.continuousDriveSec,
             trending = fatigue.pattern.patternType == PatternType.TREND,
             sensitive = fatigue.baseline.departureFatigue || fatigue.baseline.reportedSleepy,
             safetyBypass = fatigue.pattern.safetyBypass,
@@ -180,6 +182,8 @@ class DemoUiSession(
             }
         }
     }
+
+    fun checkResult(result: CheckResult) { confirmation = result }
 
     fun recoveryResult(outcome: CheckOutcome) {
         recovered = state.restCertified && outcome == CheckOutcome.NORMAL

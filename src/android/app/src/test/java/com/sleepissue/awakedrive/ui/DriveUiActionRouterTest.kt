@@ -62,7 +62,6 @@ class DriveUiActionRouterTest {
         val h = Harness(); val settings = DriverUiSettings(ventilationConsent = true)
         h.router.dispatch(DriveUiAction.Preferences(settings))
         assertTrue(h.manager.inputs.contains(InterventionInput.VentilationConsentChanged(true)))
-        assertTrue(h.manager.inputs.contains(InterventionInput.CheckFrequencyChanged(false)))
         assertEquals(settings, h.settings)
     }
     @Test fun `리포트는 최근 24시간 합계를 이번 운행으로 표시하지 않는다`() {

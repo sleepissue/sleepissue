@@ -29,7 +29,6 @@ class DriveUiActionRouter(
         when (action) {
             is DriveUiAction.Preferences -> {
                 manager.submit(newId(), InterventionInput.VentilationConsentChanged(action.value.ventilationConsent))
-                manager.submit(newId(), InterventionInput.CheckFrequencyChanged(action.value.frequentChecks))
                 preferences(action.value)
             }
             is DriveUiAction.Condition -> ifParked { condition(action.value) }

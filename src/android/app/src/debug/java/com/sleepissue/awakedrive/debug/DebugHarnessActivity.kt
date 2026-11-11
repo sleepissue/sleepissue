@@ -140,16 +140,10 @@ class DebugHarnessActivity : AppCompatActivity() {
             return
         }
         // 비교 실행의 내부 전달 경로만 고른다. 이 경로는 Room ViewModel을 만들지 않는다.
-        if (intent.getBooleanExtra("liveDriveUi", false)) {
-            demoRedirect = true
-            startActivity(Intent(this, com.sleepissue.awakedrive.ui.LiveDriveActivity::class.java))
-            finish()
-            return
-        }
         val transport = intent.getStringExtra("demoTransport")
         if (transport == "SEPARATE_FLOWS" || transport == "COMPLETE_OBSERVATION") {
             demoRedirect = true
-            startActivity(Intent(this, DebugDemoActivity::class.java).putExtras(intent).putExtra("demoTransport", transport)
+            startActivity(Intent(this, DebugDemoActivity::class.java).putExtra("demoTransport", transport)
                 .putExtra("demoWorker", intent.getStringExtra("demoWorker"))
                 .putExtra("demoScenarioAsset", intent.getStringExtra("demoScenarioAsset"))
                 .putExtra("demoDetailedTiming", intent.getStringExtra("demoDetailedTiming")))

@@ -91,6 +91,8 @@ fun DrivingScreen(
     steeringDeg: Float? = null,
     sampleTimeMs: Long? = null,
     speedKph: Float? = null,
+    frame: com.sleepissue.awakedrive.engine.model.SignalFrame? = null,
+    demo: Boolean = false,
     metrics: com.sleepissue.awakedrive.engine.model.FatigueState? = null
 ) {
     val measurementStatus = fatigueUiState.measurementStatus
@@ -178,7 +180,7 @@ fun DrivingScreen(
                     color = Color(0xFF263865)
                 ) {
                     Text(
-                        text = "●  모니터링 화면 · DEMO",
+                        text = if (demo) "●  모니터링 화면 · DEMO" else if (frame != null) "●  차량 신호 모니터링" else "●  신호 연결 대기",
                         color = Mint,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold,
@@ -284,6 +286,16 @@ fun DrivingScreen(
                         }
                     }
 
+                    frame?.let { signal ->
+                        fun source(field: com.sleepissue.awakedrive.engine.model.SignalField) =
+                            signal.qualityOf(field).source?.name ?: "미수신"
+                        val seats = signal.seats
+                        Text("차속 ${signal.speedKph ?: "미수신"} km/h · 기어 ${signal.gear ?: "미수신"} · 방향지시등 ${signal.turnSignal ?: "미수신"} · 브레이크 ${signal.brakeOn ?: "미수신"}",
+                            color = SecondaryText, fontSize = 12.sp)
+                        Text("착석: 운전석 ${seats?.driver ?: "미수신"} · 동승석 ${seats?.frontPassenger ?: "미수신"}", color = SecondaryText, fontSize = 12.sp)
+                        Text("차속 ${source(com.sleepissue.awakedrive.engine.model.SignalField.SPEED_KPH)} · 기어 ${source(com.sleepissue.awakedrive.engine.model.SignalField.GEAR)} · 조향 ${source(com.sleepissue.awakedrive.engine.model.SignalField.STEERING_DEG)} · 착석 ${source(com.sleepissue.awakedrive.engine.model.SignalField.SEATS)}",
+                            color = SecondaryText, fontSize = 11.sp)
+                    }
                     DrivingSignalGraph(
                         riskHistory = liveRiskHistory,
                         steeringHistory = liveSteeringHistory,

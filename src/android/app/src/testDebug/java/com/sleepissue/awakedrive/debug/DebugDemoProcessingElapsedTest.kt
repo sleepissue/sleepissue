@@ -52,7 +52,7 @@ class DebugDemoProcessingElapsedTest {
         demo.close()
     }
 
-    @Test fun remainingOriginalsDrainWithPublicationTimeFollowingTheSourceBoundary() = runTest {
+    @Test fun remainingOriginalsDrainAfterTheTargetEndsWithoutInventingMorePublicationTimes() = runTest {
         for (factor in listOf(1, 10, 60)) {
             val clock = MutableRealClock()
             val samples = (0..7).joinToString(",") { index ->
@@ -66,20 +66,19 @@ class DebugDemoProcessingElapsedTest {
             val first = demo.state.value
             assertEquals(DemoPhase.PLAYING, first.playback.phase)
             assertEquals(800L, first.playback.scenarioTimeMs)
-            assertEquals(first.playback.lastOriginalSampleMs!! + 100, first.frame!!.tMs)
+            assertEquals(800L, first.frame!!.tMs)
             assertEquals(1L, first.diagnostics.emittedFrames)
-            assertEquals(first.frame.tMs / 100 - 1, first.diagnostics.skippedDeadlines)
+            assertEquals(7L, first.diagnostics.skippedDeadlines)
             demo.tick()
             val next = demo.state.value
             assertTrue(next.playback.deliveredSamples > first.playback.deliveredSamples)
-            assertTrue(next.frame!!.tMs > first.frame.tMs)
-            assertEquals(first.diagnostics.emittedFrames + 1, next.diagnostics.emittedFrames)
-            assertEquals(40f, next.frame.speedKph!!, 0f)
+            assertEquals(first.diagnostics.emittedFrames, next.diagnostics.emittedFrames)
+            assertEquals(first.diagnostics.skippedDeadlines, next.diagnostics.skippedDeadlines)
             repeat(4) { if (demo.state.value.playback.phase == DemoPhase.PLAYING) demo.tick() }
             assertEquals(DemoPhase.COMPLETED, demo.state.value.playback.phase)
             assertEquals(8L, demo.state.value.playback.deliveredSamples)
             assertEquals(2_000L, demo.state.value.processingCompletedAtElapsedMs)
-            assertEquals(4L, demo.state.value.diagnostics.emittedFrames)
+            assertEquals(1L, demo.state.value.diagnostics.emittedFrames)
             demo.close()
         }
     }

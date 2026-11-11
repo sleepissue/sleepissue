@@ -48,10 +48,6 @@ open class RealTripMonitorActivity : AppCompatActivity() {
             }, LinearLayout.LayoutParams(0, (56 * resources.displayMetrics.density).toInt(), 1f))
         }
         root.addView(first); root.addView(second)
-        root.addView(Button(this).apply {
-            text = "실제 주행 UI 보기"
-            setOnClickListener { startActivity(Intent(this@RealTripMonitorActivity, com.sleepissue.awakedrive.ui.LiveDriveActivity::class.java)) }
-        })
         statusText = label("서비스 연결·Room 복원 중", 15f).apply { setTextIsSelectable(true) }
         root.addView(ScrollView(this).apply { addView(statusText) }, LinearLayout.LayoutParams(-1, 0, 1f))
         setContentView(root)

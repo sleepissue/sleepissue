@@ -27,7 +27,6 @@ sealed interface InterventionInput {
     data class SensitiveModeChanged(val enabled: Boolean) : InterventionInput
     data class VulnerableTimeChanged(val enabled: Boolean) : InterventionInput
     data class VentilationConsentChanged(val enabled: Boolean) : InterventionInput
-    data class CheckFrequencyChanged(val frequent: Boolean) : InterventionInput
     data class AlertnessTargetChanged(val context: com.sleepissue.awakedrive.engine.model.CheckContext) : InterventionInput
     data class NavigationChanged(val value: NaviState?) : InterventionInput
     data class RestAreaResolved(val value: RestResult) : InterventionInput

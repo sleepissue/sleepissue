@@ -26,11 +26,13 @@ data class DriverUiSettings(
 )
 
 class DriverUiSettingsStore(context: Context) {
+    private val ventilation = com.sleepissue.awakedrive.climate.PrefsVentilationConsentStore.get(context)
     private val preferences = context.applicationContext.getSharedPreferences("driver-ui-settings", Context.MODE_PRIVATE)
     fun read() = DriverUiSettings(preferences.getBoolean("microphone", false),
-        preferences.getBoolean("ventilation", false), preferences.getBoolean("passenger", true),
+        ventilation.consent.value, preferences.getBoolean("passenger", true),
         preferences.getString("age", "미설정") ?: "미설정", preferences.getBoolean("frequentChecks", false))
     fun write(settings: DriverUiSettings) {
+        ventilation.set(settings.ventilationConsent)
         preferences.edit().putBoolean("microphone", settings.microphoneConsent)
             .putBoolean("ventilation", settings.ventilationConsent).putBoolean("passenger", settings.passengerChecks)
             .putString("age", settings.ageBand).putBoolean("frequentChecks", settings.frequentChecks).apply()

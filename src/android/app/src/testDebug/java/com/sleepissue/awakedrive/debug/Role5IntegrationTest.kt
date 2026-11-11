@@ -38,7 +38,7 @@ class Role5IntegrationTest {
             cabinTempC = cabinTempC, quality = normalizedQuality)
     }
 
-    @Test fun `정식 6종에 위치 회전거리 온도 통풍 P D OFF RESUME을 포함한다`() {
+    @Test fun `정식 6종에 위치 회전거리 온도 P D OFF RESUME을 포함한다`() {
         for (name in listOf("normal", "distraction", "drowsy", "talk", "assist", "departure")) {
             val s = scenario(name)
             assertEquals(27_100, s.samples.size)
@@ -47,16 +47,16 @@ class Role5IntegrationTest {
             assertTrue(s.samples.any { it.power.state == PowerState.OFF })
             assertTrue(s.samples.any { it.power.state == PowerState.RESUME })
             assertTrue(s.samples.all { it.navi.lat != null && it.navi.lon != null &&
-                it.navi.distToNextTurnM != null && it.vehicle.cabinTempC != null && it.vehicle.ventilationLevel != null })
+                it.navi.distToNextTurnM != null && it.vehicle.cabinTempC != null })
         }
     }
 
     @Test fun `보조 주행 해제 뒤 10초 고정과 급조향을 보존한다`() {
         val samples = scenario("assist").samples
-        val fixed = samples.filter { it.tMs in 1_200_000 until 1_210_000 }
+        val fixed = samples.filter { it.tMs in 1_210_000 until 1_220_000 }
         assertEquals(100, fixed.size)
         assertTrue(fixed.all { it.vehicle.cruiseActive == false && it.vehicle.steeringDeg == 0f })
-        assertTrue(samples.first { it.tMs == 1_210_000L }.vehicle.steeringDeg!! >= 6f)
+        assertTrue(samples.first { it.tMs == 1_220_000L }.vehicle.steeringDeg!! >= 6f)
     }
 
     @Test fun `졸음 신호가 단계와 인증 스탬프까지 이어진다`() {
@@ -95,6 +95,32 @@ class Role5IntegrationTest {
         }
         assertNotNull("처음=$firstToday 최종=${session.state.fatigue}", detected)
         assertTrue("첫 D=$firstD 검출=$detected", detected!! - firstD in 909_900L..910_200L)
+    }
+
+    @Test fun `오전 정상 시나리오는 끝까지 0단계를 유지한다`() {
+        val s = scenario("normal")
+        val hour = java.time.Instant.ofEpochMilli(s.startEpochMs).atZone(java.time.ZoneId.of("Asia/Seoul")).hour
+        assertEquals(10, hour)
+        val session = DemoUiSession(clock, s.startEpochMs, areas)
+        for (sample in s.samples) {
+            session.observe(frame(sample), sample.navi, sample.power)
+            assertEquals("시각=${sample.tMs}", InterventionStage.NORMAL, session.state.intervention?.stage)
+        }
+    }
+
+    @Test fun `대화 급조향과 보조 주행 조작 공백이 확인 단계를 만든다`() {
+        for (name in listOf("talk", "assist")) {
+            val s = scenario(name)
+            val session = DemoUiSession(clock, s.startEpochMs, areas)
+            var checked = false
+            for (sample in s.samples.takeWhile { it.tMs < 1_800_000 }) {
+                session.observe(frame(sample), sample.navi, sample.power)
+                checked = checked || session.state.intervention?.stage == InterventionStage.CHECK
+            }
+            assertTrue("$name 확인 단계 없음", checked)
+        }
+        val cruise = scenario("assist").samples.filter { it.vehicle.cruiseActive == true }
+        assertTrue(cruise.last().tMs - cruise.first().tMs > 15 * 60_000)
     }
 
     @Test fun `컨디션 세 값이 예보 입력으로 각각 연결된다`() {

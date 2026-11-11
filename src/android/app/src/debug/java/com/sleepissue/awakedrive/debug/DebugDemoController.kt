@@ -1,7 +1,6 @@
 package com.sleepissue.awakedrive.debug
 
 import com.sleepissue.awakedrive.demo.*
-import com.sleepissue.awakedrive.fatigue.FatigueBridge
 import com.sleepissue.awakedrive.performance.*
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.check.CheckResult as VoiceCheckResult
@@ -61,7 +60,6 @@ class DebugDemoController(
     private val maxSamplesPerTick: Int = if (automaticTicks) 4 else Int.MAX_VALUE,
     private val adaptiveTicks: Boolean = true,
     private val workerBackend: String = "CALLER_SCOPE",
-    private val restAreas: List<com.sleepissue.awakedrive.engine.rest.RestArea> = emptyList(),
 ) {
     private val config = EngineConfig()
     private val commands = Mutex()
@@ -75,13 +73,6 @@ class DebugDemoController(
     private val deliveryAudit = DemoDeliveryAudit()
     private val player = ScenarioDemoPlayer(clock, repository, scope, automaticTicks = false, probe = probe, deliveryAudit = deliveryAudit, transportMode = transportMode,
         defaultWorkBudgetMs = 2, defaultMaxSamples = maxSamplesPerTick)
-    // 재생 목표는 실제 경과대로 흐르되, Hub는 아직 전달하지 않은 원본보다 앞서 평가하지 않는다.
-    // 수신 중인 원본도 nextOriginalScenarioMs에 포함된다. 실제 REAL의 TTL 시계는 그대로다.
-    private val handoffClock = object : Clock {
-        override fun scenarioTimeMs() = minOf(clock.scenarioTimeMs(), player.nextOriginalScenarioMs())
-        override fun elapsedRealtimeMs() = realClock.elapsedRealtimeMs()
-        override fun wallTimeMs() = realClock.wallTimeMs()
-    }
     private val realVehicle = MutableSharedFlow<VehicleSignalInput>()
     private val realNavi = MutableSharedFlow<NaviState>()
     private val realPower = MutableSharedFlow<PowerEvent>()
@@ -93,65 +84,9 @@ class DebugDemoController(
             object : NaviSignalSource { override val states = realNavi.asSharedFlow() },
             object : PowerSignalSource { override val events = realPower.asSharedFlow() },
             ObservationTimeBasis.ELAPSED_REALTIME, initiallyEnabled = false),
-    ), handoffClock, debugPolicy(), config, probe)
+    ), clock, debugPolicy(), config, probe)
     private val mutableState = MutableStateFlow(DebugDemoSnapshot())
     val state = mutableState.asStateFlow()
-
-    private var presentation: DemoUiSession? = null
-    private var presentationJob: Job? = null
-    private val mutablePresentation = MutableStateFlow(com.sleepissue.awakedrive.ui.DriveSessionUiState())
-    val presentationState = mutablePresentation.asStateFlow()
-
-    private suspend fun resetPresentation() {
-        presentationJob?.cancelAndJoin()
-        presentationJob = null
-        presentation = null
-        mutablePresentation.value = com.sleepissue.awakedrive.ui.DriveSessionUiState()
-    }
-
-    private fun startPresentation() {
-        val scenario = loadedScenario ?: return
-        val owner = DemoUiSession(clock, scenario.startEpochMs, restAreas, config,
-            player.playbackState.value.sessionId)
-        presentation = owner
-        presentationJob = scope.launch(start = CoroutineStart.UNDISPATCHED) {
-            hub.samples.collect { frame ->
-                owner.observe(frame, hub.latestNavi.value, hub.latestPower.value)
-                mutablePresentation.value = owner.state.copy(
-                    demoPlaying = player.playbackState.value.phase == DemoPhase.PLAYING)
-            }
-        }
-    }
-
-    suspend fun uiAction(action: com.sleepissue.awakedrive.ui.DriveUiAction) = command {
-        presentation?.action(action)
-        presentation?.let { mutablePresentation.value = it.state.copy(demoPlaying = player.playbackState.value.phase == DemoPhase.PLAYING) }
-    }
-
-    suspend fun recoveryResult(outcome: CheckOutcome) = command {
-        presentation?.recoveryResult(outcome)
-        presentation?.let { mutablePresentation.value = it.state }
-    }
-
-    private var recoveryVoiceToken: Pair<RequestId, Long>? = null
-
-    suspend fun beginRecoveryVoice() = command {
-        if (player.playbackState.value.phase == DemoPhase.PLAYING) {
-            val token = nextId("recovery-voice") to player.playbackState.value.sessionId
-            val result = player.execute(DemoCommand.QuestionStarted(token.first, token.second))
-            if (result.status == ExecutionStatus.SUCCEEDED) recoveryVoiceToken = token
-        }
-    }
-
-    suspend fun endRecoveryVoice(outcome: CheckOutcome) = command {
-        recoveryVoiceToken?.let { token ->
-            player.execute(DemoCommand.QuestionFinished(token.first, token.second, DemoQuestionOutcome.FINISHED))
-        }
-        recoveryVoiceToken = null
-        presentation?.recoveryResult(outcome)
-        presentation?.let { mutablePresentation.value = it.state }
-    }
-
     private var initialized = false
     private var ticker: Job? = null
     private var catchUpPending = false
@@ -210,7 +145,6 @@ class DebugDemoController(
         check(initialized)
         // 시간축을 0으로 돌리기 전에 기존 Hub 캐시·대기 세대를 먼저 폐기한다.
         hub.stop()
-        resetPresentation()
         player.execute(DemoCommand.Stop(nextId("before-load")))
         // 다음 로드가 화면의 종료 캡처를 지우기 전에 저장 통로에 인계한다.
         if (loadedScenario != null && terminalTrace == null) publish()
@@ -222,11 +156,8 @@ class DebugDemoController(
         processingCompletedAtElapsedMs = null
         json = value
         val result = player.execute(DemoCommand.Load(nextId("load"), "debug-editor"))
-        if (player.playbackState.value.phase == DemoPhase.READY) {
-            startPresentation()
-            hub.start(scope)
-        }
-        message = "JSON 로드: ${result.status} · phase=${player.playbackState.value.phase} · error=${player.playbackState.value.error}"
+        if (player.playbackState.value.phase == DemoPhase.READY) hub.start(scope)
+        message = "JSON 로드: ${result.status}"
         publish()
     }
 
@@ -261,7 +192,6 @@ class DebugDemoController(
             publish()
         }
         hub.stop()
-        resetPresentation()
         player.execute(DemoCommand.Reset(nextId("reset")))
         loadedScenario = null
         terminalTrace = null
@@ -479,8 +409,6 @@ class DebugDemoController(
     private fun newCheckManager() = CheckManager(clock, CheckPolicy(config), SpeechIntentParser())
     private fun nextId(prefix: String) = RequestId("demo-debug-$prefix-${++sequence}")
     private fun publish(updateScreen: Boolean = true, retainTerminal: Boolean = true) = probe.measure(WorkStage.UI_SNAPSHOT) {
-        val playing = player.playbackState.value.phase == DemoPhase.PLAYING
-        if (mutablePresentation.value.demoPlaying != playing) mutablePresentation.value = mutablePresentation.value.copy(demoPlaying = playing)
         val now = realClock.elapsedRealtimeMs()
         val screenDue = updateScreen || lastScreenSnapshotMs?.let { now - it >= 100 } != false
         val phaseNow = player.playbackState.value.phase
