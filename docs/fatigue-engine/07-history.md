@@ -152,6 +152,12 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
 - **왜:** 1번 `InterventionManager`가 받을 자리(`DrivingAssessment`·`Safety`·`SensitiveModeChanged`·`VulnerableTimeChanged`)는 main에 있었지만, 엔진 결과를 그 형식으로 넘기는 코드가 아무 데도 없었다. 없으면 11/9 통합에서 엔진이 단계 전환에 붙지 않는다.
 - **남은 것:** 1번이 앱 조립 코드에서 `runner.run(hub.samples, …, interventionManager)`을 띄워야 실제로 돈다. '15분 뒤 첫 확인'은 1번 입력이 생기면 연결 ([08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환)).
 
+### 14단계 — 급조향 멈춤 구간·데모 시작 시각 (11/10, 버그 수정)
+
+- **바꾼 것:** `SuddenSteerDetector`가 멈춤 구간을 '지금 샘플로 끝나는 가장 긴 구간'으로 잡는다(시험 2개). 연결기에 `epochOffsetMs`(데모 시나리오 시작 시각)를 더했다(시험 1개).
+- **왜:** 5번이 drowsy 데모를 DemoPlayer → Hub → 엔진으로 돌렸을 때 위험도 최고가 62.41이었다. 급조향을 하나도 못 봤을 때 값(62.5)과 같다. 엔진에 직접 넣어도 급조향 5번 중 2번만 잡혔고, 원인은 꺾임 끝 샘플 하나가 멈춤 구간을 끊는 것이었다. 데모 시각은 DemoClock이 0부터 주는 상대 ms라 14:00 시나리오도 취약 시간대가 아니게 읽혔다.
+- **남은 것:** 데모를 띄우는 코드에서 `runner.epochOffsetMs = scenario.startEpochMs`.
+
 ## 4. 준비만 하고 아직 안 올린 것
 
 11/7에 모두 올렸다 (11~13단계, 문서는 11/7 문서 커밋과 팀원 안내 커밋). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일), 팀원별 할 일은 [README](README.md#팀원이-먼저-볼-것-주말-117119).
