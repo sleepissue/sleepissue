@@ -19,7 +19,7 @@
 | 1번 | PR 리뷰·머지. 감시 서비스(앱 조립 코드)에서 연결기 띄우기(아래 코드). '15분 뒤 첫 확인' 입력 추가. Hub TTL 3초 초과. DemoPlayer 시나리오 형식 확정 | [08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환), [03 3-16](03-algorithms.md#3-16-엔진-출력-연결기-app--fatiguebridge), [11](11-scenario-format-proposal.md) |
 | 3번 | 출발 전 '졸려요'·'개운해요' → `runner.reportCondition(...)`. `PatternTrend`에 AMBIGUOUS(애매) 맞추기 | [08 4-2](08-team-handoff.md#4-2-3번-음성실내) |
 | 4번 | 출발 피로 → 예보 다시 계산(`runner.snapshots`의 `baseline.departureFatigue`). 휴식 인증 + 회복 정상 뒤 엔진 초기화는 `InterventionRouter`(`feat/rest-wiring`)의 `recoveryReset`에서 `runner.onRestCertified()`(아래 코드). `EngineConfig` 취약 시간대 기본값이 `VulnerableTimeDefaults`로 옮겨짐(값 같음) | [08 4-3](08-team-handoff.md#4-3-4번-예보쉼터휴식) |
-| 5번 | 데모 시나리오 6종(형식 제안과 시나리오별 기대 결과), 화면 값은 `runner.snapshots` 하나에서 | [11](11-scenario-format-proposal.md), [05 3절](05-behavior.md#3-5번-데모-시나리오에-넣을-값), [08 4-4](08-team-handoff.md#4-4-5번-화면시연) |
+| 5번 | 데모 시나리오 6종(형식 제안과 시나리오별 기대 결과), 화면 값은 `runner.snapshots` 하나에서 | [12 기대 결과](12-demo-expected.md), [11](11-scenario-format-proposal.md), [05 3절](05-behavior.md#3-5번-데모-시나리오에-넣을-값), [08 4-4](08-team-handoff.md#4-4-5번-화면시연) |
 | 팀장 | SRS 고칠 것, 간트 진척 | [08 4-5](08-team-handoff.md#4-5-팀장srs-담당), [09 2절](09-schedule-todo-limits.md#2-간트에서-고칠-것) |
 | 모두 | Pleos 메일 답(11/5): ADAS SDK 불가, 조향·속도 기본 1 Hz(같은 값 3초 생략), 화면 없는 포그라운드 서비스 가능 | [Pleos 메일 답변](../meetings/2026-11-05_Pleos_메일답변.md) |
 
@@ -31,13 +31,17 @@ val runner = FatigueAssessmentRunner(FatigueBridge(engineConfig))
 runner.epochOffsetMs = scenario.startEpochMs   // 데모 재생일 때만. DemoClock이 0부터 주는 시각을 실제 날짜로 (실제 주행은 0)
 scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) }
 
+// 사람에게 물어본 주의 확인 결과도 엔진에 (PAT_004 딴짓 기록). 4번 InterventionRouter를 쓰면:
+scope.launch { router.checkResults.collect { runner.onCheckResult(it) } }
+// 출발 피로·'졸려요' 15분 뒤 첫 확인(BSL_006)은 연결기가 InterventionInput.CheckDue로 알아서 보낸다
+
 // 휴식 인증 + 회복 정상(RES_011): 1번 PolicyInterventionManager가 RestRecoveryResetRequest를 낸다.
 // 그 요청을 실행하는 곳(4번 feat/rest-wiring의 InterventionRouter `recoveryReset` 자리)에서 다른 초기화와 함께
 runner.onRestCertified()   // 평활값만 0, 기준선은 그대로
 ```
 
 - 코드: 엔진 `src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/` 아래 `fatigue/`·`baseline/`·`pattern/`·`assist/`·`config/`, 연결기 `src/android/app/src/main/java/com/sleepissue/awakedrive/fatigue/`
-- 시험: `cd src/android && ./gradlew :engine:test` / `./gradlew :app:testDebugUnitTest --tests '*FatigueBridgeTest'`
+- 시험: `cd src/android && ./gradlew :engine:test` / `./gradlew :app:testDebugUnitTest --tests '*FatigueBridgeTest' --tests '*CheckDueInputTest'`
 - 처음 보면 [01-overview](01-overview.md) → [03-algorithms](03-algorithms.md) 순서로 읽으면 엔진이 어떻게 움직이는지 잡힌다. 숫자로 확인하려면 [05-behavior](05-behavior.md).
 
 ## 지금 상태 (11/7)
@@ -68,6 +72,7 @@ runner.onRestCertified()   // 평활값만 0, 기준선은 그대로
 | [09-schedule-todo-limits.md](09-schedule-todo-limits.md) | 간트 대비 진척과 고칠 칸, 남은 일, 한계·위험 | 일정을 잡을 때 |
 | [10-extension-design.md](10-extension-design.md) | 2차 확장 설계: SDK에 없는 LFA·LKA·핸즈온·DAW 신호를 시나리오로 넣어 판단 규칙을 보여 주는 방법 | 2차 계획, PT 준비 |
 | [11-scenario-format-proposal.md](11-scenario-format-proposal.md) | 데모 시나리오 형식(MSG-11) 2번 제안: 회전 지점 거리·시작 시각·정수 ms, 시나리오별 기대 결과 | 1·5번과 시나리오를 정할 때 |
+| [12-demo-expected.md](12-demo-expected.md) | **데모 6종 기대 결과 (11/11)**: 엔진 → 1번 매니저로 재생한 단계·질문·안내 시각, 데이터에서 고칠 값 | 영상 콘티·리허설 대조 때 |
 
 ## 2번이 이어서 할 일
 

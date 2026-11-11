@@ -41,6 +41,7 @@ xdg-open engine/build/reports/tests/test/index.html
 | 11/7 00:24 main `c66034c`(4번 #9·#10·#11 병합)를 다시 합치고 패치 1~4 | 37개 묶음 **308개 통과** (2번 125 + main 183). 충돌은 그대로 `engine/build.gradle.kts` 하나. 연결기 8개 통과 |
 | 11/10 main `5195e25` + 급조향 멈춤 구간 고침·데모 시작 시각 | 40개 묶음 **335개 통과** (새 시험 2개: 꺾임 끝 샘플 뒤 멈춤). 새 시험은 고치기 전 코드에서 실패함을 확인. 연결기 **9개 통과** (데모 상대 시각 시험 1개 추가) |
 | 11/10 데모 시나리오 6종 재생 (`data/scenarios-demo`) | drowsy 급조향: 고치기 전 5번 중 2번, Hub처럼 샘플을 가끔 앞뒤로 읽게 흔들면 2~5번 → 고친 뒤 10가지 모두 5번. 급조향을 하나도 못 보면 평활 최고 62.5 |
+| 11/11 main `82f8876` + 11/10 고침 + 딴짓 기록·첫 확인 입력 | 엔진 40개 묶음 **341개 통과** (새 시험 6개: `PatternClassifierTest` 딴짓 기록). app 연결기 `FatigueBridgeTest` **13개**(새 4개) + 1번 매니저로 확인하는 `CheckDueInputTest` **3개**·`PatternCheckResultFlowTest` **3개** 통과. 1번 `PolicyInterventionManagerTest`는 coroutines-test가 필요해 팀 Gradle에서 확인 |
 
 이 문서의 시험은 Kotlin 2.0.21 컴파일러와 JUnit 4.13.2로 따로 돌린 결과다. 팀 빌드(Gradle 9.6.0, Kotlin 2.4.21)에서도 같아야 하므로, 올린 뒤 각자 위 명령으로 한 번 확인한다.
 
@@ -237,7 +238,7 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 | 87 | `usualHandoverCountIsMedianOfAwakeRecords` | AST_007 | 평소 해제 직후 30초 큰 수정 횟수 (REQ_AST_007 '평소 해제 때'). 값이 있는 기록이 없으면 null → '3회 이상' 기준 |
 | 88 | `stateObjectStaysTheSameWhenNothingChanges` | BSL_006 | 값이 그대로면 같은 객체를 유지 → StateFlow에 넣어도 바뀔 때만 알림이 감 |
 
-#### PatternClassifierTest (8개)
+#### PatternClassifierTest (8개, 11/7·11/11에 10개 더함 → 18개)
 
 | # | 시험 | REQ | 확인하는 것 |
 |---|---|---|---|
@@ -294,6 +295,30 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 | app FatigueBridgeTest | `cruiseGivesUnavailableAssessment` | AST_004 | 크루즈 → UNAVAILABLE, 점수 null |
 | app FatigueBridgeTest | `runnerSubmitsEveryInputWithDistinctIds` | — | 실행 부분: 모든 입력을 겹치지 않는 ID로 submit, 마지막 판단 다시 받기 |
 
+#### 11/10·11/11에 더한 시험 (엔진 8개 + app 11개)
+
+| 묶음 | 시험 | REQ | 확인하는 것 |
+| --- | --- | --- | --- |
+| SuddenSteerDetectorTest | `rampTailDoesNotCutTheStillApart` | FAT_008 | 꺾임 끝 샘플(0.615°) 뒤 4.4초 멈춤 → 급조향 1회 (고치기 전 코드에서 실패) |
+| SuddenSteerDetectorTest | `rampTailIsNotCountedAsStill` | FAT_008 | 같은 모양, 멈춤 4.0초 → 0회 |
+| PatternClassifierTest | `normalCheckOnSpikeIsOneDistraction` | PAT_004 | (정상, 튐형) → 딴짓 기록 1건, 느림은 기록 안 함, 패턴은 그대로 |
+| PatternClassifierTest | `normalCheckRightAfterSuddenWaitsUntilSpikeIsConfirmed` | PAT_004 | 급조향 직후 정상 대답(패턴 '없음') → 튐형이 되는 순간 1건, 같은 이상 분으로 두 번 안 셈, 새 이상 분이면 새 1건 |
+| PatternClassifierTest | `normalCheckFollowedByTrendIsNotDistraction` | PAT_004·006 | 정상 뒤 추세형 → 기록 안 함 |
+| PatternClassifierTest | `pendingNormalCheckIsDroppedBySlowAnswerOrWhenNothingWasAbnormal` | PAT_004 | 느림이 오면 후보 지움, 3분 동안 이상 분이 없으면 버림 |
+| PatternClassifierTest | `ambiguousUntilTheEndIsNotRecordedAsDistraction` | PAT_003·004 | 3분 뒤에도 애매면 딴짓이라고 단정 안 함 [해석] |
+| PatternClassifierTest | `resetClearsDistractionRecords` | PAT_004 | 새 운행이면 0 |
+| app FatigueBridgeTest | `demoRelativeTimeUsesScenarioStartForTimeOfDay` | FAT_015 | 데모 상대 시각 + 시작 시각(14:00) → 취약 시간대 |
+| app FatigueBridgeTest | `sleepyConditionAsksFirstCheckFifteenMinutesAfterDeparture` | BSL_006·007 | '졸려요' → 출발 15분 뒤 `CheckDue` 1회(±5 s), 민감 모드 아니면 안 보냄 |
+| app FatigueBridgeTest | `normalAnswerAfterSuddenSteerIsRecordedAsDistractionOnceSpikeIsConfirmed` | PAT_004 | 딴짓 조향 → 급조향 → 15초 뒤 정상 대답 → 다음 1분 복귀로 튐형 → 1건 |
+| app FatigueBridgeTest | `restIntentSlowAnswerAndOtherQuestionsAreNotDistraction` | PAT_004 | '쉴게'·느림·경유지 동의·오류는 딴짓 아님 |
+| app FatigueBridgeTest | `runnerSendsCheckDueAndForwardsCheckResults` | BSL_006·PAT_004 | 실행 부분: `fatigue-check-due-…` ID로 보냄, `onCheckResult`가 화면 상태에 반영 |
+| app CheckDueInputTest | `firstCheckDueGoesToStageTwoAndAsksTheDriverOnce` | BSL_006·INT_004 | 0단계 → 1단계 → 30초 뒤 2단계, 운전자 확인 1회 |
+| app CheckDueInputTest | `checkDueFromAnotherSessionOrTheFutureIsRejected` | BSL_006 | 다른 세션(DEMO↔REAL) 거절, 미래 시각 거절 |
+| app CheckDueInputTest | `checkDueAtStageThreeChangesNothing` | BSL_006 | 3단계에서는 아무것도 안 바뀜 |
+| app PatternCheckResultFlowTest | `normalAnswerWithTrendKeepsStageTwoAndAsksAgainTenMinutesLater` | PAT_006 | (정상, 추세형) → 2단계 유지, 600 s 뒤 재확인(599.999 s엔 아님) |
+| app PatternCheckResultFlowTest | `normalAnswerWithSpikeComesDownAfterTenLowMinutes` | PAT_004·INT_007 | (정상, 튐형) + 점수 60 미만 10분 → 1단계 (9:59.999엔 2단계) |
+| app PatternCheckResultFlowTest | `normalAnswerWithTrendDoesNotComeDownEvenWhenScoreDrops` | PAT_006 | 추세형이면 점수가 내려가도 2단계 유지 |
+
 
 ## 5. 요구사항별로 보면
 
@@ -303,10 +328,12 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 | BSL_001·003·004·005·006·007 | 1~4개 | BSL_007의 '버튼·말 입력'은 화면·음성 연결 뒤 에뮬레이터 시험(ET) |
 | BSL_002 | 0 | 2차 (운행 기록 저장) |
 | PAT_001·002·003·005 | 3~5개 | |
-| PAT_004·006·007 | 0 | 1번 InterventionPolicy가 판단 → 1번 시험 |
+| PAT_004 | 6개 + 연결기 3개 | 딴짓 기록은 2번(11/11). 단계 하강은 1번 `lowScoreRequiresTenContinuousValidMinutesAndNormalConfirmation` |
+| PAT_006 | 2개 (app) | 1번 매니저로 확인 (`PatternCheckResultFlowTest`, 1번 코드는 그대로) |
+| PAT_007 | 0 | 1번 시험 `twoSlowResponsesAndNoResponseBypassGeneralStepDelay`·`duplicatedSlowResultIsIgnoredAndRealSecondSlowEscalatesImmediately` |
 | AST_001·003·004·006·007·008 | 1~6개 | AST_006·008은 2번 몫(공백 초·일반 모드)만 |
 | AST_002 | 0 | 2차 |
-| AST_005 | 0 | 1번 InterventionPolicy → 1번 시험 |
+| AST_005 | 0 | 1번 시험 `regularAssistedCheckOccursAgainWhileRemainingAtStageTwo`(20분)·`vulnerableAssistedCheckUsesTenMinutesInsteadOfTwenty`(10분) |
 | SIG_009 (엔진 쪽) | 8개 | 측정 쪽은 1번 `RateMeterTest` |
 | RES_011, TRP_008, DMO_006, INT_002, UI_003 | 1~2개 | 2번이 맡은 부분만 |
 
@@ -314,7 +341,7 @@ REQ 칸은 시험이 확인하는 SRS 요구사항이다. '확인하는 것'은 
 
 | 시험 | 언제 | 무엇이 필요 |
 | --- | --- | --- |
-| 연결기를 실제 앱에서 돌리기 (Hub → 연결기 → InterventionManager) | 11/9 통합 | 1번이 앱 조립 코드에서 `FatigueAssessmentRunner.run(...)`을 띄움 |
+| 연결기를 실제 앱에서 돌리기 (Hub → 연결기 → InterventionManager) | 조립 뒤 | 조립 코드에서 `FatigueAssessmentRunner.run(...)`·`onCheckResult(...)`를 띄움 |
 | 시나리오 파일로 엔진 돌리기 | 시나리오 형식 확정 뒤 | [11](11-scenario-format-proposal.md) 형식, 5번 파일 |
 | TC_BSL_007 (ET): '졸려요' 버튼·말 → 민감 모드 + 권유 발화 | 11/9 통합 | 5번 버튼, 3번 의도(COND_SLEEPY) |
 | TC_AST (ET): Virtual Console 크루즈 → 보조 주행 회색 | 11/9 통합 | 1번 SDK 연결(DrivingMode) |

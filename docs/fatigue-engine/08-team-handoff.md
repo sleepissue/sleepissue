@@ -72,7 +72,7 @@ cd ~/sleepissue && git push
 ### 1번 코드(main)에서 2번이 확인한 것 (11/6)
 
 - `SignalFrame`·`NaviState`에 게이트가 쓰는 값(조향각, 차속, 기어, 방향지시등, 브레이크, 회전 지점 거리, 크루즈·설정 속도, 통풍)이 다 있는지 → 있음 (변환 함수 시험 통과)
-- 2번 출력을 받을 자리 → 있음: app `signal/SignalPorts.kt`의 `DrivingAssessment`·`DrivingAssessmentSource`, `InterventionInput.Safety`·`SensitiveModeChanged`. 다만 **'출발 피로 15분 뒤 첫 확인'(`firstCheckDueMs`)을 받을 입력은 없다**
+- 2번 출력을 받을 자리 → 있음: app `signal/SignalPorts.kt`의 `DrivingAssessment`·`DrivingAssessmentSource`, `InterventionInput.Safety`·`SensitiveModeChanged`. 다만 **'출발 피로 15분 뒤 첫 확인'(`firstCheckDueMs`)을 받을 입력은 없다** (11/11 `CheckDue`로 추가)
 - `SafetyEventType` 이름이 2번 `SteeringEventType`과 같은지 → 같음
 - `DrivingAssessmentSource`를 구현한 곳 → main에는 없음. 이 PR의 연결기 `FatigueAssessmentRunner`가 구현한다 (4-1 대응표)
 
@@ -87,7 +87,8 @@ cd ~/sleepissue && git push
 | 3 | 데모 시나리오 JSON(MSG-11)에 회전 지점 거리가 없다 → 거리 null이면 게이트가 5분 고속 유지 뒤에 열려 모든 시나리오 첫 5분이 계산 안 되고, 출발 피로가 15:10이 아니라 20:10에 판정된다(DMO_006 불합격). 2번 형식 제안: [11](11-scenario-format-proposal.md) (`distToNextTurnM`·`startAt`·`tMs`·`tripPreset`) | 높음 |
 | 4 | **엔진 출력 연결기를 만들었다 (11/7, app `fatigue/`).** `FatigueAssessmentRunner`가 1번 `DrivingAssessmentSource`를 구현하고 아래 대응표대로 `InterventionManager.submit`까지 한다. 1번이 앱 조립 코드에서 `scope.launch { runner.run(hub.samples, { hub.latestNavi.value }, { tripStore.state.value }, interventionManager) }`로 띄우면 된다. 대응표가 맞는지 리뷰 부탁 | 높음 |
 | 5 | 연결 규칙: 매 프레임 `push(frame)` 뒤 `drainEvents()`, `trending = (patternType == TREND)`, `safetyBypass`는 사건 `REPEATED_RAPID_STEERING`으로 이미 감, `baselineState.sensitive` OR RES_006 → 문턱 30/50/70, `assistState.assistMode` → AST_005 확인 주기, `opGapSec > 900` → 확인 당김, `HANDOVER_UNSAFE` → 2단계 | 중간 |
-| 5b | **'15분 뒤 첫 확인' 입력이 없다.** 출발 피로·'졸려요'(BSL_006·007) 때 `baselineState.firstCheckDueMs`에 첫 음성 확인을 해야 하는데 `InterventionInput`에 받을 자리가 없다. 입력 하나 추가 부탁 | 높음 |
+| 5b | **'15분 뒤 첫 확인' (11/11 2번이 추가, 1번 리뷰 부탁).** `InterventionInput.CheckDue(tMs, source)`를 `InterventionManager.kt`에 넣고 `PolicyInterventionManager`에서 급조향 1회와 같이 `forceCheck = true`로 처리했다(다른 세션·미래 시각은 거절). 연결기가 `firstCheckDueMs`가 지난 첫 프레임에서 한 번 보낸다. 시험 `CheckDueInputTest` 3개 | 높음 |
+| 5d | **확인 결과를 엔진에도 (11/11, PAT_004 딴짓 기록).** 조립 코드에서 라우터의 주의 확인 결과를 `runner.onCheckResult(result)`로 넘긴다. 4번 `InterventionRouter`면 `scope.launch { router.checkResults.collect { runner.onCheckResult(it) } }`. 단계는 그대로 1번이 `CheckCompleted`로 판단 | 중간 |
 | 5c | **TTL을 3초보다 길게** (예: 3.5초 [제안값]). Pleos 답(11/5): 같은 값이면 3초 안 중복 콜백을 생략한다. TTL이 3초 이하면 차속이 그대로일 때 null(STALE)이 되어 게이트가 닫힌다 | 높음 |
 | 6 | 새 운행(TRP_008)이면 `reset()`(컨디션 받기 전에), 휴식 인증 + 회복 정상(RES_011)이면 `resetRiskAfterRest()`. 거꾸로 부르면 오늘의 나가 지워진다. 연결기로는 `runner.onNewTrip(...)`·`runner.onRestCertified()`. 1번 `PolicyInterventionManager`가 인증 + 회복 정상이면 `RestRecoveryResetRequest`를 `requests`로 내므로, 그 요청을 실행하는 곳에서 `runner.onRestCertified()`를 부르면 된다. 4번 `feat/rest-wiring`(11/7, PR 전)의 `InterventionRouter`에 그 자리(`recoveryReset`)가 있다. `requests`는 한 곳에서만 받으므로 연결기가 따로 구독하지 않는다 | 중간 |
 | 7 | SRS 담당자 칸 PAT_004·006·007, AST_005 → 1번 (InterventionPolicy에 이미 값이 있음) | 중간 |
@@ -108,7 +109,8 @@ cd ~/sleepissue && git push
 | `drainEvents()`의 `SteeringEvent` | `InterventionInput.Safety(SafetyEvent)` | 이름이 같아 `SafetyEventType.valueOf(type.name)`, 출처는 조향 값의 출처(없으면 차속, 그것도 없으면 REAL) [해석] |
 | `baselineState.sensitive` | `InterventionInput.SensitiveModeChanged` | 바뀔 때만 보냄 |
 | (K의 취약 시간대) | `InterventionInput.VulnerableTimeChanged` | 같은 `EngineConfig` 취약 시간대로 연결기가 계산 (AgeBand 교체 뒤 한 정의) |
-| `baselineState.firstCheckDueMs` | **없음** | 위 5b. 연결기는 `FatigueBridge.firstCheckDueMs`로만 내놓음. 1번 입력이 생기면 연결 |
+| `baselineState.firstCheckDueMs` | `InterventionInput.CheckDue` (11/11 추가) | 그 시각이 지난 첫 프레임에서 한 번. 출처는 조향 사건과 같은 규칙 |
+| (1번이 받은 주의 확인 결과) | 엔진 `onCheckResult` (반대 방향) | 조립 코드가 `runner.onCheckResult(result)`. 운전자·동승자 주의 확인만, 정상·느림·무응답만 봄 |
 | `baselineState.departureFatigue` | 4번 `ForecastEngine` 입력 `startFatigueDetected`·`START_FATIGUE_DETECTED` | 연결기 `snapshots`의 `baseline.departureFatigue`가 false → true인 순간 (FCS_004). 4번 조립 코드에서 읽음 |
 
 ### 4-2. 3번 (음성·실내)
