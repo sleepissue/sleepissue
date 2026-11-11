@@ -26,7 +26,8 @@ private enum class AppPage {
 
 @Composable
 fun AppNavigation(
-    fatigueUiState: FatigueUiState = FatigueUiState()
+    fatigueUiState: FatigueUiState = FatigueUiState(),
+    onStartMonitoring: () -> Unit = {}
 ) {
 
     var currentPage by remember {
@@ -97,6 +98,7 @@ fun AppNavigation(
                     SetupCompleteScreen(
                         isSleepy = selectedSleepy ?: false,
                         onStartDriving = {
+                            onStartMonitoring()
                             setupCompleted = true
                             currentStatus = DrivingStatus.WAITING
                             showAlert = false
