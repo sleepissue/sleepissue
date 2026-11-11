@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.ServiceInfo
 import android.os.*
 import com.google.gson.GsonBuilder
+import com.sleepissue.awakedrive.climate.PrefsVentilationConsentStore
 import com.sleepissue.awakedrive.data.*
 import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.pleos.PlaygroundSdkOwnership
@@ -110,6 +111,10 @@ open class RealTripMonitorService : Service() {
             if (preference.requested && !stopping && runtime.session.initialized && !runtime.start()) {
                 if (intent?.action == ACTION_BOOT) preference.bootDeferred() else preference.request(false)
                 stopForeground(STOP_FOREGROUND_REMOVE); foreground = false; stopSelf()
+            } else if (runtime.running && pipeline == null) {
+                pipeline = runCatching { createPipeline() }.onFailure {
+                    diagnostic = "판단·개입 조립 실패 ${it.javaClass.simpleName} · 신호 저장만 계속"
+                }.getOrNull()
             }
         }
         return START_STICKY
@@ -132,12 +137,22 @@ open class RealTripMonitorService : Service() {
         foreground = true
     }
 
+    /** 판단·개입·4번 휴식까지 조립한 것. 감시 중일 때만 있다. 화면은 여기서 상태를 읽는다. */
+    var pipeline: MonitoringPipeline? = null
+        private set
+    protected open suspend fun createPipeline(): MonitoringPipeline? = input?.hub?.let { hub ->
+        MonitoringPipeline.create(this, scope, clock, hub, runtime.session.trip,
+            PrefsVentilationConsentStore.get(this).consent)
+    }
+    private suspend fun closePipeline() { pipeline?.close(); pipeline = null }
+
     fun stopMonitoring() {
         if (stopping) return
         preference.request(false)
         stopping = true
         scope.launch {
             initialization.join(); commandJob?.join()
+            closePipeline()
             runtime.stop(); lastGearAudit = input?.adapter?.gearAudit?.snapshot(); input = null
             stopForeground(STOP_FOREGROUND_REMOVE); foreground = false
             diagnosticJob?.join(); captureDiagnostics()
@@ -185,6 +200,7 @@ open class RealTripMonitorService : Service() {
         scope.launch {
             try {
                 initialization.join(); commandJob?.join()
+                closePipeline()
                 runtime.stop("서비스 종료"); input = null
                 diagnosticJob?.join(); gearAuditExportJob?.join(); database.close()
             } finally {
@@ -208,6 +224,8 @@ open class RealTripMonitorService : Service() {
         writer.println("sdkOwner=${PlaygroundSdkOwnership.currentOwner} status=${runtime.status.value}")
         writer.println("trip=${runtime.session.trip.value.tripId} state=${runtime.session.trip.value.driveState} continuousMs=${runtime.session.preciseState().continuousDriveMs}")
         writer.println("persistence=${runtime.session.persistence.state.value}")
+        writer.println("pipeline=${pipeline?.let { "state=${it.manager.state.value} rest=${it.rest.restMonitor.ui.value} " +
+            "forecast=${it.forecast.latest.value?.expectedDrowsyAtMs} nap=${it.rest.nap.state.value}" } ?: "없음"} · $diagnostic")
     }
 
     private fun exportGearAudit(): Boolean {

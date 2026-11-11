@@ -55,8 +55,8 @@ sealed interface RestEvent {
  * ROS로 치면 콜백 하나짜리 노드다. [observe]에 관측을 넣으면 그 순간 생긴 이벤트 목록을 돌려준다.
  * 시동이 꺼져 관측이 끊겨도, 다시 들어온 관측의 시각 차이로 15분을 판단한다(꺼져 있던 시간 = 휴식 시간).
  *
- * 한계: 상태는 메모리에만 둔다. 절전(Suspend-to-RAM) 복귀는 그대로 이어지지만,
- * 완전 종료 뒤 재부팅에서 이어 가려면 1번 상태 저장(10초 주기)에 이 상태를 붙여야 한다(후속).
+ * 재부팅 이어 가기: [snapshot]으로 상태를 꺼내 앱이 저장하고, 다시 켜질 때 [restore]로 되돌린다.
+ * 시각은 운행 논리 시각(벽시계 기준)이라 꺼져 있던 시간이 그대로 휴식 시간으로 들어간다.
  */
 class RestCertifier(
     private val areas: List<RestArea>,
@@ -130,6 +130,44 @@ class RestCertifier(
             }
         }
         return events
+    }
+
+    /** 재부팅 뒤 이어 가기 위해 지금 상태를 꺼낸다. 앱이 관측 뒤마다 저장한다. */
+    fun snapshot(): RestCertifierSnapshot = RestCertifierSnapshot(
+        sessionId = session?.id,
+        areaId = session?.area?.id,
+        startedAtMs = session?.startedAtMs,
+        driveSecBeforeRest = session?.driveSecBeforeRest,
+        maxStageBeforeRest = session?.maxStageBeforeRest,
+        certified = session?.certified == true,
+        lastLocation = lastLocation,
+        lastObservedMs = lastObservedMs,
+        maxStageSinceRest = maxStageSinceRest,
+    )
+
+    /**
+     * 저장해 둔 상태로 되돌린다. 관측을 넣기 전에 한 번만 부른다.
+     * 저장 시각이 [nowMs]보다 미래이거나(시계가 뒤로 감) 쉼터 표에 없는 쉼터면 되돌리지 않고 false.
+     * 미래 시각을 받아들이면 그 시각까지 모든 관측이 "거꾸로 간 관측"으로 버려지기 때문이다.
+     */
+    fun restore(snapshot: RestCertifierSnapshot, nowMs: Long): Boolean {
+        if (snapshot.lastObservedMs?.let { it > nowMs } == true) return false
+        val restored = if (snapshot.sessionId != null) {
+            val area = snapshot.areaId?.let { id -> areas.firstOrNull { it.id == id } } ?: return false
+            Session(
+                id = snapshot.sessionId,
+                area = area,
+                startedAtMs = snapshot.startedAtMs ?: return false,
+                driveSecBeforeRest = snapshot.driveSecBeforeRest,
+                maxStageBeforeRest = snapshot.maxStageBeforeRest ?: InterventionStage.NORMAL,
+                certified = snapshot.certified,
+            )
+        } else null
+        session = restored
+        lastLocation = snapshot.lastLocation
+        lastObservedMs = snapshot.lastObservedMs
+        maxStageSinceRest = snapshot.maxStageSinceRest
+        return true
     }
 
     /** 반경 안에서 가장 가까운 쉼터. 없으면 null. */

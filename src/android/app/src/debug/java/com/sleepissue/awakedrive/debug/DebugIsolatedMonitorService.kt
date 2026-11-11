@@ -7,6 +7,7 @@ import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import com.sleepissue.awakedrive.service.RealTripMonitorService
 import com.sleepissue.awakedrive.service.PlaygroundMonitorInput
+import com.sleepissue.awakedrive.service.MonitoringPipeline
 import com.sleepissue.awakedrive.data.TripDatabase
 import java.io.File
 
@@ -28,6 +29,8 @@ open class DebugIsolatedMonitorService : RealTripMonitorService() {
     override fun createTripRepository(database: TripDatabase) = super.createTripRepository(database).let { repository ->
         continuityAudit?.repository(repository) ?: repository
     }
+    // 1번 저장·복원 기기시험은 신호·운행만 본다. 음성·내비·통풍을 실제로 건드리지 않게 판단·개입 조립을 끈다.
+    override suspend fun createPipeline(): MonitoringPipeline? = null
     override fun monitoringScreenIntent() = Intent(this, DebugSdkProbeActivity::class.java)
     override fun onCreate() { continuityAudit?.lifecycle("CREATE"); super.onCreate() }
     override fun onDestroy() { continuityAudit?.lifecycle("DESTROY"); super.onDestroy() }

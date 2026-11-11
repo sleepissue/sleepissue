@@ -1,5 +1,7 @@
 package com.sleepissue.awakedrive.ui
 
+import com.sleepissue.awakedrive.climate.PrefsVentilationConsentStore
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -36,6 +38,9 @@ fun SetupSafetyScreen(
 ) {
     var seatbeltChecked by remember { mutableStateOf(false) }
     var readyChecked by remember { mutableStateOf(false) }
+    // 4번 통풍 사전 동의(기획서 6장). 선택 항목이라 다음 버튼 조건에 넣지 않는다. 기본은 동의 없음.
+    val consentStore = PrefsVentilationConsentStore.get(LocalContext.current)
+    val ventilationConsent by consentStore.consent.collectAsState()
 
     val canContinue = seatbeltChecked && readyChecked
 
@@ -174,6 +179,17 @@ fun SetupSafetyScreen(
                                 readyChecked = !readyChecked
                             }
                         )
+
+                        SafetyCheckCard(
+                            icon = "❄",
+                            title = "졸릴 때 통풍 켜기",
+                            description = "2단계에서 운전석 통풍만\n켜고, 쉬고 나면 되돌려요. (선택)",
+                            selected = ventilationConsent,
+                            modifier = Modifier.weight(1f),
+                            onClick = {
+                                consentStore.set(!ventilationConsent)
+                            }
+                        )
                     }
 
                     // 하단 안내
@@ -197,7 +213,7 @@ fun SetupSafetyScreen(
                             )
 
                             Text(
-                                text = "선택한 내용은 운전자의 자가 확인이며,\n실제 차량 신호와 자동으로 연동되지 않습니다.",
+                                text = "안전벨트·운전 준비는 운전자의 자가 확인이며,\n통풍 동의는 설정에 저장돼 2단계에서만 쓰입니다.",
                                 color = SafetyMuted,
                                 fontSize = 13.sp,
                                 lineHeight = 19.sp

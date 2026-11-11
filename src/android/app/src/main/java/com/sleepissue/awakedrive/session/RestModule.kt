@@ -64,7 +64,7 @@ class RestModule(
     )
     val ledger = RewardLedger(RoomRestRecordStore(database.dao()), clock)
     // 쉼터 표는 처음 접근할 때 한 번 파싱한다(468줄, 수 ms).
-    val restMonitor = RestSessionMonitor(RestCertifier(repository.areas, config), ledger, clock, climate, config)
+    val restMonitor = RestSessionMonitor(RestCertifier(repository.areas, config), ledger, clock, climate, config, PrefsRestStateStore(context))
     val nap = NapSession(NapTimer(config), ToneNapAlarm(scope), speak, clock, config)
 
     private var wiringJob: Job? = null

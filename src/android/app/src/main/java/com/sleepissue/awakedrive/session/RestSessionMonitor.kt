@@ -48,6 +48,9 @@ data class RestUiState(
  *  3. 앱이 켰던 운전석 통풍을 되돌린다 ([climate]가 있으면)
  *
  * 도착([RestEvent.Arrived])은 [events]로 내보낸다. "○○에 도착했어요. 15분 쉬면…" 안내는 조립 지점에서 3번 음성으로 잇는다.
+ *
+ * [stateStore]가 있으면 만들 때 이전 진행 상태를 되돌리고, 관측으로 상태가 바뀔 때마다 저장한다.
+ * 그래서 쉼터에서 시동을 끄고 앱이 완전히 내려가도, 다시 켜졌을 때 15분을 이어서 센다.
  */
 class RestSessionMonitor(
     private val certifier: RestCertifier,
@@ -55,6 +58,7 @@ class RestSessionMonitor(
     private val clock: Clock,
     private val climate: ClimatePort? = null,
     private val config: EngineConfig = EngineConfig(),
+    private val stateStore: RestStateStore? = null,
 ) : RestCertificationSource {
 
     private val mutableCertifications = MutableSharedFlow<RestCertification>(extraBufferCapacity = 8)
@@ -67,6 +71,18 @@ class RestSessionMonitor(
     val ui: StateFlow<RestUiState> = mutableUi.asStateFlow()
 
     private val lock = Mutex()
+    private var lastSaved = stateStore?.load()
+
+    init {
+        val saved = lastSaved
+        if (saved != null && certifier.restore(saved, clock.scenarioTimeMs())) {
+            certifier.currentArea?.let { area ->
+                mutableUi.value = RestUiState(area.name, certifier.currentStartedAtMs, certifier.currentCertified)
+            }
+        } else {
+            lastSaved = null
+        }
+    }
 
     /** 지금 쉼터 반경 안에 서 있는가. 파워냅의 안전 안내 여부에 쓴다. */
     fun isAtRestArea(location: GeoPoint?): Boolean = location?.let { certifier.nearest(it) } != null
@@ -74,6 +90,7 @@ class RestSessionMonitor(
     suspend fun observe(observation: RestObservation, source: Source): List<RestEvent> = lock.withLock {
         val events = certifier.observe(observation)
         events.forEach { handle(it, source) }
+        persist()
         events
     }
 
@@ -91,6 +108,21 @@ class RestSessionMonitor(
             is RestEvent.Left -> mutableUi.value = mutableUi.value.copy(areaName = null, startedAtMs = null, certified = false)
         }
         mutableEvents.emit(event)
+    }
+
+    // 1초마다 관측이 들어와도 대부분은 마지막 관측 시각(과 위치)만 바뀐다. 도착·인증·떠남 같은 변화는 바로 저장하고,
+    // 시각만 흐를 때는 10초 간격으로 줄인다. 15분 판단은 도착 시각 기준이라 10초 늦은 시각을 되돌려도 결과가 같다.
+    private fun persist() {
+        val store = stateStore ?: return
+        val now = certifier.snapshot()
+        val previous = lastSaved
+        if (now == previous) return
+        val onlyTimeMoved = previous != null &&
+            now.copy(lastObservedMs = previous.lastObservedMs, lastLocation = previous.lastLocation) == previous
+        val recent = previous?.lastObservedMs?.let { p -> now.lastObservedMs?.let { it - p < PERSIST_IDLE_MS } } == true
+        if (onlyTimeMoved && recent) return
+        store.save(now)
+        lastSaved = now
     }
 
     /**
@@ -123,5 +155,9 @@ class RestSessionMonitor(
             observe(observation, source)
             delay(config.naviStateIntervalMs)
         }
+    }
+
+    private companion object {
+        const val PERSIST_IDLE_MS = 10_000L // CLAUDE.md 5장 "10초마다 상태 저장"
     }
 }
