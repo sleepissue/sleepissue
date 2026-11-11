@@ -74,6 +74,25 @@ class Role5IntegrationTest {
         assertEquals(1, session.state.stampCount)
     }
 
+    @Test fun `딴짓 원본은 이상 분을 기록하고 정상 복귀 뒤 튐형으로 분류된다`() {
+        val s = scenario("distraction")
+        val session = DemoUiSession(clock, s.startEpochMs, areas)
+        var sawAbnormal = false
+        var sawSpike = false
+        var maxStage = 0
+        for (sample in s.samples) {
+            session.observe(frame(sample), sample.navi, sample.power)
+            val pattern = session.state.fatigue?.pattern
+            sawAbnormal = sawAbnormal || (pattern?.abnormalMinutes10m ?: 0) > 0
+            sawSpike = sawSpike || pattern?.patternType == PatternType.SPIKE
+            maxStage = maxOf(maxStage, session.state.intervention?.stage?.level ?: 0)
+            assertFalse("딴짓이 추세형으로 분류됨: ${sample.tMs}", pattern?.patternType == PatternType.TREND)
+        }
+        assertTrue("딴짓 이상 분 기록 없음", sawAbnormal)
+        assertTrue("정상 복귀 후 튐형 분류 없음", sawSpike)
+        assertTrue("음성 결과 없이 딴짓만으로 휴식 유도됨", maxStage <= 2)
+    }
+
     @Test fun `정상 주행에서 15분 타이머만으로 보상을 만들지 않는다`() {
         val s = scenario("normal")
         val session = DemoUiSession(clock, s.startEpochMs, areas)
@@ -106,6 +125,26 @@ class Role5IntegrationTest {
             session.observe(frame(sample), sample.navi, sample.power)
             assertEquals("시각=${sample.tMs}", InterventionStage.NORMAL, session.state.intervention?.stage)
         }
+    }
+
+    @Test fun `정상 종료의 신호 무효화는 정기 확인을 새로 만들지 않는다`() {
+        val s = scenario("normal")
+        val session = DemoUiSession(clock, s.startEpochMs, areas)
+        for (sample in s.samples) session.observe(frame(sample), sample.navi, sample.power)
+        session.observe(SignalFrame(s.durationMs), NaviState(s.durationMs),
+            PowerEvent(s.durationMs, PowerState.UNKNOWN))
+        assertEquals(session.state.warnings.toString(), InterventionStage.NORMAL, session.state.intervention?.stage)
+    }
+
+    @Test fun `이동 좌표로 진행 방향을 추정해 주행 중 앞쪽 쉼터를 찾는다`() {
+        val s = scenario("drowsy")
+        val session = DemoUiSession(clock, s.startEpochMs, areas)
+        var found = false
+        for (sample in s.samples.takeWhile { it.tMs < 1_800_000 }) {
+            session.observe(frame(sample), sample.navi, sample.power)
+            found = found || session.state.nextRestArea is RestAreaUiState.Found
+        }
+        assertTrue("이동 위치가 있는데 앞쪽 쉼터를 찾지 못했습니다", found)
     }
 
     @Test fun `대화 급조향과 보조 주행 조작 공백이 확인 단계를 만든다`() {

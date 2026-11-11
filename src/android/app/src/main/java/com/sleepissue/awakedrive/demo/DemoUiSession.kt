@@ -8,6 +8,7 @@ import com.sleepissue.awakedrive.engine.rest.*
 import com.sleepissue.awakedrive.engine.session.*
 import com.sleepissue.awakedrive.engine.time.Clock
 import com.sleepissue.awakedrive.fatigue.FatigueBridge
+import com.sleepissue.awakedrive.signal.*
 import com.sleepissue.awakedrive.signal.TripStateStore
 import com.sleepissue.awakedrive.signal.TripTracker
 import com.sleepissue.awakedrive.ui.*
@@ -20,6 +21,7 @@ class DemoUiSession(
     private val areas: List<RestArea>,
     private val config: EngineConfig = EngineConfig(),
     private val sessionId: Long = 0,
+    private val managedExecution: Boolean = false,
 ) {
     private val bridge = FatigueBridge(config)
     private val store = TripStateStore()
@@ -29,6 +31,7 @@ class DemoUiSession(
     private val policy = InterventionPolicy(config)
     private var policyState = InterventionPolicyState()
     private val certifier = RestCertifier(areas, config)
+    private val heading = HeadingEstimator(config)
     private val nap = NapTimer(config)
     private val rewards = RewardRules(config)
     private val history = mutableListOf<RewardHistoryEntry>()
@@ -37,6 +40,9 @@ class DemoUiSession(
     private var restStartedAtMs: Long? = null
     private var confirmation: CheckResult? = null
     private var recovered = false
+    private val executionInputs = mutableListOf<InterventionInput>()
+    var navigation: NaviState? = null
+        private set
     private var frequentChecks = false
     private var assistedAnchorMs: Long? = null
     private val forecastClock = object : Clock {
@@ -50,10 +56,15 @@ class DemoUiSession(
     fun observe(frame: SignalFrame, navi: NaviState?, power: PowerEvent?) {
         // 새 로드 시 이 객체 자체를 교체한다. 같은 세션의 시각 역행은 숨기지 않는다.
         tracker.accept(frame, power?.takeIf { it.tMs == frame.tMs })
-        val outputs = bridge.onFrame(frame.copy(tMs = epochMs + frame.tMs), navi, tracker.state.value)
+        val moving = frame.gear == Gear.D && frame.speedKph?.let { it > 0f } == true
+        navigation = navi?.let {
+            if (it.lat == null || it.lon == null) heading.reset() else heading.observe(it)
+            heading.fill(it)
+        } ?: run { heading.reset(); null }
+        val outputs = bridge.onFrame(frame.copy(tMs = epochMs + frame.tMs), navigation, tracker.state.value)
         val fatigue = bridge.snapshot
         val f = fatigue.fatigue
-        if (fatigue.assist.assistMode) {
+        if (moving && fatigue.assist.assistMode) {
             if (assistedAnchorMs == null) assistedAnchorMs = frame.tMs
         } else assistedAnchorMs = null
         val interval = if (frequentChecks || fatigue.baseline.departureFatigue || fatigue.baseline.reportedSleepy || fatigue.vulnerableTime == true)
@@ -63,7 +74,22 @@ class DemoUiSession(
         val checkEvent = outputs.filterIsInstance<com.sleepissue.awakedrive.signal.InterventionInput.Safety>().any {
             it.value.type == SafetyEventType.RAPID_STEERING || it.value.type == SafetyEventType.HANDOVER_UNSAFE
         }
-        val next = policy.evaluate(policyState, InterventionSnapshot(
+        if (managedExecution) {
+            executionInputs += InterventionInput.TripChanged(tracker.state.value)
+            executionInputs += InterventionInput.NavigationChanged(navigation)
+            outputs.forEach { input ->
+                when (input) {
+                    is InterventionInput.Assessment -> executionInputs += input.copy(value = input.value.copy(
+                        tMs = input.value.tMs - epochMs,
+                        assistedDriving = moving && input.value.assistedDriving == true,
+                        operationGapSec = if (moving) input.value.operationGapSec else null))
+                    is InterventionInput.Safety -> if (moving) executionInputs += input.copy(
+                        value = input.value.copy(tMs = input.value.tMs - epochMs, source = Source.DEMO))
+                    else -> executionInputs += input
+                }
+            }
+        }
+        val next = if (managedExecution) null else policy.evaluate(policyState, InterventionSnapshot(
             tMs = frame.tMs,
             evaluation = if (f?.valid == true) EvaluationStatus.EVALUATED else EvaluationStatus.UNAVAILABLE,
             score = f?.riskSmoothed,
@@ -72,13 +98,14 @@ class DemoUiSession(
             trending = fatigue.pattern.patternType == PatternType.TREND,
             sensitive = fatigue.baseline.departureFatigue || fatigue.baseline.reportedSleepy,
             safetyBypass = fatigue.pattern.safetyBypass,
-            checkRequired = checkEvent || regularCheckDue || fatigue.assist.handoverAbnormal ||
-                fatigue.assist.assistMode && fatigue.assist.opGapSec >= config.assistedOperationGapSec,
+            // 재생 종료의 무효화·정차는 운전 중 확인 요청의 근거가 아니다.
+            checkRequired = moving && (checkEvent || regularCheckDue || fatigue.assist.handoverAbnormal ||
+                fatigue.assist.assistMode && fatigue.assist.opGapSec >= config.assistedOperationGapSec),
             confirmation = confirmation,
             restCertified = state.restCertified,
             recoveredAfterCertifiedRest = recovered,
         ))
-        policyState = next.state
+        if (next != null) policyState = next.state
         confirmation = null
         recovered = false
         val precise = tracker.preciseState()
@@ -86,21 +113,23 @@ class DemoUiSession(
             precise.driveSegments.sumOf { (it.endMs - maxOf(it.startMs, start)).coerceAtLeast(0) } / 1_000
         }
         state = state.copy(tMs = frame.tMs, frame = frame, trip = tracker.state.value, currentTripDriveSec = tripDriveSec,
-            fatigue = fatigue, intervention = policyState.publicState)
-        next.transition?.let { transition ->
+            fatigue = fatigue, intervention = if (managedExecution) state.intervention else policyState.publicState)
+        next?.transition?.let { transition ->
             state = state.copy(warnings = state.warnings + ReportWarningEvent(
                 "%02d:%02d".format(frame.tMs / 60_000, frame.tMs / 1000 % 60),
                 "${transition.to.level}단계", "${transition.reason} · 위험도 ${f?.riskSmoothed ?: "미측정"}"))
         }
-        val location = navi?.let { n -> n.lat?.let { lat -> n.lon?.let { GeoPoint(lat, it) } } }
+        val location = navigation?.let { n -> n.lat?.let { lat -> n.lon?.let { GeoPoint(lat, it) } } }
         certifier.observe(RestObservation(frame.tMs, location, frame.gear, power?.state,
-            tracker.state.value.continuousDriveSec, policyState.publicState.stage)).forEach { event ->
+            tracker.state.value.continuousDriveSec, state.intervention?.stage ?: InterventionStage.NORMAL)).forEach { event ->
             when (event) {
                 is RestEvent.Arrived -> {
                     restStartedAtMs = event.startedAtMs
                     state = state.copy(restAreaName = event.area.name, restCertified = false)
                 }
                 is RestEvent.Certified -> {
+                    if (managedExecution) executionInputs += InterventionInput.RestCertified(
+                        RestCertification(event.sessionId, event.certifiedAtMs, Source.DEMO))
                     val wall = epochMs + event.certifiedAtMs
                     val decision = rewards.evaluate(event.area.id, event.area.location, wall,
                         event.driveSecBeforeRest, event.maxStageBeforeRest, history)
@@ -125,8 +154,8 @@ class DemoUiSession(
         if (frame.tMs / 60_000 != lastForecastMinute) {
             lastForecastMinute = frame.tMs / 60_000
             recalculate(ForecastRecalcTrigger.TRIP_START)
-            if (navi != null) {
-                state = state.copy(nextRestArea = when (val result = RestAreaSelector(config).select(navi, areas)) {
+            navigation?.let { currentNavi ->
+                state = state.copy(nextRestArea = when (val result = RestAreaSelector(config).select(currentNavi, areas)) {
                     is RestAreaSelection.Selected -> RestAreaUiState.Found(result.area.name,
                         String.format(Locale.KOREA, "%.1fkm · 직선거리", result.distanceM / 1000f), result.area.hasToilet)
                     is RestAreaSelection.NotFound -> RestAreaUiState.NotFound
@@ -137,6 +166,7 @@ class DemoUiSession(
 
     fun action(action: DriveUiAction) {
         when (action) {
+            is DriveUiAction.VoiceResponse -> state = state.copy(message = "음성 실행이 연결된 세션에서만 응답할 수 있습니다")
             is DriveUiAction.Preferences -> {
                 frequentChecks = action.value.frequentChecks
                 bridge.ageBand = when (action.value.ageBand) {
@@ -152,7 +182,8 @@ class DemoUiSession(
                     DrivingCondition.SLIGHTLY_SLEEPY -> StartCondition.NORMAL
                     DrivingCondition.VERY_SLEEPY -> StartCondition.DROWSY
                 }
-                bridge.reportCondition(condition == StartCondition.DROWSY, epochMs + state.tMs)
+                val inputs = bridge.reportCondition(condition == StartCondition.DROWSY, epochMs + state.tMs)
+                if (managedExecution) executionInputs += inputs
                 recalculate(ForecastRecalcTrigger.CONDITION_INPUT)
             }
             is DriveUiAction.Passenger -> {
@@ -182,6 +213,23 @@ class DemoUiSession(
             }
         }
     }
+
+    fun drainExecutionInputs(): List<InterventionInput> = executionInputs.toList().also { executionInputs.clear() }
+
+    fun executionState(value: InterventionState, transitions: List<StageTransition>) {
+        state = state.copy(intervention = value, warnings = transitions.map {
+            ReportWarningEvent("%02d:%02d".format(it.tMs / 60_000, it.tMs / 1000 % 60),
+                "${it.to.level}단계", it.reason.name)
+        })
+    }
+
+    fun voiceButton(context: CheckContext?) { state = state.copy(voiceButtonContext = context) }
+
+    fun feedback(message: String, waypoint: Boolean = false) {
+        state = if (waypoint) state.copy(waypointMessage = message) else state.copy(message = message)
+    }
+
+    fun resetAfterRecovery() { bridge.onRestCertified(); recalculate(ForecastRecalcTrigger.REST_VERIFIED) }
 
     fun checkResult(result: CheckResult) { confirmation = result }
 

@@ -1,0 +1,16 @@
+{
+  "scenario": "normal",
+  "phase": "COMPLETED",
+  "elapsedMs": 59482,
+  "maxStage": 0,
+  "restCertified": true,
+  "stamps": 0,
+  "questionStarted": true,
+  "questionOneSpeed": true,
+  "driverButtonUsed": true,
+  "napStarted": true,
+  "napAlarmed": false,
+  "cancelled": false,
+  "recoveryNormal": true,
+  "waypointResults": []
+}

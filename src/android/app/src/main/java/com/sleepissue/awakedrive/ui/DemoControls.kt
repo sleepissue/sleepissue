@@ -38,6 +38,6 @@ fun DemoControls(session: ProductDemoSession, load: (String, Int) -> Unit, comma
             Button({ command { resume() } }, enabled = playback.phase == DemoPhase.PAUSED) { Text("계속") }
             Button({ command { stop() } }) { Text("중지") }
         }
-        Text("차량 신호를 재생해 같은 판단·휴식 인증 규칙을 실행합니다. 데모 보상은 실제 기록과 분리됩니다.", color = Color.LightGray)
+        Text("차량 신호를 재생하며 음성 안내와 내비 경유지 요청을 실행합니다. 데모 보상은 실제 기록과 분리됩니다.", color = Color.LightGray)
     }
 }

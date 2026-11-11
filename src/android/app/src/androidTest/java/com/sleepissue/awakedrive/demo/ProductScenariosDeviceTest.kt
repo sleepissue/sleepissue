@@ -57,12 +57,21 @@ class ProductScenariosDeviceTest {
         } finally {
             val report = linkedMapOf("scenario" to name, "requestedSpeed" to 60,
                 "phase" to session.playback.value.phase.name, "error" to session.playback.value.error,
-                "elapsedMs" to clock.elapsedRealtimeMs() - started, "maxStage" to maxStage, "observations" to rows)
+                "elapsedMs" to clock.elapsedRealtimeMs() - started, "maxStage" to maxStage,
+                "deliveredSamples" to session.playback.value.deliveredSamples, "observations" to rows)
             File(context.cacheDir, "product-scenario-$name.json").writeText(GsonBuilder().setPrettyPrinting().create().toJson(report))
             session.close()
             scope.cancel()
         }
         assertEquals("$name 종료: 보고서 참조", "COMPLETED", rows.last()["phase"])
         assertEquals("$name 최종 시각", 2_710_000L, rows.last()["tMs"])
+        assertEquals("$name 휴식 인증", true, rows.last()["restCertified"])
+        assertTrue("$name 주행 중 앞쪽 쉼터 미검색", rows.any { it["nextRestArea"].toString().startsWith("Found") })
+        if (name == "normal") assertEquals("$name 오경고", 0, maxStage)
+        if (name == "distraction") {
+            assertTrue("딴짓만으로 휴식 유도", maxStage <= 2)
+            assertTrue("딴짓 튐형 기록 없음", rows.any { it["pattern"] == "SPIKE" })
+        }
+        if (name == "drowsy") assertEquals("졸음 휴식 유도", 3, maxStage)
     }
 }

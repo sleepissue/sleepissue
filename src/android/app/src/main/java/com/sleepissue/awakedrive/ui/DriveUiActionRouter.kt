@@ -27,6 +27,7 @@ class DriveUiActionRouter(
 
     suspend fun dispatch(action: DriveUiAction) = lock.withLock {
         when (action) {
+            is DriveUiAction.VoiceResponse -> feedback("현재 실제 서비스는 음성으로 응답해 주세요")
             is DriveUiAction.Preferences -> {
                 manager.submit(newId(), InterventionInput.VentilationConsentChanged(action.value.ventilationConsent))
                 preferences(action.value)

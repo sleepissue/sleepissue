@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import com.sleepissue.awakedrive.demo.ProductDemoSession
+import com.sleepissue.awakedrive.demo.AndroidDemoExecutionFactory
 import com.sleepissue.awakedrive.navi.RestAreaRepository
 import com.sleepissue.awakedrive.service.MonitoringPipeline
 import com.sleepissue.awakedrive.service.RealTripMonitorService
@@ -35,7 +36,7 @@ open class LiveDriveActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // 단일 작업 흐름으로 데모 원본 전달과 엔진 계산 순서를 유지한다.
         demo = ProductDemoSession(CoroutineScope(scope.coroutineContext + Dispatchers.Default.limitedParallelism(1)),
-            AndroidUiClock(), RestAreaRepository(this).areas)
+            AndroidUiClock(), RestAreaRepository(this).areas, AndroidDemoExecutionFactory(this))
         setContent { MaterialTheme {
             val demoState by demo.state.collectAsState()
             val liveState = binding?.state?.collectAsState()?.value ?: DriveSessionUiState()

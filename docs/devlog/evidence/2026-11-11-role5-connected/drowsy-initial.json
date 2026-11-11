@@ -1,0 +1,19 @@
+{
+  "scenario": "drowsy",
+  "phase": "COMPLETED",
+  "elapsedMs": 64134,
+  "maxStage": 3,
+  "restCertified": true,
+  "stamps": 1,
+  "questionStarted": true,
+  "questionOneSpeed": true,
+  "driverButtonUsed": true,
+  "napStarted": false,
+  "napAlarmed": false,
+  "cancelled": false,
+  "recoveryNormal": true,
+  "waypointResults": [
+    "경유지 추가: 내비게이션에 요청하고 있습니다",
+    "경유지 추가: 반영을 확인하지 못했습니다. 내비게이션에서 쉼터를 확인해 주세요"
+  ]
+}

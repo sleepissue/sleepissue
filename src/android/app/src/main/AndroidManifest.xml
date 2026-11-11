@@ -32,10 +32,14 @@
         android:theme="@style/Theme.SleepIssue">
         <uses-library android:name="android.car" android:required="false" />
         <activity android:name=".ui.LiveDriveActivity"
-            android:exported="false" android:theme="@style/Theme.SleepIssue" />
+            android:exported="false" android:theme="@style/Theme.SleepIssue">
+            <meta-data android:name="distractionOptimized" android:value="true" />
+        </activity>
         <!-- 5번 UI 진입점. SDK 수집·운행 저장의 소유권은 기존 감시/검증 경로가 맡는다. -->
         <activity android:name=".ui.DrivingPreviewActivity"
             android:exported="true" android:label="AwakeDrive">
+            <!-- 주행 화면은 유지하고 설정·리포트·데모는 차량의 주행 제한 신호로 잠근다. -->
+            <meta-data android:name="distractionOptimized" android:value="true" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

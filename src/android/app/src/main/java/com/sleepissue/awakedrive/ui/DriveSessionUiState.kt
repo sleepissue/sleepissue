@@ -22,6 +22,7 @@ data class DriveSessionUiState(
     val stampCount: Int = 0,
     val nap: NapState = NapState.Idle,
     val napRemainingMs: Long? = null,
+    val voiceButtonContext: CheckContext? = null,
     val recovery: String = "회복 확인 전",
     val waypointMessage: String = "경유지 요청 없음",
     val message: String = "신호 연결 대기",
@@ -48,6 +49,7 @@ fun DriveSessionUiState.toReportUiState() = ReportUiState(
 
 /** 버튼은 상태를 직접 고치지 않고 세션 소유자에게 요청한다. ROS 서비스 요청과 같은 역할이다. */
 sealed interface DriveUiAction {
+    data class VoiceResponse(val intent: ResponseIntent) : DriveUiAction
     data class Condition(val value: DrivingCondition) : DriveUiAction
     data class Preferences(val value: DriverUiSettings) : DriveUiAction
     data class Passenger(val rest: Boolean) : DriveUiAction

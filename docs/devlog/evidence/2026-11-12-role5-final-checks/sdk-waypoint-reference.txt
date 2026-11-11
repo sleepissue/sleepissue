@@ -1,0 +1,4 @@
+area=SA-1-서울만남-부산 서울만남휴게소
+outcome=Added
+tookMs=7881
+second=DS-100-성남-구리 outcome=Added tookMs=8861

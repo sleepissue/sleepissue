@@ -88,6 +88,14 @@ fun AppNavigation(
             if (session.demoPlaying) Text("데모 재생 중", color = Color(0xFFFFD166), fontSize = 14.sp)
             else if (session.demoSession) Text("데모 검증 세션 · 정지", color = Color.LightGray, fontSize = 12.sp)
         }
+        session.voiceButtonContext?.let { context ->
+            Text("운전자 응답 · ${if (context == com.sleepissue.awakedrive.engine.model.CheckContext.WAYPOINT_CONSENT) "쉼터를 경유지로 추가할까요?" else "쉬어 갈까요?"}", color = Color.White)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                val waypoint = context == com.sleepissue.awakedrive.engine.model.CheckContext.WAYPOINT_CONSENT
+                Button(onClick = { request(DriveUiAction.VoiceResponse(if (waypoint) com.sleepissue.awakedrive.engine.model.ResponseIntent.YES else com.sleepissue.awakedrive.engine.model.ResponseIntent.REST)) }) { Text(if (waypoint) "추가해 주세요" else "쉴게요") }
+                Button(onClick = { request(DriveUiAction.VoiceResponse(if (waypoint) com.sleepissue.awakedrive.engine.model.ResponseIntent.NO else com.sleepissue.awakedrive.engine.model.ResponseIntent.OK)) }) { Text(if (waypoint) "아니요" else "괜찮아요") }
+            }
+        }
         if (session.message.isNotBlank()) Text(session.message, color = Color.LightGray, modifier = Modifier.padding(horizontal = 16.dp))
         if (feedback.isNotBlank()) Text(feedback, color = Color(0xFFFFD166), modifier = Modifier.padding(horizontal = 16.dp))
         Box(Modifier.weight(1f).fillMaxWidth()) {
@@ -155,7 +163,9 @@ fun AppNavigation(
                 "리포트" to AppPage.REPORT, "설정" to AppPage.SETTINGS, "데모" to AppPage.DEBUG).forEach { (label, target) ->
                 val enabled = !restricted || target == AppPage.DRIVING
                 Button(onClick = {
-                    page = if (target == AppPage.DRIVING && !setupCompleted && !restricted) AppPage.SETUP else target
+                    page = if (target == AppPage.DRIVING && !setupCompleted && !restricted) {
+                        if (!firstRun.getBoolean("onboarding", false)) AppPage.PERMISSIONS else AppPage.SETUP
+                    } else target
                 }, enabled = enabled, modifier = Modifier.weight(1f), contentPadding = PaddingValues(4.dp)) {
                     Text(label, maxLines = 1)
                 }

@@ -1,0 +1,45 @@
+** Dumping CarUxRestrictionsManagerService
+
+*CarUxRestrictionsManagerService*
+UX Restrictions Clients:
+  callbacks: 10
+  killed: false
+  broadcasts count: -1
+Display id: 0 UXR: DO: true UxR: 80 time: 3972465418057
+UX Restriction configurations:
+Physical display port: null
+Occupant zone id of the display: -1
+Display type: 0
+===========================================
+baseline mode UXR:
+-------------------------------------------
+State:unknown num restrictions:1
+Requires DO? true
+Restrictions: 0x1ff
+Speed Range: None
+-------------------------------------------
+State:parked num restrictions:1
+Requires DO? false
+Restrictions: 0x0
+Speed Range: None
+-------------------------------------------
+State:idling num restrictions:1
+Requires DO? true
+Restrictions: 0x50
+Speed Range: None
+-------------------------------------------
+State:moving num restrictions:1
+Requires DO? true
+Restrictions: 0x50
+Speed Range: None
+-------------------------------------------
+Max String length: 120
+Max Cumulative Content Items: 21
+Max Content depth: 3
+===========================================
+UX Restriction change log:
+11-11 07:02:15 CarUxRestrictionsManagerService: No DO -> DO changed from 0 to 80
+11-11 07:02:15 CarUxRestrictionsManagerService: DO -> No DO changed from 80 to 0
+11-11 07:05:42 CarUxRestrictionsManagerService: No DO -> DO changed from 0 to 80
+11-11 07:05:45 CarUxRestrictionsManagerService: DO -> No DO changed from 80 to 0
+11-11 07:07:47 CarUxRestrictionsManagerService: No DO -> DO changed from 0 to 80

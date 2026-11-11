@@ -47,6 +47,27 @@ class ProductDemoSessionTest {
         } finally { session.close() }
     }
 
+    @Test fun `정상 원본의 종료 무효화는 새 확인 경고를 만들지 않는다`() = runTest {
+        val root = generateSequence(java.io.File(requireNotNull(System.getProperty("user.dir"))).canonicalFile) { it.parentFile }
+            .first { java.io.File(it, "data/scenarios/normal.json").exists() }
+        val clock = DemoTestClock()
+        val session = ProductDemoSession(backgroundScope, clock, emptyList())
+        try {
+            session.load(java.io.File(root, "data/scenarios/normal.json").readText(), 60)
+            session.start()
+            repeat(12_000) {
+                if (session.playback.value.phase == DemoPhase.PLAYING) {
+                    clock.realMs += 10
+                    advanceTimeBy(10); runCurrent()
+                }
+            }
+            assertEquals(DemoPhase.COMPLETED, session.playback.value.phase)
+            val state = session.state.value
+            assertEquals("확인=${state.intervention} 보조=${state.fatigue?.assist} 신호=${state.frame}",
+                InterventionStage.NORMAL, state.intervention?.stage)
+        } finally { session.close() }
+    }
+
     @Test fun `잘못된 시나리오는 이전 세션을 재사용하지 않는다`() = runTest {
         val session = ProductDemoSession(backgroundScope, DemoTestClock(), emptyList())
         try {

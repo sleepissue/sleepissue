@@ -23,8 +23,13 @@ def steering(name, t):
         return 0.0
     if name == "talk" and 970 <= t < 970.2:
         return 12.0
-    if name == "distraction" and any(start <= t < start + 10 for start in (960, 1200, 1500)):
-        return normal + (8 if t % 2 < .2 else 0)
+    if name == "distraction":
+        for start in (960, 1200, 1500):
+            # 1분 안에 회복하는 짧은 조작 공백 뒤 급조향. 최근 10분 중 이상 분은 3개 이하로 둔다.
+            if start <= t < start + 25:
+                return 0.0
+            if start + 25 <= t < start + 25.2:
+                return 12.0
     if name == "drowsy" and t >= 900:
         sleepy = t - 900
         event = sleepy % 7.5
@@ -43,7 +48,8 @@ def generate(name, factor):
     samples = []
     for index in range(27100):
         t = index / 10
-        parked = t < 10 or 1800 <= t <= 2700
+        # 인증 기준은 바꾸지 않고 종료까지 P단을 유지해 기기 관측 지연의 여유를 둔다.
+        parked = t < 10 or t >= 1800
         drive_t = min(1800, max(0, t))
         distance = max(0, 1800 - drive_t) * 98 / 3.6
         cruise = name == "assist" and 10 <= t < 1210
