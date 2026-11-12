@@ -1,0 +1,1727 @@
+{
+  "atFifteenDeparture": false,
+  "atFifteenPlus15Sec": {
+    "assist": {
+      "assistMode": false,
+      "handoverAbnormal": false,
+      "opGapSec": 913,
+      "reason": "NONE"
+    },
+    "baseline": {
+      "departureFatigue": false,
+      "firstCheckDueMs": null,
+      "reference": {
+        "largePerMin": 4.0,
+        "microPerMin": 20.0
+      },
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "source": "DEFAULT",
+      "today": null
+    },
+    "fatigue": {
+      "behaviorB": 8.168571,
+      "contextK": 1.05,
+      "fLarge": 0.06757772,
+      "fMicro": 0.18511796,
+      "fSudden": 0.0,
+      "invalidReason": "NONE",
+      "largePerMin": 4.270311,
+      "microEnabled": true,
+      "microPerMin": 18.14882,
+      "riskR": 8.577,
+      "riskSmoothed": 25.81437,
+      "suddenCount5m": 0,
+      "tMs": 1794060601102,
+      "valid": true
+    },
+    "pattern": {
+      "abnormalMinutes10m": 2,
+      "patternType": "SPIKE",
+      "safetyBypass": false
+    },
+    "vulnerableTime": false
+  },
+  "timeline": [
+    {
+      "scenarioMs": 130,
+      "actualElapsedMs": 1,
+      "speed": 10,
+      "delivered": 1,
+      "frameMs": null,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 0,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": null,
+        "pattern": {
+          "abnormalMinutes10m": 0,
+          "patternType": "NONE",
+          "safetyBypass": false
+        },
+        "vulnerableTime": null
+      },
+      "stage": {
+        "evaluationStatus": "NOT_EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 30180,
+      "actualElapsedMs": 3007,
+      "speed": 10,
+      "delivered": 302,
+      "frameMs": 1794059729920,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 28,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": null,
+        "pattern": {
+          "abnormalMinutes10m": 0,
+          "patternType": "NONE",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "NOT_EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 60150,
+      "actualElapsedMs": 6003,
+      "speed": 10,
+      "delivered": 602,
+      "frameMs": 1794059759730,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 58,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": null,
+        "pattern": {
+          "abnormalMinutes10m": 0,
+          "patternType": "NONE",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "NOT_EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 90210,
+      "actualElapsedMs": 9009,
+      "speed": 10,
+      "delivered": 902,
+      "frameMs": 1794059790170,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 88,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 38.46154,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.0,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 10.16088,
+          "microEnabled": false,
+          "microPerMin": 19.305672,
+          "riskR": 40.384617,
+          "riskSmoothed": 6.1997766,
+          "suddenCount5m": 0,
+          "tMs": 1794059761250,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 1,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 120180,
+      "actualElapsedMs": 12006,
+      "speed": 10,
+      "delivered": 1202,
+      "frameMs": 1794059819830,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 118,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 22.02407,
+          "contextK": 1.05,
+          "fLarge": 0.76737916,
+          "fMicro": 0.08113122,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 7.0695167,
+          "microEnabled": true,
+          "microPerMin": 19.188688,
+          "riskR": 23.125273,
+          "riskSmoothed": 8.79815,
+          "suddenCount5m": 0,
+          "tMs": 1794059791640,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 1,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 150400,
+      "actualElapsedMs": 15028,
+      "speed": 10,
+      "delivered": 1504,
+      "frameMs": 1794059850200,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 149,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 22.321241,
+          "contextK": 1.05,
+          "fLarge": 0.3340448,
+          "fMicro": 0.39914632,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 5.3361793,
+          "microEnabled": true,
+          "microPerMin": 16.008537,
+          "riskR": 23.437302,
+          "riskSmoothed": 11.045527,
+          "suddenCount5m": 0,
+          "tMs": 1794059821060,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 1,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 180210,
+      "actualElapsedMs": 18009,
+      "speed": 10,
+      "delivered": 1802,
+      "frameMs": 1794059880170,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 179,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 60.000004,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 1.0,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 10.179076,
+          "microEnabled": true,
+          "microPerMin": 9.048068,
+          "riskR": 63.0,
+          "riskSmoothed": 19.021488,
+          "suddenCount5m": 0,
+          "tMs": 1794059851210,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 2,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 210000,
+      "actualElapsedMs": 20988,
+      "speed": 10,
+      "delivered": 2100,
+      "frameMs": 1794059909710,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 208,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 49.24005,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.69257295,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 8.71618,
+          "microEnabled": true,
+          "microPerMin": 13.07427,
+          "riskR": 51.702053,
+          "riskSmoothed": 24.038551,
+          "suddenCount5m": 0,
+          "tMs": 1794059881380,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 3,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 240170,
+      "actualElapsedMs": 24005,
+      "speed": 10,
+      "delivered": 2402,
+      "frameMs": 1794059939610,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 238,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 47.817142,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.6519184,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 10.369859,
+          "microEnabled": true,
+          "microPerMin": 13.480816,
+          "riskR": 50.207996,
+          "riskSmoothed": 28.05604,
+          "suddenCount5m": 0,
+          "tMs": 1794059911190,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 3,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 270380,
+      "actualElapsedMs": 27026,
+      "speed": 10,
+      "delivered": 2704,
+      "frameMs": 1794059969930,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 268,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 51.60409,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.76011705,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 12.398829,
+          "microEnabled": true,
+          "microPerMin": 12.398829,
+          "riskR": 54.184296,
+          "riskSmoothed": 32.067204,
+          "suddenCount5m": 0,
+          "tMs": 1794059941640,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 4,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 300390,
+      "actualElapsedMs": 30027,
+      "speed": 10,
+      "delivered": 3004,
+      "frameMs": 1794060000310,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 299,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 53.72051,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.8205861,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 8.577556,
+          "microEnabled": true,
+          "microPerMin": 11.794139,
+          "riskR": 56.406532,
+          "riskSmoothed": 35.803738,
+          "suddenCount5m": 0,
+          "tMs": 1794059971280,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 4,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 330120,
+      "actualElapsedMs": 33001,
+      "speed": 10,
+      "delivered": 3301,
+      "frameMs": 1794060030010,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 329,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 42.70545,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.50586987,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 8.537887,
+          "microEnabled": true,
+          "microPerMin": 14.941301,
+          "riskR": 44.840717,
+          "riskSmoothed": 37.19108,
+          "suddenCount5m": 0,
+          "tMs": 1794060001180,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 4,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 360260,
+      "actualElapsedMs": 36014,
+      "speed": 10,
+      "delivered": 3603,
+      "frameMs": 1794060059950,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 358,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 50.828217,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.73794913,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 13.672217,
+          "microEnabled": true,
+          "microPerMin": 12.620508,
+          "riskR": 53.369625,
+          "riskSmoothed": 39.67478,
+          "suddenCount5m": 0,
+          "tMs": 1794060031260,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 5,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": null,
+        "stage": "NORMAL"
+      }
+    },
+    {
+      "scenarioMs": 390020,
+      "actualElapsedMs": 38990,
+      "speed": 10,
+      "delivered": 3901,
+      "frameMs": 1794060089610,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 388,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 45.654587,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.59013104,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 14.09869,
+          "microEnabled": true,
+          "microPerMin": 14.09869,
+          "riskR": 47.937313,
+          "riskSmoothed": 40.94323,
+          "suddenCount5m": 0,
+          "tMs": 1794060061120,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 5,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 420070,
+      "actualElapsedMs": 41995,
+      "speed": 10,
+      "delivered": 4201,
+      "frameMs": 1794060119930,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 418,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 41.681175,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.47660506,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 9.793254,
+          "microEnabled": true,
+          "microPerMin": 15.23395,
+          "riskR": 43.765232,
+          "riskSmoothed": 41.37646,
+          "suddenCount5m": 0,
+          "tMs": 1794060091130,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 5,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 450260,
+      "actualElapsedMs": 45014,
+      "speed": 10,
+      "delivered": 4503,
+      "frameMs": 1794060150200,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 449,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 54.73304,
+          "contextK": 1.05,
+          "fLarge": 0.94660723,
+          "fMicro": 0.887653,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 7.786429,
+          "microEnabled": true,
+          "microPerMin": 11.12347,
+          "riskR": 57.46969,
+          "riskSmoothed": 43.847065,
+          "suddenCount5m": 0,
+          "tMs": 1794060121350,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 480010,
+      "actualElapsedMs": 47989,
+      "speed": 10,
+      "delivered": 4800,
+      "frameMs": 1794060179440,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 478,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 37.691452,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.36261296,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 11.257036,
+          "microEnabled": true,
+          "microPerMin": 16.37387,
+          "riskR": 39.576023,
+          "riskSmoothed": 43.19138,
+          "suddenCount5m": 0,
+          "tMs": 1794060151120,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 510410,
+      "actualElapsedMs": 51029,
+      "speed": 10,
+      "delivered": 5103,
+      "frameMs": 1794060210180,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 509,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 41.88923,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.48254943,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 16.18614,
+          "microEnabled": true,
+          "microPerMin": 15.174506,
+          "riskR": 43.98369,
+          "riskSmoothed": 43.313015,
+          "suddenCount5m": 0,
+          "tMs": 1794060181070,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 540010,
+      "actualElapsedMs": 53989,
+      "speed": 10,
+      "delivered": 5400,
+      "frameMs": 1794060239310,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 538,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 41.745564,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.4784447,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 12.172442,
+          "microEnabled": true,
+          "microPerMin": 15.215553,
+          "riskR": 43.83284,
+          "riskSmoothed": 43.39282,
+          "suddenCount5m": 0,
+          "tMs": 1794060211330,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 570170,
+      "actualElapsedMs": 57005,
+      "speed": 10,
+      "delivered": 5702,
+      "frameMs": 1794060269610,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 568,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 44.4063,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.5544658,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 11.357769,
+          "microEnabled": true,
+          "microPerMin": 14.455342,
+          "riskR": 46.626614,
+          "riskSmoothed": 43.889263,
+          "suddenCount5m": 0,
+          "tMs": 1794060241250,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 600290,
+      "actualElapsedMs": 60017,
+      "speed": 10,
+      "delivered": 6003,
+      "frameMs": 1794060299930,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 598,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 58.24816,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.9499475,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 11.550578,
+          "microEnabled": true,
+          "microPerMin": 10.500525,
+          "riskR": 61.16057,
+          "riskSmoothed": 46.540726,
+          "suddenCount5m": 0,
+          "tMs": 1794060271550,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 630360,
+      "actualElapsedMs": 63024,
+      "speed": 10,
+      "delivered": 6304,
+      "frameMs": 1794060330040,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 629,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 29.976278,
+          "contextK": 1.05,
+          "fLarge": 0.31787038,
+          "fMicro": 0.6294148,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 5.2714815,
+          "microEnabled": true,
+          "microPerMin": 13.705852,
+          "riskR": 31.47509,
+          "riskSmoothed": 44.227875,
+          "suddenCount5m": 0,
+          "tMs": 1794060301250,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 660240,
+      "actualElapsedMs": 66012,
+      "speed": 10,
+      "delivered": 6603,
+      "frameMs": 1794060359500,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 658,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 29.783768,
+          "contextK": 1.05,
+          "fLarge": 0.3347571,
+          "fMicro": 0.61185265,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 5.3390284,
+          "microEnabled": true,
+          "microPerMin": 13.881474,
+          "riskR": 31.272955,
+          "riskSmoothed": 42.23906,
+          "suddenCount5m": 0,
+          "tMs": 1794060331100,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 690320,
+      "actualElapsedMs": 69020,
+      "speed": 10,
+      "delivered": 6904,
+      "frameMs": 1794060389900,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 688,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 36.478786,
+          "contextK": 1.05,
+          "fLarge": 0.5977278,
+          "fMicro": 0.6153027,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 6.390911,
+          "microEnabled": true,
+          "microPerMin": 13.846973,
+          "riskR": 38.302723,
+          "riskSmoothed": 41.634758,
+          "suddenCount5m": 0,
+          "tMs": 1794060361130,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 6,
+          "patternType": "TREND",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 720190,
+      "actualElapsedMs": 72007,
+      "speed": 10,
+      "delivered": 7202,
+      "frameMs": 1794060420000,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 718,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 38.20487,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.3772819,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 11.156187,
+          "microEnabled": true,
+          "microPerMin": 16.22718,
+          "riskR": 40.11511,
+          "riskSmoothed": 41.401463,
+          "suddenCount5m": 0,
+          "tMs": 1794060391360,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 5,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 750100,
+      "actualElapsedMs": 74998,
+      "speed": 10,
+      "delivered": 7501,
+      "frameMs": 1794060450060,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 749,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 34.787483,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.27964246,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 10.119751,
+          "microEnabled": true,
+          "microPerMin": 17.203575,
+          "riskR": 36.526855,
+          "riskSmoothed": 40.653122,
+          "suddenCount5m": 0,
+          "tMs": 1794060421560,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 4,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 780020,
+      "actualElapsedMs": 77990,
+      "speed": 10,
+      "delivered": 7801,
+      "frameMs": 1794060479730,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 778,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 5.791055,
+          "contextK": 1.05,
+          "fLarge": 0.031814218,
+          "fMicro": 0.14273429,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 4.127257,
+          "microEnabled": true,
+          "microPerMin": 18.572657,
+          "riskR": 6.080608,
+          "riskSmoothed": 35.34561,
+          "suddenCount5m": 0,
+          "tMs": 1794060451260,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 4,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 810260,
+      "actualElapsedMs": 81014,
+      "speed": 10,
+      "delivered": 8100,
+      "frameMs": 1794060509910,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 808,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 16.51735,
+          "contextK": 1.05,
+          "fLarge": 0.035732746,
+          "fMicro": 0.44640088,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 4.142931,
+          "microEnabled": true,
+          "microPerMin": 15.535992,
+          "riskR": 17.343216,
+          "riskSmoothed": 32.581913,
+          "suddenCount5m": 0,
+          "tMs": 1794060481640,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 3,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 840230,
+      "actualElapsedMs": 84011,
+      "speed": 10,
+      "delivered": 8403,
+      "frameMs": 1794060539410,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 838,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 29.22989,
+          "contextK": 1.05,
+          "fLarge": 0.57701063,
+          "fMicro": 0.42298925,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 6.3080425,
+          "microEnabled": true,
+          "microPerMin": 15.770107,
+          "riskR": 30.691383,
+          "riskSmoothed": 32.291683,
+          "suddenCount5m": 0,
+          "tMs": 1794060511440,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 3,
+          "patternType": "AMBIGUOUS",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 870360,
+      "actualElapsedMs": 87024,
+      "speed": 10,
+      "delivered": 8704,
+      "frameMs": 1794060569800,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 868,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 36.371487,
+          "contextK": 1.05,
+          "fLarge": 1.0,
+          "fMicro": 0.32489967,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 8.375502,
+          "microEnabled": true,
+          "microPerMin": 16.751003,
+          "riskR": 38.19006,
+          "riskSmoothed": 33.197193,
+          "suddenCount5m": 0,
+          "tMs": 1794060541360,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 2,
+          "patternType": "SPIKE",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    },
+    {
+      "scenarioMs": 900006,
+      "actualElapsedMs": 89994,
+      "speed": 1,
+      "delivered": 9001,
+      "frameMs": 1794060599310,
+      "fatigue": {
+        "assist": {
+          "assistMode": false,
+          "handoverAbnormal": false,
+          "opGapSec": 898,
+          "reason": "NONE"
+        },
+        "baseline": {
+          "departureFatigue": false,
+          "firstCheckDueMs": null,
+          "reference": {
+            "largePerMin": 4.0,
+            "microPerMin": 20.0
+          },
+          "reportedSleepy": false,
+          "sensitiveSinceMs": null,
+          "source": "DEFAULT",
+          "today": null
+        },
+        "fatigue": {
+          "behaviorB": 5.2094245,
+          "contextK": 1.05,
+          "fLarge": 0.047120452,
+          "fMicro": 0.115183234,
+          "fSudden": 0.0,
+          "invalidReason": "NONE",
+          "largePerMin": 4.188482,
+          "microEnabled": true,
+          "microPerMin": 18.848167,
+          "riskR": 5.4698954,
+          "riskSmoothed": 28.940544,
+          "suddenCount5m": 0,
+          "tMs": 1794060571080,
+          "valid": true
+        },
+        "pattern": {
+          "abnormalMinutes10m": 2,
+          "patternType": "SPIKE",
+          "safetyBypass": false
+        },
+        "vulnerableTime": false
+      },
+      "stage": {
+        "evaluationStatus": "EVALUATED",
+        "pendingRequestId": null,
+        "reason": "SCORE",
+        "stage": "CAUTION"
+      }
+    }
+  ],
+  "finalPlayback": {
+    "connection": "SUCCEEDED",
+    "deliveredSamples": 9151,
+    "error": null,
+    "failureMessage": null,
+    "lastDeliveryElapsedMs": 12050893,
+    "lastOriginalSampleMs": 915000,
+    "phase": "PLAYING",
+    "pumpFinishedScenarioMs": 915038,
+    "pumpTargetMs": 915038,
+    "questionOutcome": null,
+    "questionRequestId": null,
+    "realElapsedMs": 105038,
+    "scenarioId": "departure",
+    "scenarioTimeMs": 915038,
+    "segmentMultiplier": 1,
+    "sessionId": 1,
+    "speedMultiplier": 1
+  },
+  "finalMessage": "출발 피로 · JSON → Hub → 판단 실행 중"
+}

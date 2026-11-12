@@ -1,0 +1,86 @@
+{
+  "atKst": "2026-11-11T23:10:59.252213+09:00",
+  "existingFileCount": 190,
+  "missing": [],
+  "changedExistingFiles": [],
+  "newFiles": [],
+  "originalDatabases": {
+    "awakedrive_debug_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 1,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "dc348415c21be68411fcb736afe4bb1c0124e8c0bfb21b0b572645de0ffa8944"
+      },
+      "after": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 1,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "dc348415c21be68411fcb736afe4bb1c0124e8c0bfb21b0b572645de0ffa8944"
+      },
+      "sameLogicalRows": true
+    },
+    "awakedrive_sdk_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 18,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "02c226413ac1b5e993cb88e695aace50a674451d277c382f726e895b36d45c3d"
+      },
+      "after": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 18,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "02c226413ac1b5e993cb88e695aace50a674451d277c382f726e895b36d45c3d"
+      },
+      "sameLogicalRows": true
+    },
+    "role1-final-20261109-awakedrive_sdk_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 3,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "34b3b57978817ee57132af07fbbc344eadc413afca7fb796b70ecb3257226d17"
+      },
+      "after": {
+        "integrity": "ok",
+        "rows": {
+          "android_metadata": 1,
+          "drive_segment": 3,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "34b3b57978817ee57132af07fbbc344eadc413afca7fb796b70ecb3257226d17"
+      },
+      "sameLogicalRows": true
+    }
+  },
+  "user10PermissionsUnchanged": true,
+  "user10Permissions": "android.permission.POST_NOTIFICATIONS: granted=true, flags=[ USER_SET|USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]\nandroid.car.permission.CAR_SPEED: granted=true, flags=[ USER_SET]\nandroid.permission.RECORD_AUDIO: granted=false, flags=[ USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED]",
+  "installedDebugSha256": "f2c1ddc8304920ca6e6f163551a070e049fce17991e3bc6587bbdcf0b1a44b3e",
+  "appPid": null,
+  "services": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\n  (nothing)",
+  "adbForwards": "",
+  "apkInstall": "adb install -r -t: Success",
+  "deviceTestsReexecuted": false
+}

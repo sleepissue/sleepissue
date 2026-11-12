@@ -1,0 +1,40 @@
+{
+  "inputNaviQuality": {
+    "LAT": {
+      "availability": "AVAILABLE",
+      "source": "REAL",
+      "observedAtMs": 1800050400000,
+      "receivedAtElapsedMs": null,
+      "sourceRateHz": null,
+      "observedTimeBasis": "UNKNOWN",
+      "observationSequence": null,
+      "selectionReason": null,
+      "sourceRateInfo": null,
+      "stateConfirmedAtElapsedMs": null,
+      "stateLeaseUntilElapsedMs": null
+    },
+    "LON": {
+      "availability": "AVAILABLE",
+      "source": "REAL",
+      "observedAtMs": 1800050400000,
+      "receivedAtElapsedMs": null,
+      "sourceRateHz": null,
+      "observedTimeBasis": "UNKNOWN",
+      "observationSequence": null,
+      "selectionReason": null,
+      "sourceRateInfo": null,
+      "stateConfirmedAtElapsedMs": null,
+      "stateLeaseUntilElapsedMs": null
+    }
+  },
+  "liveStage": "REST_GUIDANCE",
+  "savedStage": "NORMAL",
+  "restoredStage": "NORMAL",
+  "liveLocation": {
+    "lat": 37.5,
+    "lon": 127.0
+  },
+  "savedLocation": null,
+  "savedBaselineRef": null,
+  "ownerState": "REAL_TRIP_V1:AAFEAAA\u003d"
+}

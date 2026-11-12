@@ -1,0 +1,19 @@
+{
+  "beforeFiles": 1340,
+  "unchanged": 1336,
+  "changed": [
+    "src/android/app/src/debug/AndroidManifest.xml",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/AppNavigation.kt",
+    "docs/setup/CURRENT_HANDOFF.md",
+    "PROGRESS.md"
+  ],
+  "deletedFiles": [],
+  "sourceHashes": {
+    "src/android/app/src/debug/AndroidManifest.xml": "17685c75d27040609ea273dc58fbdea38264b42581f2481405aed5043fc15fca",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/AppNavigation.kt": "9255bbdeff849dcea8d9bd05af3af1ded09ea5e36db5f8e93b4a9b9e84d1838a",
+    "docs/setup/CURRENT_HANDOFF.md": "4f04244fa9118db5ae2296e3aaeae44db6228e77f1e2e94c7f1bf940bc065198",
+    "PROGRESS.md": "5a3ffde92837c9515efe3d85f82b772f83ecb4ef34b6e6c7fab57b1d60494fed"
+  },
+  "protectedDebugTools": "preserved all Kotlin tools/assets/tests",
+  "backup": "/home/a/.local/state/awakedrive-handoff/2026-11-12/develop-compare-debug-cleanup"
+}

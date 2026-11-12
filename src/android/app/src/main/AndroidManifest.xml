@@ -45,6 +45,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.ProductDemoActivity" android:exported="false" />
         <activity android:name=".service.RealTripMonitorActivity"
             android:exported="false" android:theme="@style/Theme.SleepIssue" />
         <!-- 공식 specialUse 계약의 기타 유효 사용례: 사용자가 시작한 차량 내부 SDK 감시. -->

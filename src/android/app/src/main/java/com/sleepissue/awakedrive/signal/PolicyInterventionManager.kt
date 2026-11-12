@@ -34,7 +34,8 @@ class PolicyInterventionManager(
 ) : InterventionManager {
     private data class Entry(val request: ExecutionRequest, val stage: InterventionStage,
         var status: ExecutionStatus = ExecutionStatus.REQUESTED, var delivered: Boolean = false,
-        var started: Boolean = false, var payloadHandled: Boolean = false, val restSessionId: String? = null)
+        var started: Boolean = false, var payloadHandled: Boolean = false, val restSessionId: String? = null,
+        val firstCheck: Boolean = false, var startedAtMs: Long? = null)
 
     private val mutex = Mutex()
     private val outbound = Channel<ExecutionRequest>(Channel.UNLIMITED)
@@ -69,6 +70,9 @@ class PolicyInterventionManager(
     private var retryAt: Long? = null
     private var retryOwner: RequestId? = null
     private var assistedAnchor: Long? = null
+    private var firstCheckDueMs: Long? = null
+    private var firstCheckRequested = false
+    private var firstCheckInterrupted = false
     private var lastNoticeAt: Long? = null
     private var lastTimerMs: Long? = null
     private val enteredAt = mutableMapOf<InterventionStage, Long>()
@@ -81,19 +85,24 @@ class PolicyInterventionManager(
     suspend fun checkpoint(): InterventionCheckpoint = mutex.withLock {
         check(active) { "중지된 개입 세션은 저장할 수 없습니다." }
         val checks = mutableInterruptedChecks.value.toMutableMap()
-        if (state.value.stage == InterventionStage.CHECK && retryAt != null && timerBasis == RequestTimerBasis.SCENARIO)
+        var firstInterrupted = firstCheckInterrupted
+        val firstRetry = retryOwner?.let { entries[it]?.firstCheck } == true
+        if ((state.value.stage == InterventionStage.CHECK || firstRetry) && retryAt != null && timerBasis == RequestTimerBasis.SCENARIO) {
             checks.putIfAbsent(alertnessContext, requireNotNull(retryAt))
+            if (firstRetry) firstInterrupted = true
+        }
         entries.values.forEach { entry ->
             val context = (entry.request as? CheckRequest)?.context
             if (context != null && context != CheckContext.WAYPOINT_CONSENT && !entry.payloadHandled && entry.status !in cancelledStatuses) {
                 val now = clock.scenarioTimeMs()
                 checks[context] = minOf(checks[context] ?: now, now)
+                if (entry.firstCheck) firstInterrupted = true
             }
         }
         InterventionCheckpoint(policyState.copy(publicState = state.value.copy(pendingRequestId = null)),
             assessment, trip != null, forecast, sensitive, vulnerable, ventilationConsent, alertnessContext,
             restSession, seenRestSessions.toSet(), latestRestCertificationMs, recoveryCompletedAtMs,
-            routeAdded, checks, enteredAt.toMap(), assistedAnchor)
+            routeAdded, checks, enteredAt.toMap(), assistedAnchor, firstCheckDueMs, firstCheckRequested, firstInterrupted)
     }
 
     /** 새 인스턴스에만 복원한다. 평가·음성·검색·경유지 요청을 자동 발행하지 않는다. */
@@ -115,6 +124,9 @@ class PolicyInterventionManager(
         routeAdded = checkpoint.routeAdded
         enteredAt.putAll(checkpoint.enteredAt)
         assistedAnchor = checkpoint.assistedAnchor
+        firstCheckDueMs = checkpoint.firstCheckDueMs
+        firstCheckRequested = checkpoint.firstCheckRequested
+        firstCheckInterrupted = checkpoint.firstCheckInterrupted
         mutableInterruptedChecks.value = checkpoint.interruptedChecks
         clearTimers()
         // 과거 외부 실행·후보·예약을 되살리지 않는다. 이후 새 입력에 의한 재안내의 기준이다.
@@ -128,7 +140,8 @@ class PolicyInterventionManager(
         val contexts = mutableInterruptedChecks.value.filterValues { clock.scenarioTimeMs() >= it }
         if (contexts.isEmpty()) return@withLock false
         mutableInterruptedChecks.value = mutableInterruptedChecks.value - contexts.keys
-        contexts.keys.forEach { enqueue(CheckRequest(freshId(), it)) }
+        contexts.keys.forEach { enqueue(CheckRequest(freshId(), it), firstCheck = firstCheckInterrupted && it == alertnessContext) }
+        if (alertnessContext in contexts) firstCheckInterrupted = false
         refreshPending()
         true
     }
@@ -159,6 +172,7 @@ class PolicyInterventionManager(
             trip = null; forecast = null; navi = null; candidate = null; restSession = null
             alertnessContext = CheckContext.DRIVER_ALERTNESS
             clearTimers(); assistedAnchor = null; routeAdded = false
+            clearFirstCheck()
             lastAreaDistanceM = null; distanceReminderPending = false; distanceReminderSent = false
             enteredAt.clear(); lastNoticeAt = null; lastTimerMs = null; commands.clear()
             mutableInterruptedChecks.value = emptyMap()
@@ -190,14 +204,36 @@ class PolicyInterventionManager(
                 if (input.value.assistedDriving != true) assistedAnchor = null
                 assessment = input.value
             }
-            is InterventionInput.TripChanged -> trip = input.value
+            is InterventionInput.TripChanged -> {
+                if (trip?.tripId != input.value.tripId) clearFirstCheck()
+                trip = input.value
+            }
             is InterventionInput.Forecast -> {
                 require(input.value.tMs <= clock.scenarioTimeMs()) { "미래의 예보 입력을 사용할 수 없습니다." }
                 if (forecast?.let { input.value.tMs < it.tMs } == true) return@withLock unavailable(requestId)
                 forecast = input.value
             }
-            is InterventionInput.SensitiveModeChanged -> sensitive = input.enabled
-            is InterventionInput.FrequentChecksChanged -> frequentChecks = input.enabled
+            is InterventionInput.SensitiveModeChanged -> {
+                sensitive = input.enabled
+                if (!sensitive) clearFirstCheck()
+            }
+            is InterventionInput.FirstCheckScheduleChanged -> {
+                require(input.tripId.isNotBlank())
+                require(input.dueAtMs == null || input.dueAtMs >= 0)
+                if (trip?.tripId != input.tripId) return@withLock unavailable(requestId)
+                val anchor = input.dueAtMs?.minus(config.baseline.sensitiveFirstCheckDelayMs)
+                if (anchor != null && (anchor < (trip?.runStartMs ?: 0) ||
+                    latestRestCertificationMs?.let { anchor <= it } == true)) return@withLock unavailable(requestId)
+                if (firstCheckDueMs != input.dueAtMs) {
+                    clearFirstCheck()
+                    firstCheckDueMs = input.dueAtMs
+                    // 이 민감 모드 구간에 이미 실제 시작한 주의 확인이면 중복하지 않는다.
+                    firstCheckRequested = anchor != null && entries.values.any {
+                        (it.request as? CheckRequest)?.context in alertnessContexts &&
+                            it.startedAtMs?.let { started -> started >= anchor } == true
+                    }
+                }
+            }
             is InterventionInput.VulnerableTimeChanged -> vulnerable = input.enabled
             is InterventionInput.VentilationConsentChanged -> ventilationConsent = input.enabled
             is InterventionInput.AlertnessTargetChanged -> {
@@ -205,6 +241,11 @@ class PolicyInterventionManager(
                     "주의 확인 대상은 운전자 또는 동승자여야 합니다."
                 }
                 if (alertnessContext != input.context) {
+                    val interruptedFirst = firstCheckInterrupted
+                    val activeFirst = entries.values.any { it.firstCheck && !it.payloadHandled && it.status !in cancelledStatuses }
+                    if (interruptedFirst) mutableInterruptedChecks.value = mutableInterruptedChecks.value - alertnessContext
+                    firstCheckInterrupted = false
+                    if (interruptedFirst || activeFirst) firstCheckRequested = false
                     alertnessContext = input.context
                     val pending = entries.values.filter {
                         it.request is CheckRequest && it.request.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) &&
@@ -222,6 +263,11 @@ class PolicyInterventionManager(
                 if (!seenSafetyEvents.add(input.value.tMs to input.value.type)) return@withLock result(requestId, ExecutionStatus.REQUESTED)
                 bypass = input.value.type == SafetyEventType.REPEATED_RAPID_STEERING
                 forceCheck = !bypass
+            }
+            is InterventionInput.CheckDue -> {
+                if (input.source != sessionSource) return@withLock unavailable(requestId)
+                require(input.tMs <= clock.scenarioTimeMs()) { "미래의 확인 요청은 처리할 수 없습니다." }
+                forceCheck = true
             }
             is InterventionInput.RestAreaResolved -> if (!handleArea(input.value)) return@withLock unavailable(requestId)
             is InterventionInput.RestAreaDistance -> {
@@ -241,6 +287,7 @@ class PolicyInterventionManager(
                     latestRestCertificationMs = input.value.certifiedAtMs
                     restSession = input.value.sessionId
                     certified = true
+                    clearFirstCheck()
                     // 인증 전 운전 시간·예보는 만료됐다. 실제 Store/예보 초기화 완료를 뜻하지 않는다.
                     // 이후 소유 모듈이 휴식 후 현재 상태를 다시 공급한다. 점수·확인 조건은 보존한다.
                     trip = null; forecast = null
@@ -310,7 +357,11 @@ class PolicyInterventionManager(
         entry.status = result.status
         if (result.status == ExecutionStatus.STARTED) {
             entry.started = true
+            entry.startedAtMs = clock.scenarioTimeMs()
             if (entry.request is CheckRequest) assistedAnchor = clock.scenarioTimeMs()
+            if ((entry.request as? CheckRequest)?.context in alertnessContexts && firstCheckDueMs != null &&
+                clock.scenarioTimeMs() >= requireNotNull(firstCheckDueMs) - config.baseline.sensitiveFirstCheckDelayMs)
+                firstCheckRequested = true
         }
         if (entry.request is RestRequest && entry.request.action == RestAction.ADD_WAYPOINT && result.status == ExecutionStatus.SUCCEEDED) routeAdded = true
         refreshPending()
@@ -331,7 +382,7 @@ class PolicyInterventionManager(
     }
 
     override suspend fun stop(requestId: RequestId): ExecutionResult = mutex.withLock {
-        cancelPending(includeRecoveryReset = true); active = false; clearTimers()
+        cancelPending(includeRecoveryReset = true); clearFirstCheck(); active = false; clearTimers()
         refreshPending()
         result(requestId, ExecutionStatus.CANCELLED)
     }
@@ -350,6 +401,10 @@ class PolicyInterventionManager(
         mutableState.value = decision.state.publicState
         decision.transition?.let { transition ->
             mutableTransitions.value = mutableTransitions.value + transition
+            // 안내 단계 변경으로 취소한 첫 확인을 '완료'로 소모하지 않는다.
+            // CHECK는 아래 기존 요청, REST_GUIDANCE는 휴식 요청이 우선한다.
+            if (entries.values.any { it.firstCheck && !it.payloadHandled && it.status !in terminalStatuses })
+                firstCheckRequested = false
             cancelPending(); clearTimers()
             val lastEntry = enteredAt[transition.to]
             enteredAt[transition.to] = now
@@ -402,12 +457,20 @@ class PolicyInterventionManager(
 
     private fun runDueRequests() {
         val now = timerNow()
+        // [해석] 출발 피로의 첫 확인 예약만으로 점수/단계를 올리지 않는다. 실제 발화는 기존 음성 게이트가 결정한다.
+        if (firstCheckDueMs?.let { clock.scenarioTimeMs() >= it } == true && !firstCheckRequested &&
+            state.value.stage != InterventionStage.REST_GUIDANCE && !hasPendingCheck()) {
+            enqueue(CheckRequest(freshId(), alertnessContext), firstCheck = true)
+            firstCheckRequested = true
+        }
         if (state.value.stage == InterventionStage.CHECK && assistedCheckDue() && !hasPendingCheck())
             enqueue(CheckRequest(freshId(), alertnessContext))
         if (autoAddAt?.let { now >= it } == true) { autoAddAt = null; autoAddOwner = null; addWaypoint() }
         if (retryAt?.let { now >= it } == true && !hasPendingCheck()) {
+            val firstRetry = retryOwner?.let { entries[it]?.firstCheck } == true
             retryAt = null; retryOwner = null
-            if (state.value.stage == InterventionStage.CHECK) enqueue(CheckRequest(freshId(), alertnessContext))
+            if (state.value.stage == InterventionStage.CHECK || firstRetry && state.value.stage != InterventionStage.REST_GUIDANCE)
+                enqueue(CheckRequest(freshId(), alertnessContext), firstCheck = firstRetry)
             if (state.value.stage == InterventionStage.REST_GUIDANCE) findArea()
         }
         val period = when (state.value.stage) {
@@ -448,20 +511,21 @@ class PolicyInterventionManager(
     private fun hasPendingWaypoint() = entries.values.any {
         it.request is RestRequest && it.request.action == RestAction.ADD_WAYPOINT && it.status !in terminalStatuses
     }
-    private fun hasPendingAlertnessCheck() = mutableInterruptedChecks.value.keys.any { it != CheckContext.RECOVERY } || entries.values.any {
+    private fun hasPendingAlertnessCheck() = (!firstCheckInterrupted && mutableInterruptedChecks.value.keys.any { it != CheckContext.RECOVERY }) || entries.values.any {
         val request = it.request as? CheckRequest
         request != null && request.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) &&
-            !it.payloadHandled && it.status !in cancelledStatuses
+            !it.firstCheck && !it.payloadHandled && it.status !in cancelledStatuses
     }
     private fun assistedCheckDue(): Boolean {
         val interval = if (frequentChecks || sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
             config.assistedRiskCheckIntervalMs else config.assistedCheckIntervalMs
         return assessment.assistedDriving == true && assistedAnchor?.let { clock.scenarioTimeMs() - it >= interval } == true
     }
-    private fun enqueue(request: ExecutionRequest) {
+    private fun enqueue(request: ExecutionRequest, firstCheck: Boolean = false) {
         check(request.requestId !in entries) { "외부 실행 요청 ID는 재사용할 수 없습니다." }
         entries[request.requestId] = Entry(request, state.value.stage,
-            restSessionId = if (request is CheckRequest && request.context == CheckContext.RECOVERY) restSession else null)
+            restSessionId = if (request is CheckRequest && request.context == CheckContext.RECOVERY) restSession else null,
+            firstCheck = firstCheck)
         check(outbound.trySend(request).isSuccess)
     }
     private fun freshId(): RequestId = newRequestId().also { check(it !in entries) { "요청 ID 생성기가 같은 ID를 반환했습니다." } }
@@ -476,6 +540,12 @@ class PolicyInterventionManager(
         }.forEach(::cancelEntry)
     }
     private fun clearTimers() { autoAddAt = null; autoAddOwner = null; retryAt = null; retryOwner = null }
+    private fun clearFirstCheck() {
+        if (firstCheckInterrupted) mutableInterruptedChecks.value = mutableInterruptedChecks.value - alertnessContext
+        if (retryOwner?.let { entries[it]?.firstCheck } == true) { retryAt = null; retryOwner = null }
+        entries.values.filter { it.firstCheck && !it.payloadHandled && it.status !in cancelledStatuses }.forEach(::cancelEntry)
+        firstCheckDueMs = null; firstCheckRequested = false; firstCheckInterrupted = false
+    }
     private fun cancelEntry(entry: Entry) {
         entry.status = ExecutionStatus.CANCELLED
         if (entry.delivered) check(outbound.trySend(CancelExecutionRequest(entry.request.requestId)).isSuccess)
@@ -497,6 +567,7 @@ class PolicyInterventionManager(
     private fun unavailable(id: RequestId) = result(id, ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
     private fun result(id: RequestId, status: ExecutionStatus, failure: ExecutionFailure? = null) = ExecutionResult(id, status, failure)
     private companion object {
+        val alertnessContexts = setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS)
         val cancelledStatuses = setOf(ExecutionStatus.CANCELLED, ExecutionStatus.FAILED, ExecutionStatus.NOT_CONNECTED)
         val terminalStatuses = cancelledStatuses + ExecutionStatus.SUCCEEDED
         val humanResponseStatuses = setOf(CheckOutcome.NORMAL, CheckOutcome.SLOW)

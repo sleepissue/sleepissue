@@ -1,0 +1,17 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+Calculating task graph as no cached configuration is available for tasks: :engine:test
+> Task :engine:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :engine:processResources NO-SOURCE
+> Task :engine:processTestResources NO-SOURCE
+> Task :engine:compileKotlin
+> Task :engine:compileJava NO-SOURCE
+> Task :engine:classes UP-TO-DATE
+> Task :engine:jar
+> Task :engine:compileTestKotlin
+> Task :engine:compileTestJava NO-SOURCE
+> Task :engine:testClasses UP-TO-DATE
+> Task :engine:test
+
+BUILD SUCCESSFUL in 1m 14s
+4 actionable tasks: 4 executed
+Configuration cache entry stored.

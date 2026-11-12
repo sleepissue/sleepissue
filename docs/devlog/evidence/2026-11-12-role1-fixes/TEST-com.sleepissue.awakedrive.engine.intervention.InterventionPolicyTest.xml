@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2026-11-11T18:30:13.548Z" hostname="a" time="0.045">
+  <properties/>
+  <testcase name="certificationDoesNotEraseCurrentContextOrPendingCheck" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.007"/>
+  <testcase name="cautionContextCannotBecomeTheCauseOfScoreBasedStageThree" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="certificationReevaluatesNormalAndSensitiveScoreBoundaries" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="highScoreWithoutTrendStopsAtCheckEvenAfterLongTime" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="delayedFirstEscalationUsesFirstEvaluationInsteadOfSlidingEveryTick" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="humanNoResponseOrRestIntentOutranksPendingCheckAndScoreImmediately" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.002"/>
+  <testcase name="defaultFirstEscalationIsImmediateEvenAfterEarlierNormalEvaluations" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.002"/>
+  <testcase name="pendingCheckPreventsDescentAndSensitiveDescentUsesSensitiveThreshold" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="timeCautionPersistsUntilRecoveryAndSafetyOutranksSimultaneousRecovery" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="invalidScoreBreaksLowStreakInsteadOfCountingAsZero" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="timeCanCauseCautionWithoutPretendingFatigueWasEvaluated" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="normalAndSensitiveThresholdsIncludeTheirExactBoundary" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="twoSlowResponsesAndNoResponseBypassGeneralStepDelay" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.004"/>
+  <testcase name="scheduledFirstCheckCannotLowerRestGuidanceOrHideSafetyBypass" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="scheduledFirstCheckRunsAtDueTimeWithoutScoreEscalationDelay" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="singleCheckEventRemainsPendingUntilStageTwoAndClockCannotReverse" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.002"/>
+  <testcase name="highTrendingScoreRisesOnlyOneStepAtEachThirtySecondBoundary" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="lowScoreRequiresTenContinuousValidMinutesAndNormalConfirmation" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="certificationDoesNotShortCircuitScoreOnlyCautionDescent" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="explicitSafetyBypassStillOutranksScorePendingCheckAndRecoveryImmediately" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="certificationAloneCannotReleaseStageThreeOrClaimUnobservedScoreIsNormal" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="deviceFailureIsNotNoResponseAndNormalBreaksSlowStreak" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="pendingCheckCannotReplaceTheScoreCauseOfStageThree" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.001"/>
+  <testcase name="consentOrRecoveryResultsCannotBecomeAnAlertnessFailure" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <testcase name="certificationReleasesTimeOrForecastHoldWithoutRecoveryOrTenMinuteWait" classname="com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

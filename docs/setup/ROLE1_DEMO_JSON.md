@@ -1,5 +1,8 @@
 # DemoPlayer JSON 작성 가이드
 
+
+**2026-11-11 제품 연결:** 아래 정규 형식을 유지하면서 팀 원본 `formatVersion/scenarioId/startAt/tMs`도 같은 엄격 파서로 읽는다. `tripPreset {continuousDriveSec,last24hDriveSec}`을 두 형식에서 지원하고, DEMO 전용 과거 운전 구간과 함께 시작한다(0 ≤ 연속 ≤ 최근24시간 ≤ 86400초). 제품은 `data/scenarios` 원본을 APK assets로 직접 배포하므로 기존 재생용 사본의 필드 손실에 의존하지 않는다. [제품 버튼·실제 시험·DMO_005·한계](../devlog/2026-11-11-product-demo-release.md). 이전 ‘미연결/가짜 질문만’ 문단은 당시 구현 범위다.
+
 5번 담당은 이 형식으로 시나리오를 만들고, debug의 **JSON 데모·배속 검증** 화면에서 로드 결과를 확인한다. 실제 차량 입력과 마찬가지로 JSON도 VehicleSignalHub를 거친다. JSON에서 위험 점수·단계·확인 결과를 지정하거나 졸음 엔진을 직접 호출하지 않는다.
 
 최소 예제는 [demo_minimal.json](../../data/scenarios/demo_minimal.json), 구조 정의는 [demo.schema.json](../../data/scenarios/demo.schema.json)이다. 예제는 **0.3초짜리 로더 확인 자료**이며 정상·딴짓·졸음·대화·보조 주행·출발 피로 6종을 대신하지 않는다. 충분히 긴 버튼 검증용 JSON은 debug 앱의 내장 예제를 사용한다.
@@ -65,7 +68,7 @@ seats 객체는 위 5개 키를 모두 적고 좌석별 Boolean/null을 쓴다. 
 
 좌표는 둘 다 생략하거나 둘 다 null로 둘 수 있다. 한쪽에 값이 있는데 다른 쪽이 없으면 오류다. 값이 있는 DEMO 좌표 쌍은 기존 Hub의 DEMO_LOCATION 예외를 따른다. 좌표 없는 샘플은 기존 REAL 위치로 대체될 수 있으며, 로더가 REAL 좌표를 가져오거나 서로 다른 출처의 위경도를 합치지 않는다.
 
-말소리·녹음·대답 시간·STT 문장은 JSON 필드가 아니다. 실제 마이크 입력은 음성 담당의 후속 연결이며, 이번 debug에서는 **가짜 질문 이벤트**로 배속 계약을 검증한다.
+말소리·녹음·대답 시간·STT 문장은 JSON 필드가 아니다. 기존 debug 화면은 **가짜 질문 이벤트**로 배속 계약을 검증한다. 2026-11-11 제품 데모에는 실제 ON_DEVICE TTS 시작과 확인 종료·실패·취소에 연결한 배속 잠금이 있다. 실제 기기 확인 범위는 [제품 데모 기록](../devlog/2026-11-11-product-demo-release.md), 인계 후 최종 빌드와 과거 근거 구분은 [최종 검증](../devlog/2026-11-11-resume-final.md)을 본다. 사람이 말한 정답률·CabinMonitor 전체 검증을 뜻하지 않는다.
 
 ## 배속 구간
 

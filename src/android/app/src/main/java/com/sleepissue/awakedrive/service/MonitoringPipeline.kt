@@ -64,7 +64,7 @@ class MonitoringPipeline private constructor(
     val rest: RestModule,
     val forecast: ForecastCoordinator,
     val restWiring: RestWiring,
-    private val check: VoiceCheckPort,
+    val check: VoiceCheckPort,
     private val job: Job,
     private val closeables: List<AutoCloseable>,
 ) {
@@ -94,6 +94,7 @@ class MonitoringPipeline private constructor(
 
     suspend fun close() {
         job.cancel()
+        check.close()
         manager.stop(RequestId("pipeline-stop"))
         closeables.forEach { runCatching { it.close() } }
         rest.close()
@@ -110,12 +111,15 @@ class MonitoringPipeline private constructor(
             trip: StateFlow<TripState>,
             ventilationConsent: StateFlow<Boolean>,
             config: EngineConfig = EngineConfig(),
+            source: Source = Source.REAL,
+            restContext: Context = context,
+            onVoiceLifecycle: (RequestId, com.sleepissue.awakedrive.engine.model.ExecutionStatus) -> Unit = { _, _ -> },
         ): MonitoringPipeline {
             val ids = AtomicLong()
             fun id(prefix: String) = RequestId("$prefix-${ids.incrementAndGet()}")
 
-            val manager = PolicyInterventionManager(InterventionPolicy(config), config, clock, Source.REAL,
-                RequestTimerBasis.ELAPSED_REALTIME) { id("manager") }
+            val manager = PolicyInterventionManager(InterventionPolicy(config), config, clock, source,
+                if (source == Source.DEMO) RequestTimerBasis.SCENARIO else RequestTimerBasis.ELAPSED_REALTIME) { id("manager") }
             val runner = FatigueAssessmentRunner(FatigueBridge(config))
 
             val tts = PleosTtsOutput(context, RawResourceFallbackPlayer(context, emptyMap()))
@@ -131,12 +135,10 @@ class MonitoringPipeline private constructor(
             val coordinator = VoiceCheckCoordinator(CheckManager(AndroidElapsedClock(), policy, SpeechIntentParser()),
                 policy, recognizer, tone)
             val check = VoiceCheckPort(PassengerCheckFlow(policy, agent, coordinator), agent, coordinator,
-                { PassengerOccupancyResolver.resolve(hub.latestFrame.value?.seats, null, speechDetected = false,
-                    microphoneAvailable = DriverUiSettingsStore(context).read().microphoneConsent &&
-                        ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) },
-                { config.defaultVoiceBaselineMs }) // [가정] 개인 대답 기준선(2차 BSL)은 아직 없어 기본값
+                { PassengerOccupancyResolver.resolve(hub.latestFrame.value?.seats, null, speechDetected = false, microphoneAvailable = true) },
+                { config.defaultVoiceBaselineMs }, onVoiceLifecycle) // [가정] 개인 대답 기준선(2차 BSL)은 아직 없어 기본값
 
-            val rest = RestModule(context, scope, clock, config, speak)
+            val rest = RestModule(restContext, scope, clock, config, speak, demoMode = source == Source.DEMO)
             val forecast = ForecastCoordinator(ForecastEngine(clock, config), clock, manager,
                 { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value).copy(ageBand = runner.ageBand) }, { id("forecast") })
             val reset = RestRecoveryReset({ runner.onRestCertified() }, forecast)
@@ -149,9 +151,7 @@ class MonitoringPipeline private constructor(
             val job = pipeline.start(scope) {
                 wiring = rest.wire(manager, router, hub, { trip.value.continuousDriveSec }, { id("rest") })
             }
-            return MonitoringPipeline(manager, runner, rest, forecast, wiring, check, job, listOf(tts, recognizer, tone)).also {
-                it.updateSettings(DriverUiSettingsStore(context).read())
-            }
+            return MonitoringPipeline(manager, runner, rest, forecast, wiring, check, job, listOf(tts, recognizer, tone))
         }
     }
 }

@@ -21,6 +21,9 @@ data class InterventionCheckpoint(
     val interruptedChecks: Map<CheckContext, Long>,
     val enteredAt: Map<InterventionStage, Long>,
     val assistedAnchor: Long?,
+    val firstCheckDueMs: Long? = null,
+    val firstCheckRequested: Boolean = false,
+    val firstCheckInterrupted: Boolean = false,
 ) {
     fun requireValid(nowMs: Long, trip: TripState) {
         require(policy.publicState.stage == trip.stage) { "저장된 운행 단계와 개입 단계가 다릅니다." }
@@ -40,6 +43,11 @@ data class InterventionCheckpoint(
             CheckContext.PASSENGER_ALERTNESS, CheckContext.RECOVERY) })
         require(interruptedChecks.values.all { it >= 0 })
         require(CheckContext.RECOVERY !in interruptedChecks || restSessionId != null) { "회복 확인의 인증 근거가 없습니다." }
-        require(interruptedChecks.keys.none { it != CheckContext.RECOVERY } || trip.stage == InterventionStage.CHECK)
+        require(firstCheckDueMs == null || firstCheckDueMs >= 0)
+        require(!firstCheckRequested || firstCheckDueMs != null)
+        require(!firstCheckInterrupted || firstCheckRequested && requireNotNull(firstCheckDueMs) <= nowMs &&
+            alertnessContext in interruptedChecks)
+        require(interruptedChecks.keys.none { it != CheckContext.RECOVERY } || trip.stage == InterventionStage.CHECK ||
+            firstCheckInterrupted && interruptedChecks.keys.all { it == alertnessContext || it == CheckContext.RECOVERY })
     }
 }

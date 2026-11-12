@@ -1,0 +1,56 @@
+{
+  "branch": "develop-jdw",
+  "head": "9144cfd7eee1b078b6a988c7692a97792e4f4407",
+  "before_files": 406,
+  "unchanged": 398,
+  "changed": [
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/AwakeDrivePipeline.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PolicyInterventionManager.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSessionCodec.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionCheckpoint.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionManager.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/demo/ProductDemoController.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/service/AwakeDrivePipelineTest.kt"
+  ],
+  "new": [
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/demo/ProductDemoSpeed.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/demo/ProductDemoPipelineContractTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/demo/ProductDemoSpeedTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/FirstCheckScheduleTest.kt"
+  ],
+  "protected": {
+    "src/android/engine/src": {
+      "files": 121,
+      "changed": 0
+    },
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/fatigue": {
+      "files": 3,
+      "changed": 0
+    },
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/voice": {
+      "files": 18,
+      "changed": 0
+    },
+    "data/scenarios": {
+      "files": 10,
+      "changed": 0
+    }
+  },
+  "hashes": {
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/AwakeDrivePipeline.kt": "5f74a2a6ceb15598cc0d9ee0d36554a32db06ec4f0485d1707266319e42493d0",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PolicyInterventionManager.kt": "f814be6820e1f27b20b62ace5f169e87f1b391e0b0254d131e03f2eaac253ca8",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSessionCodec.kt": "5a768bb4dc13c694a69368b92c3a05c8000132a26add462ce1e4c811790d83f0",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionCheckpoint.kt": "cf1838072612a3f2b91a14e758477d3b59126128fa44d76c95b5da568eaa978e",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionManager.kt": "56dbf460c8affedf66fb5511fa6300b1baab10dc461d9b95e3c2896c278ff23a",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/demo/ProductDemoController.kt": "21b4ea26b5b681a7d7a672dfbcc3b3446f59034815dff25fa244a9ec484aa184",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt": "32df6b03ff6042292924be33e383491ab93d39b998f5572500ecbd1f51c19601",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/service/AwakeDrivePipelineTest.kt": "31f15fd6ed9b3d622b95ece88d65ba13ac2ed7532e3b9c450eb1643c505bd2f6",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/demo/ProductDemoSpeed.kt": "e777547de2b66d7c81048ae75275e5968a96f9c39b8f361b3e26bf0327f5bbf2",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/FirstCheckScheduleTest.kt": "6f08d9ddf1885f04d378572630ff2fb0f352557a74e1af4d78d8f1b83a9066b7",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/demo/ProductDemoSpeedTest.kt": "d6689bd07c1e903ec5775064ca9cddd11bdc6114f4e91a11f83ca201cef16a55",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/demo/ProductDemoPipelineContractTest.kt": "5219ee646c52b3d3517d87000010069300e191925c528779e0be90262dda7425"
+  },
+  "adb_or_device_access_this_task": false,
+  "apk_created_or_installed_this_task": false
+}

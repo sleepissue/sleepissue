@@ -36,7 +36,8 @@ class VoiceCheckPort(
     private val coordinator: VoiceCheckSession,
     private val occupancyProvider: () -> OccupancyContext,
     private val baselineMsProvider: () -> Long,
-) : CheckPort {
+    private val onLifecycle: (RequestId, ExecutionStatus) -> Unit = { _, _ -> },
+) : CheckPort, AutoCloseable {
     private val mutableExecutionResults = MutableSharedFlow<ExecutionResult>(extraBufferCapacity = 16)
     override val executionResults: Flow<ExecutionResult> = mutableExecutionResults.asSharedFlow()
 
@@ -89,6 +90,7 @@ class VoiceCheckPort(
             }
         }
         if (!canCancel) return execution(requestId, ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
+        onLifecycle(requestId, ExecutionStatus.CANCELLED)
         passengerCheckFlow.cancel()
         coordinator.cancel()
         return execution(requestId, ExecutionStatus.CANCELLED).also { mutableExecutionResults.emit(it) }
@@ -111,6 +113,8 @@ class VoiceCheckPort(
             intent = intent,
             channel = if (passengerButton) ResponseChannel.PASSENGER_BUTTON else ResponseChannel.DRIVER_BUTTON,
         ))
+        synchronized(lock) { clearActive() }
+        onLifecycle(requestId, ExecutionStatus.SUCCEEDED)
         return execution(requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
     }
 
@@ -134,6 +138,7 @@ class VoiceCheckPort(
             onPromptStarted = { emitStarted(request.requestId) },
             onResult = { result, _ -> completeVoice(request, result) },
             onButtonRequired = { requireButton(request, passengerButton = false) },
+            shouldContinue = { synchronized(lock) { activeRequest?.requestId == request.requestId } },
         )
     }
 
@@ -153,12 +158,7 @@ class VoiceCheckPort(
             text = prompt,
             fallback = FallbackCue.CHECK_PROMPT,
             onComplete = {
-                if (synchronized(lock) { activeRequest?.requestId != request.requestId }) return@speak
-                if (!occupancyProvider().microphoneAvailable) {
-                    requireButton(request, passengerButton = false)
-                    return@speak
-                }
-                coordinator.start(
+                if (synchronized(lock) { activeRequest?.requestId == request.requestId }) coordinator.start(
                     baselineMs = baselineMsProvider(),
                     questionType = questionType,
                     onResult = { result, _ -> completeVoice(request, result) },
@@ -175,6 +175,7 @@ class VoiceCheckPort(
             else { clearActive(); true }
         }
         if (!shouldEmit) return
+        onLifecycle(request.requestId, ExecutionStatus.SUCCEEDED)
         mutableResults.tryEmit(result.toInterventionResult(request.requestId, request.context))
         mutableExecutionResults.tryEmit(execution(request.requestId, ExecutionStatus.SUCCEEDED))
     }
@@ -187,18 +188,24 @@ class VoiceCheckPort(
                 true
             }
         }
-        if (accepted) {
-            emitStarted(request.requestId)
-            mutableButtonRequests.tryEmit(VoiceButtonRequest(request.requestId, request.context, passengerButton))
-        }
+        if (accepted) onLifecycle(request.requestId, ExecutionStatus.FAILED)
+        if (accepted) mutableButtonRequests.tryEmit(
+            VoiceButtonRequest(request.requestId, request.context, passengerButton),
+        )
     }
 
     private fun emitStarted(requestId: RequestId) {
-        synchronized(lock) {
-            if (activeRequest?.requestId != requestId) return
-            promptStarted = true
-        }
+        if (synchronized(lock) { activeRequest?.requestId != requestId }) return
+        onLifecycle(requestId, ExecutionStatus.STARTED)
         mutableExecutionResults.tryEmit(execution(requestId, ExecutionStatus.STARTED))
+    }
+
+    /** 종료 뒤 늦은 TTS 완료가 새 마이크 확인을 시작하지 않도록 먼저 요청을 닫는다. */
+    override fun close() {
+        val id = synchronized(lock) { activeRequest?.requestId.also { clearActive() } }
+        id?.let { onLifecycle(it, ExecutionStatus.CANCELLED) }
+        passengerCheckFlow.cancel()
+        coordinator.cancel()
     }
 
     private fun clearActive() {

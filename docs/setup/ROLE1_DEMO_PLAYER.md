@@ -1,5 +1,7 @@
 # DemoClock·JSON 재생과 debug 검증
 
+> **2026-11-11 제품 경로:** 이 문서의 독립 메모리·가짜 질문 설명은 기존 debug 검증 화면의 범위다. 제품 앱에는 원본6종 assets→동일 Hub→기존 판단 파이프라인, 실제 TTS 배속 잠금, 제품 배지, 격리 Room의 ‘시동 끔→새 실행+22분’ 경로가 추가됐다. [제품 실행 기록](../devlog/2026-11-11-product-demo-release.md)과 [인계 후 최종 검증/README 순서](../devlog/2026-11-11-resume-final.md)를 우선한다. 최종773개 JVM·빌드는 이번 실행이고 기기3건·새PID 복원은 기존 근거 재사용이다. DMO006 전체·60배 성능·내부 학습창 복원은 여전히 별도다.
+
 이번 구현은 **JSON → DemoPlayer → 기존 VehicleSignalHub** 입력 경로다. `develop-jdw`의 `7bc5ffd`를 기준으로 추가했으며, 기존 수동 운행/Room·가짜 Hub·Playground SDK·음성 검증 화면은 유지한다. 데모 화면은 독립 메모리 세션이며 Room을 열거나 저장·삭제하지 않는다.
 
 JSON 작성 규칙·Schema·최소 예제는 [5번 담당 작성 가이드](ROLE1_DEMO_JSON.md)를 따른다. 기준 요구사항은 [SRS v0.2](../design/AwakeDrive_SRS_TC_v0.2.xlsx)의 Sys Req Spec/Test Case 152~155행 `DMO_001~004`, Data Interface 75~85행 `MSG-11`, 22행 `SIG_008`이다. 원본 Excel은 수정하지 않았다. 6종 시나리오 완성과 기기 E2E 전체 통과를 뜻하지 않는다.

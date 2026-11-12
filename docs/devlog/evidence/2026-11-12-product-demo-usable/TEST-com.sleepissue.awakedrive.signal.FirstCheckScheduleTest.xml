@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2026-11-12T07:26:35.642Z" hostname="a" time="0.05">
+  <properties/>
+  <testcase name="dueBoundaryProducesOneRequestWithoutInventingScoreOrRaisingStage" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.006"/>
+  <testcase name="oldTripAndBeforeNewTripAnchorsCannotArmAQuestion" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.002"/>
+  <testcase name="interruptedFirstCheckAndItsRetryRestoreWithoutReusingTheOldRequestId" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.005"/>
+  <testcase name="nullScheduleSensitivityOffAndNewTripEachRemoveTheOldReservation" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.01"/>
+  <testcase name="oneSlowResultRetriesAfterThirtySecondsAndTheSecondUsesTheExistingRestRule" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.003"/>
+  <testcase name="cautionTransitionDoesNotConsumeAnUnfinishedFirstQuestion" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.002"/>
+  <testcase name="futureScheduleSurvivesCodecAndRestoreDoesNotAskUntilDue" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.004"/>
+  <testcase name="deviceFailureDoesNotBecomeHumanNoResponseOrRestGuidance" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.002"/>
+  <testcase name="noResponseUsesTheExistingImmediateRestRuleAndRestPrioritySuppressesAnExtraQuestion" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.004"/>
+  <testcase name="legacyVersionOneOwnerPayloadStillDecodesWithoutASchedule" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.001"/>
+  <testcase name="stopAndRestCertificateClearFirstCheckAndRejectLateDelivery" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.005"/>
+  <testcase name="aRiskTriggeredQuestionAlreadyStartedInThisSensitivePeriodFulfilsTheFirstCheck" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.002"/>
+  <testcase name="targetChangeCancelsTheOldFirstQuestionAndUsesTheCurrentTarget" classname="com.sleepissue.awakedrive.signal.FirstCheckScheduleTest" time="0.004"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

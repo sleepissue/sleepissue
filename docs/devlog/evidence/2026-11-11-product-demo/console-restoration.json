@@ -1,0 +1,53 @@
+{
+  "gearBefore": {
+    "bridge_ready": false,
+    "input_mode": "http-g29",
+    "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+    "supported_gears": [
+      "Park",
+      "Reverse",
+      "Neutral",
+      "Drive"
+    ],
+    "actual": null
+  },
+  "gearAfter": {
+    "bridge_ready": false,
+    "input_mode": "http-g29",
+    "actual_topic": "SDV_MOTION_GEAR_BASE_GEARBASE_ACTUAL_GEAR",
+    "supported_gears": [
+      "Park",
+      "Reverse",
+      "Neutral",
+      "Drive"
+    ],
+    "actual": {
+      "value": "Park",
+      "source": "activation",
+      "timestamp_ms": 1794398880402,
+      "source_timestamp": 0,
+      "source_location": ""
+    }
+  },
+  "controlsBefore": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0
+  },
+  "controlsAfter": {
+    "speed_kph": 0,
+    "accelerator_pct": 0,
+    "brake_pct": 0,
+    "steering_deg": 0
+  },
+  "cruiseModeBefore": "ready",
+  "cruiseModeAfter": "ready",
+  "cruiseTargetBefore": 13.8889,
+  "cruiseTargetAfter": 13.8889,
+  "browserAfter": {
+    "active": false,
+    "clients": 0,
+    "timeout_ms": 3000
+  }
+}

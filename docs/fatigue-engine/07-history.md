@@ -152,6 +152,21 @@ GitHub에서는 `https://github.com/sleepissue/sleepissue/commit/<커밋 해시>
 - **왜:** 1번 `InterventionManager`가 받을 자리(`DrivingAssessment`·`Safety`·`SensitiveModeChanged`·`VulnerableTimeChanged`)는 main에 있었지만, 엔진 결과를 그 형식으로 넘기는 코드가 아무 데도 없었다. 없으면 11/9 통합에서 엔진이 단계 전환에 붙지 않는다.
 - **남은 것:** 1번이 앱 조립 코드에서 `runner.run(hub.samples, …, interventionManager)`을 띄워야 실제로 돈다. '15분 뒤 첫 확인'은 1번 입력이 생기면 연결 ([08 4-1](08-team-handoff.md#4-1-1번-차량-신호단계-전환)).
 
+### 14단계 — 급조향 멈춤 구간·데모 시작 시각 (11/10, 버그 수정)
+
+- **바꾼 것:** `SuddenSteerDetector`가 멈춤 구간을 '지금 샘플로 끝나는 가장 긴 구간'으로 잡는다(시험 2개). 연결기에 `epochOffsetMs`(데모 시나리오 시작 시각)를 더했다(시험 1개).
+- **왜:** 5번이 drowsy 데모를 DemoPlayer → Hub → 엔진으로 돌렸을 때 위험도 최고가 62.41이었다. 급조향을 하나도 못 봤을 때 값(62.5)과 같다. 엔진에 직접 넣어도 급조향 5번 중 2번만 잡혔고, 원인은 꺾임 끝 샘플 하나가 멈춤 구간을 끊는 것이었다. 데모 시각은 DemoClock이 0부터 주는 상대 ms라 14:00 시나리오도 취약 시간대가 아니게 읽혔다.
+- **남은 것:** 데모를 띄우는 코드에서 `runner.epochOffsetMs = scenario.startEpochMs`.
+
+### 15단계 — 딴짓 기록·'15분 뒤 첫 확인' 입력 (11/11, 빠진 Must 채우기)
+
+- **바꾼 것:**
+  - PAT_004 딴짓 기록: 엔진 `PatternClassifier.onCheckResult`·`FatigueEngine.onCheckResult`, `PatternState.distractionCount`·`lastDistractionMs`, `PatternConfig.distractionResolveMs`(3분 [제안값]). 연결기 `FatigueBridge.onCheckResult`·`FatigueAssessmentRunner.onCheckResult`. 엔진 시험 6개, 연결기 시험 3개.
+  - BSL_006 첫 확인: 1번 `InterventionManager.kt`에 `InterventionInput.CheckDue(tMs, source)` 한 종, `PolicyInterventionManager`에서 급조향 1회와 같이 `forceCheck = true`(다른 세션·미래 시각 거절). 연결기가 `firstCheckDueMs`가 지난 첫 프레임에서 한 번 보낸다. 시험 `CheckDueInputTest` 3개, 연결기 시험 1개.
+- **왜:** SRS Must인데 비어 있었다. PAT_004의 '딴짓 기록 1건'은 어디에도 없었고(11/6 확인), BSL_006의 '15분 뒤 첫 음성 확인'은 엔진이 시각만 내놓고 1번에 받을 입력이 없었다(08 4-1 5b).
+- **정한 것:** 급조향 바로 뒤 확인은 그 1분 칸이 판정 전이라 정상 대답을 후보로 두고, 3분 안에 새 이상 분으로 튐형이 되면 기록한다. 끝까지 애매면 기록하지 않는다(애매하면 단정하지 않는 쪽) [해석]. 단계 하강은 1번 INT_007 그대로.
+- **알릴 것:** 1번 — 1번 파일 2곳을 고쳤으니 리뷰. 조립하는 사람 — `runner.onCheckResult(result)`를 라우터 확인 결과에 붙이기.
+
 ## 4. 준비만 하고 아직 안 올린 것
 
-11/7에 모두 올렸다 (11~13단계, 문서는 11/7 문서 커밋과 팀원 안내 커밋). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일), 팀원별 할 일은 [README](README.md#팀원이-먼저-볼-것-주말-117119).
+11/7에 모두 올렸다 (11~13단계, 문서는 11/7 문서 커밋과 팀원 안내 커밋). 14·15단계는 `feat/engine-fix-1110` 브랜치로 올린다(11/11). 남은 일은 [09](09-schedule-todo-limits.md#3-남은-일), 팀원별 할 일은 [README](README.md#팀원이-먼저-볼-것-주말-117119).

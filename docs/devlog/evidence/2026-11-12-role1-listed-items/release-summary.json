@@ -1,0 +1,14 @@
+{
+  "sha256": "7a9fd6556711a90fd80b4eb29982f1e9063dbdafd66fcdcbfda676243ffc2437",
+  "sixOriginalAssetsMatch": {
+    "normal": true,
+    "distraction": true,
+    "drowsy": true,
+    "talk": true,
+    "assist": true,
+    "departure": true
+  },
+  "debugComponentsAbsent": true,
+  "productDemoRegistered": true,
+  "signature": "UNSIGNED - team signing required"
+}

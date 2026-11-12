@@ -12,13 +12,16 @@ internal class SdkNaviDelivery(
     private val route: SdkRouteGate,
     private val emit: () -> Unit,
 ) {
-    fun route(state: RouteStateInfo, receipt: Long) {
+    /** 새 활성 경로일 때만 재조회를 요청할 수 있도록 전환 여부를 돌려준다. 반복 상태 보고는 제외한다. */
+    fun route(state: RouteStateInfo, receipt: Long): Boolean {
         // 공식 NaviMode의 명시적 안내 상태만 경로 값의 근거로 쓴다.
         // 현재 provider는 ROUTE_GUIDING 중에도 isRouting=false를 보고한다(2026-11-09 기기 재현).
         // 요청 반환·탐색 중 Boolean만으로 안내 시작을 추정하거나 SAFE_GUIDING의 기본 0을 살리지 않는다.
         val active = state.naviMode == NaviMode.ROUTE_GUIDING || state.naviMode == NaviMode.SIMULATION_GUIDING
+        val becameActive = active && !route.acceptsRouteValues()
         route.update(active, receipt)
         if (!active) clearRoute("${state.naviMode} · 활성 안내 없음 · 기본 0 미사용")
+        return becameActive
     }
 
     fun location(lat: Double, lon: Double, rawHeading: Double?, receipt: Long) {

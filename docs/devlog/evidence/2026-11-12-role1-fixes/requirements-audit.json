@@ -1,0 +1,459 @@
+{
+  "readOnlySources": {
+    "docs/plan/AwakeDrive_일정_v1.gan": "e5641600ec52d4a4d032cf696fab274fe343dc9b68032a8cf0aaaf57724b24bd",
+    "docs/design/AwakeDrive_SRS_TC_v0.2.xlsx": "2ea8c6d0baf3040f146fbbab0d87883f12108354411ffaad1f8e6fb1e95e69da"
+  },
+  "requirements": [
+    {
+      "id": "SIG_001",
+      "status": "미달·의미 보류",
+      "note": "평균 10Hz와 무누락은 과거 실측. 최대 약130ms로 110ms 초과, SDK 조향 물리량도 운전대각과 다름. 이번 주기 재측정 없음.",
+      "requirementSheetRow": 15,
+      "priority": "Must",
+      "testCaseSheetRow": 15,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_002",
+      "status": "변환 확인·시한 미달",
+      "note": "22.222223m/s→80km/h 확인. 과거 전체 입력 지연 하한219ms>200ms. 이번 실제 SDK+JSON에서 REAL0 우선 확인.",
+      "requirementSheetRow": 16,
+      "priority": "Must",
+      "testCaseSheetRow": 16,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_003",
+      "status": "구현·기존 조건 확인",
+      "note": "방향지시등 유지/전환·lease·늦은 수신 차단 근거 존재. 이번 모든 전환/200ms 재측정 없음.",
+      "requirementSheetRow": 17,
+      "priority": "Must",
+      "testCaseSheetRow": 17,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_004",
+      "status": "구현·활성 입력 확인",
+      "note": "11/11 Console ACTIVATED→true, ENABLED→false 확인. 전체200ms·모든 enum은 미검증.",
+      "requirementSheetRow": 18,
+      "priority": "Must",
+      "testCaseSheetRow": 18,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_005",
+      "status": "의미 보류",
+      "note": "SDK Boolean에서 UNKNOWN 손실. null 유지, 임의 반전 금지. 실제 의미 해결 아님.",
+      "requirementSheetRow": 19,
+      "priority": "Must",
+      "testCaseSheetRow": 19,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_006",
+      "status": "계산 구현·실제 이동 미확인",
+      "note": "위치 READ/이력 heading 회귀 존재. NaviHelper 연속 이동·1분 변화는 실제 미확인.",
+      "requirementSheetRow": 20,
+      "priority": "Must",
+      "testCaseSheetRow": 20,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_007",
+      "status": "구현·기존 기기 조건 확인",
+      "note": "조향/착석/통풍 capability=false에서 null·UNSUPPORTED·로그1·getter/구독0 확인은 11/10 근거. 이번 재실행 없음.",
+      "requirementSheetRow": 21,
+      "priority": "Must",
+      "testCaseSheetRow": 21,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_008",
+      "status": "실제 SDK+제품 JSON 확인",
+      "note": "이번 제품 조립에서 DEMO 차속 대신 실제 SDK0/REAL_FRESH 선택, 위치 없는 JSON은 REAL 위치 사용. 모든 필드/배속 시한 보장은 아님.",
+      "requirementSheetRow": 22,
+      "priority": "Must",
+      "testCaseSheetRow": 22,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_009",
+      "status": "계약 구현·실제 원천Hz 불명",
+      "note": "원천2/5/10Hz 제어 회귀 존재. SDK 원천 시각 부재를 수신Hz/재조회Hz로 대체하지 않음.",
+      "requirementSheetRow": 23,
+      "priority": "Must",
+      "testCaseSheetRow": 23,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_010",
+      "status": "정규화 구현·검사 범위 합의 필요",
+      "note": "외부 입력 단위 변환은 중앙화. 내부 시간/표시 변환까지 포함한 문자 그대로 변환식0건은 아님.",
+      "requirementSheetRow": 174,
+      "priority": "Must",
+      "testCaseSheetRow": 174,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_011",
+      "status": "구현·기존 조건 확인",
+      "note": "기어 조회·콜백·확인 lease·경합 차단. 이번 제품 REAL P 수신은 확인, 모든 전환/시한 재측정 없음.",
+      "requirementSheetRow": 175,
+      "priority": "Must",
+      "testCaseSheetRow": 175,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_012",
+      "status": "구현·기존 조건 확인",
+      "note": "브레이크 true/false·무변경 재확인·null 계약. 모든 장애 조합/시한은 새로 검증 안 함.",
+      "requirementSheetRow": 176,
+      "priority": "Must",
+      "testCaseSheetRow": 176,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_013",
+      "status": "구현·기존 조건 확인",
+      "note": "크루즈 목표 m/s→km/h. 기존 실제 목표값 실측과 0/null 회귀, 실제0 추가 표본 미확인.",
+      "requirementSheetRow": 177,
+      "priority": "Must",
+      "testCaseSheetRow": 177,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_014",
+      "status": "구현·기존 실제 입력 확인",
+      "note": "공식 통풍0→1→0 확인. Console 좌석 온도V1/V3는 통풍 대체 입력이 아님.",
+      "requirementSheetRow": 178,
+      "priority": "Must",
+      "testCaseSheetRow": 178,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_015",
+      "status": "READ 확인·변경 미검증",
+      "note": "현재온도19.1°C 유지 확인. 공개 현재온도 변경 입력 미확보, 설정온도와 구분.",
+      "requirementSheetRow": 179,
+      "priority": "Must",
+      "testCaseSheetRow": 179,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_016",
+      "status": "값/취소 확인·터치 기준 시한 초과",
+      "note": "60초/50m·취소null 확인. 터치→Hub1초 초과, 원문 목적지 있음 기점·공급자 원인 미확정. 이번 재측정 없음.",
+      "requirementSheetRow": 180,
+      "priority": "Must",
+      "testCaseSheetRow": 180,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "SIG_017",
+      "status": "고정 TBT 확인·동적 미검증",
+      "note": "도착 항목50m와 취소null 확인. 실제 교차로 접근·통과/거리 감소는 미확인.",
+      "requirementSheetRow": 181,
+      "priority": "Must",
+      "testCaseSheetRow": 181,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_001",
+      "status": "제품 연결 결함 재현",
+      "note": "Room 직렬화13건은 통과. 그러나 실제 manager3단계/위치가 REAL snapshot에는0단계/null. baselineRef 공급도 없음. 주기만으로10종 완료 불가.",
+      "requirementSheetRow": 24,
+      "priority": "Must",
+      "testCaseSheetRow": 24,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_002",
+      "status": "실제 STR 미지원·대체 데모 존재",
+      "note": "AVD 실제 OFF→ON 없음. 제품 시동 끔/새PID/+22분 복원은 기존 별도 근거, 실제 STR와 구분.",
+      "requirementSheetRow": 25,
+      "priority": "Must",
+      "testCaseSheetRow": 25,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_003",
+      "status": "격리 부팅 통과·제품 연결 미완",
+      "note": "기존 실제 reboot2회/10종 seed 비교는 유효. 현재 제품 단계 저장 누락(TRP001)을 자동으로 해결한 근거 아님.",
+      "requirementSheetRow": 26,
+      "priority": "Must",
+      "testCaseSheetRow": 26,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_004",
+      "status": "미완성",
+      "note": "서비스 specialUse만 등록. 화면 표시/마이크 시작 gate·부팅 전 대체 경고/알림·CabinMonitor 조립 필요.",
+      "requirementSheetRow": 27,
+      "priority": "Must",
+      "testCaseSheetRow": 27,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_005",
+      "status": "계산·기존 실측 경계 확인",
+      "note": "299초 포함/300초 소급 제외 근거 존재. 이번 정차 벽시계 재실행 없음.",
+      "requirementSheetRow": 28,
+      "priority": "Must",
+      "testCaseSheetRow": 28,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_006",
+      "status": "계산 구현·실제 전체 흐름 미검증",
+      "note": "15분 연속0 및 휴식 모듈 배선 존재. 실제 쉼터149m/P+OFF 합산→인증→회복 전체는 별도.",
+      "requirementSheetRow": 29,
+      "priority": "Must",
+      "testCaseSheetRow": 29,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_007",
+      "status": "계산 구현·기존 조건 확인",
+      "note": "쉼터 밖 연속0·인증/보상 차단의 순수 회귀 존재. 실제 전 조건 E2E 완료로 확대하지 않음.",
+      "requirementSheetRow": 30,
+      "priority": "Must",
+      "testCaseSheetRow": 30,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_008",
+      "status": "순수 규칙 구현·실제 OFF 미지원",
+      "note": "7200/7201초·새ID·24h유지 규칙 존재. 오늘 기준선 새 운행 reset 배선 존재, 학습 이력 저장은 별도 미완.",
+      "requirementSheetRow": 31,
+      "priority": "Must",
+      "testCaseSheetRow": 31,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_009",
+      "status": "제품 단계 복원 결함 재현",
+      "note": "Room/정밀 구간 복원은 동작. 현재 manager단계가 저장되지 않고 새 manager도 초기화됨. 기준선 학습 창도 미복원.",
+      "requirementSheetRow": 32,
+      "priority": "Must",
+      "testCaseSheetRow": 32,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_010",
+      "status": "계산·기존 실측 경계 확인",
+      "note": "5~15분 정차 소급 제외·재출발 누적 회귀와 실제P 경계 근거 존재.",
+      "requirementSheetRow": 185,
+      "priority": "Must",
+      "testCaseSheetRow": 185,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_011",
+      "status": "계산·저장 경계 확인",
+      "note": "24h 절단·중복 합집합·자정/새 운행 보존 회귀. 이번 Room13건 통과. 새 실제24시간 대기를 완료 조건으로 추가하지 않음.",
+      "requirementSheetRow": 186,
+      "priority": "Must",
+      "testCaseSheetRow": 186,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "TRP_012",
+      "status": "구현·기존 조건 확인",
+      "note": "첫 D단 runStart, P 목적지 설정만으로 출발하지 않음. 실제SDK D/P 및 회귀 근거 존재.",
+      "requirementSheetRow": 187,
+      "priority": "Must",
+      "testCaseSheetRow": 187,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_001",
+      "status": "정책 구현·제품 전체 TC 미검증",
+      "note": "점수/시간/예보/취약 시간대 입력 배선 및 경계 회귀. 각각 실제 TTS 시한/E2E는 별도.",
+      "requirementSheetRow": 33,
+      "priority": "Must",
+      "testCaseSheetRow": 33,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_002",
+      "status": "정책 구현·첫 예약 수정 시작",
+      "note": "기존 점수·안전 사건·보조주행 입력. 이번 BSL 첫 확인 예약 누락을 수정, 세부 결과는 아래 검증절.",
+      "requirementSheetRow": 34,
+      "priority": "Must",
+      "testCaseSheetRow": 34,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_003",
+      "status": "정책 구현·사람 응답 실기 미완",
+      "note": "느림/무응답/REST/추세형/급조향 회귀 존재. 실제 마이크 성공 경로와 모든 원본 시나리오 성공은 별도.",
+      "requirementSheetRow": 35,
+      "priority": "Must",
+      "testCaseSheetRow": 35,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_004",
+      "status": "일반 상승 구현",
+      "note": "90점 추세형0/30/60초 회귀. 이번 예약 확인은 BSL006/007의 명시적 예약으로 분리, 점수 상승 규칙 유지.",
+      "requirementSheetRow": 36,
+      "priority": "Must",
+      "testCaseSheetRow": 36,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_005",
+      "status": "정책 경계 확인",
+      "note": "낮은 점수599/600초 하강 회귀. 실제 장시간 음성 E2E는 이번 실행 없음.",
+      "requirementSheetRow": 37,
+      "priority": "Must",
+      "testCaseSheetRow": 37,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_006",
+      "status": "정책 구현",
+      "note": "시간/예보 유지·인증 해제·30분 재안내 회귀. 제품 실제 휴식 조건 전체 미검증.",
+      "requirementSheetRow": 38,
+      "priority": "Must",
+      "testCaseSheetRow": 38,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_007",
+      "status": "정책 구현",
+      "note": "정상+저점수10분/추세형 유지·재확인 회귀. 실제 사람/STT 성공률 확인 아님.",
+      "requirementSheetRow": 39,
+      "priority": "Must",
+      "testCaseSheetRow": 39,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_008",
+      "status": "부분 구현",
+      "note": "회복 확인→단계0·reset 배선/제품 DMO 근거 존재. REAL 재실행 학습 창/단계 보존은 TRP 결함과 연결.",
+      "requirementSheetRow": 40,
+      "priority": "Must",
+      "testCaseSheetRow": 40,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_009",
+      "status": "정책 구현",
+      "note": "동일 단계10분 억제·3단계 예외 회귀. 모든 실제 발화 시간 계측 없음.",
+      "requirementSheetRow": 41,
+      "priority": "Must",
+      "testCaseSheetRow": 41,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_010",
+      "status": "명확한 미구현",
+      "note": "자동 추가 뒤 취소가 NOT_SUPPORTED, RestAreaRestPort REMOVE도 미지원. 기존 시험은 이 미지원 반환을 기대해 통과했을 뿐.",
+      "requirementSheetRow": 42,
+      "priority": "Must",
+      "testCaseSheetRow": 42,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_011",
+      "status": "정책 구현·동적 거리 실기 미완",
+      "note": "5분/2km 재안내 요청 배선. 실제 동적 위치/경로 공급 미확인.",
+      "requirementSheetRow": 43,
+      "priority": "Must",
+      "testCaseSheetRow": 43,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_012",
+      "status": "문턱 구현·첫 예약 보완",
+      "note": "30/50/70·1시간 회귀. 화면 컨디션→서비스→엔진, 첫 확인 예정 입력 누락을 이번 보완.",
+      "requirementSheetRow": 44,
+      "priority": "Must",
+      "testCaseSheetRow": 44,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_013",
+      "status": "대본/분기 구현",
+      "note": "안전 우회 cue·문구와 점수 REST_RECOMMENDED 분리. 모든 실제 출력 지연 조건은 이번 측정 안 함.",
+      "requirementSheetRow": 45,
+      "priority": "Must",
+      "testCaseSheetRow": 45,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_014",
+      "status": "요청 연결 구현·2초 실기 미확인",
+      "note": "앞쪽 쉼터 검색→안내, 질문 없음 회귀. 실제 검색부터 발화≤2초는 미검증.",
+      "requirementSheetRow": 190,
+      "priority": "Must",
+      "testCaseSheetRow": 190,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "INT_015",
+      "status": "Should·팀 미확정",
+      "note": "필수 완료 대상으로 세지 않음. 느림 후 거리 안내/카드 최종 합의 전 비활성 유지.",
+      "requirementSheetRow": 191,
+      "priority": "Should",
+      "testCaseSheetRow": 191,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_001",
+      "status": "제품6종 로드 확인·검증 도구 경계",
+      "note": "원본6종 각18000개·100ms·APK 원문 동일, loader가 두 형식 수락. canonical schema에 raw를 직접 넣는 도구는 불일치(README에 정규형 전용 명시).",
+      "requirementSheetRow": 152,
+      "priority": "Must",
+      "testCaseSheetRow": 152,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_002",
+      "status": "부분 확인·60배 성능 미달",
+      "note": "1/10/60 전환·실제 TTS1배/실패뒤10배 확인. 실제 사람 정상/STT는 이번 아님. 장기60배 null/실시간처리 미달 보존.",
+      "requirementSheetRow": 153,
+      "priority": "Must",
+      "testCaseSheetRow": 153,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_003",
+      "status": "제품 실제 Hub 입력 확인",
+      "note": "제품 SDK 우선 기기시험 통과. JVM 직접 엔진 replay는 원인 분리 대조군이며 제품 경로가 아님.",
+      "requirementSheetRow": 154,
+      "priority": "Must",
+      "testCaseSheetRow": 154,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_004",
+      "status": "제품 구현·기기 버튼 확인",
+      "note": "6종 실제 제품 UI·배지/일시정지/정지/초기화 기기시험 통과. 단순 debug 표시만 아님.",
+      "requirementSheetRow": 155,
+      "priority": "Must",
+      "testCaseSheetRow": 155,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_005",
+      "status": "제품 구현·기존 새PID 확인",
+      "note": "저장→앱 종료→새PID→+22분·인증1·연속0 근거 존재. 이번 Room와 제품 복원 회귀는 검증절 참조, 학습 창 완전 복원은 아님.",
+      "requirementSheetRow": 156,
+      "priority": "Must",
+      "testCaseSheetRow": 156,
+      "originalJudgmentI": null
+    },
+    {
+      "id": "DMO_006",
+      "status": "제품 실패 재현",
+      "note": "제품 원본10→1배 재생15분15초에도 departureFatigue=false. 이상적100ms 입력 직접 엔진은15분10초에 true. 처리 경로/게이트 원인과 정확15분 기준 모두 남음.",
+      "requirementSheetRow": 157,
+      "priority": "Must",
+      "testCaseSheetRow": 157,
+      "originalJudgmentI": null
+    }
+  ],
+  "workbookOrGanttEdited": false
+}
