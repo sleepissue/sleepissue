@@ -37,6 +37,7 @@ import kotlin.coroutines.EmptyCoroutineContext
  * - VentilationConsentChanged: 첫 실행 설정의 통풍 동의
  * - Tick: 1초마다. 매니저는 스스로 타이머를 돌리지 않는다(경유지 10초 자동 추가 등)
  * - 2번 판단: [FatigueAssessmentRunner.run]
+ * - 확인 결과 → 2번: 라우터의 checkResults를 [FatigueAssessmentRunner.onCheckResult]로 (REQ_PAT_004 딴짓 기록)
  */
 class AwakeDrivePipeline(
     private val hub: SignalHubSession,
@@ -92,6 +93,8 @@ class AwakeDrivePipeline(
             forecast.watchDepartureFatigue(runner.snapshots.map { it.baseline.departureFatigue }.distinctUntilChanged())
         }
         owner.launch(engineContext) { runner.run(hub.samples, { hub.latestNavi.value }, { trip.value }, manager) }
+        // 사람에게 물어본 주의 확인 결과를 2번 엔진에도 알린다 (REQ_PAT_004 딴짓 기록). 단계는 매니저가 따로 판단한다.
+        owner.launch { router.checkResults.collect { runner.onCheckResult(it) } }
         owner.launch {
             while (isActive) {
                 delay(config.naviStateIntervalMs)

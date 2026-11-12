@@ -27,6 +27,7 @@ internal enum class MinuteStatus {
  *   시각이 든 칸 하나만 이상 분이다. 멈춘 구간과 급조향이 칸 경계로 갈려 딴짓 1분을 놓치던 것을 막는다 (고칠 것 1).
  * - 안전 우회: 급조향이 확인될 때마다 바로 본다. 패턴 상태는 30초마다 다시 만든다.
  * - 음성 확인 결과와 합쳐 단계를 바꾸는 판단(REQ_PAT_004·006·007)은 1번 InterventionPolicy가 [PatternState]로 한다.
+ * - 딴짓 기록(REQ_PAT_004)은 여기서 한다: 정상 대답([onCheckResult]) 뒤 패턴이 튐형으로 확인되면 1건.
  *
  * ROS로 치면 30초 지표 토픽과 급조향 이벤트를 구독해 패턴 토픽을 내는 노드다.
  */
@@ -43,6 +44,16 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
     private var lastWindowMs: Long? = null
     private var bypassUntilMs: Long? = null
     private var nowMs: Long = Long.MIN_VALUE
+
+    /** 이번 운행 딴짓 기록 수와 마지막 기록 시각 (REQ_PAT_004) */
+    private var distractionCount = 0
+    private var lastDistractionMs: Long? = null
+
+    /** 딴짓인지 아직 정하지 못한 정상 대답의 시각. 없으면 null */
+    private var pendingNormalCheckMs: Long? = null
+
+    /** 마지막 딴짓 기록에 쓴 이상 분 칸. 같은 이상 분으로 두 번 세지 않는다 */
+    private var recordedAbnormalSlot: Long? = null
 
     /** 지금 패턴 상태. 값이 바뀔 때만 새 객체가 된다 */
     var state: PatternState = PatternState()
@@ -156,6 +167,24 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
         return isOn && !wasOn
     }
 
+    /**
+     * 운전자·동승자 주의 확인 결과를 넣는다 (REQ_PAT_004).
+     * - 정상 대답이면 딴짓 후보로 둔다. 지금 또는 [PatternConfig.distractionResolveMs] 안에 새 이상 분으로 튐형이 되면
+     *   딴짓 1건으로 기록한다. 추세형이 되거나 끝까지 애매면 기록하지 않는다(정상 + 추세형은 2단계 유지, REQ_PAT_006)
+     * - 느림·무응답은 딴짓이 아니므로 후보를 지운다
+     * - 후보가 남아 있는 동안 온 정상 대답은 같은 일로 보고 한 건으로 센다(시각은 마지막 대답).
+     *   이미 기록한 이상 분만으로 튐형인 동안의 정상 대답은 새로 세지 않는다
+     * - 단계를 내리는 것은 1번 InterventionPolicy가 한다(정상 + 점수 60 미만 10분, REQ_INT_007)
+     * @return 이번 호출로 바로 기록했으면 true. 튐형 확정을 기다리는 동안은 false(뒤 30초 갱신 때 기록될 수 있음)
+     */
+    internal fun onCheckResult(tMs: Long, normal: Boolean): Boolean {
+        nowMs = maxOf(nowMs, tMs)
+        val before = distractionCount
+        pendingNormalCheckMs = if (normal) tMs else null
+        refresh()
+        return distractionCount > before
+    }
+
     /** 새 운행이나 데모 처음부터 다시 재생할 때 모두 지운다. */
     internal fun reset() {
         minutes.clear()
@@ -165,18 +194,42 @@ class PatternClassifier(private val config: PatternConfig = PatternConfig()) {
         lastWindowMs = null
         bypassUntilMs = null
         nowMs = Long.MIN_VALUE
+        distractionCount = 0
+        lastDistractionMs = null
+        pendingNormalCheckMs = null
+        recordedAbnormalSlot = null
         refresh()
     }
 
     private fun refresh() {
         val window = minutes.map { it.status }
+        val type = classify(window, config)
+        resolveDistraction(type)
         val until = bypassUntilMs
         val next = PatternState(
             abnormalMinutes10m = window.count { it == MinuteStatus.ABNORMAL },
-            patternType = classify(window, config),
+            patternType = type,
             safetyBypass = until != null && nowMs < until,
+            distractionCount = distractionCount,
+            lastDistractionMs = lastDistractionMs,
         )
         if (next != state) state = next
+    }
+
+    /** 정상 대답 후보를 지금 패턴으로 정한다: 새 이상 분으로 튐형 → 기록, 추세형·기다린 시간 지남 → 버림, 그 밖 → 계속 기다림 */
+    private fun resolveDistraction(type: PatternType) {
+        val pending = pendingNormalCheckMs ?: return
+        val newest = minutes.lastOrNull { it.status == MinuteStatus.ABNORMAL }?.slot
+        val newAbnormal = newest != null && recordedAbnormalSlot.let { it == null || newest > it }
+        when {
+            type == PatternType.SPIKE && newAbnormal -> {
+                distractionCount++
+                lastDistractionMs = pending
+                recordedAbnormalSlot = newest
+                pendingNormalCheckMs = null
+            }
+            type == PatternType.TREND || nowMs - pending >= config.distractionResolveMs -> pendingNormalCheckMs = null
+        }
     }
 
     companion object {
