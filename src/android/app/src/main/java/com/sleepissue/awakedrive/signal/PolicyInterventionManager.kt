@@ -51,6 +51,7 @@ class PolicyInterventionManager(
     private var navi: NaviState? = null
     private var sensitive = false
     private var vulnerable = false
+    private var frequentChecks = false
     private var ventilationConsent = false
     private var alertnessContext = CheckContext.DRIVER_ALERTNESS
     private var restSession: String? = null
@@ -196,6 +197,7 @@ class PolicyInterventionManager(
                 forecast = input.value
             }
             is InterventionInput.SensitiveModeChanged -> sensitive = input.enabled
+            is InterventionInput.FrequentChecksChanged -> frequentChecks = input.enabled
             is InterventionInput.VulnerableTimeChanged -> vulnerable = input.enabled
             is InterventionInput.VentilationConsentChanged -> ventilationConsent = input.enabled
             is InterventionInput.AlertnessTargetChanged -> {
@@ -452,7 +454,7 @@ class PolicyInterventionManager(
             !it.payloadHandled && it.status !in cancelledStatuses
     }
     private fun assistedCheckDue(): Boolean {
-        val interval = if (sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
+        val interval = if (frequentChecks || sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
             config.assistedRiskCheckIntervalMs else config.assistedCheckIntervalMs
         return assessment.assistedDriving == true && assistedAnchor?.let { clock.scenarioTimeMs() - it >= interval } == true
     }

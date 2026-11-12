@@ -28,12 +28,8 @@ class LiveDriveUiSession(
             pipeline.runner.reportCondition(it == DrivingCondition.VERY_SLEEPY, service.clock.scenarioTimeMs(), pipeline.manager)
             pipeline.forecast.recalculate(ForecastRecalcTrigger.CONDITION_INPUT)
         },
-        preferences = { value ->
-            if (value.frequentChecks || value.ageBand != "미설정") message("연령대·확인 빈도는 저장했습니다. 서비스 설정 입력 API 연결이 필요합니다")
-        },
-        passenger = {
-            ExecutionResult(id(), ExecutionStatus.FAILED, ExecutionFailure.NOT_CONNECTED)
-        },
+        preferences = { pipeline.updateSettings(it) },
+        passenger = { pipeline.respondPassenger(it) },
         startNap = { pipeline.restWiring.requestNap() }, wake = { pipeline.rest.nap.wake() },
         recovery = {
             if (!pipeline.manager.resumeInterruptedChecks()) message("진행 중인 회복 확인에 답해 주세요")

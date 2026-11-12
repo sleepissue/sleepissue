@@ -1,11 +1,22 @@
 package com.sleepissue.awakedrive.service
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.sleepissue.awakedrive.cabin.PassengerOccupancyResolver
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.forecast.ForecastEngine
 import com.sleepissue.awakedrive.engine.intervention.InterventionPolicy
+import com.sleepissue.awakedrive.engine.model.AgeBand
+import com.sleepissue.awakedrive.engine.model.ExecutionResult
+import com.sleepissue.awakedrive.engine.model.ExecutionStatus
+import com.sleepissue.awakedrive.engine.model.ExecutionFailure
+import com.sleepissue.awakedrive.signal.InterventionInput
+import com.sleepissue.awakedrive.ui.DriverUiSettings
+import com.sleepissue.awakedrive.ui.DriverUiSettingsStore
+import com.sleepissue.awakedrive.engine.forecast.ForecastRecalcTrigger
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.Source
 import com.sleepissue.awakedrive.engine.model.TripState
@@ -53,9 +64,34 @@ class MonitoringPipeline private constructor(
     val rest: RestModule,
     val forecast: ForecastCoordinator,
     val restWiring: RestWiring,
+    private val check: VoiceCheckPort,
     private val job: Job,
     private val closeables: List<AutoCloseable>,
 ) {
+    @Volatile private var passengerChecks = false
+    private val settingsSequence = AtomicLong()
+
+    suspend fun updateSettings(value: DriverUiSettings) {
+        val previousAgeBand = runner.ageBand
+        runner.updateAgeBand(when (value.ageBand) {
+            "청년" -> AgeBand.TWENTIES
+            "중년" -> AgeBand.THIRTIES_FORTIES
+            "고령" -> AgeBand.FIFTIES_PLUS
+            else -> null
+        })
+        manager.submit(RequestId("settings-${settingsSequence.incrementAndGet()}"),
+            InterventionInput.FrequentChecksChanged(value.frequentChecks))
+        passengerChecks = value.passengerChecks
+        if (previousAgeBand != runner.ageBand) forecast.recalculate(ForecastRecalcTrigger.CONDITION_INPUT)
+    }
+
+    suspend fun respondPassenger(rest: Boolean): ExecutionResult {
+        if (!passengerChecks) return ExecutionResult(
+            RequestId("passenger-disabled"), ExecutionStatus.FAILED,
+            ExecutionFailure.UNAVAILABLE)
+        return check.completeWithPassenger(rest)
+    }
+
     suspend fun close() {
         job.cancel()
         manager.stop(RequestId("pipeline-stop"))
@@ -95,12 +131,14 @@ class MonitoringPipeline private constructor(
             val coordinator = VoiceCheckCoordinator(CheckManager(AndroidElapsedClock(), policy, SpeechIntentParser()),
                 policy, recognizer, tone)
             val check = VoiceCheckPort(PassengerCheckFlow(policy, agent, coordinator), agent, coordinator,
-                { PassengerOccupancyResolver.resolve(hub.latestFrame.value?.seats, null, speechDetected = false, microphoneAvailable = true) },
+                { PassengerOccupancyResolver.resolve(hub.latestFrame.value?.seats, null, speechDetected = false,
+                    microphoneAvailable = DriverUiSettingsStore(context).read().microphoneConsent &&
+                        ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) },
                 { config.defaultVoiceBaselineMs }) // [가정] 개인 대답 기준선(2차 BSL)은 아직 없어 기본값
 
             val rest = RestModule(context, scope, clock, config, speak)
             val forecast = ForecastCoordinator(ForecastEngine(clock, config), clock, manager,
-                { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value) }, { id("forecast") })
+                { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value).copy(ageBand = runner.ageBand) }, { id("forecast") })
             val reset = RestRecoveryReset({ runner.onRestCertified() }, forecast)
             val router = InterventionRouter(manager, check = check, speech = VoiceSpeechPort(agent), rest = rest.restPort,
                 climate = rest.climate, recoveryReset = { reset(it) }, newInputId = { id("router") })
@@ -111,7 +149,9 @@ class MonitoringPipeline private constructor(
             val job = pipeline.start(scope) {
                 wiring = rest.wire(manager, router, hub, { trip.value.continuousDriveSec }, { id("rest") })
             }
-            return MonitoringPipeline(manager, runner, rest, forecast, wiring, job, listOf(tts, recognizer, tone))
+            return MonitoringPipeline(manager, runner, rest, forecast, wiring, check, job, listOf(tts, recognizer, tone)).also {
+                it.updateSettings(DriverUiSettingsStore(context).read())
+            }
         }
     }
 }

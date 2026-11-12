@@ -69,6 +69,8 @@ class Role5IntegrationTest {
             session.state.intervention?.stage?.let(stages::add)
             maxRisk = maxOf(maxRisk, session.state.fatigue?.fatigue?.riskSmoothed ?: 0f)
         }
+        println("DROWSY 최대위험도=$maxRisk 단계전환=${session.state.warnings}")
+        if (System.getenv("AWAKEDRIVE_EXPECT_PR21") == "true") assertEquals(98.8f, maxRisk, .1f)
         assertTrue("단계=$stages 최대위험도=$maxRisk 최종=${session.state}", stages.containsAll(InterventionStage.entries))
         assertTrue(session.state.restCertified)
         assertEquals(1, session.state.stampCount)
@@ -90,7 +92,42 @@ class Role5IntegrationTest {
         }
         assertTrue("딴짓 이상 분 기록 없음", sawAbnormal)
         assertTrue("정상 복귀 후 튐형 분류 없음", sawSpike)
-        assertTrue("음성 결과 없이 딴짓만으로 휴식 유도됨", maxStage <= 2)
+        assertEquals("딴짓 급조향은 확인 단계까지 도달하고 휴식 유도는 만들지 않아야 함", 2, maxStage)
+    }
+
+    @Test fun `기존 검증용 16분 급조향을 실제 엔진이 검출한다`() {
+        val loaded = DemoJsonLoader().loadFile(File(root, "data/scenarios-demo/distraction.json")) as DemoLoadResult.Loaded
+        val s = loaded.scenario
+        val bridge = com.sleepissue.awakedrive.fatigue.FatigueBridge()
+        val events = s.samples.flatMap { sample ->
+            bridge.onFrame(frame(sample).copy(tMs = s.startEpochMs + sample.tMs), sample.navi, null)
+                .filterIsInstance<com.sleepissue.awakedrive.signal.InterventionInput.Safety>()
+                .map { it.value }
+        }
+        assertTrue("16분 급조향 누락: $events", events.any {
+            it.type == SafetyEventType.RAPID_STEERING && it.tMs - s.startEpochMs in 960_000L..971_000L
+        })
+    }
+
+    @Test fun `졸음 급조향 횟수를 기록하고 PR21 검증에서는 5회를 요구한다`() {
+        val s = scenario("drowsy")
+        val bridge = com.sleepissue.awakedrive.fatigue.FatigueBridge()
+        val events = s.samples.flatMap { sample ->
+            bridge.onFrame(frame(sample).copy(tMs = s.startEpochMs + sample.tMs), sample.navi, null)
+                .filterIsInstance<com.sleepissue.awakedrive.signal.InterventionInput.Safety>()
+                .map { it.value }
+        }.filter { it.type == SafetyEventType.RAPID_STEERING }
+        println("DROWSY 급조향=${events.map { it.tMs - s.startEpochMs }}")
+        assertTrue("졸음 급조향 누락", events.isNotEmpty())
+        if (System.getenv("AWAKEDRIVE_EXPECT_PR21") == "true") assertEquals("PR21의 급조향 5회 검출", 5, events.size)
+    }
+
+    @Test fun `기존 검증용 딴짓의 16분 급조향 앞에는 5초 고정이 있다`() {
+        val loaded = DemoJsonLoader().loadFile(File(root, "data/scenarios-demo/distraction.json")) as DemoLoadResult.Loaded
+        val fixed = loaded.scenario.samples.filter { it.tMs in 955_000L until 960_000L }
+        assertEquals(50, fixed.size)
+        assertTrue(fixed.all { it.vehicle.steeringDeg == 0f })
+        assertEquals(8f, loaded.scenario.samples.first { it.tMs == 960_000L }.vehicle.steeringDeg!!)
     }
 
     @Test fun `정상 주행에서 15분 타이머만으로 보상을 만들지 않는다`() {

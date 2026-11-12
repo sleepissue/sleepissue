@@ -30,9 +30,11 @@ class ProductScenariosDeviceTest {
         val started = clock.elapsedRealtimeMs()
         var lastBucket = -1L
         var maxStage = 0
+        var maxRisk: Float? = null
         fun record() {
             val state = session.state.value
             maxStage = maxOf(maxStage, state.intervention?.stage?.level ?: 0)
+            state.fatigue?.fatigue?.riskSmoothed?.let { maxRisk = maxOf(maxRisk ?: it, it) }
             rows += linkedMapOf("tMs" to state.tMs, "phase" to session.playback.value.phase.name,
                 "stage" to state.intervention?.stage?.level, "risk" to state.fatigue?.fatigue?.riskSmoothed,
                 "pattern" to state.fatigue?.pattern?.patternType?.name,
@@ -58,6 +60,9 @@ class ProductScenariosDeviceTest {
             val report = linkedMapOf("scenario" to name, "requestedSpeed" to 60,
                 "phase" to session.playback.value.phase.name, "error" to session.playback.value.error,
                 "elapsedMs" to clock.elapsedRealtimeMs() - started, "maxStage" to maxStage,
+                "maxRisk" to maxRisk,
+                "firstRestGuidance" to session.state.value.warnings.firstOrNull { it.stage == "3단계" }?.time,
+                "confirmationPolicy" to "SDK 실행·사람의 응답 없음: 18:55 느림 2회 가정과 구분",
                 "deliveredSamples" to session.playback.value.deliveredSamples, "observations" to rows)
             File(context.cacheDir, "product-scenario-$name.json").writeText(GsonBuilder().setPrettyPrinting().create().toJson(report))
             session.close()
@@ -69,7 +74,7 @@ class ProductScenariosDeviceTest {
         assertTrue("$name 주행 중 앞쪽 쉼터 미검색", rows.any { it["nextRestArea"].toString().startsWith("Found") })
         if (name == "normal") assertEquals("$name 오경고", 0, maxStage)
         if (name == "distraction") {
-            assertTrue("딴짓만으로 휴식 유도", maxStage <= 2)
+            assertEquals("딴짓 급조향 확인 단계 누락 또는 잘못된 휴식 유도", 2, maxStage)
             assertTrue("딴짓 튐형 기록 없음", rows.any { it["pattern"] == "SPIKE" })
         }
         if (name == "drowsy") assertEquals("졸음 휴식 유도", 3, maxStage)
