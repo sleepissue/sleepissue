@@ -52,6 +52,7 @@ class PolicyInterventionManager(
     private var navi: NaviState? = null
     private var sensitive = false
     private var vulnerable = false
+    private var frequentChecks = false
     private var ventilationConsent = false
     private var alertnessContext = CheckContext.DRIVER_ALERTNESS
     private var restSession: String? = null
@@ -262,6 +263,11 @@ class PolicyInterventionManager(
                 if (!seenSafetyEvents.add(input.value.tMs to input.value.type)) return@withLock result(requestId, ExecutionStatus.REQUESTED)
                 bypass = input.value.type == SafetyEventType.REPEATED_RAPID_STEERING
                 forceCheck = !bypass
+            }
+            is InterventionInput.CheckDue -> {
+                if (input.source != sessionSource) return@withLock unavailable(requestId)
+                require(input.tMs <= clock.scenarioTimeMs()) { "미래의 확인 요청은 처리할 수 없습니다." }
+                forceCheck = true
             }
             is InterventionInput.RestAreaResolved -> if (!handleArea(input.value)) return@withLock unavailable(requestId)
             is InterventionInput.RestAreaDistance -> {
@@ -511,7 +517,7 @@ class PolicyInterventionManager(
             !it.firstCheck && !it.payloadHandled && it.status !in cancelledStatuses
     }
     private fun assistedCheckDue(): Boolean {
-        val interval = if (sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
+        val interval = if (frequentChecks || sensitive || vulnerable || (trip?.continuousDriveSec ?: 0) >= config.normalDriveCautionSec)
             config.assistedRiskCheckIntervalMs else config.assistedCheckIntervalMs
         return assessment.assistedDriving == true && assistedAnchor?.let { clock.scenarioTimeMs() - it >= interval } == true
     }

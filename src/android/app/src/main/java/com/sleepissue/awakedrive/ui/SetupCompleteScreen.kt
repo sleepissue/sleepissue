@@ -28,8 +28,9 @@ private val CompleteMuted = Color(0xFFBAB8D2)
 
 @Composable
 fun SetupCompleteScreen(
-    isSleepy: Boolean,
-    onStartDriving: () -> Unit = {}
+    condition: DrivingCondition,
+    onStartDriving: () -> Unit = {},
+    forecast: com.sleepissue.awakedrive.engine.forecast.ForecastResult? = null
 ) {
     Box(
         modifier = Modifier
@@ -138,8 +139,8 @@ fun SetupCompleteScreen(
                 ) {
 
                     Text(
-                        text = if (isSleepy) "☾" else "☺",
-                        color = if (isSleepy)
+                        text = if (condition == DrivingCondition.GOOD) "☺" else "☾",
+                        color = if (condition != DrivingCondition.GOOD)
                             CompletePurple
                         else
                             CompleteMint,
@@ -157,17 +158,25 @@ fun SetupCompleteScreen(
                         )
 
                         Text(
-                            text = if (isSleepy) "졸려요" else "괜찮아요",
+                            text = when (condition) {
+                                DrivingCondition.GOOD -> "괜찮아요"
+                                DrivingCondition.SLIGHTLY_SLEEPY -> "조금 졸려요"
+                                DrivingCondition.VERY_SLEEPY -> "많이 졸려요"
+                            },
                             color = Color.White,
                             fontSize = 27.sp,
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
-                            text = if (isSleepy)
-                                "졸음 상태를 선택했어요. 실제 민감 모드 연동은 준비 중입니다."
-                            else
-                                "현재 컨디션을 선택했어요. 실제 엔진 연동은 준비 중입니다.",
+                            text = when (condition) {
+                                DrivingCondition.GOOD ->
+                                    "현재 컨디션을 선택했어요."
+                                DrivingCondition.SLIGHTLY_SLEEPY ->
+                                    "조금 졸린 상태를 선택했어요."
+                                DrivingCondition.VERY_SLEEPY ->
+                                    "많이 졸린 상태예요. 출발 전 휴식을 권장합니다."
+                            },
                             color = CompleteMuted,
                             fontSize = 12.sp,
                             lineHeight = 18.sp
@@ -187,8 +196,14 @@ fun SetupCompleteScreen(
             ) {
 
                 Text(
-                    text = "ⓘ  주행 화면에서 운전 상태를 확인할 수 있어요.\n" +
-                            "엔진 연결 전에는 '판정 대기 중'으로 표시됩니다.",
+                    text = forecast?.let {
+                        "ⓘ  예상 졸음 시점: ${it.spokenTime}\n" +
+                        if (it.usedFallbackWithoutDestination)
+                            "목적지 정보 없이 계산한 예보입니다."
+                        else
+                            "현재 운행 정보를 반영한 예보입니다."
+                    } ?: "ⓘ  피로 예보 계산 전입니다.\n" +
+                        "예보 데이터가 연결되면 예상 졸음 시점을 표시합니다.",
                     color = Color(0xFFDCD5F2),
                     fontSize = 13.sp,
                     lineHeight = 20.sp,

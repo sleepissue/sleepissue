@@ -132,6 +132,14 @@ class FatigueEngine(
         return gate.push(input).mapNotNull { onDecision(it, frame.tMs) }
     }
 
+    /**
+     * 운전자·동승자 주의 확인 결과 (REQ_PAT_004). 정상 대답 뒤 패턴이 튐형으로 확인되면 딴짓 1건으로 기록한다.
+     * 기록은 [patternState]의 distractionCount·lastDistractionMs로 읽는다. 단계는 바꾸지 않는다(1번 담당).
+     * @param normal 정상 대답이면 true, 느림·무응답이면 false. 장치 오류·취소는 넣지 않는다
+     * @return 이번 호출로 바로 기록했으면 true (튐형 확정을 기다리면 false, 뒤 갱신 때 기록될 수 있음)
+     */
+    fun onCheckResult(tMs: Long, normal: Boolean): Boolean = pattern.onCheckResult(tMs, normal)
+
     /** 지난번 이후 생긴 조향 사건을 꺼낸다(꺼낸 사건은 지워짐). 1번이 push 뒤마다 부른다. */
     fun drainEvents(): List<SteeringEvent> {
         if (events.isEmpty()) return emptyList()

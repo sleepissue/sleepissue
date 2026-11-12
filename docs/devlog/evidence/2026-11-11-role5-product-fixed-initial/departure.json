@@ -1,0 +1,1178 @@
+{
+  "scenario": "departure",
+  "requestedSpeed": 60,
+  "phase": "COMPLETED",
+  "elapsedMs": 50558,
+  "maxStage": 2,
+  "deliveredSamples": 27100,
+  "observations": [
+    {
+      "tMs": 0,
+      "phase": "PLAYING",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotSearched",
+      "warnings": [],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 66200,
+      "phase": "PLAYING",
+      "stage": 0,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d선기졸음쉼터, distance\u003d12.9km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 120800,
+      "phase": "PLAYING",
+      "stage": 0,
+      "risk": 14.642595,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d선기졸음쉼터, distance\u003d11.5km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 183100,
+      "phase": "PLAYING",
+      "stage": 0,
+      "risk": 26.266909,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d선기졸음쉼터, distance\u003d10.1km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 240100,
+      "phase": "PLAYING",
+      "stage": 0,
+      "risk": 34.596092,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d선기졸음쉼터, distance\u003d8.9km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 304400,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 40.564217,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d20.4km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 366500,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 44.84056,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d19.0km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 421700,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 47.904697,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d17.6km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 482900,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 50.100246,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d16.2km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 542000,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 51.673428,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d14.9km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 600300,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 52.80066,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d명곡졸음쉼터, distance\u003d13.7km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 660000,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 53.608356,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d칠곡휴게소, distance\u003d13.0km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 723200,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 54.187096,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d칠곡휴게소, distance\u003d11.6km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 781620,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 54.601784,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d칠곡휴게소, distance\u003d10.2km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 840400,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 54.89892,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d칠곡휴게소, distance\u003d9.0km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 901600,
+      "phase": "PLAYING",
+      "stage": 1,
+      "risk": 55.111824,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d12.8km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 963300,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.264378,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d11.2km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1022100,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.373688,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d9.5km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1081100,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.45201,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d7.9km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1140900,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.508133,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d6.3km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1200100,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.548347,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d4.8km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1261900,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.57716,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d동명휴게소, distance\u003d3.3km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1323200,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.597805,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d13.1km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1383600,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.6126,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d11.4km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1443300,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.6232,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d9.8km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1504600,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.638428,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d8.2km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1565520,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.641705,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d6.5km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1625500,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.644054,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d4.9km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1680800,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.645737,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d3.3km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1742040,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.646946,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "D",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d1.6km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1802200,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 55.647808,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "Found(name\u003d검단졸음쉼터, distance\u003d0.0km · 직선거리, hasToilet\u003dtrue)",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1863000,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1923900,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 1980200,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2041600,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2103000,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "TREND",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2162220,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2221800,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2283000,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2342600,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2403800,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "AMBIGUOUS",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2461100,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2525820,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2580500,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2640300,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "P",
+      "restArea": "검단졸음쉼터",
+      "restCertified": false,
+      "stampCount": 0,
+      "restCount": 0,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2701680,
+      "phase": "PLAYING",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "D",
+      "restCertified": true,
+      "stampCount": 1,
+      "restCount": 1,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    },
+    {
+      "tMs": 2710000,
+      "phase": "COMPLETED",
+      "stage": 2,
+      "risk": 56.201965,
+      "pattern": "NONE",
+      "assist": false,
+      "gear": "D",
+      "restCertified": true,
+      "stampCount": 1,
+      "restCount": 1,
+      "nextRestArea": "NotFound",
+      "warnings": [
+        {
+          "description": "SCORE · 위험도 40.564217",
+          "stage": "1단계",
+          "time": "04:40"
+        },
+        {
+          "description": "SCORE · 위험도 55.194443",
+          "stage": "2단계",
+          "time": "15:20"
+        }
+      ],
+      "waypoint": "경유지 요청 없음",
+      "message": "신호 연결 대기"
+    }
+  ]
+}

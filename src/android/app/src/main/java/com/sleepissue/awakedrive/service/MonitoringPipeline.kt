@@ -1,11 +1,22 @@
 package com.sleepissue.awakedrive.service
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
 import com.sleepissue.awakedrive.cabin.PassengerOccupancyResolver
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.config.EngineConfig
 import com.sleepissue.awakedrive.engine.forecast.ForecastEngine
 import com.sleepissue.awakedrive.engine.intervention.InterventionPolicy
+import com.sleepissue.awakedrive.engine.model.AgeBand
+import com.sleepissue.awakedrive.engine.model.ExecutionResult
+import com.sleepissue.awakedrive.engine.model.ExecutionStatus
+import com.sleepissue.awakedrive.engine.model.ExecutionFailure
+import com.sleepissue.awakedrive.signal.InterventionInput
+import com.sleepissue.awakedrive.ui.DriverUiSettings
+import com.sleepissue.awakedrive.ui.DriverUiSettingsStore
+import com.sleepissue.awakedrive.engine.forecast.ForecastRecalcTrigger
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.Source
 import com.sleepissue.awakedrive.engine.model.TripState
@@ -57,6 +68,30 @@ class MonitoringPipeline private constructor(
     private val job: Job,
     private val closeables: List<AutoCloseable>,
 ) {
+    @Volatile private var passengerChecks = false
+    private val settingsSequence = AtomicLong()
+
+    suspend fun updateSettings(value: DriverUiSettings) {
+        val previousAgeBand = runner.ageBand
+        runner.updateAgeBand(when (value.ageBand) {
+            "청년" -> AgeBand.TWENTIES
+            "중년" -> AgeBand.THIRTIES_FORTIES
+            "고령" -> AgeBand.FIFTIES_PLUS
+            else -> null
+        })
+        manager.submit(RequestId("settings-${settingsSequence.incrementAndGet()}"),
+            InterventionInput.FrequentChecksChanged(value.frequentChecks))
+        passengerChecks = value.passengerChecks
+        if (previousAgeBand != runner.ageBand) forecast.recalculate(ForecastRecalcTrigger.CONDITION_INPUT)
+    }
+
+    suspend fun respondPassenger(rest: Boolean): ExecutionResult {
+        if (!passengerChecks) return ExecutionResult(
+            RequestId("passenger-disabled"), ExecutionStatus.FAILED,
+            ExecutionFailure.UNAVAILABLE)
+        return check.completeWithPassenger(rest)
+    }
+
     suspend fun close() {
         job.cancel()
         check.close()
@@ -105,7 +140,7 @@ class MonitoringPipeline private constructor(
 
             val rest = RestModule(restContext, scope, clock, config, speak, demoMode = source == Source.DEMO)
             val forecast = ForecastCoordinator(ForecastEngine(clock, config), clock, manager,
-                { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value) }, { id("forecast") })
+                { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value).copy(ageBand = runner.ageBand) }, { id("forecast") })
             val reset = RestRecoveryReset({ runner.onRestCertified() }, forecast)
             val router = InterventionRouter(manager, check = check, speech = VoiceSpeechPort(agent), rest = rest.restPort,
                 climate = rest.climate, recoveryReset = { reset(it) }, newInputId = { id("router") })

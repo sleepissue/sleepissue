@@ -1,0 +1,10 @@
+{
+  "firstRunScreen": true,
+  "step": "완료",
+  "microphoneDenied": true,
+  "microphoneGrantedOnRetry": true,
+  "vehiclePermissionGranted": true,
+  "notificationGranted": true,
+  "continuedToCondition": true,
+  "bottomDriveAlsoRequestsSetup": true
+}

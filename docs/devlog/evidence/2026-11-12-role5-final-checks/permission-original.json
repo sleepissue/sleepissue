@@ -1,0 +1,14 @@
+{
+  "android.permission.RECORD_AUDIO": {
+    "granted": true,
+    "flags": " USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED"
+  },
+  "android.car.permission.CAR_SPEED": {
+    "granted": false,
+    "flags": ""
+  },
+  "android.permission.POST_NOTIFICATIONS": {
+    "granted": false,
+    "flags": " USER_SENSITIVE_WHEN_GRANTED|USER_SENSITIVE_WHEN_DENIED"
+  }
+}

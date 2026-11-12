@@ -2,26 +2,27 @@ package com.sleepissue.awakedrive.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sleepissue.awakedrive.engine.forecast.*
+import com.sleepissue.awakedrive.engine.model.*
+import com.sleepissue.awakedrive.engine.time.Clock
 
-private enum class AppPage {
-    HOME,
-    SETUP,
-    SETUP_SAFETY,
-    SETUP_COMPLETE,
-    DRIVING,
-    REST,
-    REPORT,
-    DEBUG
+private enum class AppPage { HOME, PERMISSIONS, SETUP, SAFETY, COMPLETE, DRIVING, REST, REPORT, SETTINGS, DEBUG }
+
+/** 시각은 한 곳에서 주입한다. 예보는 날짜 시각, 타이머는 세션 논리 시각을 쓴다. */
+class AndroidUiClock : Clock {
+    private val wall = java.time.Clock.systemUTC()
+    override fun scenarioTimeMs() = wall.millis()
+    override fun wallTimeMs() = wall.millis()
+    override fun elapsedRealtimeMs() = android.os.SystemClock.elapsedRealtime()
 }
 
 @Composable
@@ -32,25 +33,43 @@ fun AppNavigation(
     restricted: Boolean = true,
     monitoringStatus: DrivingStatus? = null
 ) {
-
-    var currentPage by remember {
-        mutableStateOf(AppPage.HOME)
+    val context = LocalContext.current
+    val settingsStore = remember { DriverUiSettingsStore(context) }
+    var settings by remember { mutableStateOf(settingsStore.read()) }
+    val firstRun = remember { context.getSharedPreferences("driver-ui-settings", 0) }
+    var page by rememberSaveable { mutableStateOf(AppPage.HOME) }
+    var condition by rememberSaveable { mutableStateOf<DrivingCondition?>(null) }
+    var setupCompleted by rememberSaveable { mutableStateOf(false) }
+    var localForecast by remember { mutableStateOf<ForecastResult?>(null) }
+    var feedback by remember { mutableStateOf("") }
+    val systemClock = remember { AndroidUiClock() }
+    val activeClock = clock ?: systemClock
+    val platformRestricted = rememberCarUiRestricted()
+    val restricted = platformRestricted == true || session.frame?.let {
+        it.gear != Gear.P || it.speedKph != 0f
+    } == true
+    val fatigue = session.fatigue?.toFatigueUiState() ?: fatigueUiState
+    val intervention = session.intervention ?: interventionState
+    val status = intervention?.toDrivingStatus() ?: DrivingStatus.WAITING
+    val effectiveForecast = session.forecast ?: forecast ?: localForecast
+    val forecastUi = effectiveForecast.toForecastUiState()
+    val nextArea = if (session.actionsConnected) session.nextRestArea else restAreaState
+    val connected = session.actionsConnected && onAction != null
+    fun request(action: DriveUiAction) {
+        if (connected || action is DriveUiAction.Condition) onAction?.invoke(action) else feedback = "실행 담당이 연결되지 않았습니다"
     }
-
-    var currentStatus by remember {
-        mutableStateOf(DrivingStatus.WAITING)
+    LaunchedEffect(restricted) {
+        if (restricted && page != AppPage.DRIVING) {
+            page = AppPage.DRIVING
+            feedback = "주행 중에는 설정·리포트·데모·휴식 조작이 잠깁니다"
+        }
     }
-
-    var selectedSleepy by remember {
-        mutableStateOf<Boolean?>(null)
+    LaunchedEffect(session.sessionId) { feedback = "" }
+    LaunchedEffect(session.restAreaName, session.parked, restricted) {
+        if (session.restAreaName != null && session.parked && !restricted) page = AppPage.REST
     }
-
-    var setupCompleted by remember {
-        mutableStateOf(false)
-    }
-
-    var showAlert by remember {
-        mutableStateOf(false)
+    LaunchedEffect(settings, session.sessionId) {
+        if (connected) onAction?.invoke(DriveUiAction.Preferences(settings))
     }
 
     LaunchedEffect(restricted) {
@@ -113,7 +132,9 @@ fun AppNavigation(
                         }
                     )
                 }
-
+                AppPage.SAFETY -> SetupSafetyScreen { settings = settingsStore.read(); page = AppPage.COMPLETE }
+                AppPage.COMPLETE -> SetupCompleteScreen(condition = condition ?: DrivingCondition.GOOD,
+                    forecast = effectiveForecast, onStartDriving = { onStartMonitoring(); setupCompleted = true; page = AppPage.DRIVING })
                 AppPage.DRIVING -> {
                     if (showAlert) {
                         AlertScreen(status = currentStatus)
@@ -139,6 +160,16 @@ fun AppNavigation(
                         Text("정상·딴짓·졸음·대화·보조 주행·출발 피로", color = Color.White)
                         Button(onClick = onOpenDemo, enabled = !restricted) { Text("시나리오 선택·재생") }
                     }
+                }
+                AppPage.REST -> RestScreen(session, connected, { request(it) })
+                AppPage.REPORT -> ReportScreen(session.toReportUiState())
+                AppPage.SETTINGS -> SettingsScreen(settings, { settings = it; settingsStore.write(it) },
+                    if (connected) ({ request(DriveUiAction.DeleteRecords) }) else null)
+                AppPage.DEBUG -> if (demoContent != null) demoContent() else Column(Modifier.padding(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                    Text("데모 시나리오", color = Color.White, fontSize = 25.sp)
+                    Text("개발 검증 화면의 정상·딴짓·졸음·대화·보조 주행·출발 피로 선택과 1·10·60배 재생을 사용하세요.", color = Color.LightGray)
+                    Text(session.message, color = Color.White)
+                    Text("가상 경유지 제안 상태: " + session.waypointMessage, color = Color.LightGray)
                 }
             }
         }
@@ -199,29 +230,8 @@ fun AppNavigation(
     }
 }
 
-@Composable
-private fun NavigationButton(
-    text: String,
-    selected: Boolean,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier.height(48.dp),
-        shape = RoundedCornerShape(14.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = if (selected) {
-                Color(0xFF8270F4)
-            } else {
-                Color(0xFF30416F)
-            }
-        )
-    ) {
-        Text(
-            text = text,
-            color = Color.White,
-            fontSize = 15.sp
-        )
-    }
+fun DrivingCondition.toStartCondition() = when (this) {
+    DrivingCondition.GOOD -> StartCondition.FRESH
+    DrivingCondition.SLIGHTLY_SLEEPY -> StartCondition.NORMAL
+    DrivingCondition.VERY_SLEEPY -> StartCondition.DROWSY
 }

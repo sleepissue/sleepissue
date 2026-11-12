@@ -1,0 +1,123 @@
+[
+  {
+    "scenario": "normal",
+    "phase": "COMPLETED",
+    "elapsedMs": 50046,
+    "maxStage": 1,
+    "restCertified": true,
+    "stampCount": 0,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SAFETY_EVENT · 위험도 0.015223684",
+        "stage": "1단계",
+        "time": "45:10"
+      }
+    ]
+  },
+  {
+    "scenario": "distraction",
+    "phase": "COMPLETED",
+    "elapsedMs": 49391,
+    "maxStage": 1,
+    "restCertified": true,
+    "stampCount": 0,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SAFETY_EVENT · 위험도 3.0219862",
+        "stage": "1단계",
+        "time": "45:10"
+      }
+    ]
+  },
+  {
+    "scenario": "drowsy",
+    "phase": "COMPLETED",
+    "elapsedMs": 53417,
+    "maxStage": 3,
+    "restCertified": true,
+    "stampCount": 1,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SCORE · 위험도 43.27389",
+        "stage": "1단계",
+        "time": "18:40"
+      },
+      {
+        "description": "SAFETY_EVENT · 위험도 48.865627",
+        "stage": "2단계",
+        "time": "20:10"
+      },
+      {
+        "description": "SCORE · 위험도 80.59295",
+        "stage": "3단계",
+        "time": "26:40"
+      }
+    ]
+  },
+  {
+    "scenario": "talk",
+    "phase": "COMPLETED",
+    "elapsedMs": 49985,
+    "maxStage": 2,
+    "restCertified": true,
+    "stampCount": 1,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SAFETY_EVENT · 위험도 0.003581193",
+        "stage": "1단계",
+        "time": "16:20"
+      },
+      {
+        "description": "SAFETY_EVENT · 위험도 4.864444",
+        "stage": "2단계",
+        "time": "16:50"
+      }
+    ]
+  },
+  {
+    "scenario": "assist",
+    "phase": "COMPLETED",
+    "elapsedMs": 78445,
+    "maxStage": 2,
+    "restCertified": true,
+    "stampCount": 1,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SAFETY_EVENT · 위험도 0.0",
+        "stage": "1단계",
+        "time": "15:10"
+      },
+      {
+        "description": "SAFETY_EVENT · 위험도 0.0",
+        "stage": "2단계",
+        "time": "15:40"
+      }
+    ]
+  },
+  {
+    "scenario": "departure",
+    "phase": "COMPLETED",
+    "elapsedMs": 50879,
+    "maxStage": 2,
+    "restCertified": true,
+    "stampCount": 1,
+    "nextRestArea": "NotFound",
+    "transitions": [
+      {
+        "description": "SCORE · 위험도 40.57293",
+        "stage": "1단계",
+        "time": "04:40"
+      },
+      {
+        "description": "SCORE · 위험도 55.194706",
+        "stage": "2단계",
+        "time": "15:20"
+      }
+    ]
+  }
+]

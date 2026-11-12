@@ -4,6 +4,7 @@ package com.sleepissue.awakedrive.engine.config
  * PatternClassifier 문턱값: 이상 분, 추세형·튐형, 안전 우회. (REQ_PAT_001~003·005)
  *
  * 음성 확인 결과에 따라 단계를 바꾸거나 다시 확인하는 규칙(REQ_PAT_004·006·007)은 여기 두지 않는다.
+ * 예외로 딴짓 '기록'(REQ_PAT_004)은 2번이 하므로 그 대기 시간 [distractionResolveMs]만 여기 둔다.
  * 그 결정은 단계 전환(1번 InterventionPolicy)이 [com.sleepissue.awakedrive.engine.model.PatternState]와
  * 확인 결과를 받아서 하고, 문턱값도 그쪽 설정(trendCheckRetryMs 10분, slowCheckCountForRest 2회)을 쓴다.
  */
@@ -32,4 +33,12 @@ data class PatternConfig(
      * 그사이 조건을 다시 만족하면 그때부터 다시 5분이다.
      */
     val safetyBypassHoldMs: Long = 5 * 60_000L,
+
+    /**
+     * 정상 대답 뒤 딴짓으로 기록할지 기다리는 시간 [제안값] (REQ_PAT_004).
+     * 급조향 바로 뒤의 확인은 그 1분 칸이 아직 판정 전이라(30초 갱신·10초 확정 지연) 패턴이 '없음'이나 '애매'다.
+     * 대답 뒤 이 시간 안에 튐형이 되면 딴짓으로 기록하고, 추세형이 되거나 끝까지 애매면 기록하지 않는다
+     * (애매하면 단정하지 않는 쪽, 기획서 4-1 원칙 3 [해석]). 이상 분 판정(최대 70초) + 복귀 1분을 덮는 3분.
+     */
+    val distractionResolveMs: Long = 3 * 60_000L,
 )

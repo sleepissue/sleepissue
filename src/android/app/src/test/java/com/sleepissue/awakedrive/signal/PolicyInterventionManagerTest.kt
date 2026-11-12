@@ -58,6 +58,39 @@ class PolicyInterventionManagerTest {
         }
     }
 
+    @Test fun frequentChecksUsesTenMinutesAndDefaultUsesTwenty() = runTest {
+        for (frequent in listOf(false, true)) {
+            val h = Harness(this); h.start()
+            h.send(InterventionInput.FrequentChecksChanged(frequent))
+            h.score(0f, assisted = true)
+            h.at(600_000); h.score(0f, assisted = true)
+            assertEquals(frequent, h.manager.state.value.stage != InterventionStage.NORMAL)
+            if (!frequent) {
+                h.at(1_200_000); h.score(0f, assisted = true)
+                assertTrue(h.manager.state.value.stage != InterventionStage.NORMAL)
+            }
+        }
+    }
+
+    @Test fun disablingFrequentChecksDoesNotDelayVulnerableContext() = runTest {
+        val h = Harness(this); h.start()
+        h.send(InterventionInput.FrequentChecksChanged(false))
+        h.send(InterventionInput.VulnerableTimeChanged(true))
+        h.score(0f, assisted = true)
+        h.at(600_000); h.score(0f, assisted = true)
+        assertTrue(h.output.filterIsInstance<CheckRequest>().isNotEmpty())
+    }
+
+    @Test fun passengerRestResponseEscalatesThroughExistingRequest() = runTest {
+        val h = Harness(this); h.checking()
+        val request = h.latestCheck(CheckContext.DRIVER_ALERTNESS)
+        h.started(request)
+        h.send(InterventionInput.CheckCompleted(CheckResult(request.requestId, request.context,
+            CheckOutcome.NORMAL, intent = ResponseIntent.REST, channel = ResponseChannel.PASSENGER_BUTTON)))
+        assertEquals(InterventionStage.REST_GUIDANCE, h.manager.state.value.stage)
+        assertEquals(TransitionReason.CHECK_RESULT, h.manager.state.value.reason)
+    }
+
     @Test fun cautionRequestsAForwardAreaAndNeverAsksAQuestion() = runTest {
         val h = Harness(this); h.start(); h.score(40f)
         assertEquals(InterventionStage.CAUTION, h.manager.state.value.stage)

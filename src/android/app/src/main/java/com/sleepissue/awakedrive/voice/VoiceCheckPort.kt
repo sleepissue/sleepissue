@@ -33,7 +33,7 @@ data class VoiceButtonRequest(
 class VoiceCheckPort(
     private val passengerCheckFlow: PassengerCheckFlow,
     private val voiceAgent: VoiceAgent,
-    private val coordinator: VoiceCheckCoordinator,
+    private val coordinator: VoiceCheckSession,
     private val occupancyProvider: () -> OccupancyContext,
     private val baselineMsProvider: () -> Long,
     private val onLifecycle: (RequestId, ExecutionStatus) -> Unit = { _, _ -> },
@@ -50,6 +50,7 @@ class VoiceCheckPort(
     private val lock = Any()
     private var activeRequest: CheckRequest? = null
     private var awaitingButton = false
+    private var promptStarted = false
 
     override suspend fun start(request: CheckRequest): ExecutionResult {
         synchronized(lock) {
@@ -63,6 +64,7 @@ class VoiceCheckPort(
             }
             activeRequest = request
             awaitingButton = false
+            promptStarted = false
         }
 
         val requested = execution(request.requestId, ExecutionStatus.REQUESTED)
@@ -101,7 +103,7 @@ class VoiceCheckPort(
         passengerButton: Boolean,
     ): ExecutionResult {
         val request = synchronized(lock) {
-            activeRequest?.takeIf { it.requestId == requestId && awaitingButton }
+            activeRequest?.takeIf { it.requestId == requestId && awaitingButton }?.also { clearActive() }
         } ?: return execution(requestId, ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
 
         mutableResults.emit(CheckResult(
@@ -114,6 +116,19 @@ class VoiceCheckPort(
         synchronized(lock) { clearActive() }
         onLifecycle(requestId, ExecutionStatus.SUCCEEDED)
         return execution(requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
+    }
+
+    /** 동승자 버튼은 진행 중인 졸음 확인에만 답하며 응답 시간을 만들지 않는다. */
+    suspend fun completeWithPassenger(rest: Boolean): ExecutionResult {
+        val request = synchronized(lock) {
+            activeRequest?.takeIf { promptStarted && it.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) }
+                ?.also { clearActive() }
+        } ?: return execution(RequestId("passenger-unavailable"), ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
+        passengerCheckFlow.cancel()
+        coordinator.cancel()
+        mutableResults.emit(CheckResult(request.requestId, request.context, CheckOutcome.NORMAL,
+            intent = if (rest) ResponseIntent.REST else ResponseIntent.OK, channel = ResponseChannel.PASSENGER_BUTTON))
+        return execution(request.requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
     }
 
     private fun startAlertness(request: CheckRequest) {
@@ -156,12 +171,12 @@ class VoiceCheckPort(
 
     private fun completeVoice(request: CheckRequest, result: VoiceCheckResult) {
         val shouldEmit = synchronized(lock) {
-            activeRequest?.requestId == request.requestId && !awaitingButton
+            if (activeRequest?.requestId != request.requestId || awaitingButton) false
+            else { clearActive(); true }
         }
         if (!shouldEmit) return
         onLifecycle(request.requestId, ExecutionStatus.SUCCEEDED)
         mutableResults.tryEmit(result.toInterventionResult(request.requestId, request.context))
-        synchronized(lock) { clearActive() }
         mutableExecutionResults.tryEmit(execution(request.requestId, ExecutionStatus.SUCCEEDED))
     }
 
@@ -196,6 +211,7 @@ class VoiceCheckPort(
     private fun clearActive() {
         activeRequest = null
         awaitingButton = false
+        promptStarted = false
     }
 
     private fun execution(

@@ -1,0 +1,18 @@
+{
+  "scenario": "drowsy",
+  "phase": "COMPLETED",
+  "elapsedMs": 51698,
+  "maxStage": 3,
+  "restCertified": true,
+  "stamps": 1,
+  "questionStarted": true,
+  "questionOneSpeed": true,
+  "driverButtonUsed": true,
+  "napStarted": false,
+  "napAlarmed": false,
+  "cancelled": true,
+  "recoveryNormal": true,
+  "waypointResults": [
+    "경유지 제안·자동 추가 대기를 취소했습니다. 위험 단계는 유지됩니다"
+  ]
+}

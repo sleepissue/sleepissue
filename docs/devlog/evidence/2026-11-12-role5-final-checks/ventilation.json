@@ -1,0 +1,20 @@
+{
+  "original": 0,
+  "withoutConsent": {
+    "failure": "PERMISSION_DENIED",
+    "requestId": "device-no-consent",
+    "status": "FAILED"
+  },
+  "enabled": {
+    "requestId": "device-enable",
+    "status": "SUCCEEDED"
+  },
+  "afterEnable": 3,
+  "manualPrompts": 0,
+  "restored": {
+    "requestId": "device-restore",
+    "status": "SUCCEEDED"
+  },
+  "afterRestore": 0,
+  "afterCleanup": 0
+}

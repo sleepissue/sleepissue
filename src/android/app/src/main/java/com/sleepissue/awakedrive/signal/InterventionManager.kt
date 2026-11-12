@@ -8,6 +8,7 @@ import com.sleepissue.awakedrive.engine.model.ExecutionStatus
 import com.sleepissue.awakedrive.engine.model.InterventionState
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.SafetyEvent
+import com.sleepissue.awakedrive.engine.model.Source
 import com.sleepissue.awakedrive.engine.model.TripState
 import com.sleepissue.awakedrive.engine.model.NaviState
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +24,11 @@ sealed interface InterventionInput {
     data class Forecast(val value: ForecastAssessment) : InterventionInput
     data class CheckCompleted(val value: CheckResult) : InterventionInput
     data class Safety(val value: SafetyEvent) : InterventionInput
+    /**
+     * 판단 엔진(2번)이 지금 주의 확인을 요청한다. 민감 모드 첫 음성 확인(출발 피로·'졸려요' 15분 뒤, REQ_BSL_006)에 쓴다.
+     * 급조향 1회처럼 2단계 확인으로 처리한다(이미 2단계면 확인만 다시, 3단계면 그대로).
+     */
+    data class CheckDue(val tMs: Long, val source: Source) : InterventionInput
     data class RestCertified(val value: RestCertification) : InterventionInput
     data class SensitiveModeChanged(val enabled: Boolean) : InterventionInput
     /** 예정 시각은 2번이 계산한다. 1번은 같은 운행의 실행 예약만 소유한다. null은 예약 해제다. */
