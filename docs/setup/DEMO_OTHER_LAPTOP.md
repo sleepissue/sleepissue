@@ -1,10 +1,12 @@
 # 다른 노트북에서 전체 데모 실행
 
-실행 브랜치: `feat/ui-demo-handoff-1112`. Android Studio에서는 저장소의 **src/android/**를 연다. 루트의 별도 android/ 템플릿은 사용하지 않는다.
+최신 main의 #20·#21·#22·#23을 모두 포함하고 병합 뒤 컴파일·파싱 오류를 수정한 실행 브랜치다.
+
+실행 브랜치: `fix/demo-complete-handoff`. Android Studio에서는 저장소의 **src/android/**를 연다. 루트의 별도 android/ 템플릿은 사용하지 않는다.
 
 ```bash
 git fetch origin
-git switch --track origin/feat/ui-demo-handoff-1112
+git switch --track origin/fix/demo-complete-handoff
 cd src/android
 ./gradlew :engine:test :app:testDebugUnitTest assembleDebug assembleDebugAndroidTest
 adb install -r app/build/outputs/apk/debug/app-debug.apk

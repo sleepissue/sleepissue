@@ -54,6 +54,8 @@ class DemoJsonLoader {
 
     fun parse(json: String): DemoLoadResult {
         var streamedSamples: List<DemoScenarioSample>? = null
+        var streamedMillis = false
+        var streamedSeconds = false
         val root = try {
             JsonReader(StringReader(json)).use { reader ->
                 reader.strictness = Strictness.STRICT
@@ -66,7 +68,19 @@ class DemoJsonLoader {
                         if (name == "samples" && reader.peek() == JsonToken.BEGIN_ARRAY) {
                             val samples = ArrayList<DemoScenarioSample>()
                             reader.beginArray()
-                            while (reader.hasNext()) samples.add(sample(readStrict(reader, 2), samples.size))
+                            while (reader.hasNext()) {
+                                val row = readStrict(reader, 2)
+                                if (row.isJsonObject && row.asJsonObject.has("tMs")) {
+                                    streamedMillis = true
+                                    val value = row.asJsonObject
+                                    val path = "$.samples[${samples.size}]"
+                                    if (value.has("t")) invalid("$path.t", "팀 형식은 tMs만 사용합니다.")
+                                    val millis = longAt(value.get("tMs"), "$path.tMs", DemoLoadErrorCode.INVALID_TIME)
+                                    value.remove("tMs")
+                                    value.addProperty("t", BigDecimal.valueOf(millis, 3))
+                                } else streamedSeconds = true
+                                samples.add(sample(row, samples.size))
+                            }
                             reader.endArray()
                             streamedSamples = samples
                             add(name, JsonArray())
@@ -89,13 +103,16 @@ class DemoJsonLoader {
             return failed(DemoLoadErrorCode.INVALID_JSON, "$", "JSON 문법이 올바르지 않습니다.")
         }
         return try {
-            DemoLoadResult.Loaded(validate(if (root.isJsonObject && root.asJsonObject.has("formatVersion")) normalizeTeamFormat(root) else root))
+            val teamFormat = root.isJsonObject && root.asJsonObject.has("formatVersion")
+            if ((teamFormat && streamedSeconds) || (!teamFormat && streamedMillis))
+                invalid("$.samples", "시나리오 형식에 맞는 시간 필드를 사용해야 합니다.")
+            DemoLoadResult.Loaded(validate(if (teamFormat) normalizeTeamFormat(root) else root, streamedSamples))
         } catch (error: Invalid) {
             DemoLoadResult.Failed(error.detail)
         }
     }
 
-    private fun validate(element: JsonElement): DemoScenario {
+    private fun validate(element: JsonElement, streamedSamples: List<DemoScenarioSample>? = null): DemoScenario {
         val root = objectAt(element, "$", setOf("schemaVersion", "id", "startEpochMs", "source", "speedSegments", "samples", "tripPreset"))
         if (longAt(required(root, "schemaVersion", "$"), "$.schemaVersion") != 1L) {
             invalid("$.schemaVersion", "지원하는 스키마 버전은 1입니다.")
