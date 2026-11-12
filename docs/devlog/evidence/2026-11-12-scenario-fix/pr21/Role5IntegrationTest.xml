@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.debug.Role5IntegrationTest" tests="17" skipped="0" failures="0" errors="0" timestamp="2026-11-12T01:54:44.435Z" hostname="a" time="17.427">
+  <properties/>
+  <testcase name="파워냅은 P단에서만 시작하고 지금 깨우기로 종료한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="2.084"/>
+  <testcase name="보조 주행 해제 뒤 10초 고정과 급조향을 보존한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="1.544"/>
+  <testcase name="딴짓 원본은 이상 분을 기록하고 정상 복귀 뒤 튐형으로 분류된다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="1.583"/>
+  <testcase name="출발 피로는 첫 D단 뒤 15분10초 부근에 검출된다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.986"/>
+  <testcase name="졸음 신호가 단계와 인증 스탬프까지 이어진다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.894"/>
+  <testcase name="동승자 휴식 요청은 다음 관측에 3단계로 연결되고 취소는 위험단계를 지우지 않는다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.58"/>
+  <testcase name="이동 좌표로 진행 방향을 추정해 주행 중 앞쪽 쉼터를 찾는다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.715"/>
+  <testcase name="회복 장치 오류를 정상이나 인증으로 바꾸지 않는다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.005"/>
+  <testcase name="기존 검증용 딴짓의 16분 급조향 앞에는 5초 고정이 있다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.241"/>
+  <testcase name="기존 검증용 16분 급조향을 실제 엔진이 검출한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.3"/>
+  <testcase name="정상 종료의 신호 무효화는 정기 확인을 새로 만들지 않는다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.803"/>
+  <testcase name="컨디션 세 값이 예보 입력으로 각각 연결된다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.003"/>
+  <testcase name="정식 6종에 위치 회전거리 온도 P D OFF RESUME을 포함한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="3.658"/>
+  <testcase name="오전 정상 시나리오는 끝까지 0단계를 유지한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.722"/>
+  <testcase name="대화 급조향과 보조 주행 조작 공백이 확인 단계를 만든다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="1.934"/>
+  <testcase name="졸음 급조향 횟수를 기록하고 PR21 검증에서는 5회를 요구한다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.654"/>
+  <testcase name="정상 주행에서 15분 타이머만으로 보상을 만들지 않는다" classname="com.sleepissue.awakedrive.debug.Role5IntegrationTest" time="0.7"/>
+  <system-out><![CDATA[DROWSY 최대위험도=98.81442 단계전환=[ReportWarningEvent(time=17:40, stage=1단계, description=SAFETY_EVENT · 위험도 38.693882), ReportWarningEvent(time=18:10, stage=2단계, description=SAFETY_EVENT · 위험도 45.6492), ReportWarningEvent(time=22:10, stage=3단계, description=SCORE · 위험도 82.93727)]
+DROWSY 급조향=[1050000, 1200000, 1350000, 1500000, 1650000]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

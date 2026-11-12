@@ -31,6 +31,7 @@ sealed interface InterventionInput {
     data class CheckDue(val tMs: Long, val source: Source) : InterventionInput
     data class RestCertified(val value: RestCertification) : InterventionInput
     data class SensitiveModeChanged(val enabled: Boolean) : InterventionInput
+    data class FrequentChecksChanged(val enabled: Boolean) : InterventionInput
     data class VulnerableTimeChanged(val enabled: Boolean) : InterventionInput
     data class VentilationConsentChanged(val enabled: Boolean) : InterventionInput
     data class AlertnessTargetChanged(val context: com.sleepissue.awakedrive.engine.model.CheckContext) : InterventionInput

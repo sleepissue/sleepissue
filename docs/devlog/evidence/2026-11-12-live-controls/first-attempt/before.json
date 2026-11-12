@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "android.permission.RECORD_AUDIO": true,
+    "android.permission.POST_NOTIFICATIONS": false,
+    "android.car.permission.CAR_SPEED": false
+  },
+  "gear": "Park",
+  "controls": {
+    "speed": 0,
+    "accelerator": 0,
+    "brake": 0,
+    "steering": 0
+  }
+}

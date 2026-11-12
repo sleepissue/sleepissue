@@ -23,6 +23,16 @@ class DemoJsonLoaderTest {
     private val loader = DemoJsonLoader()
 
     @Test
+    fun samplesCanPrecedeMetadataAndDuplicateSamplesAreRejected() {
+        val root = JsonParser.parseString(validJson).asJsonObject
+        val samples = root.remove("samples")
+        val reordered = "{\"samples\":$samples," + root.toString().drop(1)
+        assertEquals(3, loaded(reordered).samples.size)
+        assertFailure(DemoLoadErrorCode.INVALID_JSON,
+            validJson.dropLast(1) + ",\"samples\":[]}")
+    }
+
+    @Test
     fun secondsBecomeExactRelativeMillisecondsAndAllChannelsRemainDemo() {
         val scenario = loaded(validJson)
         assertEquals("minimal", scenario.id)

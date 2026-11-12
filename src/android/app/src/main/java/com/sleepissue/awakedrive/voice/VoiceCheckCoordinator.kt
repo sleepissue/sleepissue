@@ -17,7 +17,7 @@ class VoiceCheckCoordinator(
     private val tonePlayer: SignalTonePlayer,
     private val handler: Handler = Handler(Looper.getMainLooper()),
     private val config: EngineConfig = EngineConfig(),
-) {
+) : VoiceCheckSession {
     private var completed = false
     private var generation = 0L
     private var latestIntent = SpeechIntent.NONE
@@ -26,10 +26,10 @@ class VoiceCheckCoordinator(
     private var timeout: Runnable? = null
     private var recheck: Runnable? = null
 
-    fun start(
+    override fun start(
         baselineMs: Long,
         questionType: QuestionType,
-        checkType: CheckType = CheckType.VOICE,
+        checkType: CheckType,
         onResult: (CheckResult, twoConsecutiveSlow: Boolean) -> Unit,
         onSttFallbackRequired: () -> Unit,
     ) {
@@ -115,7 +115,7 @@ class VoiceCheckCoordinator(
         resultConsumer?.invoke(result)
     }
 
-    fun cancel() {
+    override fun cancel() {
         generation++
         completed = true
         promptSettle?.let(handler::removeCallbacks)

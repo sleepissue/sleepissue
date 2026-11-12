@@ -307,6 +307,22 @@ class FatigueBridgeTest {
         assertEquals(1, distracted.snapshots.value.pattern.distractionCount)
     }
 
+    @Test
+    fun runnerAppliesAndClearsAgeBandInLiveFrames() = runBlocking {
+        val manager = RecordingInterventionManager()
+        val runner = FatigueAssessmentRunner(FatigueBridge())
+        runner.run(listOf(frame(night, 0f)).asFlow(), { navi }, { null }, manager)
+        assertEquals(false, runner.snapshots.value.vulnerableTime)
+        runner.updateAgeBand(com.sleepissue.awakedrive.engine.model.AgeBand.THIRTIES_FORTIES)
+        runner.run(listOf(frame(night + 100, 0f)).asFlow(), { navi }, { null }, manager)
+        assertEquals(true, runner.snapshots.value.vulnerableTime)
+        assertEquals(InterventionInput.VulnerableTimeChanged(true), manager.submitted.last().second)
+        runner.updateAgeBand(null)
+        runner.run(listOf(frame(night + 200, 0f)).asFlow(), { navi }, { null }, manager)
+        assertEquals(false, runner.snapshots.value.vulnerableTime)
+        assertEquals(InterventionInput.VulnerableTimeChanged(false), manager.submitted.last().second)
+    }
+
     /** 받은 입력만 적어 두는 1번 InterventionManager 대역 */
     private class RecordingInterventionManager : InterventionManager {
         val submitted = ArrayList<Pair<RequestId, InterventionInput>>()

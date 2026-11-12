@@ -33,7 +33,11 @@ private val GraphGrid = Color(0xFF45415D)
 fun DrivingSignalGraph(
     riskHistory: List<Float> = emptyList(),
     steeringHistory: List<Float> = emptyList(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    speedHistory: List<Float> = emptyList(),
+    microHistory: List<Float> = emptyList(),
+    largeHistory: List<Float> = emptyList(),
+    suddenHistory: List<Float> = emptyList()
 ) {
     Column(
         modifier = modifier
@@ -56,30 +60,22 @@ fun DrivingSignalGraph(
             fontWeight = FontWeight.Bold
         )
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-
-            SignalChart(
-                title = "졸음 위험도",
-                description = "0 ~ 100점",
-                values = riskHistory,
-                minValue = 0f,
-                maxValue = 100f,
-                lineColor = GraphPurple,
-                modifier = Modifier.weight(1f)
-            )
-
-            SignalChart(
-                title = "조향 변화",
-                description = "-30° ~ +30°",
-                values = steeringHistory,
-                minValue = -30f,
-                maxValue = 30f,
-                lineColor = GraphBlue,
-                modifier = Modifier.weight(1f)
-            )
+        val series = listOf(
+            Triple("졸음 위험도", riskHistory, 100f),
+            Triple("조향 변화", steeringHistory, 30f),
+            Triple("차속 km/h", speedHistory, maxOf(1f, speedHistory.maxOrNull() ?: 1f)),
+            Triple("미세 수정 /분", microHistory, maxOf(1f, microHistory.maxOrNull() ?: 1f)),
+            Triple("큰 수정 /분", largeHistory, maxOf(1f, largeHistory.maxOrNull() ?: 1f)),
+            Triple("급조향 /5분", suddenHistory, maxOf(1f, suddenHistory.maxOrNull() ?: 1f))
+        )
+        series.chunked(3).forEach { group ->
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                group.forEach { (title, values, maximum) ->
+                    SignalChart(title, values.lastOrNull()?.let { "%.1f".format(it) } ?: "미수신", values,
+                        if (title == "조향 변화") -30f else 0f, maximum,
+                        if (title == "졸음 위험도") GraphPurple else GraphBlue, Modifier.weight(1f))
+                }
+            }
         }
     }
 }
@@ -122,7 +118,7 @@ private fun SignalChart(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(90.dp)
+                .height(60.dp)
                 .clip(RoundedCornerShape(12.dp))
                 .background(Color(0xFF151528)),
             contentAlignment = Alignment.Center

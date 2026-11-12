@@ -20,6 +20,8 @@ import com.sleepissue.awakedrive.engine.rest.RestArea
 import com.sleepissue.awakedrive.engine.rest.WaypointMatcher
 import com.sleepissue.awakedrive.navi.NaviBridge
 import com.sleepissue.awakedrive.navi.WaypointOutcome
+import com.sleepissue.awakedrive.navi.confirmRestWaypoint
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -29,7 +31,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withTimeoutOrNull
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -68,14 +69,17 @@ class PleosNaviBridge(
 
     private val listener = object : NaviHelperEventListener {
         override fun onWayPointInfo(waypointInfoList: List<WaypointInfo>) {
+            Log.d(TAG, "경유지 목록 수신: ${waypointInfoList.size}개")
             waypointLists.tryEmit(waypointInfoList.map { it.toNaviWaypoint() })
         }
 
         override fun onWaypointChanged(waypointChangedInfo: WaypointChangedInfo) {
+            Log.d(TAG, "경유지 변경 통지: ${waypointChangedInfo.cmdType}")
             if (waypointChangedInfo.cmdType == WaypointCmdType.ADD) waypointAdded.tryEmit(Unit)
         }
 
         override fun onError(errorCode: NaviErrorCode) {
+            Log.d(TAG, "내비 오류 통지: $errorCode")
             errors.tryEmit(errorCode)
         }
     }
@@ -84,21 +88,24 @@ class PleosNaviBridge(
         if (!granted(PERMISSION_ROUTE_SEARCH)) {
             return@withLock WaypointOutcome.Failed(ExecutionFailure.PERMISSION_DENIED, "$PERMISSION_ROUTE_SEARCH 없음")
         }
-        // RST_006의 2초 안 대체 안내를 지키려고 연결까지 포함해 한 번의 한도로 묶는다.
-        withTimeoutOrNull(config.waypointConfirmTimeoutMs) { addAndConfirm(area) }
-            ?: WaypointOutcome.Failed(ExecutionFailure.TIMED_OUT, "${config.waypointConfirmTimeoutMs} ms 안에 경유지 목록에서 확인 못 함")
+        // 명시적 오류는 즉시 반환하고, 연결·반영 확인은 설정된 한도까지만 기다린다.
+        val routeChanged = AtomicBoolean(false)
+        confirmRestWaypoint(config, confirm = { addAndConfirm(area, routeChanged) }, afterAdded = {
+            navi?.let { afterAdded(it, routeChanged.get()) }
+        })
     }
 
-    private suspend fun addAndConfirm(area: RestArea): WaypointOutcome = coroutineScope {
+    private suspend fun addAndConfirm(area: RestArea, routeChanged: AtomicBoolean): WaypointOutcome = coroutineScope {
+        Log.d(TAG, "경유지 추가: 연결 시작")
         val helper = connect() ?: return@coroutineScope WaypointOutcome.Failed(ExecutionFailure.UNAVAILABLE, "NaviHelper 연결 실패")
+        Log.d(TAG, "경유지 추가: 연결 완료")
 
         // 목록·오류·변경 알림을 addWaypoint 전에 듣기 시작해야 빠른 콜백을 놓치지 않는다.
         val confirmed = CompletableDeferred<WaypointOutcome>()
-        val routeChanged = AtomicBoolean(false)
         val listening = listOf(
-            launch { waypointLists.first { matcher.contains(it, area) }; confirmed.complete(WaypointOutcome.Added) },
-            launch { waypointAdded.first(); routeChanged.set(true) },
-            launch {
+            launch(start = CoroutineStart.UNDISPATCHED) { waypointLists.first { matcher.contains(it, area) }; confirmed.complete(WaypointOutcome.Added) },
+            launch(start = CoroutineStart.UNDISPATCHED) { waypointAdded.first(); routeChanged.set(true) },
+            launch(start = CoroutineStart.UNDISPATCHED) {
                 val code = errors.first()
                 confirmed.complete(WaypointOutcome.Failed(ExecutionFailure.UNAVAILABLE, "NaviErrorCode.$code"))
             },
@@ -111,10 +118,10 @@ class PleosNaviBridge(
             }
         }
         try {
+            Log.d(TAG, "경유지 추가: 호출 시작")
             helper.addWaypoint(area.toRequest())
-            val outcome = confirmed.await()
-            if (outcome is WaypointOutcome.Added) afterAdded(helper, routeChanged.get())
-            outcome
+            Log.d(TAG, "경유지 추가: 호출 복귀")
+            confirmed.await().also { Log.d(TAG, "경유지 추가: 반영 확인 종료") }
         } catch (e: SecurityException) {
             WaypointOutcome.Failed(ExecutionFailure.PERMISSION_DENIED, e.message ?: "SecurityException")
         } finally {
