@@ -40,11 +40,17 @@ private val SetupMuted = Color(0xFFB5B3CE)
  *
  * 엔진 연동은 상위 화면에서 별도로 처리한다.
  */
+enum class DrivingCondition {
+    GOOD,
+    SLIGHTLY_SLEEPY,
+    VERY_SLEEPY
+}
+
 @Composable
 fun FirstRunSetupScreen(
-    onNext: (Boolean) -> Unit = {}
+    onNext: (DrivingCondition) -> Unit = {}
 ) {
-    var isSleepy by remember { mutableStateOf<Boolean?>(null) }
+    var selectedCondition by remember { mutableStateOf<DrivingCondition?>(null) }
 
     Box(
         modifier = Modifier
@@ -199,20 +205,29 @@ fun FirstRunSetupScreen(
 
                             SetupConditionCard(
                                 icon = "☺",
-                                title = "괜찮아요",
+                                title = "개운해요",
                                 description = "집중해서 운전할 수 있어요",
-                                selected = isSleepy == false,
+                                selected = selectedCondition == DrivingCondition.GOOD,
                                 modifier = Modifier.weight(1f),
-                                onClick = { isSleepy = false }
+                                onClick = { selectedCondition = DrivingCondition.GOOD }
+                            )
+
+                            SetupConditionCard(
+                                icon = "◉",
+                                title = "보통",
+                                description = "평소와 비슷해요",
+                                selected = selectedCondition == DrivingCondition.SLIGHTLY_SLEEPY,
+                                modifier = Modifier.weight(1f),
+                                onClick = { selectedCondition = DrivingCondition.SLIGHTLY_SLEEPY }
                             )
 
                             SetupConditionCard(
                                 icon = "☾",
                                 title = "졸려요",
-                                description = "약간 졸린 것 같아요",
-                                selected = isSleepy == true,
+                                description = "지금은 휴식이 필요해요",
+                                selected = selectedCondition == DrivingCondition.VERY_SLEEPY,
                                 modifier = Modifier.weight(1f),
-                                onClick = { isSleepy = true }
+                                onClick = { selectedCondition = DrivingCondition.VERY_SLEEPY }
                             )
                         }
 
@@ -225,19 +240,20 @@ fun FirstRunSetupScreen(
                                 .padding(14.dp)
                         ) {
 
-                            val modeText = when (isSleepy) {
-                                true -> "민감 모드 요청"
-                                false -> "일반 모드 요청"
+                            val modeText = when (selectedCondition) {
+                                DrivingCondition.GOOD -> "일반 모드 요청"
+                                DrivingCondition.SLIGHTLY_SLEEPY -> "일반 모드 요청"
+                                DrivingCondition.VERY_SLEEPY -> "휴식 권장"
                                 null -> "선택 대기 중"
                             }
 
-                            val description = when (isSleepy) {
-                                true ->
-                                    "졸음 상태를 엔진에 전달하도록 연동할 예정입니다."
-
-                                false ->
-                                    "현재 컨디션을 엔진에 전달하도록 연동할 예정입니다."
-
+                            val description = when (selectedCondition) {
+                                DrivingCondition.GOOD ->
+                                    "선택한 컨디션으로 출발 전 예보를 계산합니다."
+                                DrivingCondition.SLIGHTLY_SLEEPY ->
+                                    "보통 컨디션으로 출발 전 예보를 계산합니다."
+                                DrivingCondition.VERY_SLEEPY ->
+                                    "졸음이 심하다면 출발 전 충분한 휴식을 권장합니다."
                                 null ->
                                     "먼저 현재 운전 컨디션을 선택해 주세요."
                             }
@@ -257,7 +273,7 @@ fun FirstRunSetupScreen(
 
                                     Text(
                                         text = modeText,
-                                        color = if (isSleepy == null)
+                                        color = if (selectedCondition == null)
                                             SetupMuted
                                         else
                                             SetupMint,
@@ -281,9 +297,9 @@ fun FirstRunSetupScreen(
             // 다음 버튼
             Button(
                 onClick = {
-                    isSleepy?.let(onNext)
+                    selectedCondition?.let(onNext)
                 },
-                enabled = isSleepy != null,
+                enabled = selectedCondition != null,
                 modifier = Modifier
                     .fillMaxWidth(0.42f)
                     .height(56.dp)

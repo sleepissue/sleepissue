@@ -1,0 +1,15 @@
+{
+  "engine": {
+    "tests": 346,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "app": {
+    "tests": 453,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "engineResultReused": true
+}

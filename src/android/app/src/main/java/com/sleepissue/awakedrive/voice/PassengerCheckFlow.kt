@@ -12,8 +12,10 @@ import com.sleepissue.awakedrive.engine.check.QuestionType
 class PassengerCheckFlow(
     private val policy: CheckPolicy,
     private val voiceAgent: VoiceAgent,
-    private val coordinator: VoiceCheckCoordinator,
+    private val coordinator: VoiceCheckSession,
 ) {
+    private val generation = java.util.concurrent.atomic.AtomicLong()
+
     fun start(
         context: OccupancyContext,
         baselineMs: Long,
@@ -22,12 +24,14 @@ class PassengerCheckFlow(
         onResult: (CheckResult, Boolean) -> Unit,
         onButtonRequired: (CheckTarget) -> Unit,
     ) {
+        val token = generation.incrementAndGet()
         val plan = policy.selectPlan(context)
         onPlanSelected(plan)
         when (plan.target) {
             CheckTarget.DRIVER_BUTTON -> onButtonRequired(plan.target)
 
             CheckTarget.DRIVER_VOICE -> startVoice(
+                token = token,
                 prompt = VoiceScripts.DRIVER_CHECK,
                 questionType = QuestionType.DRIVER_CHECK,
                 checkType = CheckType.VOICE,
@@ -45,6 +49,7 @@ class PassengerCheckFlow(
     }
 
     private fun startVoice(
+        token: Long,
         prompt: String,
         questionType: QuestionType,
         checkType: CheckType,
@@ -57,6 +62,7 @@ class PassengerCheckFlow(
             text = prompt,
             fallback = FallbackCue.CHECK_PROMPT,
             onComplete = {
+                if (generation.get() != token) return@speak
                 coordinator.start(
                     baselineMs = baselineMs,
                     questionType = questionType,
@@ -69,5 +75,8 @@ class PassengerCheckFlow(
         )
     }
 
-    fun cancel() = coordinator.cancel()
+    fun cancel() {
+        generation.incrementAndGet()
+        coordinator.cancel()
+    }
 }

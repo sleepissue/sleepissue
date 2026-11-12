@@ -1,0 +1,144 @@
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest:
+INSTRUMENTATION_STATUS: test=assist
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=1
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=assist
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=drowsy
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=2
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=drowsy
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=departure
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=3
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=departure
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=normal
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=4
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=normal
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=talk
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=5
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stack=java.lang.AssertionError: talk 휴식 인증 expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest$verify$1.invokeSuspend(ProductScenariosDeviceTest.kt:68)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.verify(ProductScenariosDeviceTest.kt:24)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.talk(ProductScenariosDeviceTest.kt:20)
+
+INSTRUMENTATION_STATUS: stream=
+Error in talk(com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest):
+java.lang.AssertionError: talk 휴식 인증 expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest$verify$1.invokeSuspend(ProductScenariosDeviceTest.kt:68)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.verify(ProductScenariosDeviceTest.kt:24)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.talk(ProductScenariosDeviceTest.kt:20)
+
+INSTRUMENTATION_STATUS: test=talk
+INSTRUMENTATION_STATUS_CODE: -2
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=
+INSTRUMENTATION_STATUS: test=distraction
+INSTRUMENTATION_STATUS_CODE: 1
+INSTRUMENTATION_STATUS: class=com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest
+INSTRUMENTATION_STATUS: current=6
+INSTRUMENTATION_STATUS: id=AndroidJUnitRunner
+INSTRUMENTATION_STATUS: numtests=6
+INSTRUMENTATION_STATUS: stream=.
+INSTRUMENTATION_STATUS: test=distraction
+INSTRUMENTATION_STATUS_CODE: 0
+INSTRUMENTATION_RESULT: stream=
+
+Time: 341.435
+There was 1 failure:
+1) talk(com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest)
+java.lang.AssertionError: talk 휴식 인증 expected:<true> but was:<false>
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.failNotEquals(Assert.java:835)
+	at org.junit.Assert.assertEquals(Assert.java:120)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest$verify$1.invokeSuspend(ProductScenariosDeviceTest.kt:68)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:94)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking(Builders.kt:70)
+	at kotlinx.coroutines.BuildersKt.runBlocking(Unknown Source:1)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$default(Builders.kt:48)
+	at kotlinx.coroutines.BuildersKt.runBlocking$default(Unknown Source:1)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.verify(ProductScenariosDeviceTest.kt:24)
+	at com.sleepissue.awakedrive.demo.ProductScenariosDeviceTest.talk(ProductScenariosDeviceTest.kt:20)
+
+FAILURES!!!
+Tests run: 6,  Failures: 1
+
+
+INSTRUMENTATION_CODE: -1

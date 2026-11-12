@@ -1,5 +1,6 @@
 package com.sleepissue.awakedrive.fatigue
 
+import com.sleepissue.awakedrive.engine.model.AgeBand
 import com.sleepissue.awakedrive.engine.model.NaviState
 import com.sleepissue.awakedrive.engine.model.RequestId
 import com.sleepissue.awakedrive.engine.model.SignalFrame
@@ -69,6 +70,14 @@ class FatigueAssessmentRunner(private val bridge: FatigueBridge) : DrivingAssess
             }
             deliver(frame.tMs, inputs, manager)
         }.collect()
+    }
+
+    @Volatile var ageBand: AgeBand? = bridge.ageBand
+        private set
+
+    /** 프레임과 같은 잠금으로 설정을 반영한다. */
+    suspend fun updateAgeBand(ageBand: AgeBand?) {
+        lock.withLock { bridge.ageBand = ageBand; this.ageBand = ageBand }
     }
 
     /** 출발 전 컨디션 (REQ_BSL_007). '졸려요'면 민감 모드가 켜져 1번에 알린다 */

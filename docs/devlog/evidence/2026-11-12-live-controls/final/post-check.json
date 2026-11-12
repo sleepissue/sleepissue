@@ -1,0 +1,8 @@
+{
+  "restoredPermissions": {
+    "android.permission.RECORD_AUDIO": true,
+    "android.permission.POST_NOTIFICATIONS": false,
+    "android.car.permission.CAR_SPEED": false
+  },
+  "foregroundMonitoringStopped": true
+}
