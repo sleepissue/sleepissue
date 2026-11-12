@@ -234,6 +234,7 @@ class PolicyInterventionManager(
                     }
                 }
             }
+            is InterventionInput.FrequentChecksChanged -> frequentChecks = input.enabled
             is InterventionInput.VulnerableTimeChanged -> vulnerable = input.enabled
             is InterventionInput.VentilationConsentChanged -> ventilationConsent = input.enabled
             is InterventionInput.AlertnessTargetChanged -> {
