@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
+import com.sleepissue.awakedrive.cabin.CabinMonitor
 import com.sleepissue.awakedrive.cabin.PassengerOccupancyResolver
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.config.EngineConfig
@@ -134,7 +135,7 @@ class MonitoringPipeline private constructor(
                 { PassengerOccupancyResolver.resolve(hub.latestFrame.value?.seats, null, speechDetected = false,
                     microphoneAvailable = DriverUiSettingsStore(context).read().microphoneConsent &&
                         ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED) },
-                { config.defaultVoiceBaselineMs }) // [가정] 개인 대답 기준선(2차 BSL)은 아직 없어 기본값
+                { config.defaultVoiceBaselineMs }, CabinMonitor(context, config)) // [가정] 개인 대답 기준선(2차 BSL)은 아직 없어 기본값
 
             val rest = RestModule(context, scope, clock, config, speak)
             val forecast = ForecastCoordinator(ForecastEngine(clock, config), clock, manager,
@@ -149,7 +150,7 @@ class MonitoringPipeline private constructor(
             val job = pipeline.start(scope) {
                 wiring = rest.wire(manager, router, hub, { trip.value.continuousDriveSec }, { id("rest") })
             }
-            return MonitoringPipeline(manager, runner, rest, forecast, wiring, check, job, listOf(tts, recognizer, tone)).also {
+            return MonitoringPipeline(manager, runner, rest, forecast, wiring, check, job, listOf(check, tts, recognizer, tone)).also {
                 it.updateSettings(DriverUiSettingsStore(context).read())
             }
         }

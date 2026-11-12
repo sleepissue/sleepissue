@@ -24,13 +24,13 @@ class CabinMonitor(
     private val clock: Clock = AndroidElapsedClock(),
     private val callbackHandler: Handler = Handler(Looper.getMainLooper()),
     private val audioFocus: DuckingAudioFocus = AndroidDuckingAudioFocus(context),
-) : AutoCloseable {
+) : CabinSpeechSampler, AutoCloseable {
     @Volatile private var running = false
     private var recorder: AudioRecord? = null
     private var worker: Thread? = null
     private var focusHeld = false
 
-    fun sample(onResult: (speechDetected: Boolean) -> Unit, onError: (Throwable) -> Unit) {
+    override fun sample(onResult: (speechDetected: Boolean) -> Unit, onError: (Throwable) -> Unit) {
         if (running) return
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) !=
             PackageManager.PERMISSION_GRANTED
@@ -111,7 +111,7 @@ class CabinMonitor(
         }
     }
 
-    fun stop() {
+    override fun stop() {
         running = false
         stopRecorder()
         worker?.interrupt()
