@@ -1,0 +1,374 @@
+[
+  {
+    "scenario": "normal",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  },
+  {
+    "scenario": "distraction",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  },
+  {
+    "scenario": "drowsy",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  },
+  {
+    "scenario": "talk",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  },
+  {
+    "scenario": "assist",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  },
+  {
+    "scenario": "departure",
+    "samples": 18000,
+    "minIntervalMs": 100,
+    "maxIntervalMs": 100,
+    "schemaValid": false,
+    "errorsFirst8": [
+      {
+        "path": [],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('formatVersion', 'scenarioId', 'startAt', 'title' were unexpected)"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'schemaVersion' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'id' is a required property"
+      },
+      {
+        "path": [],
+        "validator": "required",
+        "message": "'startEpochMs' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          0
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('tMs' was unexpected)"
+      },
+      {
+        "path": [
+          "samples",
+          1
+        ],
+        "validator": "required",
+        "message": "'t' is a required property"
+      }
+    ],
+    "releaseBytesMatch": true
+  }
+]

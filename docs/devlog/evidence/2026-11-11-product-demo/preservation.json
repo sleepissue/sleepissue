@@ -1,0 +1,108 @@
+{
+  "existingFiles": 160,
+  "missing": [],
+  "changedExistingNonDatabase": [],
+  "originalDatabases": {
+    "awakedrive_debug_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 1,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "dc348415c21be68411fcb736afe4bb1c0124e8c0bfb21b0b572645de0ffa8944"
+      },
+      "after": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 1,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "dc348415c21be68411fcb736afe4bb1c0124e8c0bfb21b0b572645de0ffa8944"
+      },
+      "sameLogicalRows": true
+    },
+    "awakedrive_sdk_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 18,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "02c226413ac1b5e993cb88e695aace50a674451d277c382f726e895b36d45c3d"
+      },
+      "after": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 18,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "02c226413ac1b5e993cb88e695aace50a674451d277c382f726e895b36d45c3d"
+      },
+      "sameLogicalRows": true
+    },
+    "role1-final-20261109-awakedrive_sdk_trip.db": {
+      "before": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 3,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "34b3b57978817ee57132af07fbbc344eadc413afca7fb796b70ecb3257226d17"
+      },
+      "after": {
+        "integrity": "ok",
+        "counts": {
+          "android_metadata": 1,
+          "drive_segment": 3,
+          "room_master_table": 1,
+          "trip_checkpoint": 1
+        },
+        "logicalSha256": "34b3b57978817ee57132af07fbbc344eadc413afca7fb796b70ecb3257226d17"
+      },
+      "sameLogicalRows": true
+    }
+  },
+  "newFiles": [
+    "cache/awakedrive_demo_restart.db.lck",
+    "cache/product-demo-six-20261111.txt",
+    "cache/product-demo-voice-20261111.json",
+    "cache/product-wiring-progress-20261111.txt",
+    "cache/rest_records.db.lck",
+    "cache/sdk-signal-public-input-20261111.json",
+    "databases/awakedrive_demo_restart.db",
+    "databases/demo_b7b80e56-5106-4a56-be47-ab0d1ff62dfc_rest_records.db",
+    "databases/demo_e6fc34c4-4894-429e-af58-3dac3f0a04c0_rest_records.db",
+    "shared_prefs/demo_065ab8c3-d463-4538-80c4-9d556b6d0fe9_rest_session.xml",
+    "shared_prefs/demo_1c70918a-5336-48fe-a4fd-8f8a41289fb8_rest_session.xml",
+    "shared_prefs/demo_27e12712-3ee3-42cf-88e9-4bf517e69df7_rest_session.xml",
+    "shared_prefs/demo_2bbc5a5d-0bcd-4e1a-8782-56ce362e2f84_rest_session.xml",
+    "shared_prefs/demo_2e0e4beb-b4f5-4969-a28f-792e47864dc6_rest_session.xml",
+    "shared_prefs/demo_33233537-3061-4ba9-9fb3-f3e6a9618a8a_rest_session.xml",
+    "shared_prefs/demo_379e44df-1269-48db-bfe8-8712ab12b3c8_rest_session.xml",
+    "shared_prefs/demo_39cdb883-f79d-4dcd-b3c9-b1258bc16593_rest_session.xml",
+    "shared_prefs/demo_4690c009-e819-4b7e-b5fc-82bb6a875725_rest_session.xml",
+    "shared_prefs/demo_987cdee2-0082-40c1-90a1-b3bfd31b6008_rest_session.xml",
+    "shared_prefs/demo_a1aeb7e9-19d2-49d0-95c8-ad5b674ac02a_rest_session.xml",
+    "shared_prefs/demo_aab26715-7d13-4d06-bd44-8508884bdbb4_rest_session.xml",
+    "shared_prefs/demo_af80e01d-2952-4790-97ad-d0823f01d3b1_rest_session.xml",
+    "shared_prefs/demo_afb89c69-46a7-47aa-9ef8-3a4add5df446_rest_session.xml",
+    "shared_prefs/demo_b7b80e56-5106-4a56-be47-ab0d1ff62dfc_rest_session.xml",
+    "shared_prefs/demo_c01668d9-2c77-4ab5-a930-784cd5a20f49_rest_session.xml",
+    "shared_prefs/demo_c7ea4143-a94d-4c6e-80b8-a97e14766a71_rest_session.xml",
+    "shared_prefs/demo_ddc652bb-6737-4d0d-b6f6-ca7c14eb784a_rest_session.xml",
+    "shared_prefs/demo_e6fc34c4-4894-429e-af58-3dac3f0a04c0_rest_session.xml",
+    "shared_prefs/demo_fa9b8980-4f26-498f-908c-b8a6ec530243_rest_session.xml",
+    "shared_prefs/product_demo_restart.xml"
+  ]
+}

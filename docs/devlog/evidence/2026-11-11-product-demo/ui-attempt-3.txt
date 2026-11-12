@@ -1,0 +1,31 @@
+
+com.sleepissue.awakedrive.data.ProductDemoDeviceTest:
+Error in sixProductButtonsPlayThroughHubAndPauseResumeStopReset(com.sleepissue.awakedrive.data.ProductDemoDeviceTest):
+java.lang.IllegalStateException: 출발 피로 재생/Hub 값
+안전 벨트를 매세요.
+Comfort
+25
+°C
+Creep
+0km
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.await(ProductDemoDeviceTest.kt:34)
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.sixProductButtonsPlayThroughHubAndPauseResumeStopReset(ProductDemoDeviceTest.kt:54)
+
+
+Time: 192.457
+There was 1 failure:
+1) sixProductButtonsPlayThroughHubAndPauseResumeStopReset(com.sleepissue.awakedrive.data.ProductDemoDeviceTest)
+java.lang.IllegalStateException: 출발 피로 재생/Hub 값
+안전 벨트를 매세요.
+Comfort
+25
+°C
+Creep
+0km
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.await(ProductDemoDeviceTest.kt:34)
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.sixProductButtonsPlayThroughHubAndPauseResumeStopReset(ProductDemoDeviceTest.kt:54)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

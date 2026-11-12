@@ -1,0 +1,13 @@
+{
+  "preservedExistingSources": 395,
+  "changedExistingSources": [],
+  "addedSources": [
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/FatigueInputHubContractTest.kt"
+  ],
+  "branch": "develop-jdw",
+  "head": "9144cfd7eee1b078b6a988c7692a97792e4f4407",
+  "productionCodeModified": false,
+  "deviceCommandsRun": false,
+  "apkBuildOrInstallRun": false,
+  "commitPushPrRun": false
+}

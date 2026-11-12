@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.service.AwakeDrivePipelineTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2026-11-12T07:26:34.727Z" hostname="a" time="0.055">
+  <properties/>
+  <testcase name="엔진의 첫 확인 예정 시각을 제품 조립 경로가 전달하고 해당 시각에 한 번 요청한다" classname="com.sleepissue.awakedrive.service.AwakeDrivePipelineTest" time="0.035"/>
+  <testcase name="방향 없는 내비로 북쪽 주행, 3단계에서 앞쪽 쉼터를 경유지 동의 질문에 싣는다" classname="com.sleepissue.awakedrive.service.AwakeDrivePipelineTest" time="0.019"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

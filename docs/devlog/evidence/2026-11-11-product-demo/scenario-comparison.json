@@ -1,0 +1,83 @@
+[
+  {
+    "id": "normal",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "3bce6d377213ba03455bf6ac7b4d50d3c37876e9b2888c764f91673582df3f65",
+    "legacyMissingFields": {
+      "distToNextTurnM": 18000,
+      "cabinTempC": 18000
+    },
+    "originalTripPreset": null,
+    "legacyTripPreset": null,
+    "apkAsset": "assets/normal.json"
+  },
+  {
+    "id": "distraction",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "c32fc5730ac453c7704362d27eece77b7357b1e8e0cd5d7a5719e514261bff3b",
+    "legacyMissingFields": {
+      "distToNextTurnM": 18000,
+      "cabinTempC": 18000
+    },
+    "originalTripPreset": null,
+    "legacyTripPreset": null,
+    "apkAsset": "assets/distraction.json"
+  },
+  {
+    "id": "drowsy",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "3838b13861df927c3246b23a123a4d434ae5bad2ebafefaac7d92780150cab8e",
+    "legacyMissingFields": {
+      "distToNextTurnM": 0,
+      "cabinTempC": 0
+    },
+    "originalTripPreset": {
+      "continuousDriveSec": 7800,
+      "last24hDriveSec": 7800
+    },
+    "legacyTripPreset": null,
+    "apkAsset": "assets/drowsy.json"
+  },
+  {
+    "id": "talk",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "6f84e656db9bffad0f87c97e8c265b6bd1158f089d13cf00e20e66ac5b3119a2",
+    "legacyMissingFields": {
+      "distToNextTurnM": 18000,
+      "cabinTempC": 18000
+    },
+    "originalTripPreset": null,
+    "legacyTripPreset": null,
+    "apkAsset": "assets/talk.json"
+  },
+  {
+    "id": "assist",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "80993a126efaee35ee6511798898066d15f7ec7d1eea46ea9e72decbb0bc8a48",
+    "legacyMissingFields": {
+      "distToNextTurnM": 18000,
+      "cabinTempC": 18000
+    },
+    "originalTripPreset": null,
+    "legacyTripPreset": null,
+    "apkAsset": "assets/assist.json"
+  },
+  {
+    "id": "departure",
+    "originalSamples": 18000,
+    "legacySamples": 18000,
+    "originalSha256": "1005688625391584b151ec181f9a9b26f440c976a05bbebd52bdaefbc424637f",
+    "legacyMissingFields": {
+      "distToNextTurnM": 18000,
+      "cabinTempC": 18000
+    },
+    "originalTripPreset": null,
+    "legacyTripPreset": null,
+    "apkAsset": "assets/departure.json"
+  }
+]

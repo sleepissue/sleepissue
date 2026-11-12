@@ -92,6 +92,12 @@ class AwakeDrivePipeline(
         owner.launch {
             forecast.watchDepartureFatigue(runner.snapshots.map { it.baseline.departureFatigue }.distinctUntilChanged())
         }
+        owner.launch {
+            // 2번의 계산 결과를 그대로 전달한다. 지연 시간을 다시 더하거나 점수/단계를 주입하지 않는다.
+            runner.snapshots.map { it.baseline.firstCheckDueMs }.distinctUntilChanged().collect { due ->
+                trip.value.tripId?.let { submit(InterventionInput.FirstCheckScheduleChanged(it, due)) }
+            }
+        }
         owner.launch(engineContext) { runner.run(hub.samples, { hub.latestNavi.value }, { trip.value }, manager) }
         // 사람에게 물어본 주의 확인 결과를 2번 엔진에도 알린다 (REQ_PAT_004 딴짓 기록). 단계는 매니저가 따로 판단한다.
         owner.launch { router.checkResults.collect { runner.onCheckResult(it) } }

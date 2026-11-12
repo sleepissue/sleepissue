@@ -1,0 +1,26 @@
+{
+  "beforePid": "10084",
+  "afterExitPid": "",
+  "afterRestartPid": "30688",
+  "storedTrip": {
+    "tripId": "demo-b7b80e56-5106-4a56-be47-ab0d1ff62dfc",
+    "continuousDriveSec": 8286,
+    "observationMs": 1794060186440,
+    "gear": "P",
+    "power": "OFF",
+    "source": "DEMO",
+    "timeBasis": "MANUAL_SCENARIO",
+    "stage": "CAUTION",
+    "savedAtScenarioMs": 1794060186440
+  },
+  "restRows": 1,
+  "restOutcomes": [
+    "AWARDED"
+  ],
+  "gapMs": 1320000,
+  "realOffOnOrStr": false,
+  "restoredResult": "DMO_005 데모 복원 완료 · 시계 +22분 · 인증 1건 · 연속 0초 · 최근24시간 8271초\n운행 ID demo-b7b80e56-5106-4a56-be47-ab0d1ff62dfc · 단계 CAUTION · 기준선 참조 없음\n실제 시동 OFF→ON/STR 시험이 아닙니다. 엔진 내부 학습 창 복원은 미지원입니다.",
+  "pendingAfterRestore": "false",
+  "restRecordWallMs": 1794061506440,
+  "restRecordWallDeltaMs": 1320000
+}

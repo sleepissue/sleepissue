@@ -23,7 +23,7 @@ class PleosTtsOutput(
 
     private val eventListener = object : EventListener {
         override fun onReady() = Unit
-        override fun onStart() = Unit
+        override fun onStart() { active?.onStarted?.invoke() }
         override fun onUpdatedRms(rms: Double) = Unit
 
         override fun onDone() {
@@ -69,8 +69,11 @@ class PleosTtsOutput(
         })
     }
 
-    override fun speak(text: String, onComplete: () -> Unit, onError: (Throwable) -> Unit) {
-        val request = PendingSpeech(text, onComplete, onError)
+    override fun speak(text: String, onComplete: () -> Unit, onError: (Throwable) -> Unit) =
+        speakWithStart(text, {}, onComplete, onError)
+
+    override fun speakWithStart(text: String, onStarted: () -> Unit, onComplete: () -> Unit, onError: (Throwable) -> Unit) {
+        val request = PendingSpeech(text, onComplete, onError, onStarted)
         when (state) {
             State.READY, State.INITIALIZING -> {
                 queue.addLast(request)
@@ -115,6 +118,7 @@ class PleosTtsOutput(
         val text: String,
         val onComplete: () -> Unit,
         val onError: (Throwable) -> Unit,
+        val onStarted: () -> Unit,
     )
 
     private enum class State { INITIALIZING, READY, FAILED, CLOSED }

@@ -1,0 +1,53 @@
+{
+  "actualTtsStart": {
+    "connection": "SUCCEEDED",
+    "deliveredSamples": 21,
+    "lastDeliveryElapsedMs": 27006408,
+    "lastOriginalSampleMs": 2000,
+    "phase": "PLAYING",
+    "pumpFinishedScenarioMs": 2021,
+    "pumpTargetMs": 2020,
+    "questionRequestId": "actual-voice-speed-20261111",
+    "realElapsedMs": 203,
+    "scenarioId": "normal",
+    "scenarioTimeMs": 2021,
+    "segmentMultiplier": 10,
+    "sessionId": 1,
+    "speedMultiplier": 1
+  },
+  "duringPrompt": {
+    "connection": "SUCCEEDED",
+    "deliveredSamples": 27,
+    "lastDeliveryElapsedMs": 27006991,
+    "lastOriginalSampleMs": 2600,
+    "phase": "PLAYING",
+    "pumpFinishedScenarioMs": 2621,
+    "pumpTargetMs": 2620,
+    "questionRequestId": "actual-voice-speed-20261111",
+    "realElapsedMs": 803,
+    "scenarioId": "normal",
+    "scenarioTimeMs": 2621,
+    "segmentMultiplier": 10,
+    "sessionId": 1,
+    "speedMultiplier": 1
+  },
+  "realDeltaMs": 600,
+  "scenarioDeltaMs": 600,
+  "afterActualCheck": {
+    "connection": "SUCCEEDED",
+    "deliveredSamples": 82,
+    "lastDeliveryElapsedMs": 27012367,
+    "lastOriginalSampleMs": 8100,
+    "phase": "PLAYING",
+    "pumpFinishedScenarioMs": 8125,
+    "pumpTargetMs": 8125,
+    "questionOutcome": "FAILED",
+    "realElapsedMs": 6163,
+    "scenarioId": "normal",
+    "scenarioTimeMs": 8125,
+    "segmentMultiplier": 10,
+    "sessionId": 1,
+    "speedMultiplier": 10
+  },
+  "completed": true
+}

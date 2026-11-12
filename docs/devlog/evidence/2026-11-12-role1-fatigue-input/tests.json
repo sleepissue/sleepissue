@@ -1,0 +1,36 @@
+{
+  "engine": {
+    "tests": 351,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "execution": "this request, actual run"
+  },
+  "newContract": {
+    "name": "com.sleepissue.awakedrive.signal.FatigueInputHubContractTest",
+    "tests": "9",
+    "failures": "0",
+    "errors": "0",
+    "skipped": "0",
+    "time": "0.33",
+    "cases": [
+      "turnAndBrakeEventsRetainTheBeforeAndAfterExclusionWindowsThroughTheHub",
+      "expiredVehicleAndNavigationCannotLeaveAnOldPassingEngineInput",
+      "speedGearAndTurnDistanceBoundariesReachTheExistingGate",
+      "twoHzSourceStaysBelowMinimumDespiteTenHzHubPublication",
+      "sensorUnitsAndSmallSignedAnglesReachTheEngineWithoutRoundingOrRescaling",
+      "sdkSteeringMeaningHoldRemainsNullAfterTheHubAndEngineInputBoundary",
+      "fiveHzSourceEnablesMicroAfterWarmupWithoutInventingExtraObservations",
+      "tenHzHubDrivesOneMinuteWindowsAtThirtySecondCadenceUsingTheUnchangedEngine",
+      "unavailableRequiredSignalsCannotTurnIntoZeroOrFalseAndPassTheGate"
+    ]
+  },
+  "app": {
+    "tests": 436,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "execution": "this request, actual run"
+  },
+  "totalTests": 787
+}

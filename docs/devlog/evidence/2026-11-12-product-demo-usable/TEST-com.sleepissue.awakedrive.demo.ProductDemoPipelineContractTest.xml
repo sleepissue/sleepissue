@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2026-11-12T07:26:11.242Z" hostname="a" time="11.714">
+  <properties/>
+  <testcase name="assist" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="3.378"/>
+  <testcase name="drowsy" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.76"/>
+  <testcase name="departure" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.421"/>
+  <testcase name="normal" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.288"/>
+  <testcase name="talk" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.393"/>
+  <testcase name="originalDepartureKeepsTheAuthoredTenToOneSpeedBoundary" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.256"/>
+  <testcase name="distraction" classname="com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest" time="1.216"/>
+  <system-out><![CDATA[PRODUCT_DEMO id=assist profile=TEN publications=17999 unexpectedNull=0 evaluations=47 maxStage=1 maxSmoothedRisk=4.425382 departure=false assisted=true firstCheckDueRelativeMs=null requests=1
+PRODUCT_DEMO id=drowsy profile=TEN publications=17999 unexpectedNull=0 evaluations=58 maxStage=3 maxSmoothedRisk=90.62792 departure=false assisted=false firstCheckDueRelativeMs=null requests=7
+PRODUCT_DEMO id=departure profile=TEN publications=17999 unexpectedNull=0 evaluations=58 maxStage=2 maxSmoothedRisk=55.646294 departure=true assisted=false firstCheckDueRelativeMs=1810100 requests=3
+PRODUCT_DEMO id=normal profile=TEN publications=17999 unexpectedNull=0 evaluations=58 maxStage=1 maxSmoothedRisk=0.0 departure=false assisted=false firstCheckDueRelativeMs=null requests=1
+PRODUCT_DEMO id=talk profile=TEN publications=17999 unexpectedNull=0 evaluations=58 maxStage=1 maxSmoothedRisk=0.0 departure=false assisted=false firstCheckDueRelativeMs=null requests=1
+PRODUCT_DEMO id=departure profile=ORIGINAL publications=17999 unexpectedNull=0 evaluations=58 maxStage=2 maxSmoothedRisk=55.646294 departure=true assisted=false firstCheckDueRelativeMs=1810100 requests=3
+PRODUCT_DEMO id=distraction profile=TEN publications=17999 unexpectedNull=0 evaluations=58 maxStage=2 maxSmoothedRisk=21.62706 departure=false assisted=false firstCheckDueRelativeMs=null requests=3
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

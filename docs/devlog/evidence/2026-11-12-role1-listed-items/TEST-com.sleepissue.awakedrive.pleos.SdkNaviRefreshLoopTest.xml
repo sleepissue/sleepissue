@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-12T01:41:29.679Z" hostname="a" time="0.062">
+  <properties/>
+  <testcase name="burstIsConflatedAndCancellationStopsQueries" classname="com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest" time="0.016"/>
+  <testcase name="eventDuringQueryGetsOneFollowUpRatherThanBeingLost" classname="com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest" time="0.014"/>
+  <testcase name="slowQueryDoesNotReplayPastDeadlines" classname="com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest" time="0.009"/>
+  <testcase name="routeEventDoesNotWaitForNextPeriodicQuery" classname="com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

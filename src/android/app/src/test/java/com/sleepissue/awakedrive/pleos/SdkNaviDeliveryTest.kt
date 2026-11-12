@@ -13,6 +13,22 @@ class SdkNaviDeliveryTest {
     private val reports = SdkNaviDelivery(store, SdkRouteGate(clock, store.policy)) { }
     private fun at(ms: Long) { clock.elapsedMs = ms; clock.scenarioMs = ms }
 
+    @Test fun onlyNewOrExpiredActiveRouteRequestsRefreshAndCannotReviveOldDestination() {
+        reports.destination(60, 50, 0)
+        assertNull(store.naviState().remainTimeSec)
+        assertTrue(reports.route(naviRouteState(), 0))
+        // 조회 전 기본 0/오래된 목적지를 활성 값으로 재사용하지 않는다.
+        assertNull(store.naviState().remainTimeSec)
+        assertFalse(reports.route(naviRouteState(), 0))
+        reports.destination(60, 50, 0)
+        assertEquals(60L, store.naviState().remainTimeSec)
+        at(3_001)
+        assertTrue(reports.route(naviRouteState(), 3_001))
+        reports.cancel("취소")
+        assertNull(store.naviState().remainTimeSec)
+        assertTrue(reports.route(naviRouteState(), 3_001))
+    }
+
     @Test fun activeRouteUnitsUpcomingTurnApproachPassAndCancelRemainExplicit() {
         reports.destination(600, 5_000, 0); reports.turns(listOf(400.0), 0)
         assertNull(store.naviState().remainTimeSec)

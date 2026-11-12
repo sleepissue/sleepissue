@@ -1,0 +1,47 @@
+[
+  {
+    "attempt": 1,
+    "touchToSdkMs": [
+      1790,
+      1863
+    ],
+    "touchToHubMs": [
+      2006,
+      2081
+    ],
+    "sdkToHubMs": [
+      216,
+      218
+    ]
+  },
+  {
+    "attempt": 2,
+    "touchToSdkMs": [
+      1068,
+      1128
+    ],
+    "touchToHubMs": [
+      1130,
+      1194
+    ],
+    "sdkToHubMs": [
+      62,
+      66
+    ]
+  },
+  {
+    "attempt": 3,
+    "touchToSdkMs": [
+      1182,
+      1260
+    ],
+    "touchToHubMs": [
+      1201,
+      1281
+    ],
+    "sdkToHubMs": [
+      19,
+      21
+    ]
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "originalAppFiles": 190,
+  "missing": [],
+  "changedAfterRestoration": [],
+  "restoredOwnTestOutputs": [
+    "databases/awakedrive_demo_restart.db",
+    "shared_prefs/product_demo_restart.xml",
+    "cache/product-wiring-progress-20261111.txt",
+    "cache/product-demo-six-20261111.txt",
+    "cache/product-demo-voice-20261111.json"
+  ],
+  "newIsolatedFilesRetained": [
+    "cache/role1-audit-departure.json",
+    "cache/role1-audit-sdk-precedence.json",
+    "cache/trip-reopen-451c0523-4589-4e7f-b5f4-7e77234f7e4d.db.lck",
+    "databases/demo_de8135b4-e400-4bce-8501-65862cf7672c_rest_records.db",
+    "shared_prefs/demo_10d72f43-5d90-4913-b145-ca9af8816f11_rest_session.xml",
+    "shared_prefs/demo_176a715a-b372-4849-9d45-69dc63cb1bf6_rest_session.xml",
+    "shared_prefs/demo_192da53e-aea8-4926-a166-07d449c51962_rest_session.xml",
+    "shared_prefs/demo_2150625f-2bff-42fa-bb7e-03d5a0cd1c26_rest_session.xml",
+    "shared_prefs/demo_24660194-bf09-4856-8e4f-60786b313c7f_rest_session.xml",
+    "shared_prefs/demo_2dd17bd5-7694-4c8c-b5b0-c052568fff30_rest_session.xml",
+    "shared_prefs/demo_4da3ce22-0711-4521-85d6-eaa8293201af_rest_session.xml",
+    "shared_prefs/demo_578662aa-5089-4889-8272-1b4dcb3e9ae3_rest_session.xml",
+    "shared_prefs/demo_65244487-6205-4d72-b431-1014700468dd_rest_session.xml",
+    "shared_prefs/demo_8aa17f32-5dfe-4ce0-b8f0-b87803ce7c05_rest_session.xml",
+    "shared_prefs/demo_986e6617-6b04-48a5-9a90-aa05e10e4d3d_rest_session.xml",
+    "shared_prefs/demo_9d1087ed-78d7-46ae-824c-0408cb060e95_rest_session.xml",
+    "shared_prefs/demo_cecc1b4f-52d9-44bc-8199-423742465855_rest_session.xml",
+    "shared_prefs/demo_de8135b4-e400-4bce-8501-65862cf7672c_rest_session.xml",
+    "shared_prefs/demo_f30043f4-3da3-4b03-8eaf-86078b35e08c_rest_session.xml",
+    "shared_prefs/demo_role1_audit_departure_demo_633932c5-1831-47fb-ab71-53177b824cf2_rest_session.xml",
+    "shared_prefs/demo_role1_audit_sdk_demo_618933dd-c664-4213-a9d8-54da86070836_rest_session.xml"
+  ],
+  "databases": {
+    "awakedrive_debug_trip.db": {
+      "integrity": "ok",
+      "logicalSha256": "084dbffbfcbadbdb09d450530b9135ab9ba8b45c89989e262348d925b9efdf9d"
+    },
+    "demo_b7b80e56-5106-4a56-be47-ab0d1ff62dfc_rest_records.db": {
+      "integrity": "ok",
+      "logicalSha256": "e990400d0a4a059b87f66839ad5c2c60b68512797999d96f246f1b5b03606ee3"
+    },
+    "demo_e6fc34c4-4894-429e-af58-3dac3f0a04c0_rest_records.db": {
+      "integrity": "ok",
+      "logicalSha256": "90fe086cb797ce846af9bd8df19e0db3b99196d7b6677cb9a045eb0ee7fe5f5b"
+    },
+    "demo_de8135b4-e400-4bce-8501-65862cf7672c_rest_records.db": {
+      "integrity": "ok",
+      "logicalSha256": "9a44c6b8f28afa36c0f9fb2a1506ce7a3d88e8209e436bec91195530ff601e33"
+    },
+    "awakedrive_demo_restart.db": {
+      "integrity": "ok",
+      "logicalSha256": "ea6b689c8891c9b3f742c34a50ba104b02c6cad8f06a12302cfa88fc3e9ca04a"
+    },
+    "awakedrive_sdk_trip.db": {
+      "integrity": "ok",
+      "logicalSha256": "8d87201b92959342622a659ca80456c1320ac3dff98b01b4c41b69fe507372df"
+    },
+    "role1-final-20261109-awakedrive_sdk_trip.db": {
+      "integrity": "ok",
+      "logicalSha256": "9e3103d92521ef2c1dcc0b4d92384d6c610c568a9ecd0a959fe2a46f0a95fa0c"
+    }
+  },
+  "databaseLogicalMatch": true,
+  "runtimePermissionsSame": true,
+  "originalUntrackedFilesMissing": [],
+  "userDatabaseCleared": false,
+  "uninstallResetCleanCommitPushPr": false,
+  "privateBackup": "/home/a/.local/state/awakedrive-handoff/2026-11-12/role1-fixes"
+}

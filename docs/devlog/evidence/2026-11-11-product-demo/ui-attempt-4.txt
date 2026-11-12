@@ -1,0 +1,65 @@
+
+com.sleepissue.awakedrive.data.ProductDemoDeviceTest:
+Error in sixProductButtonsPlayThroughHubAndPauseResumeStopReset(com.sleepissue.awakedrive.data.ProductDemoDeviceTest):
+java.lang.IllegalStateException: 정상 재생/Hub 값
+AwakeDrive · JSON 데모
+정상
+딴짓
+졸음
+대화
+보조 주행
+출발 피로
+NOT_LOADED · 시나리오 0초 · 0배 · 원본 0건
+일시정지
+재개
+중지
+초기화
+JSON 읽기·검증 중 · 잠시 기다려 주세요
+연속 0초 · 최근24시간 0초
+단계 대기 · 위험도 미평가 · 평활 미평가
+민감 모드 미판정 · 회전 미수신m · 실내 미수신℃
+기어 null · 출처 null
+Virtual Console 입력 우선 켜기
+SDK 우선 입력은 별도 선택입니다. 데모는 실제 내비 경유지·통풍을 변경하지 않습니다.
+쉼터 P단 준비(모의)
+시동 끔(저장 후 앱 종료)
+앱을 다시 열면 저장본 복원과 데모 시계 +22분을 적용합니다. 실제 OFF→ON/STR 시험이 아닙니다.
+제품 홈으로
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.await(ProductDemoDeviceTest.kt:38)
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.sixProductButtonsPlayThroughHubAndPauseResumeStopReset(ProductDemoDeviceTest.kt:63)
+
+
+Time: 124.589
+There was 1 failure:
+1) sixProductButtonsPlayThroughHubAndPauseResumeStopReset(com.sleepissue.awakedrive.data.ProductDemoDeviceTest)
+java.lang.IllegalStateException: 정상 재생/Hub 값
+AwakeDrive · JSON 데모
+정상
+딴짓
+졸음
+대화
+보조 주행
+출발 피로
+NOT_LOADED · 시나리오 0초 · 0배 · 원본 0건
+일시정지
+재개
+중지
+초기화
+JSON 읽기·검증 중 · 잠시 기다려 주세요
+연속 0초 · 최근24시간 0초
+단계 대기 · 위험도 미평가 · 평활 미평가
+민감 모드 미판정 · 회전 미수신m · 실내 미수신℃
+기어 null · 출처 null
+Virtual Console 입력 우선 켜기
+SDK 우선 입력은 별도 선택입니다. 데모는 실제 내비 경유지·통풍을 변경하지 않습니다.
+쉼터 P단 준비(모의)
+시동 끔(저장 후 앱 종료)
+앱을 다시 열면 저장본 복원과 데모 시계 +22분을 적용합니다. 실제 OFF→ON/STR 시험이 아닙니다.
+제품 홈으로
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.await(ProductDemoDeviceTest.kt:38)
+	at com.sleepissue.awakedrive.data.ProductDemoDeviceTest.sixProductButtonsPlayThroughHubAndPauseResumeStopReset(ProductDemoDeviceTest.kt:63)
+
+FAILURES!!!
+Tests run: 1,  Failures: 1
+
+

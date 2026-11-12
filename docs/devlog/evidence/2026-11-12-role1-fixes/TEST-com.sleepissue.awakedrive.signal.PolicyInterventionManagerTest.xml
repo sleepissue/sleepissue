@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" tests="34" skipped="0" failures="0" errors="0" timestamp="2026-11-11T18:31:50.868Z" hostname="a" time="0.348">
+  <properties/>
+  <testcase name="twoKilometerCrossingAndTimedReminderAreOneNotice" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.024"/>
+  <testcase name="certificationReevaluatesCurrentScoreInsteadOfForcingNormal" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.008"/>
+  <testcase name="newSafetyCheckPreventsDescentUntilItsOwnResponse" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.006"/>
+  <testcase name="checkRequestsVentilationOnlyWithPriorConsent" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.012"/>
+  <testcase name="oldRestCertificateAndOldAssessmentCannotReplaceCurrentSession" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.008"/>
+  <testcase name="cancellationDuringGraceAndLateSuccessCannotAddWaypoint" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.025"/>
+  <testcase name="regularAssistedCheckOccursAgainWhileRemainingAtStageTwo" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.002"/>
+  <testcase name="recoveryCheckRemainsValidAcrossAnUnrelatedStageDescent" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.01"/>
+  <testcase name="unconfirmedStageTwoRestSuggestionIsDisabledForSlowAndNormalResults" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.013"/>
+  <testcase name="passengerTargetIsChosenExternallyAndSupersededDriverResponseIsIgnored" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.009"/>
+  <testcase name="certificationAloneKeepsStageThreeAndNormalRecoveryEmitsOneReset" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.006"/>
+  <testcase name="quickResponseWithSleepyIntentDoesNotPretendRecoverySucceeded" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.012"/>
+  <testcase name="duplicatedSlowResultIsIgnoredAndRealSecondSlowEscalatesImmediately" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.01"/>
+  <testcase name="humanNoResponseAndRestIntentKeepImmediateCheckReasonAndGeneralCue" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.013"/>
+  <testcase name="consentNoResponseWaitsTenActualSecondsDespiteAcceleratedScenario" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.007"/>
+  <testcase name="failureAndUnstartedOrWrongContextResultsCannotBecomeHumanNoResponse" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.009"/>
+  <testcase name="staleCancelCannotClearAnotherConsentRequestsGraceTimer" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.012"/>
+  <testcase name="timeCautionRemindsAtThirtyMinutesAndCertificationReleasesItImmediately" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.011"/>
+  <testcase name="vulnerableAssistedCheckUsesTenMinutesInsteadOfTwenty" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.008"/>
+  <testcase name="refusalAndStageThreeReminderAtSameDeadlineDoNotDuplicateSearch" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.006"/>
+  <testcase name="foreignOrDuplicateCertificationCannotReleaseANewContextHold" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.007"/>
+  <testcase name="certificationRetainsCurrentVulnerableContextAndSafetyRemainsImmediate" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.004"/>
+  <testcase name="clearingSensitiveModeCancelsTheFirstCheckBeforeAnyOtherInput" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.005"/>
+  <testcase name="stageThreeDoesNotReleaseForSlowUnavailableOrMissingRecovery" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.013"/>
+  <testcase name="explicitSafetyBypassKeepsImmediateSafetyReasonAndCueWithOrWithoutPendingCheck" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.006"/>
+  <testcase name="cautionRequestsAForwardAreaAndNeverAsksAQuestion" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.009"/>
+  <testcase name="firstCheckWaitsUntilDepartureAndRunsExactlyOnceAtTheLogicalDeadline" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.007"/>
+  <testcase name="staleAreaResultCannotActAsATickThatAdvancesTheStage" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.006"/>
+  <testcase name="recoveryResetRequestSurvivesLaterStageTransitions" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.008"/>
+  <testcase name="scoreNinetyUsesImmediateFirstStepThenExactThirtySecondBoundaries" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.004"/>
+  <testcase name="queuedStartCancelledBeforeConsumerAttachesIsNeverDelivered" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.034"/>
+  <testcase name="explicitConsentAddsOnceButCompletedWaypointRemovalIsNotFaked" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.004"/>
+  <testcase name="stoppingDropsQueuedStartsAndLateCallbacksCannotChangeStage" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.005"/>
+  <testcase name="forecastCautionDiscardsPreRestForecastButReevaluatesNewForecast" classname="com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

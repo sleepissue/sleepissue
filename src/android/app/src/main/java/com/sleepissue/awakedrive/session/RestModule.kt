@@ -52,10 +52,18 @@ class RestModule(
     private val clock: Clock,
     private val config: EngineConfig = EngineConfig(),
     private val speak: suspend (String) -> Unit,
+    private val demoMode: Boolean = false,
 ) : AutoCloseable {
     val repository = RestAreaRepository(context)
-    private val naviBridge = PleosNaviBridge(context, config)
-    private val ventilationDevice = PleosSeatVentilationDevice(context)
+    private val naviBridge: com.sleepissue.awakedrive.navi.NaviBridge = if (demoMode) object : com.sleepissue.awakedrive.navi.NaviBridge {
+        override suspend fun addRestWaypoint(area: com.sleepissue.awakedrive.engine.rest.RestArea) =
+            com.sleepissue.awakedrive.navi.WaypointOutcome.Failed(com.sleepissue.awakedrive.engine.model.ExecutionFailure.UNAVAILABLE, "데모에서는 실제 내비 변경을 실행하지 않습니다.")
+    } else PleosNaviBridge(context, config)
+    private val ventilationDevice: com.sleepissue.awakedrive.climate.SeatVentilationDevice = if (demoMode) object : com.sleepissue.awakedrive.climate.SeatVentilationDevice {
+        override suspend fun capability(): com.sleepissue.awakedrive.engine.climate.VentilationCapability? = null
+        override suspend fun read(): Int? = null
+        override suspend fun write(level: Int) = Unit
+    } else PleosSeatVentilationDevice(context)
     private val database = RestRecordDatabase.open(context)
 
     val restPort = RestAreaRestPort(repository, RestAreaSelector(config), naviBridge, scope)
@@ -86,8 +94,8 @@ class RestModule(
     override fun close() {
         wiringJob?.cancel()
         wiringJob = null
-        runCatching { naviBridge.close() }
-        runCatching { ventilationDevice.close() }
+        runCatching { (naviBridge as? AutoCloseable)?.close() }
+        runCatching { (ventilationDevice as? AutoCloseable)?.close() }
         runCatching { database.close() }
     }
 }

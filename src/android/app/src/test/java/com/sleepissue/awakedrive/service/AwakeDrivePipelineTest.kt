@@ -6,6 +6,7 @@ import com.sleepissue.awakedrive.engine.intervention.InterventionPolicy
 import com.sleepissue.awakedrive.engine.model.CheckContext
 import com.sleepissue.awakedrive.engine.model.ExecutionResult
 import com.sleepissue.awakedrive.engine.model.GeoPoint
+import com.sleepissue.awakedrive.engine.model.Gear
 import com.sleepissue.awakedrive.engine.model.InterventionStage
 import com.sleepissue.awakedrive.engine.model.NaviState
 import com.sleepissue.awakedrive.engine.model.PowerEvent
@@ -15,6 +16,7 @@ import com.sleepissue.awakedrive.engine.model.SafetyEventType
 import com.sleepissue.awakedrive.engine.model.SignalFrame
 import com.sleepissue.awakedrive.engine.model.Source
 import com.sleepissue.awakedrive.engine.model.TripState
+import com.sleepissue.awakedrive.engine.model.TurnSignal
 import com.sleepissue.awakedrive.engine.rest.RestArea
 import com.sleepissue.awakedrive.engine.rest.RestAreaKind
 import com.sleepissue.awakedrive.engine.rest.RestAreaSelector
@@ -72,7 +74,7 @@ class AwakeDrivePipelineTest {
         override val latestFrame = MutableStateFlow<SignalFrame?>(null)
         override val latestNavi = MutableStateFlow<NaviState?>(null)
         override val latestPower = MutableStateFlow<PowerEvent?>(null)
-        override val samples: Flow<SignalFrame> = emptyFlow()
+        override val samples = MutableSharedFlow<SignalFrame>(extraBufferCapacity = 128)
         override val naviSamples = MutableSharedFlow<NaviState>(extraBufferCapacity = 128)
         override val powerEvents: Flow<PowerEvent> = emptyFlow()
         override val rawVehicleObservations: Flow<VehicleObservation> = emptyFlow()
@@ -83,6 +85,53 @@ class AwakeDrivePipelineTest {
         override suspend fun publishDue() = true
         override suspend fun startInput(source: Source) = true
         override suspend fun stopInput(source: Source) = true
+    }
+
+    @Test
+    fun `엔진의 첫 확인 예정 시각을 제품 조립 경로가 전달하고 해당 시각에 한 번 요청한다`() = runTest {
+        val clock = FakeClock()
+        val work = CoroutineScope(StandardTestDispatcher(testScheduler))
+        val config = EngineConfig()
+        var sequence = 0
+        val manager = RecordingManager(PolicyInterventionManager(InterventionPolicy(config), config, clock,
+            Source.DEMO, RequestTimerBasis.SCENARIO) { RequestId("first-${++sequence}") })
+        val runner = FatigueAssessmentRunner(FatigueBridge(config))
+        val hub = FakeHub()
+        val trip = MutableStateFlow(TripState(tripId = "first-trip", runStartMs = 0))
+        val check = FakeCheckPort()
+        val forecast = ForecastCoordinator(ForecastEngine(clock), clock, manager,
+            { ForecastCoordinator.inputFrom(trip.value, hub.latestNavi.value) }, { RequestId("forecast-${++sequence}") })
+        val router = InterventionRouter(manager, check = check, newInputId = { RequestId("router-${++sequence}") })
+        val pipeline = AwakeDrivePipeline(hub, trip, manager, runner, router, forecast,
+            MutableStateFlow(false), clock, config)
+        try {
+            pipeline.start(work)
+            runCurrent()
+            // 기존 2번 API로 컨디션을 입력한다. 예정 시각·점수·단계를 시험에서 주입하지 않는다.
+            runner.reportCondition(true, 0, manager)
+            clock.scenarioMs = 100
+            hub.latestNavi.value = NaviState(100, distToNextTurnM = 1_000f)
+            hub.samples.emit(SignalFrame(100, steeringDeg = 1f, speedKph = 80f, gear = Gear.D,
+                turnSignal = TurnSignal.OFF, brakeOn = false, cruiseActive = false))
+            runCurrent()
+            val due = requireNotNull(runner.snapshots.value.baseline.firstCheckDueMs)
+            assertEquals(100 + config.baseline.sensitiveFirstCheckDelayMs, due)
+            assertTrue(manager.inputs.contains(InterventionInput.FirstCheckScheduleChanged("first-trip", due)))
+            clock.scenarioMs = due - 1
+            manager.submit(RequestId("before-due"), InterventionInput.Tick)
+            runCurrent()
+            assertTrue(check.recorder.requests.isEmpty())
+            clock.scenarioMs = due
+            manager.submit(RequestId("at-due"), InterventionInput.Tick)
+            runCurrent()
+            assertEquals(listOf(CheckContext.DRIVER_ALERTNESS),
+                check.recorder.requests.filterIsInstance<CheckRequest>().map { it.context })
+            manager.submit(RequestId("after-due"), InterventionInput.Tick)
+            runCurrent()
+            assertEquals(1, check.recorder.requests.size)
+        } finally {
+            work.cancel()
+        }
     }
 
     @Test

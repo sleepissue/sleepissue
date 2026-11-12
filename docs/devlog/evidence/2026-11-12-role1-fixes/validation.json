@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-12",
+  "branch": "develop-jdw",
+  "head": "9144cfd7eee1b078b6a988c7692a97792e4f4407",
+  "jvm": {
+    "engine": {
+      "tests": 353,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "app": {
+      "tests": 428,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "build": "SUCCESSFUL",
+  "fullLint": {
+    "Warning": 210
+  },
+  "device": {
+    "tests": 3,
+    "failures": 0,
+    "durationSec": 79.339,
+    "scope": [
+      "ProductDemoWiringTest",
+      "ProductDemoDeviceTest",
+      "ProductDemoVoiceDeviceTest"
+    ],
+    "voiceOutcome": "FAILED",
+    "humanSpeechAccuracyTested": false
+  },
+  "commitPushPr": false,
+  "apks": {
+    "debug": {
+      "path": "src/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "b6bfbad436f5141c091a41944c229ca9122ca446703dd22e44f09c3d708d8f3d"
+    },
+    "test": {
+      "path": "src/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "sha256": "d367dba3424a1b33164041f3edb589e927a197804cea7fc0071a62a418f1495c"
+    },
+    "releaseUnsigned": {
+      "path": "src/android/app/build/outputs/apk/release/app-release-unsigned.apk",
+      "sha256": "f4366649068fe912186b89ca20cdcf3733fc19ea8298c31d717299f8a1a66cfe"
+    }
+  },
+  "releaseSigned": false,
+  "releaseInstalled": false,
+  "installedDebugSha256": "b6bfbad436f5141c091a41944c229ca9122ca446703dd22e44f09c3d708d8f3d",
+  "finalState": {
+    "appPid": null,
+    "services": "ACTIVITY MANAGER SERVICES (dumpsys activity services)\n  (nothing)",
+    "adbForward": "",
+    "avd": "Pleos_Connect_2_1_0 running",
+    "driverUser": 10
+  },
+  "separateUnresolvedReproduction": {
+    "scope": "valid AVAILABLE REAL navi input + live manager stage",
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "partOf781Regression": false,
+    "fixtureRemovedFromNormalSource": true
+  },
+  "supersededByScopeRevert": true,
+  "currentSourceValidation": false
+}

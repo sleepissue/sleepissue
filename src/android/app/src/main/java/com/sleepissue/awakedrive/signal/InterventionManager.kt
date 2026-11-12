@@ -31,7 +31,8 @@ sealed interface InterventionInput {
     data class CheckDue(val tMs: Long, val source: Source) : InterventionInput
     data class RestCertified(val value: RestCertification) : InterventionInput
     data class SensitiveModeChanged(val enabled: Boolean) : InterventionInput
-    data class FrequentChecksChanged(val enabled: Boolean) : InterventionInput
+    /** 예정 시각은 2번이 계산한다. 1번은 같은 운행의 실행 예약만 소유한다. null은 예약 해제다. */
+    data class FirstCheckScheduleChanged(val tripId: String, val dueAtMs: Long?) : InterventionInput
     data class VulnerableTimeChanged(val enabled: Boolean) : InterventionInput
     data class VentilationConsentChanged(val enabled: Boolean) : InterventionInput
     data class AlertnessTargetChanged(val context: com.sleepissue.awakedrive.engine.model.CheckContext) : InterventionInput
