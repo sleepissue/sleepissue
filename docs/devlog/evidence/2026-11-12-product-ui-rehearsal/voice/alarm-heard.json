@@ -1,0 +1,10 @@
+{
+  "humanConfirmation": "사용자 확인: 들림",
+  "carAlarmGroupVolume": "35/45",
+  "carAlarmGroupGainDb": -10,
+  "appAlarmCodeChanged": false,
+  "screenResults": [
+    "수동 검증 준비됨. 주변을 조용히 한 뒤 원하는 검사를 누르세요.\n진행 중 검증 취소됨\n제품과 같은 알람을 10초 재생합니다. 원하면 검증 취소로 멈추세요.\n알람 10초 재생 구간 종료. 실제 청취 여부는 사용자 확인이 필요합니다.\n"
+  ],
+  "rawAudioStored": false
+}

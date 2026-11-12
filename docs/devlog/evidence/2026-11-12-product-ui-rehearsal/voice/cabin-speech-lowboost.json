@@ -1,0 +1,12 @@
+{
+  "condition": "사용자 발화 검사 완료 확인, PC 추가 부스트 0dB",
+  "screenResults": [
+    "수동 검증 준비됨. 주변을 조용히 한 뒤 원하는 검사를 누르세요.\n진행 중 검증 취소됨\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: true\n전체 음성 검증이 끝났습니다.\n진행 중 검증 취소됨\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: false\n전체 음성 검증이 끝났습니다.\n진행 중 검증 취소됨\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: false\n전체 음성 검증이 끝났습니다.\n진행 중 검증 취소됨\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: true\n전체 음성 검증이 끝났습니다.\n"
+  ],
+  "diagnostics": [
+    "D/AwakeDriveCabin(29240): speechDetected=false maxRms=840.4342364611119 speechFrames=0",
+    "D/AwakeDriveCabin(29240): speechDetected=false maxRms=2171.43270577332 speechFrames=1",
+    "D/AwakeDriveCabin(29240): speechDetected=true maxRms=13415.857948521025 speechFrames=143"
+  ],
+  "rawAudioStored": false
+}

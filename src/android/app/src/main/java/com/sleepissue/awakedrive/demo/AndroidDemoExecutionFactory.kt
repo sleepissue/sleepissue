@@ -90,6 +90,20 @@ class AndroidDemoExecutionFactory(private val context: Context) : DemoExecutionF
                         ExecutionResult(id, ExecutionStatus.SUCCEEDED)
                     } else voice.completeWithButton(id, intent, passengerButton = false)
                 } },
+                respondPassenger = { restRequested -> withContext(Dispatchers.Main.immediate) {
+                    if (!settings.read().passengerChecks) {
+                        ExecutionResult(RequestId("demo-passenger-disabled"), ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
+                    } else {
+                        val pending = manual?.takeIf { it.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) }
+                        if (pending != null) {
+                            manual = null
+                            manualResults.emit(CheckResult(pending.requestId, pending.context, CheckOutcome.NORMAL,
+                                intent = if (restRequested) ResponseIntent.REST else ResponseIntent.OK,
+                                channel = ResponseChannel.PASSENGER_BUTTON))
+                            ExecutionResult(pending.requestId, ExecutionStatus.SUCCEEDED)
+                        } else voice.completeWithPassenger(restRequested)
+                    }
+                } },
                 alarm = { active -> if (active) alarm.start(config.napAlarmRampMs, config.napAlarmMaxMs) else alarm.stop() },
                 close = { withContext(Dispatchers.Main.immediate) {
                     coordinator.cancel(); alarm.stop(); job.cancelAndJoin()

@@ -1,0 +1,11 @@
+{
+  "screenResults": [
+    "수동 검증 준비됨. 주변을 조용히 한 뒤 원하는 검사를 누르세요.\n진행 중 검증 취소됨\n침묵 검사: 신호음에도 답하지 말고 전체 검증 종료까지 조용히 기다리세요.\nSTT 결과: latency=nullms, verdict=NO_RESPONSE, intent=NONE, twoSlow=false\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: true\n전체 음성 검증이 끝났습니다.\n진행 중 검증 취소됨\n제품과 같은 알람을 10초 재생합니다. 원하면 검증 취소로 멈추세요.\n알람 10초 재생 구간 종료. 실제 청취 여부는 사용자 확인이 필요합니다.\n"
+  ],
+  "humanAlarmAudibility": "사용자 확인: 알람 안 들림",
+  "alarmStreamMuted": false,
+  "alarmLegacyVolume": "7/7",
+  "carAlarmGroupGainDb": -25,
+  "carMediaGroupGainDb": 0,
+  "rawAudioStored": false
+}

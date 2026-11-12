@@ -1,0 +1,10 @@
+{
+  "scope": "DEBUG_VOICE_VALIDATION_ACTIVITY",
+  "condition": "사용자에게 약20초 침묵 요청, 앞 발화 혼입 회차 제외",
+  "rawAudioStored": false,
+  "screenResults": [
+    "TTS 없이 음성 입력 검증을 시작합니다.\n신호음 뒤 5초 안에 '네' 또는 '쉴게'라고 말하세요.\nSTT 결과: latency=1451ms, verdict=NORMAL, intent=NONE, twoSlow=false\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: true\n전체 음성 검증이 끝났습니다.\n"
+  ],
+  "humanConfirmation": "사용자는 침묵했으나 주변 소음이 있었음",
+  "assessment": "주변 소음 조건 관측, 무소음 침묵 검증 통과 아님"
+}

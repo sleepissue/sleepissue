@@ -88,6 +88,7 @@ fun AppNavigation(
             if (session.demoPlaying) Text("데모 재생 중", color = Color(0xFFFFD166), fontSize = 14.sp)
             else if (session.demoSession) Text("데모 검증 세션 · 정지", color = Color.LightGray, fontSize = 12.sp)
         }
+
         session.voiceButtonContext?.let { context ->
             Text("운전자 응답 · ${if (context == com.sleepissue.awakedrive.engine.model.CheckContext.WAYPOINT_CONSENT) "쉼터를 경유지로 추가할까요?" else "쉬어 갈까요?"}", color = Color.White)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {

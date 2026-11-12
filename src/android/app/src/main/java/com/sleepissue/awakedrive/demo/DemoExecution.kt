@@ -25,6 +25,9 @@ data class DemoExecutionPorts(
     val close: suspend () -> Unit = {},
     val waypointFailure: suspend (RestAreaCandidate?) -> Unit = {},
     val napStarted: (Boolean) -> Unit = {},
+    val respondPassenger: suspend (Boolean) -> ExecutionResult = {
+        ExecutionResult(RequestId("demo-passenger-unavailable"), ExecutionStatus.NOT_CONNECTED, ExecutionFailure.NOT_CONNECTED)
+    },
 )
 
 fun interface DemoExecutionFactory {
@@ -151,6 +154,12 @@ class DemoExecution(
         val request = button
         if (request == null) event(DemoExecutionEvent.Message("버튼 응답을 기다리는 음성 확인이 없습니다"))
         else ports.respond(request, intent)
+    }
+
+    suspend fun respondPassenger(rest: Boolean) {
+        val result = ports.respondPassenger(rest)
+        event(DemoExecutionEvent.Message(if (result.status == ExecutionStatus.SUCCEEDED)
+            "동승자 응답을 전달했습니다" else "현재 확인 요청에 동승자 응답을 전달할 수 없습니다"))
     }
 
     fun updateAlarm(state: NapState, atRestArea: Boolean = true) {
