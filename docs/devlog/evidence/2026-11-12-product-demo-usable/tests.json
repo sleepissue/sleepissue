@@ -1,0 +1,961 @@
+{
+  "app": {
+    "execution": "latest full rerun this task",
+    "totals": {
+      "tests": 461,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "class": "com.sleepissue.awakedrive.ExampleUnitTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.cabin.PassengerOccupancyResolverTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.climate.DriverVentilationControllerTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoControllerTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoPerformanceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoProcessingElapsedTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoSchedulingTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoTraceTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugDemoTransportPerformanceTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugHarnessControllerTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.DebugHubProbeControllerTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.debug.TripPersistenceControllerTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoContractTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoDeliveryAuditTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoDeliveryLagTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoHubIntegrationTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoJsonLoaderTest",
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoTimeAxisContractTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.DemoVoiceSpeedGateTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.GeneratedScenariosTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.PreparedDemoScenarioTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.ProductDemoPipelineContractTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.ProductDemoSpeedTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.ProductScenarioContractTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.demo.ScenarioDemoPlayerTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.fatigue.FatigueBridgeTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.navi.RestAreaRepositoryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.navi.RestAreaRestPortTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.GearCollectionAuditTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.GearRequeryLoopTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.PlaygroundSdkOwnershipTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkCarDeliveryHubTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkClimateStateHubTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkGearLeaseOrderingTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkNaviDeliveryTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkNaviHubConfirmationTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkNaviRefreshLoopTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkNaviTimingAuditTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkPublicationAuditTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkRetainedStateTest",
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkSignalFailureTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkSignalStoreTest",
+        "tests": 20,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkSignalValidationTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkStateDeliveryHubTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkStateSubscriptionTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.pleos.SdkStatefulGearTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.service.AwakeDrivePipelineTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.service.MonitorNotificationIsolationTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.service.RealTripMonitorRuntimeTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.session.ForecastCoordinatorTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.session.RestSessionPersistenceTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.session.RestSessionTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.session.RestWiringTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.CompleteSignalHubTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.FatigueInputHubContractTest",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.FirstCheckScheduleTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.GearLeaseTripIntegrationTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.HubConsumerAuditTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.InterventionContractTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.InterventionPersistenceTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.ModulePortsContractTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.PeriodicSignalHubTest",
+        "tests": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.PlaygroundTripHubTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.PlaygroundTripSessionTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.PolicyInterventionManagerTest",
+        "tests": 32,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.RealTripPersistenceTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.RetainedStateHubTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.ScaffoldUsageExampleTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.TripSaveCoordinatorTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.TripStateStoreTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.TripTrackerTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.signal.VehicleSignalHubTest",
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.ui.FatigueSnapshotMapperTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.ui.FatigueUiMapperTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.voice.CheckManagerTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.voice.VoiceCheckResultMapperTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.voice.VoiceSpeechPortTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "engine": {
+    "execution": "earlier 2026-11-12 role1-fatigue-input actual run reused; unchanged sources",
+    "totals": {
+      "tests": 351,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "suites": [
+      {
+        "class": "com.sleepissue.awakedrive.engine.assist.AssistModeDetectorTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.baseline.BaselineStoreTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.check.CheckPolicyTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.check.PassengerCheckPolicyTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.check.VoiceBaselineSamplesTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.check.VoiceBaselineTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.climate.VentilationRulesTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.config.EngineConfigTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.config.FatigueConfigTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.demo.DemoTripPresetTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.ContextWeightTest",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.FatigueEngineTest",
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.FatigueFactorsTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.RiskScoreTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.RiskSmootherTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.SignalAdaptersTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.SteeringGateTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.SteeringMetricsTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.SteeringReversalDetectorTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.fatigue.SuddenSteerDetectorTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.forecast.ForecastEngineTest",
+        "tests": 24,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.intervention.InterventionPolicyTest",
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.model.ModelContractTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.model.TripModelsTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.pattern.PatternClassifierTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.HeadingEstimatorTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.NapTimerTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.RestAreaCsvTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.RestAreaSelectorTest",
+        "tests": 13,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.RestCertifierSnapshotTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.RestCertifierTest",
+        "tests": 9,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.RewardRulesTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.rest.WaypointMatcherTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.session.RollingDriveWindowTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.session.TripRulesTest",
+        "tests": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.session.TripSnapshotValidatorTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.session.TripUnavailableResumeTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.signal.RateMeterTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.signal.SignalSelectionTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.time.DemoClockTest",
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.voice.DistancePhraseResolverTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.voice.SpeechIntentParserTest",
+        "tests": 7,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.sleepissue.awakedrive.engine.voice.SpeechOnsetDetectorTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  },
+  "aggregate": 812,
+  "new_tests": 25,
+  "scope": "JVM and Kotlin compile only; no APK/ADB/device/Room access; not real-time performance verification",
+  "scenario_runs": [
+    {
+      "id": "assist",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "47",
+      "maxStage": "1",
+      "maxSmoothedRisk": "4.425382",
+      "departure": "false",
+      "assisted": "true",
+      "firstCheckDueRelativeMs": "null",
+      "requests": "1"
+    },
+    {
+      "id": "drowsy",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "3",
+      "maxSmoothedRisk": "90.62792",
+      "departure": "false",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "null",
+      "requests": "7"
+    },
+    {
+      "id": "departure",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "2",
+      "maxSmoothedRisk": "55.646294",
+      "departure": "true",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "1810100",
+      "requests": "3"
+    },
+    {
+      "id": "normal",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "1",
+      "maxSmoothedRisk": "0.0",
+      "departure": "false",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "null",
+      "requests": "1"
+    },
+    {
+      "id": "talk",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "1",
+      "maxSmoothedRisk": "0.0",
+      "departure": "false",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "null",
+      "requests": "1"
+    },
+    {
+      "id": "departure",
+      "profile": "ORIGINAL",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "2",
+      "maxSmoothedRisk": "55.646294",
+      "departure": "true",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "1810100",
+      "requests": "3"
+    },
+    {
+      "id": "distraction",
+      "profile": "TEN",
+      "publications": "17999",
+      "unexpectedNull": "0",
+      "evaluations": "58",
+      "maxStage": "2",
+      "maxSmoothedRisk": "21.62706",
+      "departure": "false",
+      "assisted": "false",
+      "firstCheckDueRelativeMs": "null",
+      "requests": "3"
+    }
+  ],
+  "final_log": "app-final-tests-2.log"
+}

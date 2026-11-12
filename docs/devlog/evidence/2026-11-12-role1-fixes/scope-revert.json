@@ -1,0 +1,42 @@
+{
+  "reason": "사용자가 1번의 SIG/TripRules/저장·복원·부팅·감시 서비스로 수정 범위를 다시 한정함. 간트 재배정/과거 인계를 넓게 해석한 추가 수정을 되돌림.",
+  "restored": [
+    "README.md",
+    "PROGRESS.md",
+    "apk/README.md",
+    "docs/fatigue-engine/08-team-handoff.md",
+    "docs/setup/CURRENT_HANDOFF.md",
+    "docs/setup/ROLE1_INTERVENTION.md",
+    "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/MonitoringPipeline.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/RealTripMonitorService.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/service/AwakeDrivePipeline.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PolicyInterventionManager.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSessionCodec.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionCheckpoint.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionManager.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/fatigue/FatigueBridge.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/DrivingPreviewActivity.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/AppNavigation.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/voice/PleosSpeechRecognizer.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PolicyInterventionManagerTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/InterventionPersistenceTest.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/fatigue/FatigueBridgeTest.kt",
+    "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicy.kt",
+    "src/android/engine/src/test/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicyTest.kt"
+  ],
+  "removedOwnNewTest": [
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/service/SensitiveFirstCheckPipelineTest.kt"
+  ],
+  "kotlinRestoredCount": 18,
+  "beforeSourceHashesMatch": true,
+  "priorWorkDeleted": false,
+  "commitPushPr": false,
+  "allOriginalKotlinFilesMatched": 341,
+  "debugAndTestBuild": "SUCCESSFUL",
+  "installedDebugSha256": "73d1aa99a610bf6d1ab0e109bdc04a25f66453eb37a9804f35c37647b41d1ba2",
+  "original190AppFilesIdentical": true,
+  "testsReexecutedAfterRevert": false,
+  "appPid": null
+}

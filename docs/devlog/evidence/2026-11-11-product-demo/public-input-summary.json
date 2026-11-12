@@ -1,0 +1,54 @@
+{
+  "source": "AVD http://127.0.0.1:8088/vehicle/catalog",
+  "featureCount": 63,
+  "cruiseInput": [
+    {
+      "id": "cruise-control-state",
+      "domain": "adas",
+      "domain_label": "Driving Mode",
+      "label": "Cruise Control State",
+      "description": "Publish the active AD control mode",
+      "state_key": "driving_mode",
+      "state_path": "ad_mode_state",
+      "write_endpoint": "/vehicle/driving-mode",
+      "control": {
+        "kind": "enum",
+        "field": "ad_mode_state",
+        "options": [
+          {
+            "label": "Not ready",
+            "value": "not_ready"
+          },
+          {
+            "label": "Ready",
+            "value": "ready"
+          },
+          {
+            "label": "Longitudinal",
+            "value": "longitudinal"
+          },
+          {
+            "label": "Lateral",
+            "value": "lateral"
+          },
+          {
+            "label": "Full autonomous",
+            "value": "full_autonomous"
+          }
+        ]
+      },
+      "car_property": {
+        "name": "CRUISE_CONTROL_STATE",
+        "hex_id": "0x11401011",
+        "kind": "system",
+        "area_id": 0
+      }
+    }
+  ],
+  "temperatureInputs": [
+    "hvac-temperature-set",
+    "hvac-seat-temperature"
+  ],
+  "locationOrTbtInputs": [],
+  "scope": "공개 catalog 조사. 비공개 입력이나 향후 버전의 존재 여부는 결론 내리지 않음."
+}

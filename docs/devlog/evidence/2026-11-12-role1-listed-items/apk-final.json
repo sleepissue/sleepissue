@@ -1,0 +1,18 @@
+{
+  "debugSha256": "a5348f373aabf2533babfc12fdc3fe538d8de7871c6bcc1c16282257a9c4a03d",
+  "installedDebugSha256": "a5348f373aabf2533babfc12fdc3fe538d8de7871c6bcc1c16282257a9c4a03d",
+  "releaseSha256": "7a9fd6556711a90fd80b4eb29982f1e9063dbdafd66fcdcbfda676243ffc2437",
+  "releaseSignature": "UNSIGNED",
+  "apksignerVerifyExit": 1,
+  "originalScenariosMatch": {
+    "normal": true,
+    "distraction": true,
+    "drowsy": true,
+    "talk": true,
+    "assist": true,
+    "departure": true
+  },
+  "releaseDebugComponents": 0,
+  "productDemoRegistered": true,
+  "targetSdk34": true
+}

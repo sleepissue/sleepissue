@@ -1,0 +1,293 @@
+{
+  "normal": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": null,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "finalBaseline": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "maximumSmoothedRisk": 0.0,
+    "validFrameObservations": 17300
+  },
+  "distraction": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": null,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "finalBaseline": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "maximumSmoothedRisk": 21.62706,
+    "validFrameObservations": 17300
+  },
+  "drowsy": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": null,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.066666,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.066666,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "finalBaseline": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.066666,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.066666,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "maximumSmoothedRisk": 90.90196,
+    "validFrameObservations": 17300
+  },
+  "talk": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": null,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "finalBaseline": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "maximumSmoothedRisk": 0.0,
+    "validFrameObservations": 17300
+  },
+  "assist": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": null,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "finalBaseline": {
+      "source": "TODAY",
+      "reference": {
+        "microPerMin": 48.0,
+        "largePerMin": 2.0
+      },
+      "today": {
+        "microPerMin": 48.0,
+        "largePerMin": 0.0
+      },
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "maximumSmoothedRisk": 4.4136505,
+    "validFrameObservations": 14000
+  },
+  "departure": {
+    "scope": "JVM ideal 100ms frames directly into bridge; not product or SDK timing",
+    "samples": 18000,
+    "firstDepartureMs": 910000,
+    "baselineAt900000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": null,
+      "departureFatigue": false,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": null,
+      "firstCheckDueMs": null
+    },
+    "baselineAt915000": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": {
+        "microPerMin": 12.0,
+        "largePerMin": 19.933332
+      },
+      "departureFatigue": true,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": 1794060610000,
+      "firstCheckDueMs": 1794061510000
+    },
+    "finalBaseline": {
+      "source": "DEFAULT",
+      "reference": {
+        "microPerMin": 20.0,
+        "largePerMin": 4.0
+      },
+      "today": {
+        "microPerMin": 12.0,
+        "largePerMin": 19.933332
+      },
+      "departureFatigue": true,
+      "reportedSleepy": false,
+      "sensitiveSinceMs": 1794060610000,
+      "firstCheckDueMs": 1794061510000
+    },
+    "maximumSmoothedRisk": 55.646294,
+    "validFrameObservations": 17300
+  }
+}

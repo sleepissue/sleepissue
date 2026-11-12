@@ -1,10 +1,27 @@
 # 진행 현황판
 
+**2026-11-12 공유·PR 준비:** 사용자 요청으로 누적1번 후속코드를develop-jdw에commit/push하고main대상초안PR로 공유한다. [로컬 구현·데모/완성품 남은 작업](docs/setup/ROLE1_DEMO_PRODUCT_STATUS.md), [게시/검증/선별 기준](docs/devlog/2026-11-12-role1-publish.md)에 정리했다. 최신5번main과의 통합·실제시연·SDK시한/의미 조건은 남고, APK/기기/DB작업은 하지 않는다. 앱461개 최신실행·이전엔진351개 근거를 구분해 사용한다. 이전 ‘미커밋/게시안함’ 문구는 각작업 당시 상태다.
+
+**2026-11-12 원격 비교·디버그 정리:** fetch로 PR20(5번 UI)의 최신main e44aae7을 확인했으나 로컬HEAD9144cfd에는 미반영이다. 원격develop-jdw f59176f 대비 팀 통합3커밋과 기존 미커밋 차이를 정리했다. 최신main 원본은45분10초라 기존 로컬30분 길이 문제와 구분한다. 미사용 DebugButton·debug 앱 이름 override만 제거, SDK/Room/부팅 도구·시험은 보존했다. 앱461개 재실행 통과·release manifest debug0개, APK/기기/DB 조작·병합·커밋/push 없음. [변경 비교·5번 통합 경계·정리 판단](docs/devlog/2026-11-12-develop-compare-debug-cleanup.md).
+
+**2026-11-12 제품 데모 후속(현재 우선):** 간트1번 task53·task32 범위에서 원본 구간/전체1·10·60배 선택과 엔진 첫 확인 예정 시각→개입 예약 연결을 보완했다. 원본6종·출발 피로 원본구간 JVM 결합7개와 예약/저장 등을 포함해 **최종 앱461개 실제 실행 통과**. 같은 날 이전 엔진351개 재사용=812개이며 실제 음성·기기·60배 성능 통과가 아니다. 출발 피로 원본30분 종료·첫 확인 예정30분10.1초로 원본 연장이 필요하다. engine·fatigue·voice·원본JSON 변경 없음. **APK 중단 유지, 새 화면은 설치 기기에 미반영**. [변경·시험·남은 조건](docs/devlog/2026-11-12-product-demo-usable.md), [직접 순서](docs/setup/ROLE1_DEMO_RUNBOOK.md).
+
+**2026-11-12 입력·Hub 후속:** 사용자 선택대로 1번 입력 경계만 확인했다. 실행 코드·2번 엔진은 변경 없이 Hub→기존 엔진 계약 시험 9개를 추가했고, 이번 엔진 351개+앱 436개=787개가 통과했다. 기존 소스 395개 동일·기기/DB 조작 없음. REAL 조향의 의미 보류(null)와 기존 시한 미달은 유지한다. **사용자 요청으로 APK 작업 중단**, 이전 제출 준비 다음 작업을 자동 재개하지 않는다. [범위·검증·한계](docs/devlog/2026-11-12-role1-fatigue-input.md).
+
+**2026-11-12 최신 사용자 요청 범위:** 사용자가 지정한 SIG·제품 JSON 데모·재생 표시·시동 끔 대체·README/release만 보완/검증했다. 간트 task53 DemoPlayer와 task73 README/release는 resource0(1번)이다. SDK 즉시 재조회(정기 예약 보존)와 1번 데모 화면 상태 구독만 수정했으며, 다른 담당 판단·개입·음성·다른 UI는 변경하지 않았다. 최종778개·debug/test/release/vital 성공. 전체Lint는 기존 음성 권한 오류1건 유지. 엄격 발행131ms/110ms·내비1초 초과·SDK 의미/입력 미확인·팀 서명은 미완료다. 아래 원복/773개 기록은 당시 이력이며 이번 최신 요청은 이 문단과 연결 기록을 우선한다. [변경·기기 결과·남은 항목](docs/devlog/2026-11-12-role1-listed-items.md).
+
+**2026-11-12 사용자 범위 정정:** 이번 추가한 첫 확인/컨디션/정책·UI·음성·Lint 수정18개 Kotlin 파일을 모두 수정 직전으로 복구했다. 이전 미커밋 작업은 보존했다.781개·제품기기3개·Lint성공은 원복 전 코드의 과거 근거이고 현재 상태로 확대하지 않는다. 앞으로 수정은 SIG·TripRules·저장/복원/부팅/감시 서비스에 한정한다. [감사 기록과 원복 대조](docs/devlog/2026-11-12-role1-audit.md).
+
+**2026-11-11 인계 재개 최종 검증:** 마지막 음성 close 변경·24시간 누적 만료 경계를 포함한 engine351+app422=**773개**를 이번에 실행해 실패/오류/skip0, debug/test/release APK·release Lint vital 성공. 새 debug는 이전 기기3건 통과본과 실행 내용이 같고 assets 안내문/스키마만 달라 그 기기 근거를 재사용했다(이번 기기시험0). 최신 debug 교체 설치·기존190파일 바이트/DB3개 논리행/권한 동일, 앱·감시 없음. `apk/sleepissue_AwakeDrive_release-unsigned.apk` 준비·Git 제외, 팀 서명/별도 release 설치는 남음. [최종 실행·산출물·직접 순서](docs/devlog/2026-11-11-resume-final.md), [현재 인계](docs/setup/CURRENT_HANDOFF.md). 아래 ‘재빌드/산출물 정리 남음’은 재개 전 기록이다. 기존 코드·미커밋 작업 보존, 커밋·push·PR 없음.
+
+
+2026-11-11 제품 데모·제출 준비: develop-jdw에서 origin/main PR #19(`9144cfd`)을 fast-forward 반영하고 기존 감시→판단→개입·음성·휴식 연결을 확인했다. 제품 JSON 6종 선택·원본 필드/preset 보존·배지·음성 배속·격리 재실행 시연과 README/release APK를 보완한다. [현재 실행 결과와 남은 항목](docs/devlog/2026-11-11-product-demo-release.md). 이전의 ‘제품 조립 대기’는 PR #19 이전 상태이며 그대로 전제하지 않는다. 기존 미커밋 원본·REAL DB·진단과 지연 미달/의미 보류/입력 미확인 근거를 보존한다. 제품 기기3건(80.937초), 실제 새PID DMO(인증/보상1·연속0·최근8271초), 실제 음성600/600ms→10배 복귀 확인. 기존 DB3개/160파일 보존, 앱·시험·포워딩·임시권한 정리. 마지막 음성 close 이후 JVM/release 재빌드와 제출 APK 정리는 남았고 [계정 전환 인계](docs/setup/CURRENT_HANDOFF.md)를 따른다. 커밋·push·PR 없음.
+
 한 눈에 "누가 뭘 맡고 지금 어디까지 왔는지" 보는 보드입니다. 작업할 때마다 상태 칸만 바꾸세요. 상태: `대기` → `진행중` → `완료` / 막히면 `블로킹`.
 
 세부 할 일을 쪼개서 추적하고 싶으면 GitHub Issues를 만들고 여기 "이슈" 칸에 번호(`#12`)만 적어 링크하세요. 매일 이 파일을 열 때마다 어제와 달라진 칸이 있는지만 봐도 전체 진행이 보입니다.
 
-> 최신 역할 재배정은 [`AwakeDrive_일정_v1.gan`](docs/plan/AwakeDrive_일정_v1.gan)을 따른다(개입 3번, DemoPlayer 5번). 기존 구현 기록은 당시 이력으로 보존한다. 역할·모듈·아키텍처의 기본 맥락은 [`CLAUDE.md`](CLAUDE.md)(3장·4장·10장)입니다. 이 보드는 그 역할표를 "지금 상태"로 갱신하는 용도입니다. 어디에 뭘 두는지는 [`src/android/README.md`](src/android/README.md) 참고.
+> 최신 역할 재배정은 [`AwakeDrive_일정_v1.gan`](docs/plan/AwakeDrive_일정_v1.gan)을 따른다(task53 DemoPlayer·task73 README/release는 1번; 단계 전환·음성은 이번 수정 대상에서 제외). 기존 구현 기록은 당시 이력으로 보존한다. 역할·모듈·아키텍처의 기본 맥락은 [`CLAUDE.md`](CLAUDE.md)(3장·4장·10장)입니다. 이 보드는 그 역할표를 "지금 상태"로 갱신하는 용도입니다. 어디에 뭘 두는지는 [`src/android/README.md`](src/android/README.md) 참고.
 
 ## 마일스톤
 

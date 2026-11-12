@@ -72,14 +72,14 @@ class DemoJsonLoader {
             return failed(DemoLoadErrorCode.INVALID_JSON, "$", "JSON 문법이 올바르지 않습니다.")
         }
         return try {
-            DemoLoadResult.Loaded(validate(root))
+            DemoLoadResult.Loaded(validate(if (root.isJsonObject && root.asJsonObject.has("formatVersion")) normalizeTeamFormat(root) else root))
         } catch (error: Invalid) {
             DemoLoadResult.Failed(error.detail)
         }
     }
 
     private fun validate(element: JsonElement): DemoScenario {
-        val root = objectAt(element, "$", setOf("schemaVersion", "id", "startEpochMs", "source", "speedSegments", "samples"))
+        val root = objectAt(element, "$", setOf("schemaVersion", "id", "startEpochMs", "source", "speedSegments", "samples", "tripPreset"))
         if (longAt(required(root, "schemaVersion", "$"), "$.schemaVersion") != 1L) {
             invalid("$.schemaVersion", "지원하는 스키마 버전은 1입니다.")
         }
@@ -106,7 +106,41 @@ class DemoJsonLoader {
         }
         if (duration > DemoClock.MAX_DURATION_MS) time("$.samples", "시나리오 길이가 지원 범위를 넘습니다.")
         val segments = segments(root.get("speedSegments"), duration)
-        return DemoScenario(id, epoch, samples.toList(), segments)
+        val preset = root.get("tripPreset")?.takeUnless { it.isJsonNull }?.let {
+            val value = objectAt(it, "$.tripPreset", setOf("continuousDriveSec", "last24hDriveSec"))
+            fun seconds(name: String) = longAt(required(value, name, "$.tripPreset"), "$.tripPreset.$name")
+            val continuous = seconds("continuousDriveSec")
+            val total = seconds("last24hDriveSec")
+            if (continuous < 0 || total < continuous || total > 86400 || epoch < total * 1000)
+                invalid("$.tripPreset", "0 ≤ 연속 ≤ 최근24시간 ≤ 86400초와 시작 날짜를 확인해 주세요.")
+            com.sleepissue.awakedrive.engine.demo.DemoTripPreset(continuous, total)
+        }
+        return DemoScenario(id, epoch, samples.toList(), segments, preset)
+    }
+
+    /** 팀 원본을 같은 엄격 검증기로 넘긴다. 신호·배속·초기 운행을 생략하지 않는다. */
+    private fun normalizeTeamFormat(element: JsonElement): JsonElement {
+        val root = objectAt(element, "$", setOf("formatVersion", "scenarioId", "title", "startAt", "tripPreset", "speedSegments", "samples"))
+        if (longAt(required(root, "formatVersion", "$"), "$.formatVersion") != 1L)
+            invalid("$.formatVersion", "팀 형식은 버전 1만 지원합니다.")
+        root.get("title")?.let { stringAt(it, "$.title") }
+        val epoch = try { java.time.OffsetDateTime.parse(stringAt(required(root, "startAt", "$"), "$.startAt")).toInstant().toEpochMilli() }
+            catch (_: java.time.DateTimeException) { time("$.startAt", "시간대가 있는 ISO 날짜가 필요합니다.") }
+        val samples = required(root, "samples", "$")
+        if (!samples.isJsonArray) invalid("$.samples", "배열이어야 합니다.")
+        samples.asJsonArray.forEachIndexed { index, row ->
+            if (!row.isJsonObject) invalid("$.samples[$index]", "객체여야 합니다.")
+            val value = row.asJsonObject
+            if (value.has("t")) invalid("$.samples[$index].t", "팀 형식은 tMs만 사용합니다.")
+            val millis = longAt(required(value, "tMs", "$.samples[$index]"), "$.samples[$index].tMs", DemoLoadErrorCode.INVALID_TIME)
+            value.remove("tMs")
+            value.addProperty("t", BigDecimal.valueOf(millis, 3))
+        }
+        root.remove("formatVersion"); root.remove("title")
+        root.addProperty("schemaVersion", 1)
+        root.add("id", root.remove("scenarioId"))
+        root.remove("startAt"); root.addProperty("startEpochMs", epoch)
+        return root
     }
 
     private fun sample(element: JsonElement, index: Int): DemoScenarioSample {

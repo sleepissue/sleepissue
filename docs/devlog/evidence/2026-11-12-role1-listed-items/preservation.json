@@ -1,0 +1,39 @@
+{
+  "existingFileCount": 213,
+  "changedExistingFiles": [],
+  "dbIntegrity": {
+    "demo_d65487ba-5ea5-4d8a-b492-d14312a672d7_rest_records.db": [
+      "ok"
+    ],
+    "awakedrive_debug_trip.db": [
+      "ok"
+    ],
+    "demo_b7b80e56-5106-4a56-be47-ab0d1ff62dfc_rest_records.db": [
+      "ok"
+    ],
+    "demo_e6fc34c4-4894-429e-af58-3dac3f0a04c0_rest_records.db": [
+      "ok"
+    ],
+    "demo_de8135b4-e400-4bce-8501-65862cf7672c_rest_records.db": [
+      "ok"
+    ],
+    "demo_3d518b6a-a19a-4004-9297-7faea4b8e2a2_rest_records.db": [
+      "ok"
+    ],
+    "awakedrive_demo_restart.db": [
+      "ok"
+    ],
+    "awakedrive_sdk_trip.db": [
+      "ok"
+    ],
+    "demo_9c6a8f19-aaa1-42db-a088-f5ff56c082cd_rest_records.db": [
+      "ok"
+    ],
+    "role1-final-20261109-awakedrive_sdk_trip.db": [
+      "ok"
+    ]
+  },
+  "testWrittenOriginalsRestored": 7,
+  "newFixtureFilesRetained": 25,
+  "privateBackupsNotCommitted": true
+}

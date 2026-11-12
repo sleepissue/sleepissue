@@ -1,0 +1,12 @@
+{
+  "liveStage": "REST_GUIDANCE",
+  "savedStage": "NORMAL",
+  "restoredStage": "NORMAL",
+  "liveLocation": {
+    "lat": 37.5,
+    "lon": 127.0
+  },
+  "savedLocation": null,
+  "savedBaselineRef": null,
+  "ownerState": "REAL_TRIP_V1:AAFEAAA\u003d"
+}

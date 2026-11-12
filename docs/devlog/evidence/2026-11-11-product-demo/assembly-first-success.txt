@@ -1,0 +1,8 @@
+
+com.sleepissue.awakedrive.data.ProductDemoWiringTest:.
+
+Time: 22.428
+
+OK (1 test)
+
+

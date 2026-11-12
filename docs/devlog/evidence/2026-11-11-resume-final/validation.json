@@ -1,0 +1,91 @@
+{
+  "atKst": "2026-11-11T23:09:59.350404+09:00",
+  "head": "9144cfd7eee1b078b6a988c7692a97792e4f4407",
+  "executedThisResume": {
+    "jvm": {
+      "engine": {
+        "tests": 351,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "app": {
+        "tests": 422,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "total": 773,
+    "buildSuccessful": true,
+    "tasks": [
+      ":engine:test",
+      ":app:testDebugUnitTest",
+      "assembleDebug",
+      "assembleDebugAndroidTest",
+      "assembleRelease"
+    ],
+    "releaseLintVitalIncluded": true
+  },
+  "artifacts": {
+    "debug": {
+      "path": "src/android/app/build/outputs/apk/debug/app-debug.apk",
+      "sha256": "f2c1ddc8304920ca6e6f163551a070e049fce17991e3bc6587bbdcf0b1a44b3e",
+      "bytes": 61379525
+    },
+    "androidTest": {
+      "path": "src/android/app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk",
+      "sha256": "dcf3a9cb58c517c9d1ce19f3d05ba2e3d9502afecf3c943e34d19040382e51d3",
+      "bytes": 2410538
+    },
+    "releaseUnsigned": {
+      "path": "src/android/app/build/outputs/apk/release/app-release-unsigned.apk",
+      "sha256": "4b1425c51ee4f1a25bc94339f27ce3b6b980859fd658cf497347a48ce0ba792d",
+      "bytes": 26086649
+    },
+    "releaseCopy": {
+      "path": "apk/sleepissue_AwakeDrive_release-unsigned.apk",
+      "sha256": "4b1425c51ee4f1a25bc94339f27ce3b6b980859fd658cf497347a48ce0ba792d",
+      "signed": false
+    }
+  },
+  "releaseSignatureVerifyExit": 1,
+  "releaseSigned": false,
+  "debugComparedToPreviousDeviceVerifiedApk": {
+    "changedEntries": [
+      "assets/README.md",
+      "assets/demo.schema.json"
+    ],
+    "executableResourcesAndSixInputsIdentical": true
+  },
+  "releaseAssets": {
+    "normal": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    },
+    "distraction": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    },
+    "drowsy": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    },
+    "talk": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    },
+    "assist": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    },
+    "departure": {
+      "exactOriginalBytes": true,
+      "samples": 18000
+    }
+  },
+  "releaseDebugComponents": [],
+  "releaseProductDemoActivity": true,
+  "deviceTestsReexecuted": false,
+  "priorDeviceEvidence": "../2026-11-11-product-demo/ (3 tests and actual PID restart; historical evidence reused)"
+}

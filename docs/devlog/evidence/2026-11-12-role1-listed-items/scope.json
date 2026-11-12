@@ -1,0 +1,26 @@
+{
+  "changedExistingKotlin": [
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkNaviDelivery.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkNaviDeliveryTest.kt"
+  ],
+  "newKotlin": [
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkNaviRefreshLoop.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkNaviRefreshLoopTest.kt"
+  ],
+  "changedExistingFiles": [
+    "README.md",
+    "PROGRESS.md",
+    "apk/sleepissue_AwakeDrive_release-unsigned.apk",
+    "apk/README.md",
+    "docs/setup/CURRENT_HANDOFF.md",
+    "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/SdkNaviDelivery.kt",
+    "src/android/app/src/main/java/com/sleepissue/awakedrive/pleos/PlaygroundSignalAdapter.kt",
+    "src/android/app/src/test/java/com/sleepissue/awakedrive/pleos/SdkNaviDeliveryTest.kt"
+  ],
+  "otherExistingKotlinUnchanged": true,
+  "commitPushPr": false
+}

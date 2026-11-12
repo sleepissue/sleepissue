@@ -5,6 +5,10 @@ import com.sleepissue.awakedrive.engine.config.EngineConfig
 /** Pleos TTS와 녹음 음성 대체 구현이 공통으로 지켜야 할 최소 계약. */
 interface VoiceOutput {
     fun speak(text: String, onComplete: () -> Unit, onError: (Throwable) -> Unit)
+    fun speakWithStart(text: String, onStarted: () -> Unit, onComplete: () -> Unit, onError: (Throwable) -> Unit) {
+        onStarted()
+        speak(text, onComplete, onError)
+    }
     fun playFallback(cue: FallbackCue, onComplete: () -> Unit)
 }
 
@@ -33,8 +37,8 @@ class VoiceAgent(
             onComplete()
         }
         delay(config.voicePreRollSilenceMs) {
-            onStarted()
-            output.speak(
+            output.speakWithStart(
+                onStarted = onStarted,
                 text = text,
                 onComplete = finish,
                 onError = { output.playFallback(fallback, finish) },

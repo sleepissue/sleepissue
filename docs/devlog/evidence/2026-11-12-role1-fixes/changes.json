@@ -1,0 +1,127 @@
+[
+  {
+    "path": "README.md",
+    "beforeSha256": "e370f7b306944da30ae030cc6dcb8949f05d4bf69ea209dd341d62156b6991f1",
+    "afterSha256": "a35b50c8aa7c1e37abdfdb08c4fbce7b7d536f4d34fd58523a62b7baa303b555"
+  },
+  {
+    "path": "PROGRESS.md",
+    "beforeSha256": "18d37ecacbb50aa97347915cd7e017aec68eea2f0d32ec3b82491f8cd3ea0a34",
+    "afterSha256": "6dfcccb0ae218656b8c497839dbdd62aa3424ba164737d70a07b9ad1c1596d74"
+  },
+  {
+    "path": "apk/README.md",
+    "beforeSha256": "010fbe4544274e33e753258aef3e3e68cd7c5a0099c45f34977eb9031591e000",
+    "afterSha256": "9732b68edce980bf09978de458f4e1f4a0d2e75cf33adda7f1ff0364b2076452"
+  },
+  {
+    "path": "docs/fatigue-engine/08-team-handoff.md",
+    "beforeSha256": "385f8ca8aef57994c9806e3e48d5225a60dee60733d892ee565e1b97b52d762e",
+    "afterSha256": "a4c2e5bbbdf7273839051848d0298aa0a4e7d38294991220c38c4bd965e265ac"
+  },
+  {
+    "path": "docs/setup/CURRENT_HANDOFF.md",
+    "beforeSha256": "d0be35dc1b7b64293e948f923ee388026b052a41f526076305c7f568f2f60ee7",
+    "afterSha256": "c597d8ded8384e0b078a12f54d0479c9fbdabbb93ca84b132106766175b08520"
+  },
+  {
+    "path": "docs/setup/ROLE1_INTERVENTION.md",
+    "beforeSha256": "06cf68ecb25752e8380b8e07f72c061aba9af7bb0720fb60f680af72ab8a88be",
+    "afterSha256": "9f6b9809855b4d88212cf4dab837fe1350d55a1a1d2d3d46d3d43672d3637c0c"
+  },
+  {
+    "path": "docs/setup/ROLE1_COMPLETION_STATUS.md",
+    "beforeSha256": "be50836df57d73eff9737ae19dc6d97efdebfb0f5a79ec41c896865562a39132",
+    "afterSha256": "21152572894f96748972cf0a55b99fb1effdcb250842b8dce38f10882538ee89"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/service/MonitoringPipeline.kt",
+    "beforeSha256": "9f010cd7c444850042c657a99648dba198404bd6bd9cb7cf89e432d5890922be",
+    "afterSha256": "ecd42237483569f29c689f4f01c4125192ea2a8ed9ee9260a9bff361d77f9a7b"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/service/RealTripMonitorService.kt",
+    "beforeSha256": "eb35cbba2ca5ff908696be6d4cbb1fcf49a9972964229458e7a9071c77ce51a8",
+    "afterSha256": "cbf017222440541d04ba982c0cc40ce4057e626d32a723309d9fbe5227f4b8ae"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/service/AwakeDrivePipeline.kt",
+    "beforeSha256": "3c21b3ed7303ffe4722ad741ac6ed9b5af44e6eca83c637e6f5a088d71c046a9",
+    "afterSha256": "34d05b01dc58dc8b2f4770e24e8dcdbef53fada37b8acaafbd08f8f58098560a"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/PolicyInterventionManager.kt",
+    "beforeSha256": "2fc5aa648190971579d63a7c87815f2aeed1224b1956ddb848389b0f8d1c34c5",
+    "afterSha256": "60216ed08ea36bd3ef230d3b9607d36a4629bc1785442a83df1ca133eb277c0e"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/TripSessionCodec.kt",
+    "beforeSha256": "8f6d13e9a551aea0cd29ab27ce5bf4e0ba65fc1d0fcfa2dd58bc61439fb2b531",
+    "afterSha256": "9448fb2c2f67be9574628538613200d50e61bf3d17e1a292b92aaca638318209"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionCheckpoint.kt",
+    "beforeSha256": "0cd4dab48e6a45fa23c4e73aa329aecdf26d3a5e0833e01f9b5c2285a62d54bf",
+    "afterSha256": "fa8e6fa7d15faeec2a9809f541f0c7c8f0d3bbe7521f455421c7d7e2b1d2bb0f"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/signal/InterventionManager.kt",
+    "beforeSha256": "cb976bd6d7c05d5136edd2c2c142af9c3e2563fc8fb043ef344b89bf3cf12d7d",
+    "afterSha256": "0fad57d040a362d949fb4c25dd90c6344e246066e8ec89e7b1a4e532b1d703a6"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/fatigue/FatigueBridge.kt",
+    "beforeSha256": "abdc6a7fee4e5ec93d966b46bd19ad05e8864e01df7a9c0101bd91cbc48a6c43",
+    "afterSha256": "c989d677b79a836cdbb4936a9e61ad7f059e510e4b1e6218a43aef6cb747b13f"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/DrivingPreviewActivity.kt",
+    "beforeSha256": "2920e2a8fe024756cd62723c590b052c8091e0668c03834eefab27f326a44c2d",
+    "afterSha256": "619f67f3e8c04afa7347c71db8604c9f1c588e758cdfb72941eabb429f136854"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/ProductDemoActivity.kt",
+    "beforeSha256": "4d064f53179b1641b47e9aa43c1b8084a6dabf8b1eb358a38f57d2786faaf465",
+    "afterSha256": "7b59904a5f306d10489ffab502b5fc7e40b3b89a964d0753bb46fb2e885c42c6"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/ui/AppNavigation.kt",
+    "beforeSha256": "43ebd43d56ca21e8d0cb27ebbcc751c1f340417ba30db46aa0bfa3ca1bff0171",
+    "afterSha256": "b04402fb9bf699bfa3dcf7d733971688d5a43d02cf582d2f81a1d343eb11e0b6"
+  },
+  {
+    "path": "src/android/app/src/main/java/com/sleepissue/awakedrive/voice/PleosSpeechRecognizer.kt",
+    "beforeSha256": "0cfbb0a42b94523f2123b948070187222e7363cdc697bd026471d22309112c4f",
+    "afterSha256": "10f2e9a70188b895283b6f999cef286bbf9b832a219fb9ed6feac97094d92749"
+  },
+  {
+    "path": "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/PolicyInterventionManagerTest.kt",
+    "beforeSha256": "62f54e1b0eb74faa01f0334aa2f2b7f8fb26c483570a84b696ce38eb48f91d5c",
+    "afterSha256": "05e38317ec4569a223442c0e024fdc53c4283ed1a69871f4c829892a39637e4e"
+  },
+  {
+    "path": "src/android/app/src/test/java/com/sleepissue/awakedrive/signal/InterventionPersistenceTest.kt",
+    "beforeSha256": "c3b29bad2b1a5d999fa867da3d8c224d334648a18bc789773836c916c759122c",
+    "afterSha256": "69e1d8c17a404b2da76f13f066c68d3682a68945c011060e1754cb08c4869745"
+  },
+  {
+    "path": "src/android/app/src/test/java/com/sleepissue/awakedrive/fatigue/FatigueBridgeTest.kt",
+    "beforeSha256": "febad02c657376b6be81a9124ab5478258a8c5b1cb147c90695e2b366b9d6e7c",
+    "afterSha256": "d9a12fd48b57f5cd3473177179d8db1d022835679f9d8edb99ebce6fdd8216c1"
+  },
+  {
+    "path": "src/android/engine/src/main/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicy.kt",
+    "beforeSha256": "aa825ca5bc823bd18626582344929f31fc89477d3a5200f132dc48df634e38d1",
+    "afterSha256": "f5b144318f4f3a769ba8386a61f68de48f8e155af94986cddfa67dbd7a9c775c"
+  },
+  {
+    "path": "src/android/engine/src/test/java/com/sleepissue/awakedrive/engine/intervention/InterventionPolicyTest.kt",
+    "beforeSha256": "c8c9cc8e08e4ff865f82ca9a7ea8c266b183b83b74cc4ea09bb8b0ae2c852c0e",
+    "afterSha256": "a525157ac5314b0c13fa981a7ab3cc58df590f5ec367d81d0d12e45dee6a4289"
+  },
+  {
+    "path": "src/android/app/src/test/java/com/sleepissue/awakedrive/service/SensitiveFirstCheckPipelineTest.kt",
+    "newFile": true,
+    "afterSha256": "1e0c2661d8234b50b314ea4c0fb7001a0457676d038824036bdfe80d6bea5eee"
+  }
+]

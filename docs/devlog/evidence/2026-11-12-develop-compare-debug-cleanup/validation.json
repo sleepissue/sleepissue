@@ -1,0 +1,32 @@
+{
+  "app_tests": {
+    "tests": 461,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "engine": "not rerun this turn; unchanged source, prior 351 recorded separately",
+  "manifest": {
+    "debug": {
+      "applicationLabel": "@string/app_name",
+      "applicationClass": "com.sleepissue.awakedrive.debug.DebugBootApplication",
+      "debugComponents": [
+        "com.sleepissue.awakedrive.debug.DebugBootArmActivity",
+        "com.sleepissue.awakedrive.debug.DebugBootMonitorService",
+        "com.sleepissue.awakedrive.debug.DebugIsolatedMonitorService",
+        "com.sleepissue.awakedrive.debug.DebugSdkTripActivity",
+        "com.sleepissue.awakedrive.debug.DebugDemoActivity",
+        "com.sleepissue.awakedrive.debug.DebugSdkProbeActivity",
+        "com.sleepissue.awakedrive.debug.DebugHubProbeActivity",
+        "com.sleepissue.awakedrive.debug.DebugHarnessActivity"
+      ]
+    },
+    "release": {
+      "applicationLabel": "@string/app_name",
+      "applicationClass": null,
+      "debugComponents": []
+    }
+  },
+  "apk_built_or_installed": false,
+  "device_or_db_access": false
+}

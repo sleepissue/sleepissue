@@ -24,6 +24,7 @@ data class DemoScenario(
     val startEpochMs: Long,
     val samples: List<DemoScenarioSample>,
     val speedSegments: List<DemoSpeedSegment>,
+    val tripPreset: com.sleepissue.awakedrive.engine.demo.DemoTripPreset? = null,
 ) {
     /** 마지막 관측도 한 주기 유지한다. 배속 구간은 [0, durationMs)를 덮는다. */
     val durationMs: Long get() = Math.addExact(samples.last().tMs, DEMO_SAMPLE_INTERVAL_MS)

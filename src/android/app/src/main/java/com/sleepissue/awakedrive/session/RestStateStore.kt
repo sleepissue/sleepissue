@@ -31,6 +31,8 @@ class PrefsRestStateStore(context: Context) : RestStateStore {
         prefs.edit().putString(KEY, snapshot.encode()).apply()
     }
 
+    fun flush() { check(prefs.edit().putString(KEY, prefs.getString(KEY, null)).commit()) }
+
     private companion object {
         const val KEY = "certifier_v1"
     }

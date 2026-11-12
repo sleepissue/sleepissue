@@ -1,0 +1,25 @@
+{
+  "frames": 1002,
+  "spanMs": 100095,
+  "meanHz": 10.000499525450822,
+  "maxFrameIntervalMs": 131,
+  "over110Ms": 48,
+  "missingSequence": 0,
+  "duplicatesOrRegressions": 0,
+  "speed80InputBracketMs": [
+    26759660.0,
+    26759700.0
+  ],
+  "speed80HubLatencyBracketMs": [
+    86.0,
+    128.0
+  ],
+  "inputClockQuantizationAdditionalMs": 10,
+  "cruiseTrueFrames": 61,
+  "cruiseFalseFrames": 923,
+  "steeringAlwaysNull": true,
+  "seatsAlwaysNull": true,
+  "currentTemperatureValues": [
+    19.1
+  ]
+}

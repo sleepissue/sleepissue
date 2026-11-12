@@ -91,6 +91,12 @@ class AwakeDrivePipeline(
         owner.launch {
             forecast.watchDepartureFatigue(runner.snapshots.map { it.baseline.departureFatigue }.distinctUntilChanged())
         }
+        owner.launch {
+            // 2번의 계산 결과를 그대로 전달한다. 지연 시간을 다시 더하거나 점수/단계를 주입하지 않는다.
+            runner.snapshots.map { it.baseline.firstCheckDueMs }.distinctUntilChanged().collect { due ->
+                trip.value.tripId?.let { submit(InterventionInput.FirstCheckScheduleChanged(it, due)) }
+            }
+        }
         owner.launch(engineContext) { runner.run(hub.samples, { hub.latestNavi.value }, { trip.value }, manager) }
         owner.launch {
             while (isActive) {

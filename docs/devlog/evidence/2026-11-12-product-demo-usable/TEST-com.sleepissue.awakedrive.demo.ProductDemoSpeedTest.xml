@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.sleepissue.awakedrive.demo.ProductDemoSpeedTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-12T07:26:22.960Z" hostname="a" time="1.859">
+  <properties/>
+  <testcase name="originalSelectionKeepsCustomSegmentsAndEveryOtherSelectionChangesOnlyThePlaybackCopy" classname="com.sleepissue.awakedrive.demo.ProductDemoSpeedTest" time="0.004"/>
+  <testcase name="eachTerminalVoiceOutcomeRestoresTheSelectedSpeedAndMeasuresAnswerInActualTime" classname="com.sleepissue.awakedrive.demo.ProductDemoSpeedTest" time="0.053"/>
+  <testcase name="tenTimesPauseDoesNotAdvanceScenarioOrCountWaitingAsDrivenTime" classname="com.sleepissue.awakedrive.demo.ProductDemoSpeedTest" time="0.009"/>
+  <testcase name="sixProductOriginalsStayUnchangedAndTenTimesMakesThirtyMinutesThreeWithoutQuestions" classname="com.sleepissue.awakedrive.demo.ProductDemoSpeedTest" time="1.792"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -21,6 +21,7 @@ class PassengerCheckFlow(
         onPromptStarted: () -> Unit = {},
         onResult: (CheckResult, Boolean) -> Unit,
         onButtonRequired: (CheckTarget) -> Unit,
+        shouldContinue: () -> Boolean = { true },
     ) {
         val plan = policy.selectPlan(context)
         onPlanSelected(plan)
@@ -35,6 +36,7 @@ class PassengerCheckFlow(
                 onPromptStarted = onPromptStarted,
                 onResult = onResult,
                 onButtonRequired = { onButtonRequired(CheckTarget.DRIVER_BUTTON) },
+                shouldContinue = shouldContinue,
             )
 
             CheckTarget.PASSENGER,
@@ -52,12 +54,13 @@ class PassengerCheckFlow(
         onPromptStarted: () -> Unit,
         onResult: (CheckResult, Boolean) -> Unit,
         onButtonRequired: () -> Unit,
+        shouldContinue: () -> Boolean,
     ) {
         voiceAgent.speak(
             text = prompt,
             fallback = FallbackCue.CHECK_PROMPT,
             onComplete = {
-                coordinator.start(
+                if (shouldContinue()) coordinator.start(
                     baselineMs = baselineMs,
                     questionType = questionType,
                     checkType = checkType,

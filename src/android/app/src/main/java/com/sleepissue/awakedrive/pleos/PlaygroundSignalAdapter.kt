@@ -406,13 +406,14 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
         if (context.checkSelfPermission("pleos.car.permission.NAVI_ROUTE") != PackageManager.PERMISSION_GRANTED) return
         val n = NaviHelper(context.applicationContext).also { navi = it }
         val reports = SdkNaviDelivery(store, routeGate) { naviBus.value = store.naviState() }
+        val refresh = SdkNaviRefreshLoop(policy.naviPollMs, clock::elapsedRealtimeMs)
         val listener = object : NaviHelperEventListener {
             override fun onRouteStateInfo(routeStateInfo: RouteStateInfo) {
                 val receipt = clock.elapsedRealtimeMs()
                 naviAudit?.point("CALLBACK", "route", receipt, mode = routeStateInfo.naviMode.toString())
                 post {
                     naviAudit?.point("ADAPTER_BEGIN", "route", mode = routeStateInfo.naviMode.toString())
-                    reports.route(routeStateInfo, receipt)
+                    if (reports.route(routeStateInfo, receipt)) refresh.requestRefresh()
                     naviAudit?.point("ADAPTER_END", "route", mode = routeStateInfo.naviMode.toString())
                 }
             }
@@ -443,7 +444,12 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
         n.initialize(onConnected = { post {
             NaviField.entries.forEach { store.capability(it.name, true, "NaviHelper 연결/권한 확인; 별도 capability API 없음") }
             poll = scope.launch {
-                while (isActive && active) {
+                refresh.run(beforeWait = {
+                    naviAudit?.point("TIMER_ARMED", "poll")
+                }, afterWait = { dueAt ->
+                    // 경로 이벤트가 대기를 깨우면 기존 예정 시각보다 빠르게 복귀할 수 있다.
+                    naviAudit?.point("TIMER_RESUMED", "poll", dueAtMs = dueAt)
+                }) {
                     naviAudit?.point("POLL_BEGIN", "poll")
                     // 요청 자체는 센서 관측이 아니다. 응답 이벤트에만 수신 시각을 부여한다.
                     if (!routeGate.acceptsRouteValues()) clearRoute("활성 경로 상태 미수신/만료")
@@ -454,10 +460,6 @@ class PlaygroundSignalAdapter internal constructor(private val context: Context,
                     }
                     attemptGroup(listOf("REMAIN_TIME_SEC", "REMAIN_DIST_M")) { traceNaviCall(naviAudit, "destination") { n.getDestinationInfo() } }
                     attempt("DIST_TO_NEXT_TURN_M") { traceNaviCall(naviAudit, "tbt") { n.getTBTInfo() } }
-                    naviAudit?.point("TIMER_ARMED", "poll")
-                    val sleepStarted = if (naviAudit != null) clock.elapsedRealtimeMs() else -1L
-                    delay(policy.naviPollMs)
-                    naviAudit?.point("TIMER_RESUMED", "poll", dueAtMs = sleepStarted + policy.naviPollMs)
                 }
             }
         } }, onFailed = { e -> NaviField.entries.forEach { failure(it.name, e) } })
