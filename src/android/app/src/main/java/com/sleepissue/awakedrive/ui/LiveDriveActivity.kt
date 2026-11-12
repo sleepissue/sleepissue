@@ -8,6 +8,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import com.sleepissue.awakedrive.demo.DemoPhase
 import com.sleepissue.awakedrive.demo.ProductDemoSession
 import com.sleepissue.awakedrive.demo.AndroidDemoExecutionFactory
 import com.sleepissue.awakedrive.navi.RestAreaRepository
@@ -25,6 +26,8 @@ open class LiveDriveActivity : ComponentActivity() {
     private var pipelineOwner: MonitoringPipeline? = null
     private var pendingCondition: DrivingCondition? = null
     private var demoActive by mutableStateOf(false)
+    private var backgroundPause: Job? = null
+    private var resumeDemoOnStart = false
     private lateinit var demo: ProductDemoSession
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, binder: IBinder) {
@@ -73,6 +76,11 @@ open class LiveDriveActivity : ComponentActivity() {
     }
     override fun onStart() {
         super.onStart()
+        scope.launch {
+            backgroundPause?.join()
+            if (resumeDemoOnStart && demoActive && demo.playback.value.phase == DemoPhase.PAUSED) demo.resume()
+            resumeDemoOnStart = false
+        }
         bound = bindService(Intent(this, RealTripMonitorService::class.java), connection, BIND_AUTO_CREATE)
         monitor = scope.launch {
             while (isActive) {
@@ -92,7 +100,13 @@ open class LiveDriveActivity : ComponentActivity() {
     override fun onStop() {
         monitor?.cancel(); monitor = null
         binding?.close(); binding = null; pipelineOwner = null
-        scope.launch { demo.stop() }
+        // 내비 화면을 열어도 진행 중인 SDK 요청·결과를 버리지 않는다. 복귀하면 같은 재생을 잇는다.
+        backgroundPause = scope.launch {
+            if (demoActive && demo.playback.value.phase == DemoPhase.PLAYING) {
+                demo.pause()
+                resumeDemoOnStart = demo.playback.value.phase == DemoPhase.PAUSED
+            }
+        }
         if (bound) unbindService(connection)
         bound = false; service = null
         super.onStop()

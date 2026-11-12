@@ -1,0 +1,144 @@
+{
+  "normal": {
+    "scenario": "normal",
+    "microphoneConsent": false,
+    "scope": "ACTUAL_PRODUCT_ACTIVITY_UI_BUTTONS",
+    "requestedSpeed": 10,
+    "guided": false,
+    "cancelWaypoint": false,
+    "phase": "COMPLETED",
+    "maxStage": 0,
+    "restCertified": true,
+    "stamps": 0,
+    "napStarted": true,
+    "napAlarmed": true,
+    "napStoppedByButton": true,
+    "assistedSeen": false,
+    "departureFatigue": false,
+    "recoveryNormal": false,
+    "passengerButtonUsed": false,
+    "waypointResults": [],
+    "warnings": [],
+    "waypoint": "경유지 요청 없음",
+    "responses": [
+      "운전자 버튼: 회복 확인"
+    ],
+    "message": "음성 인식을 사용할 수 없습니다. 운전자 응답 버튼으로 답해 주세요",
+    "playback": {
+      "connection": "SUCCEEDED",
+      "deliveredSamples": 27100,
+      "lastDeliveryElapsedMs": 1217382,
+      "lastOriginalSampleMs": 2709900,
+      "phase": "COMPLETED",
+      "pumpFinishedScenarioMs": 2710000,
+      "pumpTargetMs": 2710000,
+      "realElapsedMs": 271273,
+      "scenarioId": "normal",
+      "scenarioTimeMs": 2710000,
+      "segmentMultiplier": 10,
+      "sessionId": 1,
+      "speedMultiplier": 0
+    }
+  },
+  "guided": {
+    "scenario": "drowsy",
+    "microphoneConsent": false,
+    "scope": "ACTUAL_PRODUCT_ACTIVITY_UI_BUTTONS",
+    "requestedSpeed": 60,
+    "guided": true,
+    "cancelWaypoint": false,
+    "navigationScreenOpened": true,
+    "phase": "COMPLETED",
+    "maxStage": 3,
+    "restCertified": true,
+    "stamps": 1,
+    "napStarted": false,
+    "napAlarmed": false,
+    "napStoppedByButton": false,
+    "assistedSeen": false,
+    "departureFatigue": false,
+    "recoveryNormal": true,
+    "passengerButtonUsed": false,
+    "waypointResults": [
+      "경유지 추가: 내비게이션에 요청하고 있습니다",
+      "경유지 추가: 내비게이션에서 반영을 확인했습니다"
+    ],
+    "warnings": [
+      {
+        "description": "SCORE",
+        "stage": "1단계",
+        "time": "18:40"
+      },
+      {
+        "description": "SAFETY_EVENT",
+        "stage": "2단계",
+        "time": "20:10"
+      },
+      {
+        "description": "CHECK_RESULT",
+        "stage": "3단계",
+        "time": "20:27"
+      },
+      {
+        "description": "REST_COMPLETED",
+        "stage": "0단계",
+        "time": "45:10"
+      }
+    ],
+    "waypoint": "경유지 추가: 내비게이션에서 반영을 확인했습니다",
+    "responses": [
+      "운전자 버튼: 쉴게요",
+      "운전자 버튼: 경유지 동의",
+      "운전자 버튼: 회복 확인"
+    ],
+    "message": "음성 인식을 사용할 수 없습니다. 운전자 응답 버튼으로 답해 주세요",
+    "playback": {
+      "connection": "SUCCEEDED",
+      "deliveredSamples": 27100,
+      "lastDeliveryElapsedMs": 1643606,
+      "lastOriginalSampleMs": 2709900,
+      "phase": "COMPLETED",
+      "pumpFinishedScenarioMs": 2710000,
+      "pumpTargetMs": 2710000,
+      "questionOutcome": "CANCELLED",
+      "realElapsedMs": 45167,
+      "scenarioId": "drowsy",
+      "scenarioTimeMs": 2710000,
+      "segmentMultiplier": 60,
+      "sessionId": 1,
+      "speedMultiplier": 0
+    }
+  },
+  "confirmedWaypoints": [
+    {
+      "elapsedMs": 1643526,
+      "kind": "waypoints",
+      "value": [
+        {
+          "address": "칠곡군 동명면",
+          "latitude": 0.0,
+          "longitude": 0.0,
+          "name": "동명휴게소",
+          "poiId": "SA-55-동명-부산",
+          "poiProvider": "",
+          "remainDistance": 251000,
+          "remainTime": 11580
+        }
+      ]
+    }
+  ],
+  "unitTests": {
+    "app": {
+      "tests": 467,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "engine": {
+      "tests": 346,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  }
+}

@@ -71,66 +71,48 @@ fun AppNavigation(
     LaunchedEffect(settings, session.sessionId) {
         if (connected) onAction?.invoke(DriveUiAction.Preferences(settings))
     }
+    Column(Modifier.fillMaxSize().background(Color(0xFF101837))) {
+        Row(Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 4.dp),
+            horizontalArrangement = Arrangement.SpaceBetween) {
+            Text("진단 아님 · 차량 기본 경고를 대신하지 않습니다", color = Color(0xFFCED5EC), fontSize = 12.sp)
+            if (session.demoSession && onExitDemo != null) {
+                TextButton(onClick = onExitDemo) { Text("데모 종료", color = Color(0xFFFFD166)) }
+            }
+            if (session.demoPlaying) Text("데모 재생 중", color = Color(0xFFFFD166), fontSize = 14.sp)
+            else if (session.demoSession) Text("데모 검증 세션 · 정지", color = Color.LightGray, fontSize = 12.sp)
+        }
 
-    LaunchedEffect(restricted) {
-        if (restricted && currentPage in setOf(AppPage.SETUP, AppPage.SETUP_SAFETY, AppPage.SETUP_COMPLETE, AppPage.REPORT, AppPage.DEBUG)) currentPage = AppPage.DRIVING
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF101837))
-    ) {
-
-        Box(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
-        ) {
-            when (currentPage) {
-
-                AppPage.HOME -> {
-                    HomeScreen(
-                        onStartDriving = {
-                            if (!restricted) currentPage = AppPage.SETUP
-                            currentStatus = DrivingStatus.WAITING
-                            showAlert = false
-                        }
-                    )
-                }
-
-                AppPage.SETUP -> {
-                    FirstRunSetupScreen(
-                        onNext = { isSleepy ->
-
-                            // 선택한 컨디션을 화면 간 전달
-                            selectedSleepy = isSleepy
-
-                            // 다음 단계: 주행 전 안전 확인
-                            currentPage = AppPage.SETUP_SAFETY
-                        }
-                    )
-                }
-
-                AppPage.SETUP_SAFETY -> {
-                    SetupSafetyScreen(
-                        onNext = {
-                            currentPage = AppPage.SETUP_COMPLETE
-                        }
-                    )
-                }
-
-                AppPage.SETUP_COMPLETE -> {
-                    SetupCompleteScreen(
-                        isSleepy = selectedSleepy ?: false,
-                        onStartDriving = {
-                            onStartMonitoring()
-                            setupCompleted = true
-                            currentStatus = DrivingStatus.WAITING
-                            showAlert = false
-                            currentPage = AppPage.DRIVING
-                        }
-                    )
+        session.voiceButtonContext?.let { context ->
+            Text("운전자 응답 · ${if (context == com.sleepissue.awakedrive.engine.model.CheckContext.WAYPOINT_CONSENT) "쉼터를 경유지로 추가할까요?" else "쉬어 갈까요?"}", color = Color.White)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                val waypoint = context == com.sleepissue.awakedrive.engine.model.CheckContext.WAYPOINT_CONSENT
+                Button(onClick = { request(DriveUiAction.VoiceResponse(if (waypoint) com.sleepissue.awakedrive.engine.model.ResponseIntent.YES else com.sleepissue.awakedrive.engine.model.ResponseIntent.REST)) }) { Text(if (waypoint) "추가해 주세요" else "쉴게요") }
+                Button(onClick = { request(DriveUiAction.VoiceResponse(if (waypoint) com.sleepissue.awakedrive.engine.model.ResponseIntent.NO else com.sleepissue.awakedrive.engine.model.ResponseIntent.OK)) }) { Text(if (waypoint) "아니요" else "괜찮아요") }
+            }
+        }
+        if (session.message.isNotBlank()) Text(session.message, color = Color.LightGray, modifier = Modifier.padding(horizontal = 16.dp))
+        if (feedback.isNotBlank()) Text(feedback, color = Color(0xFFFFD166), modifier = Modifier.padding(horizontal = 16.dp))
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+            when (page) {
+                AppPage.HOME -> HomeScreen(
+                    onStartDriving = {
+                        page = if (restricted) AppPage.DRIVING else if (!firstRun.getBoolean("onboarding", false)) AppPage.PERMISSIONS else AppPage.SETUP
+                    },
+                    drivingCondition = condition?.label() ?: "확인 전",
+                    drowsinessForecast = effectiveForecast?.ttsMessage ?: "컨디션 선택 뒤 예보합니다",
+                    expectedCautionTime = forecastUi.expectedCautionTime,
+                )
+                AppPage.PERMISSIONS -> SettingsScreen(settings, { settings = it; settingsStore.write(it) },
+                    if (connected) ({ request(DriveUiAction.DeleteRecords) }) else null,
+                    onContinue = { firstRun.edit().putBoolean("onboarding", true).apply(); page = AppPage.SETUP })
+                AppPage.SETUP -> FirstRunSetupScreen { value ->
+                    condition = value
+                    request(DriveUiAction.Condition(value))
+                    localForecast = ForecastEngine(activeClock).calculate(ForecastInput(
+                        ((continuousDriveSec ?: session.trip.continuousDriveSec) / 60).toInt(), null,
+                        (session.trip.last24hDriveSec / 60).toInt(), emptyList(), value.toStartCondition()),
+                        ForecastRecalcTrigger.CONDITION_INPUT)
+                    page = AppPage.SAFETY
                 }
                 AppPage.SAFETY -> SetupSafetyScreen { settings = settingsStore.read(); page = AppPage.COMPLETE }
                 AppPage.COMPLETE -> SetupCompleteScreen(condition = condition ?: DrivingCondition.GOOD,

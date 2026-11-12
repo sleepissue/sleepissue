@@ -1,0 +1,8 @@
+{
+  "scope": "DEBUG_VOICE_VALIDATION_ACTIVITY",
+  "humanConfirmation": "사용자가 안내·신호음 청취 및 직접 네 발화를 확인",
+  "rawAudioStored": false,
+  "screenResults": [
+    "자동 검증을 시작합니다.\n1단계 개입 요청 → 음성 포트 자동 실행\n단계 안내 접수: REQUESTED\n단계 안내 실행: STARTED\n단계 안내 실행: SUCCEEDED\n1단계 자동 TTS 완료\n신호음 뒤 5초 안에 '네' 또는 '쉴게'라고 말하세요.\nSTT 결과: latency=213ms, verdict=NORMAL, intent=OK, twoSlow=false\n10초 동안 말소리 유무를 측정합니다. 원본 음성은 저장하지 않습니다.\n말소리 감지 결과: true\n전체 음성 검증이 끝났습니다.\n"
+  ]
+}

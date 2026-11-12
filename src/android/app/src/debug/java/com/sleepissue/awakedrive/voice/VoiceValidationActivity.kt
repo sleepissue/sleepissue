@@ -12,6 +12,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.sleepissue.awakedrive.cabin.CabinMonitor
+import com.sleepissue.awakedrive.engine.config.EngineConfig
+import com.sleepissue.awakedrive.session.ToneNapAlarm
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.check.CheckVerdict
 import com.sleepissue.awakedrive.engine.check.QuestionType
@@ -23,6 +25,8 @@ import com.sleepissue.awakedrive.signal.RestAreaCandidate
 import com.sleepissue.awakedrive.signal.SpeechCue
 import com.sleepissue.awakedrive.signal.SpeechRequest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.Job
 
 /** debug APK에서만 포함되는 Pleos TTS·STT·AudioRecord 자동 검증 화면. */
 class VoiceValidationActivity : AppCompatActivity() {
@@ -33,9 +37,12 @@ class VoiceValidationActivity : AppCompatActivity() {
     private lateinit var coordinator: VoiceCheckCoordinator
     private lateinit var cabinMonitor: CabinMonitor
     private lateinit var speechPort: VoiceSpeechPort
+    private lateinit var napAlarm: ToneNapAlarm
     private var pendingPermissionAction: (() -> Unit)? = null
     private var validationRunning = false
     private var cabinTestStarted = false
+    private var silenceCheck = false
+    private var alarmNotice: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +58,7 @@ class VoiceValidationActivity : AppCompatActivity() {
         recognizer = PleosSpeechRecognizer(this)
         tonePlayer = SignalTonePlayer()
         cabinMonitor = CabinMonitor(this)
+        napAlarm = ToneNapAlarm(lifecycleScope)
         coordinator = VoiceCheckCoordinator(
             checkManager = CheckManager(AndroidElapsedClock(), CheckPolicy(), SpeechIntentParser()),
             policy = CheckPolicy(),
@@ -72,7 +80,9 @@ class VoiceValidationActivity : AppCompatActivity() {
             }
         }
         status.post {
-            if (intent.getBooleanExtra(EXTRA_SKIP_TTS, false)) {
+            if (intent.getBooleanExtra("manual_validation", false)) {
+                status.text = "수동 검증 준비됨. 주변을 조용히 한 뒤 원하는 검사를 누르세요.\n"
+            } else if (intent.getBooleanExtra(EXTRA_SKIP_TTS, false)) {
                 validationRunning = true
                 cabinTestStarted = false
                 status.text = "TTS 없이 음성 입력 검증을 시작합니다.\n"
@@ -89,6 +99,33 @@ class VoiceValidationActivity : AppCompatActivity() {
             setPadding(32, 32, 32, 32)
             addView(button("전체 검증 다시 실행") { startAutomaticValidation() })
             addView(button("진행 중 검증 취소") { cancelTests() })
+            addView(button("안내음만 재생") {
+                cancelTests()
+                testTts()
+            })
+            addView(button("무응답 검사 · 끝날 때까지 침묵") {
+                cancelTests()
+                silenceCheck = true
+                validationRunning = true
+                cabinTestStarted = false
+                withMicrophonePermission(::testStt)
+            })
+            addView(button("10초 말소리 감지만 검사") {
+                cancelTests()
+                validationRunning = true
+                cabinTestStarted = false
+                testCabinSpeech()
+            })
+            addView(button("파워냅 알람 10초 청취") {
+                cancelTests()
+                append("제품과 같은 알람을 10초 재생합니다. 원하면 검증 취소로 멈추세요.")
+                val config = EngineConfig()
+                napAlarm.start(config.napAlarmRampMs, 10_000L)
+                alarmNotice = lifecycleScope.launch {
+                    delay(10_000L)
+                    append("알람 10초 재생 구간 종료. 실제 청취 여부는 사용자 확인이 필요합니다.")
+                }
+            })
             addView(status)
         })
     }
@@ -127,7 +164,8 @@ class VoiceValidationActivity : AppCompatActivity() {
     }
 
     private fun testStt() {
-        append("신호음 뒤 5초 안에 '네' 또는 '쉴게'라고 말하세요.")
+        append(if (silenceCheck) "침묵 검사: 신호음에도 답하지 말고 전체 검증 종료까지 조용히 기다리세요."
+            else "신호음 뒤 5초 안에 '네' 또는 '쉴게'라고 말하세요.")
         coordinator.start(
             baselineMs = 1_000L,
             questionType = QuestionType.DRIVER_CHECK,
@@ -203,8 +241,12 @@ class VoiceValidationActivity : AppCompatActivity() {
 
     private fun cancelTests() {
         validationRunning = false
+        silenceCheck = false
+        alarmNotice?.cancel()
+        alarmNotice = null
         coordinator.cancel()
         cabinMonitor.stop()
+        napAlarm.stop()
         append("진행 중 검증 취소됨")
     }
 
@@ -215,6 +257,7 @@ class VoiceValidationActivity : AppCompatActivity() {
     override fun onDestroy() {
         coordinator.cancel()
         cabinMonitor.close()
+        napAlarm.stop()
         recognizer.close()
         tonePlayer.close()
         ttsOutput.close()

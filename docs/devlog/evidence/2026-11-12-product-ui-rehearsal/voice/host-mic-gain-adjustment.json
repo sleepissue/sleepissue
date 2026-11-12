@@ -1,0 +1,16 @@
+{
+  "device": "ALC257 Analog, ALSA card 2",
+  "before": {
+    "Capture": {
+      "value": 63,
+      "gainDb": 30
+    },
+    "Internal Mic Boost": {
+      "value": 3,
+      "gainDb": 30
+    }
+  },
+  "change": "Internal Mic Boost만 0dB로 낮춤, Capture 유지",
+  "reason": "사용자 침묵 검사 true, maxRms 27301.9. 입력 증폭 영향 확인용",
+  "rawAudioStored": false
+}

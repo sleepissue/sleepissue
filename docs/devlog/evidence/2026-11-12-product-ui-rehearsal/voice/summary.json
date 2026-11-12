@@ -1,0 +1,35 @@
+{
+  "scope": "음성 검증 debug Activity, 원본 음성 저장 없음",
+  "ttsAndBeep": {
+    "humanConfirmed": true,
+    "speechLatencyMs": 213,
+    "verdict": "NORMAL",
+    "intent": "OK",
+    "condition": "마이크 부스트 조정 전"
+  },
+  "alarm": {
+    "humanConfirmed": true,
+    "carAlarmGroupVolume": "35/45",
+    "carAlarmGroupGainDb": -10
+  },
+  "cabinPairedObservation": {
+    "condition": "ALSA Capture +30dB 유지, Internal Mic Boost 0dB, 앱 문턱 변경 없음",
+    "quiet": {
+      "speechDetected": false,
+      "maxRms": 840.4342364611119,
+      "speechFrames": 0
+    },
+    "speech": {
+      "speechDetected": true,
+      "maxRms": 13415.857948521025,
+      "speechFrames": 143
+    },
+    "limitation": "각 마지막 회차 비교, 환경 전반의 오탐·미탐 정확도 검증 아님"
+  },
+  "remaining": [
+    "제품의 speechDetected=false 고정 입력을 실제 감지에 연결한 통합 검증",
+    "마이크 부스트 조정 후 STT 응답 시간·의도 재확인",
+    "파워냅 기상 후 회복 확인 전체 흐름",
+    "촬영 전 부정확한 화면 문구 정리"
+  ]
+}
