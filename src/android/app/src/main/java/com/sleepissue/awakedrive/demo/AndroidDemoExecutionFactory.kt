@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
+import com.sleepissue.awakedrive.cabin.CabinMonitor
 import com.sleepissue.awakedrive.cabin.PassengerOccupancyResolver
 import com.sleepissue.awakedrive.engine.check.CheckPolicy
 import com.sleepissue.awakedrive.engine.config.EngineConfig
@@ -41,7 +42,7 @@ class AndroidDemoExecutionFactory(private val context: Context) : DemoExecutionF
                 ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
             val voice = VoiceCheckPort(PassengerCheckFlow(policy, agent, coordinator), agent, coordinator,
                 { PassengerOccupancyResolver.resolve(current().frame?.seats, null, speechDetected = false,
-                    microphoneAvailable = microphoneAllowed()) }, { config.defaultVoiceBaselineMs })
+                    microphoneAvailable = microphoneAllowed()) }, { config.defaultVoiceBaselineMs }, CabinMonitor(context, config))
             val progress = MutableSharedFlow<ExecutionResult>(extraBufferCapacity = 16)
             val manualResults = MutableSharedFlow<CheckResult>(extraBufferCapacity = 16)
             val buttons = MutableSharedFlow<CheckRequest>(extraBufferCapacity = 4)
@@ -106,7 +107,7 @@ class AndroidDemoExecutionFactory(private val context: Context) : DemoExecutionF
                 } },
                 alarm = { active -> if (active) alarm.start(config.napAlarmRampMs, config.napAlarmMaxMs) else alarm.stop() },
                 close = { withContext(Dispatchers.Main.immediate) {
-                    coordinator.cancel(); alarm.stop(); job.cancelAndJoin()
+                    voice.close(); alarm.stop(); job.cancelAndJoin()
                     bridge.close(); tone.close(); recognizer.close(); tts.close()
                 } }, waypointFailure = { area -> withContext(Dispatchers.Main.immediate) {
                     val target = area?.let { "${it.name}${if (it.distanceM > 0) "까지 약 ${it.distanceM.toInt() / 1000}킬로미터" else ""}" } ?: "앞쪽 쉼터"

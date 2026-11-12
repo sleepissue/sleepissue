@@ -1,5 +1,6 @@
 package com.sleepissue.awakedrive.voice
 
+import com.sleepissue.awakedrive.cabin.CabinSpeechSampler
 import com.sleepissue.awakedrive.engine.check.CheckResult as VoiceCheckResult
 import com.sleepissue.awakedrive.engine.check.CheckType
 import com.sleepissue.awakedrive.engine.check.OccupancyContext
@@ -15,6 +16,8 @@ import com.sleepissue.awakedrive.engine.model.ResponseChannel
 import com.sleepissue.awakedrive.engine.model.ResponseIntent
 import com.sleepissue.awakedrive.signal.CheckPort
 import com.sleepissue.awakedrive.signal.CheckRequest
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -24,6 +27,13 @@ data class VoiceButtonRequest(
     val requestId: RequestId,
     val context: CheckContext,
     val passengerButton: Boolean,
+)
+
+/** 말소리 검사 상태만 보존한다. 음성 원본·문장은 보관하지 않는다. */
+data class CabinCheckObservation(
+    val requestId: RequestId,
+    val status: ExecutionStatus,
+    val speechDetected: Boolean? = null,
 )
 
 /**
@@ -36,7 +46,11 @@ class VoiceCheckPort(
     private val coordinator: VoiceCheckSession,
     private val occupancyProvider: () -> OccupancyContext,
     private val baselineMsProvider: () -> Long,
-) : CheckPort {
+    private val cabinSampler: CabinSpeechSampler? = null,
+) : CheckPort, AutoCloseable {
+    private val mutableCabinObservation = MutableStateFlow<CabinCheckObservation?>(null)
+    val cabinObservation = mutableCabinObservation.asStateFlow()
+    private var samplingRequestId: RequestId? = null
     private val mutableExecutionResults = MutableSharedFlow<ExecutionResult>(extraBufferCapacity = 16)
     override val executionResults: Flow<ExecutionResult> = mutableExecutionResults.asSharedFlow()
 
@@ -62,6 +76,7 @@ class VoiceCheckPort(
                 }
             }
             activeRequest = request
+            mutableCabinObservation.value = null
             awaitingButton = false
             promptStarted = false
         }
@@ -89,6 +104,7 @@ class VoiceCheckPort(
             }
         }
         if (!canCancel) return execution(requestId, ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
+        cabinSampler?.stop()
         passengerCheckFlow.cancel()
         coordinator.cancel()
         return execution(requestId, ExecutionStatus.CANCELLED).also { mutableExecutionResults.emit(it) }
@@ -127,9 +143,43 @@ class VoiceCheckPort(
         return execution(request.requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
     }
 
-    private fun startAlertness(request: CheckRequest) {
+    private fun startAlertness(request: CheckRequest) = synchronized(lock) {
+        if (activeRequest?.requestId != request.requestId) return@synchronized
+        val context = occupancyProvider()
+        val sampler = cabinSampler
+        if (!context.microphoneAvailable || sampler == null) {
+            startPreparedAlertness(request, context)
+            return@synchronized
+        }
+        samplingRequestId = request.requestId
+        mutableCabinObservation.value = CabinCheckObservation(request.requestId, ExecutionStatus.STARTED)
+        // 준비 시작도 요청 실행이다. 실제 신호음·응답 시간 측정은 10초 검사 이후에만 시작한다.
+        // 제품 데모는 이 통지부터 1배로 전환해 검사 동안 원본 시간이 건너뛰지 않게 한다.
+        mutableExecutionResults.tryEmit(execution(request.requestId, ExecutionStatus.STARTED))
+        try {
+            sampler.sample(
+                onResult = { detected -> finishCabinSample(request, detected) },
+                onError = { finishCabinSample(request, null) },
+            )
+        } catch (_: Exception) {
+            finishCabinSample(request, null)
+        }
+    }
+
+    private fun finishCabinSample(request: CheckRequest, detected: Boolean?) = synchronized(lock) {
+        if (activeRequest?.requestId != request.requestId || samplingRequestId != request.requestId) return@synchronized
+        samplingRequestId = null
+        mutableCabinObservation.value = CabinCheckObservation(request.requestId,
+            if (detected == null) ExecutionStatus.FAILED else ExecutionStatus.SUCCEEDED, detected)
+        val current = occupancyProvider()
+        // 감지 실패·권한 철회는 조용함으로 꾸미지 않고 마이크 없는 버튼 대체 경로로 간다.
+        startPreparedAlertness(request, current.copy(speechDetected = detected ?: false,
+            microphoneAvailable = current.microphoneAvailable && detected != null))
+    }
+
+    private fun startPreparedAlertness(request: CheckRequest, context: OccupancyContext) {
         passengerCheckFlow.start(
-            context = occupancyProvider(),
+            context = context,
             baselineMs = baselineMsProvider(),
             onPromptStarted = { emitStarted(request.requestId) },
             onResult = { result, _ -> completeVoice(request, result) },
@@ -202,9 +252,20 @@ class VoiceCheckPort(
     }
 
     private fun clearActive() {
+        samplingRequestId?.let {
+            mutableCabinObservation.value = CabinCheckObservation(it, ExecutionStatus.CANCELLED)
+        }
+        samplingRequestId = null
         activeRequest = null
         awaitingButton = false
         promptStarted = false
+    }
+
+    override fun close() {
+        synchronized(lock) { clearActive() }
+        cabinSampler?.stop()
+        passengerCheckFlow.cancel()
+        coordinator.cancel()
     }
 
     private fun execution(
