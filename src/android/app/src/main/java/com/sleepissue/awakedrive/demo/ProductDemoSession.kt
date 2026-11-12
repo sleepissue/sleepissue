@@ -54,7 +54,6 @@ class ProductDemoSession(
     private var owner: DemoUiSession? = null
     private var execution: DemoExecution? = null
     private val events = Channel<Pair<DemoExecution, DemoExecutionEvent>>(Channel.UNLIMITED)
-    private var passengerChecks = true
     private var sequence = 0L
     private fun id() = RequestId("product-demo-${++sequence}")
     private fun publish() {
@@ -158,12 +157,10 @@ class ProductDemoSession(
     }
     suspend fun action(value: DriveUiAction) = commands.withLock {
         val connected = execution
-        if (value is DriveUiAction.Preferences) passengerChecks = value.value.passengerChecks
         when {
             connected != null && value == DriveUiAction.CancelWaypoint -> connected.cancelWaypoint()
             connected != null && value is DriveUiAction.VoiceResponse -> connected.respond(value.intent)
-            value is DriveUiAction.Passenger && !passengerChecks -> owner?.feedback("동승자 확인 설정이 꺼져 있습니다")
-            connected != null && value is DriveUiAction.Passenger -> connected.respondPassenger(value.rest)
+            connected != null && value is DriveUiAction.Passenger -> owner?.feedback("현재 음성 방식은 운전자 응답만 사용합니다")
             connected != null && value == DriveUiAction.RequestRecovery -> {
                 if (!connected.manager.resumeInterruptedChecks()) owner?.feedback("진행 중인 음성 회복 확인에 답해 주세요")
             }

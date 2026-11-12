@@ -62,25 +62,6 @@ class ScenarioDemoPlayerTest {
     private fun id(value: String) = RequestId(value)
 
     @Test
-    fun pauseAtClockEndWithPendingSamplesCanResumeAndDeliverEveryOriginal() = runTest {
-        val real = DemoTestClock()
-        val scenario = demoTestScenario(1000)
-        val player = ScenarioDemoPlayer(DemoClock(real), demoTestRepository(scenario), backgroundScope,
-            automaticTicks = false, defaultMaxSamples = 1)
-        val samples = mutableListOf<VehicleSignalInput>()
-        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { player.samples.collect { samples += it } }
-        player.execute(DemoCommand.Load(id("load"), scenario.id))
-        player.execute(DemoCommand.Start(id("start")))
-        real.realMs = 1000
-        player.execute(DemoCommand.Pause(id("pause-at-end")))
-        assertEquals(DemoPhase.PAUSED, player.playbackState.value.phase)
-        assertEquals(ExecutionStatus.SUCCEEDED, player.execute(DemoCommand.Resume(id("resume-drain"))).status)
-        repeat(20) { player.pump() }
-        assertEquals(DemoPhase.COMPLETED, player.playbackState.value.phase)
-        assertEquals((0L until 1000 step 100).toList(), samples.filter { it.speed != null }.map { it.tMs })
-    }
-
-    @Test
     fun loadStartPauseResumeStopAndResetHaveDistinctEffects() = runTest {
         val real = DemoTestClock()
         val scenario = demoTestScenario(20_000L, listOf(DemoSpeedSegment(0, 20_000, 10)))

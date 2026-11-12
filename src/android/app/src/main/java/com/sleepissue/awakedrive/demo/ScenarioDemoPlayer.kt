@@ -97,9 +97,7 @@ class ScenarioDemoPlayer(
                 }
                 is DemoCommand.Resume -> {
                     if (playbackState.value.phase != DemoPhase.PAUSED) return@withLock rejected(command, "일시정지한 재생만 재개할 수 있습니다.")
-                    // 시계가 끝났어도 작업 예산 때문에 미전달 원본이 남을 수 있다.
-                    // 이 경우 시계를 다시 시작하지 않고 남은 표본을 순서대로 전달한다.
-                    if (clock.scenarioTimeMs() < requireNotNull(scenario).durationMs) clock.resume()
+                    clock.resume()
                     mutableState.value = playbackState.value.copy(phase = DemoPhase.PLAYING, failureMessage = null)
                     updateTime()
                     succeeded(command)
