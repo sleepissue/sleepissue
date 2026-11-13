@@ -25,6 +25,7 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test
 import java.io.File
+import kotlin.math.ceil
 
 /**
  * 원본6종 → 제품 배속 정책 → 실제 Player/Hub/TripTracker → 기존 판단·개입의 JVM 결합 시험.
@@ -38,7 +39,7 @@ class ProductDemoPipelineContractTest {
     @Test fun talk() = runTest { replay("talk") }
     @Test fun assist() = runTest { replay("assist") }
     @Test fun departure() = runTest { replay("departure") }
-    @Test fun originalDepartureKeepsTheAuthoredTenToOneSpeedBoundary() = runTest {
+    @Test fun originalDepartureKeepsTheAuthoredSpeedSegments() = runTest {
         replay("departure", ProductDemoSpeed.ORIGINAL)
     }
 
@@ -112,9 +113,13 @@ class ProductDemoPipelineContractTest {
         player.execute(DemoCommand.Load(RequestId("load"), id))
         player.execute(DemoCommand.Start(RequestId("play")))
         runCurrent()
-        // 10배는 실제10ms당 시나리오100ms. 원본 모드는 원래 구간 경계에서만 배속이 바뀐다.
+        // 60배의 100ms는 실제 1.666…ms다. 정수 나눗셈(100/60)으로 시계를 늦추지 않는다.
+        // 원본 각 구간의 길이/배속을 적분하고 실제 시계의 정수 ms 경계로 올림한다.
+        fun elapsedAt(scenarioMs: Long): Long = ceil(scenario.speedSegments.sumOf { segment ->
+            (minOf(scenarioMs, segment.toMs) - segment.fromMs).coerceAtLeast(0).toDouble() / segment.factor
+        }).toLong()
         for (sampleIndex in 1 until scenario.samples.size) {
-            real.realMs += 100 / demo.snapshot().segmentMultiplier
+            real.realMs = elapsedAt(scenario.samples[sampleIndex].tMs)
             player.pump()
             runCurrent()
             assertTrue(hub.publishDue())
@@ -122,28 +127,33 @@ class ProductDemoPipelineContractTest {
             // 제품 파이프라인의 Tick은 실제1초 주기이며 데모 시계로 10초다.
             if (real.realMs % 1_000L == 0L) manager.submit(RequestId("tick-${++serial}"), InterventionInput.Tick)
         }
-        assertEquals(17_999, publications)
+        // t=0 원본은 첫 100ms Hub 발행 전에 들어간다.
+        assertEquals(scenario.samples.size - 1, publications)
         assertEquals(0, invalidSignals)
         assertTrue("$id: 기존 엔진의 유효 계산 없음", evaluations > 0)
-        assertEquals(18_000L, player.playbackState.value.deliveredSamples)
+        assertEquals(scenario.samples.size.toLong(), player.playbackState.value.deliveredSamples)
         if (id == "assist") assertTrue(assistedSeen)
         if (id == "departure") assertTrue("출발 피로 판정", departureDetected)
         if (id == "drowsy") assertEquals("졸음 휴식 유도 연결", InterventionStage.REST_GUIDANCE.level, maximumStage)
-        if (id in listOf("normal", "talk")) {
+        if (id == "normal") {
             assertEquals(0f, maximumRisk, 0f)
-            assertEquals("오후 취약 시간대는 안내만 하고 확인 단계로 올리지 않음", InterventionStage.CAUTION.level, maximumStage)
+            assertEquals("10시 정상 원본은 조향 위험 없이 평상 유지", InterventionStage.NORMAL.level, maximumStage)
         }
-        if (id == "departure") assertTrue("원본 종료 뒤에 오는 첫 확인 시각을 조작하지 않음",
-            requireNotNull(firstCheckDue) > epoch + scenario.durationMs)
+        // 현재 talk 원본에는 대화 중 확인 장면을 위한 고정 조향 후 급조향이 들어 있다.
+        if (id == "talk") assertTrue("대화 시나리오의 확인 계기가 연결되어야 함",
+            maximumStage >= InterventionStage.CHECK.level)
+        if (id == "departure") assertTrue("45분 원본 안에서 첫 확인 예약에 도달할 수 있어야 함",
+            requireNotNull(firstCheckDue) in epoch until epoch + scenario.durationMs)
         println("PRODUCT_DEMO id=$id profile=$speed publications=$publications unexpectedNull=$invalidSignals " +
             "evaluations=$evaluations maxStage=$maximumStage " +
             "maxSmoothedRisk=$maximumRisk departure=$departureDetected assisted=$assistedSeen " +
             "firstCheckDueRelativeMs=${firstCheckDue?.minus(epoch)} requests=${requests.size}")
-        real.realMs += 100 / demo.snapshot().segmentMultiplier
+        real.realMs = elapsedAt(scenario.durationMs)
         player.pump()
         runCurrent()
         assertEquals(DemoPhase.COMPLETED, player.playbackState.value.phase)
-        assertEquals(if (speed == ProductDemoSpeed.TEN) 180_000L else 990_000L, real.realMs)
+        assertEquals(scenario.durationMs, demo.scenarioTimeMs())
+        if (speed == ProductDemoSpeed.TEN) assertEquals((scenario.durationMs + 9) / 10, real.realMs)
         hub.stop()
         assertNull(hub.latestFrame.value)
         manager.stop(RequestId("stop"))

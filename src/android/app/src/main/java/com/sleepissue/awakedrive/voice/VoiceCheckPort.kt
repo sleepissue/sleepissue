@@ -113,7 +113,6 @@ class VoiceCheckPort(
             intent = intent,
             channel = if (passengerButton) ResponseChannel.PASSENGER_BUTTON else ResponseChannel.DRIVER_BUTTON,
         ))
-        synchronized(lock) { clearActive() }
         onLifecycle(requestId, ExecutionStatus.SUCCEEDED)
         return execution(requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
     }
@@ -121,11 +120,12 @@ class VoiceCheckPort(
     /** 동승자 버튼은 진행 중인 졸음 확인에만 답하며 응답 시간을 만들지 않는다. */
     suspend fun completeWithPassenger(rest: Boolean): ExecutionResult {
         val request = synchronized(lock) {
-            activeRequest?.takeIf { promptStarted && it.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) }
+            activeRequest?.takeIf { (promptStarted || awaitingButton) && it.context in setOf(CheckContext.DRIVER_ALERTNESS, CheckContext.PASSENGER_ALERTNESS) }
                 ?.also { clearActive() }
         } ?: return execution(RequestId("passenger-unavailable"), ExecutionStatus.FAILED, ExecutionFailure.UNAVAILABLE)
         passengerCheckFlow.cancel()
         coordinator.cancel()
+        onLifecycle(request.requestId, ExecutionStatus.SUCCEEDED)
         mutableResults.emit(CheckResult(request.requestId, request.context, CheckOutcome.NORMAL,
             intent = if (rest) ResponseIntent.REST else ResponseIntent.OK, channel = ResponseChannel.PASSENGER_BUTTON))
         return execution(request.requestId, ExecutionStatus.SUCCEEDED).also { mutableExecutionResults.emit(it) }
@@ -158,7 +158,12 @@ class VoiceCheckPort(
             text = prompt,
             fallback = FallbackCue.CHECK_PROMPT,
             onComplete = {
-                if (synchronized(lock) { activeRequest?.requestId == request.requestId }) coordinator.start(
+                if (synchronized(lock) { activeRequest?.requestId != request.requestId }) return@speak
+                if (!occupancyProvider().microphoneAvailable) {
+                    requireButton(request, passengerButton = false)
+                    return@speak
+                }
+                coordinator.start(
                     baselineMs = baselineMsProvider(),
                     questionType = questionType,
                     onResult = { result, _ -> completeVoice(request, result) },
@@ -188,14 +193,21 @@ class VoiceCheckPort(
                 true
             }
         }
-        if (accepted) onLifecycle(request.requestId, ExecutionStatus.FAILED)
+        if (accepted) {
+            // 음성 배속 잠금은 해제하되 버튼으로 응답할 실행 요청은 시작된 상태로 알린다.
+            onLifecycle(request.requestId, ExecutionStatus.FAILED)
+            mutableExecutionResults.tryEmit(execution(request.requestId, ExecutionStatus.STARTED))
+        }
         if (accepted) mutableButtonRequests.tryEmit(
             VoiceButtonRequest(request.requestId, request.context, passengerButton),
         )
     }
 
     private fun emitStarted(requestId: RequestId) {
-        if (synchronized(lock) { activeRequest?.requestId != requestId }) return
+        synchronized(lock) {
+            if (activeRequest?.requestId != requestId) return
+            promptStarted = true
+        }
         onLifecycle(requestId, ExecutionStatus.STARTED)
         mutableExecutionResults.tryEmit(execution(requestId, ExecutionStatus.STARTED))
     }

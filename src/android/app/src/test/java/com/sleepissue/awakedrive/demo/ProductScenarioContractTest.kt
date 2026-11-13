@@ -15,19 +15,25 @@ class ProductScenarioContractTest {
             assertTrue("$id: $loaded", loaded is DemoLoadResult.Loaded)
             val scenario = (loaded as DemoLoadResult.Loaded).scenario
             assertEquals(id, scenario.id)
-            assertEquals(OffsetDateTime.parse(root["startAt"].asString).toInstant().toEpochMilli(), scenario.startEpochMs)
+            val teamFormat = root.has("formatVersion")
+            val epoch = if (teamFormat) OffsetDateTime.parse(root["startAt"].asString).toInstant().toEpochMilli()
+                else root["startEpochMs"].asLong
+            assertEquals(epoch, scenario.startEpochMs)
             assertEquals(root["samples"].asJsonArray.size(), scenario.samples.size)
             scenario.samples.forEachIndexed { index, sample ->
                 val original = root["samples"].asJsonArray[index].asJsonObject
-                assertEquals(original["tMs"].asLong, sample.tMs)
+                val timeMs = if (teamFormat) original["tMs"].asBigDecimal.longValueExact()
+                    else original["t"].asBigDecimal.movePointRight(3).longValueExact()
+                assertEquals(timeMs, sample.tMs)
                 assertEquals(original["steeringDeg"].asFloat, requireNotNull(sample.vehicle.steeringDeg), 0f)
                 assertEquals(original["speedKph"].asFloat, sample.vehicle.speed)
                 assertEquals(original["distToNextTurnM"].asFloat, sample.navi.distToNextTurnM)
                 assertEquals(original["cabinTempC"].asFloat, sample.vehicle.cabinTempC)
             }
-            if (id == "drowsy") {
-                assertEquals(7800L, scenario.tripPreset?.continuousDriveSec)
-                assertEquals(7800L, scenario.tripPreset?.last24hDriveSec)
+            val preset = root.get("tripPreset")?.takeUnless { it.isJsonNull }?.asJsonObject
+            if (preset != null) {
+                assertEquals(preset["continuousDriveSec"].asLong, scenario.tripPreset?.continuousDriveSec)
+                assertEquals(preset["last24hDriveSec"].asLong, scenario.tripPreset?.last24hDriveSec)
             } else assertNull(scenario.tripPreset)
         }
     }

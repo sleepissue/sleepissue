@@ -22,7 +22,7 @@ class ProductDemoSpeedTest {
         assertEquals(listOf(1, 10), original.speedSegments.map { it.factor })
     }
 
-    @Test fun sixProductOriginalsStayUnchangedAndTenTimesMakesThirtyMinutesThreeWithoutQuestions() {
+    @Test fun sixProductOriginalsStayUnchangedAndTenTimesCompletesAtOneTenthOfTheirDuration() {
         for (id in listOf("normal", "distraction", "drowsy", "talk", "assist", "departure")) {
             val file = File("../../../data/scenarios/$id.json")
             val before = file.readBytes()
@@ -33,8 +33,11 @@ class ProductDemoSpeedTest {
             assertEquals(original.tripPreset, playback.tripPreset)
             val real = DemoTestClock()
             val clock = DemoClock(real).apply { configure(playback.durationMs, playback.speedSegments); start() }
-            real.realMs = 180_000
-            assertEquals(1_800_000L, clock.scenarioTimeMs())
+            real.realMs = (original.durationMs - 1) / 10
+            assertTrue(clock.scenarioTimeMs() < original.durationMs)
+            assertEquals(10, clock.snapshot().speedMultiplier)
+            real.realMs = (original.durationMs + 9) / 10
+            assertEquals(original.durationMs, clock.scenarioTimeMs())
             assertEquals(0, clock.snapshot().speedMultiplier)
             assertEquals(originalSegments, original.speedSegments)
             assertArrayEquals(before, file.readBytes())
