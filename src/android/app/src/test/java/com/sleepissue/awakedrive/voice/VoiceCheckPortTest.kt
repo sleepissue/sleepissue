@@ -24,6 +24,7 @@ class VoiceCheckPortTest {
     }
     private class Harness(microphoneAvailable: Boolean = true) {
         val session = Session()
+        val lifecycle = mutableListOf<Pair<RequestId, ExecutionStatus>>()
         var finishPrompt: () -> Unit = {}
         val agent = VoiceAgent(object : VoiceOutput {
             override fun speak(text: String, onComplete: () -> Unit, onError: (Throwable) -> Unit) { finishPrompt = onComplete }
@@ -33,7 +34,8 @@ class VoiceCheckPortTest {
             override fun release() = Unit
         }, { _, action -> action() })
         val port = VoiceCheckPort(PassengerCheckFlow(CheckPolicy(), agent, session), agent, session,
-            { OccupancyContext(true, false, false, microphoneAvailable) }, { 1000L })
+            { OccupancyContext(true, false, false, microphoneAvailable) }, { 1000L },
+            onLifecycle = { id, status -> lifecycle += id to status })
     }
 
     @Test fun passengerResponseCompletesOnlyOnceAndStopsDelayedRecognition() = runTest {
@@ -48,6 +50,8 @@ class VoiceCheckPortTest {
             assertEquals(request.context, result.context)
             assertEquals(ResponseChannel.PASSENGER_BUTTON, result.channel)
             assertEquals(if (rest) ResponseIntent.REST else ResponseIntent.OK, result.intent)
+            assertEquals(listOf(request.requestId to ExecutionStatus.STARTED,
+                request.requestId to ExecutionStatus.SUCCEEDED), h.lifecycle)
             h.finishPrompt()
             assertEquals(0, h.session.starts)
             assertTrue(h.session.cancels > 0)
@@ -65,6 +69,32 @@ class VoiceCheckPortTest {
         assertEquals(ExecutionStatus.SUCCEEDED, h.port.completeWithPassenger(false).status)
         assertEquals(ResponseChannel.PASSENGER_BUTTON, response.await().channel)
         assertEquals(0, h.session.starts)
+        assertFalse("실제 음성이 시작되지 않으면 배속을 1배로 잠그지 않음",
+            h.lifecycle.any { it.second == ExecutionStatus.STARTED })
+    }
+
+    @Test fun passengerCompletionReleasesTheActualDemoQuestionSpeedLock() = runTest {
+        val real = object : com.sleepissue.awakedrive.engine.time.Clock {
+            override fun scenarioTimeMs() = 0L
+            override fun elapsedRealtimeMs() = 0L
+            override fun wallTimeMs() = 0L
+        }
+        val clock = com.sleepissue.awakedrive.engine.time.DemoClock(real).apply {
+            configure(60_000L, listOf(com.sleepissue.awakedrive.engine.demo.DemoSpeedSegment(0, 60_000, 60)))
+            start()
+        }
+        val gate = com.sleepissue.awakedrive.demo.DemoVoiceSpeedGate(clock) { _, _ -> }
+        val h = Harness()
+        val session = Session()
+        val port = VoiceCheckPort(PassengerCheckFlow(CheckPolicy(), h.agent, session), h.agent, session,
+            { OccupancyContext(true, false, false, true) }, { 1000L }, gate::onLifecycle)
+        port.start(CheckRequest(RequestId("passenger-speed"), CheckContext.DRIVER_ALERTNESS))
+        assertEquals(1, clock.snapshot().speedMultiplier)
+        assertEquals(ExecutionStatus.SUCCEEDED, port.completeWithPassenger(false).status)
+        assertEquals(60, clock.snapshot().speedMultiplier)
+        h.finishPrompt()
+        assertEquals(0, session.starts)
+        port.close()
     }
 
     @Test fun waypointWithoutMicrophoneUsesButtonsAndCancelledPromptCannotStartRecognition() = runTest {
